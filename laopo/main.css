@@ -1,0 +1,327 @@
+section {
+  height: 100vh;
+  width: 100vw;
+  color: #fff;
+  line-height: 100vh;
+  text-align: center;
+  font-size: 5vh;
+}
+
+.short-section {
+  height: 0vh;
+  width: 100vw;
+  color: #fff;
+  line-height: 100vh;
+  text-align: center;
+  font-size: 5vh;
+}
+
+.g-word {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.g-img {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+}
+
+.g-img-blur {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -2;
+  width: 100vw;
+  height: 100vh;
+}
+
+.g-img-blur::after {
+  -webkit-filter: blur(40px);
+  -moz-filter: blur(40px);
+  -ms-filter: blur(40px);
+  filter: blur(40px);
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -1;
+  height: 120vh;
+  width: 120vw;
+  background-image: url('img/IMG_20190518_113836.jpg');
+}
+
+.g-img1 {
+  background-image: url('img/IMG_20190518_113836.jpg');
+}
+
+.g-img12 {
+  background-image: url('img/IMG_20190518_113836.jpg');
+}
+
+.g-img2 {
+  background-image: url('img/mmexport1560563302307.jpg');
+}
+
+.g-img3 {
+  background-image: url('img/faceu_8004457_20190518191640.jpg');
+}
+
+.g-img4 {
+  background-image: url('img/faceu_0_20190607123059.jpg');
+}
+
+.g-img5 {
+  background-image: url('img/faceu_8004457_20190518185413.jpg');
+}
+
+.g-img6 {
+  background-image: url('img/mmexport1560563312297.jpg');
+}
+
+.g-img7 {
+  background-image: url('img/mmexport1560563316561.jpg');
+}
+
+.g-img-blur1 {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -2;
+  width: 100vw;
+  height: 100vh;
+}
+
+.g-img-blur1::after {
+  -webkit-filter: blur(40px);
+  -moz-filter: blur(40px);
+  -ms-filter: blur(40px);
+  filter: blur(40px);
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -1;
+  height: 120vh;
+  width: 120vw;
+  background-image: url('img/IMG_20190518_113836.jpg');
+}
+.g-img-blur2 {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -2;
+  width: 100vw;
+  height: 100vh;
+}
+
+.g-img-blur2::after {
+  -webkit-filter: blur(40px);
+  -moz-filter: blur(40px);
+  -ms-filter: blur(40px);
+  filter: blur(40px);
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -1;
+  height: 120vh;
+  width: 120vw;
+  background-image: url('img/IMG_20190518_113836.jpg');
+}
+.g-img-blur3 {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -2;
+  width: 100vw;
+  height: 100vh;
+}
+
+.g-img-blur3::after {
+  -webkit-filter: blur(40px);
+  -moz-filter: blur(40px);
+  -ms-filter: blur(40px);
+  filter: blur(40px);
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -1;
+  height: 120vh;
+  width: 120vw;
+  background-image: url('img/IMG_20190518_113836.jpg');
+}
+.g-img-blur4 {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -2;
+  width: 100vw;
+  height: 100vh;
+}
+
+.g-img-blur4::after {
+  -webkit-filter: blur(40px);
+  -moz-filter: blur(40px);
+  -ms-filter: blur(40px);
+  filter: blur(40px);
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -1;
+  height: 120vh;
+  width: 120vw;
+  background-image: url('img/IMG_20190518_113836.jpg');
+}
+.g-img-blur5 {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -2;
+  width: 100vw;
+  height: 100vh;
+}
+
+.g-img-blur5::after {
+  -webkit-filter: blur(40px);
+  -moz-filter: blur(40px);
+  -ms-filter: blur(40px);
+  filter: blur(40px);
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -1;
+  height: 120vh;
+  width: 120vw;
+  background-image: url('img/IMG_20190518_113836.jpg');
+}
+.g-img-blur6 {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -2;
+  width: 100vw;
+  height: 100vh;
+}
+
+.g-img-blur6::after {
+  -webkit-filter: blur(40px);
+  -moz-filter: blur(40px);
+  -ms-filter: blur(40px);
+  filter: blur(40px);
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -1;
+  height: 120vh;
+  width: 120vw;
+  background-image: url('img/IMG_20190518_113836.jpg');
+}
+
+.g-img-blur7 {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -2;
+  width: 100vw;
+  height: 100vh;
+}
+
+.g-img-blur7::after {
+  -webkit-filter: blur(40px);
+  -moz-filter: blur(40px);
+  -ms-filter: blur(40px);
+  filter: blur(40px);
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: -1;
+  height: 120vh;
+  width: 120vw;
+  background-image: url('img/IMG_20190518_113836.jpg');
+}
