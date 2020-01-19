@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="什么是单元测试?  在计算机编程中，单元测试又称为模块测试，是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。  单元测试存在的意义在于，如果程序发生了异常情况，比如接收了错误的值，从而导致结果不正确，当修正程序中的错误后，为了避免再次遇到这个问题，需要对出问题的值和函数/功能进行一次测试，确保结果符合预期。 单元测试很重要，如果是新项目，请一定要刚开始就规划好单元测试。 为什么说单">
+<meta name="keywords" content="CMake Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CMake CTests for dde-control-center">
+<meta property="og:url" content="https://blog.justforlxz.com/2019/05/23/CMake-CTests-for-dde-control-center/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="什么是单元测试?  在计算机编程中，单元测试又称为模块测试，是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。  单元测试存在的意义在于，如果程序发生了异常情况，比如接收了错误的值，从而导致结果不正确，当修正程序中的错误后，为了避免再次遇到这个问题，需要对出问题的值和函数/功能进行一次测试，确保结果符合预期。 单元测试很重要，如果是新项目，请一定要刚开始就规划好单元测试。 为什么说单">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2020-01-19T08:44:25.796Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CMake CTests for dde-control-center">
+<meta name="twitter:description" content="什么是单元测试?  在计算机编程中，单元测试又称为模块测试，是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。  单元测试存在的意义在于，如果程序发生了异常情况，比如接收了错误的值，从而导致结果不正确，当修正程序中的错误后，为了避免再次遇到这个问题，需要对出问题的值和函数/功能进行一次测试，确保结果符合预期。 单元测试很重要，如果是新项目，请一定要刚开始就规划好单元测试。 为什么说单">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://blog.justforlxz.com/2019/05/23/CMake-CTests-for-dde-control-center/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CMake CTests for dde-control-center | 小竹's blog</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-129024325-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-129024325-1');
+  </script>
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小竹's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">永远不要停止思考</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-links">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/link" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Links</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/05/23/CMake-CTests-for-dde-control-center/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小竹">
+      <meta itemprop="description" content="小竹的博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小竹's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CMake CTests for dde-control-center
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-23 17:16:15" itemprop="dateCreated datePublished" datetime="2019-05-23T17:16:15+00:00">2019-05-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 08:44:25" itemprop="dateModified" datetime="2020-01-19T08:44:25+00:00">2020-01-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/05/23/CMake-CTests-for-dde-control-center/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/05/23/CMake-CTests-for-dde-control-center/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>什么是单元测试?</p>
+<blockquote>
+<p>在计算机编程中，单元测试又称为模块测试，是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。</p>
+</blockquote>
+<p>单元测试存在的意义在于，如果程序发生了异常情况，比如接收了错误的值，从而导致结果不正确，当修正程序中的错误后，为了避免再次遇到这个问题，需要对出问题的值和函数/功能进行一次测试，确保结果符合预期。</p>
+<p>单元测试很重要，如果是新项目，请一定要刚开始就规划好单元测试。</p>
+<p>为什么说单元测试很重要呢？因为单元测试的目的是隔离其他单元，并证明当前单元是正确的。这需要开发者在设计程序的时候就要考虑很多，合理的设计和规划项目。当未来重构项目的时候，可以局部重构来优化项目，而不是从零重写。</p>
+<p>本文没有详细说明Qt的单元测试是如何编写的，编写Qt的单元测试放在以后再写(<del>咕咕咕</del>)。</p>
+<a id="more"></a>
+
+<p>写这篇文章是因为最近在给控制中心写单元测试，控制中心的模块都是MVC的，本身就做好了大方向的隔离，每个函数也基本是拆分出来的最小功能，可以单独拿出来测试。控制中心目前存在一个问题，Worker类是从DBus上接收数据，处理完成后放入Model中，如果测试Worker类，需要做很多和DBus相关的处理，比较麻烦，所以最开始我先把重心放在了创建Tests和测试一个基本的转换函数的功能，验证单元测试的流程。</p>
+<blockquote>
+<p><a href="https://github.com/linuxdeepin/dde-control-center/pull/171" target="_blank" rel="noopener">控制中心单元测试PR</a></p>
+</blockquote>
+<p>控制中心项目使用的CMake作为项目构建工具，所以用到了CTests，控制中心使用的Qt进行的开发，Qt也提供了自己的单元测试，我两个都做了支持。</p>
+<p>在顶层的CMakeLists.txt中添加CTests的支持：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 启用CTest检查</span><br><span class="line">include(Dart)</span><br><span class="line"></span><br><span class="line"># 启用CTest</span><br><span class="line">include(CTest)</span><br></pre></td></tr></table></figure>
+
+<p>这两行内容需要在顶层CMakeLists.txt中添加，不然不会生效。</p>
+<p>在子项目中创建一个dcc_test.h，用来写单元测试的类。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#ifndef DCC_TEST_H</span><br><span class="line">#define DCC_TEST_H</span><br><span class="line"></span><br><span class="line">#include &lt;QMap&gt;</span><br><span class="line">#include &lt;QString&gt;</span><br><span class="line">#include &lt;QTest&gt;</span><br><span class="line"></span><br><span class="line">#include &quot;modules/display/displaywidget.h&quot;</span><br><span class="line"></span><br><span class="line">namespace Tests &#123;</span><br><span class="line"></span><br><span class="line">class Tests : public QObject &#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"></span><br><span class="line">private Q_SLOTS:</span><br><span class="line">    void testSliderValue_data()</span><br><span class="line">    &#123;</span><br><span class="line">        QTest::addColumn&lt;float&gt;(&quot;value&quot;);</span><br><span class="line">        QTest::addColumn&lt;int&gt;(&quot;result&quot;);</span><br><span class="line"></span><br><span class="line">        QMap&lt;float, int&gt; testMap&#123; &#123; 1.0, 1 &#125;,  &#123; 1.25, 2 &#125;, &#123; 1.5, 3 &#125;,</span><br><span class="line">                                  &#123; 1.75, 4 &#125;, &#123; 2.0, 5 &#125;,  &#123; 2.25, 6 &#125;,</span><br><span class="line">                                  &#123; 2.5, 7 &#125;,  &#123; 2.75, 8 &#125;, &#123; 3.0, 9 &#125; &#125;;</span><br><span class="line"></span><br><span class="line">        for (auto it = testMap.constBegin(); it != testMap.constEnd(); ++it) &#123;</span><br><span class="line">            QTest::newRow(&quot;converToSlider&quot;) &lt;&lt; it.key() &lt;&lt; it.value();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    void testSliderValue()</span><br><span class="line">    &#123;</span><br><span class="line">        QFETCH(float, value);</span><br><span class="line">        QFETCH(int, result);</span><br><span class="line"></span><br><span class="line">        using namespace dcc::display;</span><br><span class="line"></span><br><span class="line">        QCOMPARE(DisplayWidget::convertToSlider(value), result);</span><br><span class="line">        QCOMPARE(DisplayWidget::convertToScale(result), value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&#125;  // namespace Tests</span><br><span class="line"></span><br><span class="line">QTEST_MAIN(Tests::Tests)</span><br><span class="line">#endif  // !DCC_TEST_H</span><br></pre></td></tr></table></figure>
+
+<p>在子项目的CMakeLists.txt中添加一个二进制，用来当作单元测试程序。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 这个宏是Dart提供的，用来判断是否开启CTest</span><br><span class="line">if(BUILD_TESTING)</span><br><span class="line">find_package(Qt5 COMPONENTS</span><br><span class="line">    Test</span><br><span class="line">REQUIRED)</span><br><span class="line"></span><br><span class="line">set(Qt_LIBS</span><br><span class="line">    $&#123;Qt_LIBS&#125;</span><br><span class="line">    Qt5::Test</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">set(TEST_SRCS</span><br><span class="line">tests/dcc_test.h</span><br><span class="line">$&#123;DISPLAY_FILES&#125;</span><br><span class="line">$&#123;WIDGETS_FILES&#125;</span><br><span class="line">$&#123;MODULE_FILES&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"># 添加一个叫unit-test的二进制</span><br><span class="line">add_executable(unit-test</span><br><span class="line">$&#123;TEST_SRCS&#125;</span><br><span class="line">$&#123;PROJECT_BINARY_DIR&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">target_include_directories(unit-test PUBLIC</span><br><span class="line">$&#123;TEST_SRCS&#125;</span><br><span class="line">$&#123;PROJECT_BINARY_DIR&#125;</span><br><span class="line">$&#123;DFrameworkDBus_INCLUDE_DIRS&#125;</span><br><span class="line">$&#123;QGSettings_INCLUDE_DIRS&#125;</span><br><span class="line">$&#123;Qt5Gui_PRIVATE_INCLUDE_DIRS&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">target_link_libraries(unit-test PRIVATE</span><br><span class="line">$&#123;Qt_LIBS&#125;</span><br><span class="line">$&#123;DFrameworkDBus_LIBRARIES&#125;</span><br><span class="line">$&#123;QGSettings_LIBRARIES&#125;</span><br><span class="line">$&#123;DtkWidget_LIBRARIES&#125;</span><br><span class="line">$&#123;XCB_EWMH_LIBRARIES&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>到这里，直接编译启动unit-test就可以使用Qt的单元测试了，但是加上CTest的支持只需要一行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add_test(ctest unit-test)</span><br><span class="line">endif()</span><br></pre></td></tr></table></figure>
+
+<p>使用ctest -j6 -C Debug -T test –output-on-failure跑CTest，得到执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[ctest]    Site: xiaomi-air</span><br><span class="line">[ctest]    Build name: Linux-c++</span><br><span class="line">[ctest] Test project /home/justforlxz/Projects/Deepin/dde-control-center/build</span><br><span class="line">[ctest]     Start 1: ctest</span><br><span class="line">[ctest] 1/1 Test #1: ctest ............................   Passed    0.05 sec</span><br><span class="line">[ctest]</span><br><span class="line">[ctest] 100% tests passed, 0 tests failed out of 1</span><br><span class="line">[ctest]</span><br><span class="line">[ctest] Total Test time (real) =   0.06 sec</span><br><span class="line">[ctest] CTest finished with return code 0</span><br></pre></td></tr></table></figure>
+
+<p>如果是跑unit-test二进制，则会得到Qt打印的相关信息：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">********* Start testing of Tests::Tests *********</span><br><span class="line">Config: Using QtTest library 5.12.3, Qt 5.12.3 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 8.3.0)</span><br><span class="line">PASS   : Tests::Tests::initTestCase()</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::cleanupTestCase()</span><br><span class="line">Totals: 11 passed, 0 failed, 0 skipped, 0 blacklisted, 0ms</span><br><span class="line">********* Finished testing of Tests::Tests *********</span><br></pre></td></tr></table></figure>
+
+<p>对比CTest和Qt的单元测试，Qt会告诉你详细的函数调用和执行过程，CTest更注重结果，不过在Qtcreator的单元测试面板中，会看到更好的输出。</p>
+<p>说到底，CTest支持启动了一个带有单元测试的程序，而程序自己使用了Qt提供的单元测试类进行测试。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div>
+ 
+ 
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+          <strong>本文作者：</strong>小竹
+      </li>
+      <li class="post-copyright-link">
+        <strong>本文链接：</strong>
+        <a href="/2019/05/23/CMake-CTests-for-dde-control-center/" title="CMake CTests for dde-control-center">2019/05/23/CMake-CTests-for-dde-control-center/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明： </strong>
+        本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+      </li>
+    </ul>
+  
+</div>
+
+      
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CMake-Linux/" rel="tag"># CMake Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/21/how-to-use-LNMP-on-deepin/" rel="next" title="如何在Deepin上使用LNMP">
+                <i class="fa fa-chevron-left"></i> 如何在Deepin上使用LNMP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/15/入坑typescript了/" rel="prev" title="入坑typescript了">
+                入坑typescript了 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小竹</p>
+              <p class="site-description motion-element" itemprop="description">小竹的博客</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/justforlxz" title="GitHub &rarr; https://github.com/justforlxz" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:justforlxz@gmail.com" title="E-Mail &rarr; mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/5906290378" title="Weibo &rarr; https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/justforlxz" title="Twitter &rarr; https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mioto.me/" title="https://mioto.me/" rel="noopener" target="_blank">Mioto</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://hualet.org/∆" title="https://hualet.org/∆" rel="noopener" target="_blank">hualet</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.nanpuyue.com/" title="https://blog.nanpuyue.com/" rel="noopener" target="_blank">nanpuyue</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.felixc.at/" title="https://blog.felixc.at/" rel="noopener" target="_blank">Felix's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.blumia.net/" title="https://www.blumia.net/" rel="noopener" target="_blank">Blumia</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://rekols.github.io/" title="https://rekols.github.io/" rel="noopener" target="_blank">Rekols</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://satori.moe/" title="https://satori.moe/" rel="noopener" target="_blank">Satori's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kirikira.com/" title="https://kirikira.com/" rel="noopener" target="_blank">It's me, 涩情Kiri!</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.ultrabluefire.cn/" title="http://blog.ultrabluefire.cn/" rel="noopener" target="_blank">超威蓝火</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.sbw.so/" title="https://blog.sbw.so/" rel="noopener" target="_blank">sbw's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://listenerri.com/" title="http://listenerri.com/" rel="noopener" target="_blank">listenerri' blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.findhao.net/" title="https://www.findhao.net/" rel="noopener" target="_blank">FindHao's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://milkice.me/" title="https://milkice.me/" rel="noopener" target="_blank">Milkice's IceBox</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.lilydjwg.me/" title="https://blog.lilydjwg.me/" rel="noopener" target="_blank">依云's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.502.li/" title="https://blog.502.li/" rel="noopener" target="_blank">木子</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://manateelazycat.github.io/" title="https://manateelazycat.github.io/" rel="noopener" target="_blank">manateelazycat</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://iovxw.net/" title="https://iovxw.net/" rel="noopener" target="_blank">iovxw</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小竹</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+  <script>
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66105211";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+  <script id="dsq-count-scr" src="https://ilxz.disqus.com/count.js" async></script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.justforlxz.com/2019/05/23/CMake-CTests-for-dde-control-center/";
+    this.page.identifier = "2019/05/23/CMake-CTests-for-dde-control-center/";
+    this.page.title = 'CMake CTests for dde-control-center';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://ilxz.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    loadComments();
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

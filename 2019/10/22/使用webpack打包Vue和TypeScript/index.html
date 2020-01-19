@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文将会介绍如何通过Webpack将基于TypeScript的Vue项目进行打包。">
+<meta name="keywords" content="Vue,Webpack,TypeScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用webpack打包Vue和TypeScript">
+<meta property="og:url" content="https://blog.justforlxz.com/2019/10/22/使用webpack打包Vue和TypeScript/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="本文将会介绍如何通过Webpack将基于TypeScript的Vue项目进行打包。">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2020-01-19T08:44:25.836Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用webpack打包Vue和TypeScript">
+<meta name="twitter:description" content="本文将会介绍如何通过Webpack将基于TypeScript的Vue项目进行打包。">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://blog.justforlxz.com/2019/10/22/使用webpack打包Vue和TypeScript/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>使用webpack打包Vue和TypeScript | 小竹's blog</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-129024325-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-129024325-1');
+  </script>
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小竹's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">永远不要停止思考</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-links">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/link" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Links</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/10/22/使用webpack打包Vue和TypeScript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小竹">
+      <meta itemprop="description" content="小竹的博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小竹's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用webpack打包Vue和TypeScript
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-10-22 15:20:08" itemprop="dateCreated datePublished" datetime="2019-10-22T15:20:08+00:00">2019-10-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 08:44:25" itemprop="dateModified" datetime="2020-01-19T08:44:25+00:00">2020-01-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/10/22/使用webpack打包Vue和TypeScript/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/10/22/使用webpack打包Vue和TypeScript/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文将会介绍如何通过Webpack将基于TypeScript的Vue项目进行打包。</p>
+<a id="more"></a>
+
+<h2 id="webpack基础配置"><a href="#webpack基础配置" class="headerlink" title="webpack基础配置"></a>webpack基础配置</h2><p>首先创建一个基本的webpack.config.js文件:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const path = require( &apos;path&apos; );</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        index: &quot;./src/index.ts&quot;,</span><br><span class="line">    &#125;,</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve( __dirname, &apos;dist&apos; ),</span><br><span class="line">        publicPath: &apos;/dist/&apos;,</span><br><span class="line">        filename: &apos;[name].js&apos;</span><br><span class="line">    &#125;,</span><br><span class="line">    devtool: &apos;inline-source-map&apos;,</span><br><span class="line">    mode: &apos;development&apos;,</span><br><span class="line">    module: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    resolve: &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>此时webpack只能将src/index.ts文件直接输出为index.js，我们需要添加typescript的loader，进行typescript的转换。</p>
+<p>将以下代码加入rules节:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test: /\.ts?$/,</span><br><span class="line">    loader: &apos;ts-loader&apos;,</span><br><span class="line">    exclude: /node_modules/,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>通过ts-loader进行ts文件的转换，我们还需要创建typescript的一个配置文件。</p>
+<h2 id="添加typescript支持"><a href="#添加typescript支持" class="headerlink" title="添加typescript支持"></a>添加typescript支持</h2><p>创建tsconfig.json</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;compilerOptions&quot;: &#123;</span><br><span class="line">        &quot;outDir&quot;: &quot;./dist/&quot;,</span><br><span class="line">        &quot;sourceMap&quot;: true,</span><br><span class="line">        &quot;strict&quot;: true,</span><br><span class="line">        &quot;module&quot;: &quot;commonjs&quot;,</span><br><span class="line">        &quot;moduleResolution&quot;: &quot;node&quot;,</span><br><span class="line">        &quot;target&quot;: &quot;es5&quot;,</span><br><span class="line">        &quot;skipLibCheck&quot;: true,</span><br><span class="line">        &quot;esModuleInterop&quot;: true,</span><br><span class="line">        &quot;experimentalDecorators&quot;: true</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;include&quot;: [</span><br><span class="line">        &quot;./src/**/*&quot;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还需要在webpack的配置中添加ts文件，在resolve节中添加:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">extensions: [ &apos;.ts&apos;, &apos;.js&apos; ],</span><br></pre></td></tr></table></figure>
+
+<p>我们指定ts转换出的js代码是es5的。</p>
+<p>这个时候我们运行webpack，将会看到正常的转换输出。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Hash: c3a0ae2c47032de12eec</span><br><span class="line">Version: webpack 4.41.0</span><br><span class="line">Time: 1880ms</span><br><span class="line">Built at: 10/22/2019 3:40:59 PM</span><br><span class="line">   Asset      Size  Chunks             Chunk Names</span><br><span class="line">index.js  11.8 KiB   index  [emitted]  index</span><br><span class="line">Entrypoint index = index.js</span><br><span class="line">[./src/index.ts] 269 bytes &#123;index&#125; [built]</span><br></pre></td></tr></table></figure>
+
+<p>入口文件就是index.ts了，之后我们就正常的在index.ts中写我们的代码，webpack就会查找所有的依赖，并打包输出到index.js中。</p>
+<h2 id="添加Vue单文件的支持"><a href="#添加Vue单文件的支持" class="headerlink" title="添加Vue单文件的支持"></a>添加Vue单文件的支持</h2><p>Vue单文件组件(SFC)规范是指在一个文件中，提供html、css和script代码，三者包含在顶级语言块 <code>&lt;template&gt;</code>、<code>&lt;script&gt;</code> 和 <code>&lt;style&gt;</code><br> 中，还允许添加可选的自定义块。</p>
+<p>这是一个简单的vue单文件例子:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;example&quot;&gt;&#123;&#123; msg &#125;&#125;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &apos;Hello world!&apos;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">.example &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;custom1&gt;</span><br><span class="line">  This could be e.g. documentation for the component.</span><br><span class="line">&lt;/custom1&gt;</span><br></pre></td></tr></table></figure>
+
+<p>我们通过vue-loader来解析该文件，提取每一个语言块，如有需要，会传递给其他loader进行处理，最后组装为一个ES Module。</p>
+<p>我们在webpack的rules节中添加vue-loader:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  test: /\.vue$/,</span><br><span class="line">  loader: &apos;vue-loader&apos;,</span><br><span class="line">  options: &#123;</span><br><span class="line">    loaders: &#123;</span><br><span class="line">      // Since sass-loader (weirdly) has SCSS as its default parse mode, we map</span><br><span class="line">      // the &quot;scss&quot; and &quot;sass&quot; values for the lang attribute to the right configs here.</span><br><span class="line">      // other preprocessors should work out of the box, no loader config like this necessary.</span><br><span class="line">      &apos;scss&apos;: &apos;vue-style-loader!css-loader!sass-loader&apos;,</span><br><span class="line">      &apos;sass&apos;: &apos;vue-style-loader!css-loader!sass-loader?indentedSyntax&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">    // other vue-loader options go here</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h2 id="如果vue是typescript代码？"><a href="#如果vue是typescript代码？" class="headerlink" title="如果vue是typescript代码？"></a>如果vue是typescript代码？</h2><p>其实这很简单，ts-loader有一个appendTsSuffixTo的功能，可以给某个文件增加.ts的后缀，从而识别这个文件为ts文件。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  test: /\.tsx?$/,</span><br><span class="line">  loader: &apos;ts-loader&apos;,</span><br><span class="line">  exclude: /node_modules/,</span><br><span class="line">  options: &#123;</span><br><span class="line">    appendTsSuffixTo: [/\.vue$/],</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>我们还需要在项目中添加一个vue-shim.d.ts来让ts正确的识别vue。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">declare module &apos;*.vue&apos; &#123;</span><br><span class="line">  import Vue from &apos;vue&apos;</span><br><span class="line">  export default Vue</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还需要在webpack的resolve节追加vue的后缀:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">resolve: &#123;</span><br><span class="line">  extensions: [ &apos;.tsx&apos;, &apos;.ts&apos;, &apos;.js&apos; , &apos;.vue&apos;],</span><br><span class="line">  alias: &#123;</span><br><span class="line">    &apos;vue&apos;: &apos;vue/dist/vue.js&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>vue-loader现在需要手动处理一下插件，在webpack.config.js的头部导入vue-loader，并在plugins节创建对象。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const &#123; VueLoaderPlugin &#125; = require(&apos;vue-loader&apos;)</span><br><span class="line"></span><br><span class="line">.......</span><br><span class="line"></span><br><span class="line">plugins: [</span><br><span class="line">  new VueLoaderPlugin()</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+
+<p>否则将不能正确工作。</p>
+<p>此时已经完成了webpack+vue+typescript的全部工作。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Hash: 320d4ed3f55f52872694</span><br><span class="line">Version: webpack 4.41.0</span><br><span class="line">Time: 2494ms</span><br><span class="line">Built at: 10/22/2019 4:00:50 PM</span><br><span class="line">      Asset       Size    Chunks             Chunk Names</span><br><span class="line">  bundle.js   1.12 MiB    bundle  [emitted]  bundle</span><br><span class="line">electron.js   12.2 KiB  electron  [emitted]  electron</span><br><span class="line"> index.html  194 bytes            [emitted]</span><br><span class="line">Entrypoint bundle = bundle.js</span><br><span class="line">Entrypoint electron = electron.js</span><br><span class="line">[./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js?!./src/app.vue?vue&amp;type=style&amp;index=0&amp;id=5ef48958&amp;rel=stylesheet%2Fscss&amp;lang=scss&amp;scoped=true&amp;] ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib??vue-loader-options!./src/app.vue?vue&amp;type=style&amp;index=0&amp;id=5ef48958&amp;rel=stylesheet%2Fscss&amp;lang=scss&amp;scoped=true&amp; 542 bytes &#123;bundle&#125; [built]</span><br><span class="line">[./node_modules/ts-loader/index.js?!./node_modules/vue-loader/lib/index.js?!./src/Components/About.vue?vue&amp;type=script&amp;lang=ts&amp;] ./node_modules/ts-loader??ref--1!./node_modules/vue-loader/lib??vue-loader-options!./src/Components/About.vue?vue&amp;type=script&amp;lang=ts&amp; 305 bytes &#123;bundle&#125; [built]</span><br><span class="line">[./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/Components/About.vue?vue&amp;type=template&amp;id=aa9c95a6&amp;] ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/Components/About.vue?vue&amp;type=template&amp;id=aa9c95a6&amp; 235 bytes &#123;bundle&#125; [built]</span><br><span class="line">[./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/app.vue?vue&amp;type=template&amp;id=5ef48958&amp;scoped=true&amp;] ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/app.vue?vue&amp;type=template&amp;id=5ef48958&amp;scoped=true&amp; 589 bytes &#123;bundle&#125; [built]</span><br><span class="line">[./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js?!./src/app.vue?vue&amp;type=style&amp;index=0&amp;id=5ef48958&amp;rel=stylesheet%2Fscss&amp;lang=scss&amp;scoped=true&amp;] ./node_modules/vue-style-loader!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib??vue-loader-options!./src/app.vue?vue&amp;type=style&amp;index=0&amp;id=5ef48958&amp;rel=stylesheet%2Fscss&amp;lang=scss&amp;scoped=true&amp; 1.64 KiB &#123;bundle&#125; [built]</span><br><span class="line">[./src/Components/About.vue] 1.06 KiB &#123;bundle&#125; [built]</span><br><span class="line">[./src/Components/About.vue?vue&amp;type=script&amp;lang=ts&amp;] 350 bytes &#123;bundle&#125; [built]</span><br><span class="line">[./src/Components/About.vue?vue&amp;type=template&amp;id=aa9c95a6&amp;] 203 bytes &#123;bundle&#125; [built]</span><br><span class="line">[./src/app.vue] 1.08 KiB &#123;bundle&#125; [built]</span><br><span class="line">[./src/app.vue?vue&amp;type=style&amp;index=0&amp;id=5ef48958&amp;rel=stylesheet%2Fscss&amp;lang=scss&amp;scoped=true&amp;] 716 bytes &#123;bundle&#125; [built]</span><br><span class="line">[./src/app.vue?vue&amp;type=template&amp;id=5ef48958&amp;scoped=true&amp;] 207 bytes &#123;bundle&#125; [built]</span><br><span class="line">[./src/entry.ts] 538 bytes &#123;bundle&#125; [built]</span><br><span class="line">[./src/main.ts] 1.11 KiB &#123;electron&#125; [built]</span><br><span class="line">[./src/route.ts] 1.35 KiB &#123;bundle&#125; [built]</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div>
+ 
+ 
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+          <strong>本文作者：</strong>小竹
+      </li>
+      <li class="post-copyright-link">
+        <strong>本文链接：</strong>
+        <a href="/2019/10/22/使用webpack打包Vue和TypeScript/" title="使用webpack打包Vue和TypeScript">2019/10/22/使用webpack打包Vue和TypeScript/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明： </strong>
+        本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+      </li>
+    </ul>
+  
+</div>
+
+      
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+            <a href="/tags/Webpack/" rel="tag"># Webpack</a>
+          
+            <a href="/tags/TypeScript/" rel="tag"># TypeScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/14/webpack入门/" rel="next" title="webpack入门">
+                <i class="fa fa-chevron-left"></i> webpack入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/24/给Archlinux开启BFQ和MuQSS/" rel="prev" title="给Archlinux开启BFQ和MuQSS">
+                给Archlinux开启BFQ和MuQSS <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小竹</p>
+              <p class="site-description motion-element" itemprop="description">小竹的博客</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/justforlxz" title="GitHub &rarr; https://github.com/justforlxz" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:justforlxz@gmail.com" title="E-Mail &rarr; mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/5906290378" title="Weibo &rarr; https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/justforlxz" title="Twitter &rarr; https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mioto.me/" title="https://mioto.me/" rel="noopener" target="_blank">Mioto</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://hualet.org/∆" title="https://hualet.org/∆" rel="noopener" target="_blank">hualet</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.nanpuyue.com/" title="https://blog.nanpuyue.com/" rel="noopener" target="_blank">nanpuyue</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.felixc.at/" title="https://blog.felixc.at/" rel="noopener" target="_blank">Felix's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.blumia.net/" title="https://www.blumia.net/" rel="noopener" target="_blank">Blumia</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://rekols.github.io/" title="https://rekols.github.io/" rel="noopener" target="_blank">Rekols</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://satori.moe/" title="https://satori.moe/" rel="noopener" target="_blank">Satori's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kirikira.com/" title="https://kirikira.com/" rel="noopener" target="_blank">It's me, 涩情Kiri!</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.ultrabluefire.cn/" title="http://blog.ultrabluefire.cn/" rel="noopener" target="_blank">超威蓝火</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.sbw.so/" title="https://blog.sbw.so/" rel="noopener" target="_blank">sbw's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://listenerri.com/" title="http://listenerri.com/" rel="noopener" target="_blank">listenerri' blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.findhao.net/" title="https://www.findhao.net/" rel="noopener" target="_blank">FindHao's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://milkice.me/" title="https://milkice.me/" rel="noopener" target="_blank">Milkice's IceBox</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.lilydjwg.me/" title="https://blog.lilydjwg.me/" rel="noopener" target="_blank">依云's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.502.li/" title="https://blog.502.li/" rel="noopener" target="_blank">木子</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://manateelazycat.github.io/" title="https://manateelazycat.github.io/" rel="noopener" target="_blank">manateelazycat</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://iovxw.net/" title="https://iovxw.net/" rel="noopener" target="_blank">iovxw</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack基础配置"><span class="nav-number">1.</span> <span class="nav-text">webpack基础配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加typescript支持"><span class="nav-number">2.</span> <span class="nav-text">添加typescript支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Vue单文件的支持"><span class="nav-number">3.</span> <span class="nav-text">添加Vue单文件的支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果vue是typescript代码？"><span class="nav-number">4.</span> <span class="nav-text">如果vue是typescript代码？</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小竹</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+  <script>
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66105211";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+  <script id="dsq-count-scr" src="https://ilxz.disqus.com/count.js" async></script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.justforlxz.com/2019/10/22/使用webpack打包Vue和TypeScript/";
+    this.page.identifier = "2019/10/22/使用webpack打包Vue和TypeScript/";
+    this.page.title = '使用webpack打包Vue和TypeScript';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://ilxz.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    loadComments();
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

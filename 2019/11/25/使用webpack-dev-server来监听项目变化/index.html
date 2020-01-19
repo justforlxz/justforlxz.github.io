@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="webpack的出现方便了前端开发者，使开发和部署分成了两部分，开发者可以正常根据工程化的要求进行开发，部署时通过webpack实现代码的裁剪和优化。 本次就介绍一个webpack的功能 webpack-dev-server 将webpack与提供实时重载的开发服务器一起使用。这仅应用于开发。它在后台使用了webpack-dev-middleware，它提供了对Webpack资产的快速内存访问。">
+<meta name="keywords" content="Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用webpack-dev-server来监听项目变化">
+<meta property="og:url" content="https://blog.justforlxz.com/2019/11/25/使用webpack-dev-server来监听项目变化/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="webpack的出现方便了前端开发者，使开发和部署分成了两部分，开发者可以正常根据工程化的要求进行开发，部署时通过webpack实现代码的裁剪和优化。 本次就介绍一个webpack的功能 webpack-dev-server 将webpack与提供实时重载的开发服务器一起使用。这仅应用于开发。它在后台使用了webpack-dev-middleware，它提供了对Webpack资产的快速内存访问。">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2020-01-19T08:44:25.836Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用webpack-dev-server来监听项目变化">
+<meta name="twitter:description" content="webpack的出现方便了前端开发者，使开发和部署分成了两部分，开发者可以正常根据工程化的要求进行开发，部署时通过webpack实现代码的裁剪和优化。 本次就介绍一个webpack的功能 webpack-dev-server 将webpack与提供实时重载的开发服务器一起使用。这仅应用于开发。它在后台使用了webpack-dev-middleware，它提供了对Webpack资产的快速内存访问。">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://blog.justforlxz.com/2019/11/25/使用webpack-dev-server来监听项目变化/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>使用webpack-dev-server来监听项目变化 | 小竹's blog</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-129024325-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-129024325-1');
+  </script>
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小竹's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">永远不要停止思考</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-links">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/link" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Links</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/11/25/使用webpack-dev-server来监听项目变化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小竹">
+      <meta itemprop="description" content="小竹的博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小竹's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用webpack-dev-server来监听项目变化
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-25 17:54:36" itemprop="dateCreated datePublished" datetime="2019-11-25T17:54:36+00:00">2019-11-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 08:44:25" itemprop="dateModified" datetime="2020-01-19T08:44:25+00:00">2020-01-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/11/25/使用webpack-dev-server来监听项目变化/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/25/使用webpack-dev-server来监听项目变化/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>webpack的出现方便了前端开发者，使开发和部署分成了两部分，开发者可以正常根据工程化的要求进行开发，部署时通过webpack实现代码的裁剪和优化。</p>
+<p>本次就介绍一个webpack的功能 <code>webpack-dev-server</code></p>
+<p>将webpack与提供实时重载的开发服务器一起使用。这仅应用于开发。<br>它在后台使用了webpack-dev-middleware，它提供了对Webpack资产的快速内存访问。</p>
+<a id="more"></a>
+
+<p>webpack-dev-server提供了一个小型的express的http服务器，这个http服务器和client使用了websocket通讯协议，原始文件作出改动后，webpack-dev-server会实时的编译，但是最后的编译的文件并没有输出到目标文件夹。</p>
+<p><strong>注意：启动webpack-dev-server后，在目标文件夹中是看不到编译后的文件的,编译后的文件都保存到了内存当中来加速访问。</strong></p>
+<h2 id="启用webpack-dev-server"><a href="#启用webpack-dev-server" class="headerlink" title="启用webpack-dev-server"></a>启用webpack-dev-server</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -D webpack-dev-server</span><br></pre></td></tr></table></figure>
+
+<p>在webpack.config.js中添加devServer对象：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var path = require(&apos;path&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    contentBase: path.join(__dirname, &apos;dist&apos;),</span><br><span class="line">    compress: true, // 开启压缩</span><br><span class="line">    port: 9000 // 指定运行的端口</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>然后通过<code>npx webpack-dev-server</code>启动，终端上会输出一些信息，一般我们会增加一些参数来使输出更加好看:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">webpack-dev-server --devtool eval-source-map --progress --colors --hot --inline</span><br></pre></td></tr></table></figure>
+
+<p>上面的命令增加一个开发工具 <code>eval-source-map</code>，开启了progress进度显示，开启了colors颜色，hot热更新和inline更新模式。上面的参数也可以添加到devServer的属性中。</p>
+<p>终端输出的内容如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10% building 1/1 modules 0 activeℹ ｢wds｣: Project is running at http://localhost:9000/</span><br><span class="line">ℹ ｢wds｣: webpack output is served from /dist/</span><br><span class="line">ℹ ｢wds｣: Content not from webpack is served from /home/justforlxz/Projects/VueBlog/dist</span><br><span class="line">ℹ ｢wdm｣: Hash: ff9005d9f6ffafd11cd4</span><br><span class="line">Version: webpack 4.41.0</span><br><span class="line">Time: 2938ms</span><br><span class="line">Built at: 11/25/2019 6:03:50 PM</span><br><span class="line">  Asset      Size  Chunks             Chunk Names</span><br><span class="line">main.js  2.09 MiB    main  [emitted]  main</span><br><span class="line">Entrypoint main = main.js</span><br><span class="line">[0] multi (webpack)-dev-server/client?http://localhost:9000 (webpack)/hot/dev-server.js ./src/main.ts 52 bytes &#123;main&#125; [built]</span><br></pre></td></tr></table></figure>
+
+<p>我们就可以通过localhost:9000来访问我们的应用了。</p>
+<p>需要注意的是，由于我们经常把内容输出到dist目录，但是webpack运行是在项目目录的，访问webpack生成在dist目录的main.js时，需要写上相对于webpack的目录，例如dist/main.js。否则会找不到文件。</p>
+<p>如果遇到问题，导航到 /webpack-dev-server 路径，可以显示出文件的服务位置。 例如，<a href="http://localhost:9000/webpack-dev-server。" target="_blank" rel="noopener">http://localhost:9000/webpack-dev-server。</a></p>
+<h2 id="配置webpack"><a href="#配置webpack" class="headerlink" title="配置webpack"></a>配置webpack</h2><p>webpack-dev-server支持在服务内部调用中间件对数据进行处理。</p>
+<h3 id="devServer-before"><a href="#devServer-before" class="headerlink" title="devServer.before"></a>devServer.before</h3><p><code>function (app, server)</code></p>
+<p>在服务内部的所有其他中间件之前， 提供执行自定义中间件的功能。 这可以用来配置自定义处理程序，例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    before: function(app, server) &#123;</span><br><span class="line">      app.get(&apos;/some/path&apos;, function(req, res) &#123;</span><br><span class="line">        res.json(&#123; custom: &apos;response&apos; &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="devServer-after"><a href="#devServer-after" class="headerlink" title="devServer.after"></a>devServer.after</h3><p>同devServer.before，在服务内部的所有中间件之后，提供执行自定义中间件的功能。</p>
+<h3 id="devServer-allowedHosts"><a href="#devServer-allowedHosts" class="headerlink" title="devServer.allowedHosts"></a>devServer.allowedHosts</h3><p>允许添加白名单服务，允许一些开发服务器访问。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    allowedHosts: [</span><br><span class="line">      &apos;host.com&apos;,</span><br><span class="line">      &apos;subdomain.host.com&apos;,</span><br><span class="line">      &apos;subdomain2.host.com&apos;,</span><br><span class="line">      &apos;host2.com&apos;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>模仿 django 的 ALLOWED_HOSTS，以 . 开头的值可以用作子域通配符。.host.com 将会匹配 host.com, <a href="http://www.host.com" target="_blank" rel="noopener">www.host.com</a> 和 host.com 的任何其他子域名。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    // 这实现了与第一个示例相同的效果，</span><br><span class="line">    // 如果新的子域名需要访问 dev server，</span><br><span class="line">    // 则无需更新您的配置</span><br><span class="line">    allowedHosts: [</span><br><span class="line">      &apos;.host.com&apos;,</span><br><span class="line">      &apos;host2.com&apos;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="devServer-clientLogLevel"><a href="#devServer-clientLogLevel" class="headerlink" title="devServer.clientLogLevel"></a>devServer.clientLogLevel</h3><p><code>string: &#39;none&#39; | &#39;info&#39; | &#39;error&#39; | &#39;warning&#39;</code></p>
+<p>当使用内联模式(inline mode)时，会在开发工具(DevTools)的控制台(console)显示消息，例如：在重新加载之前，在一个错误之前，或者 模块热替换(Hot Module Replacement) 启用时。默认值是 info。</p>
+<p>devServer.clientLogLevel 可能会显得很繁琐，你可以通过将其设置为 ‘none’ 来关闭 log。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    clientLogLevel: &apos;none&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="devServer-color-只用于命令行工具-CLI"><a href="#devServer-color-只用于命令行工具-CLI" class="headerlink" title="devServer.color  - 只用于命令行工具(CLI)"></a>devServer.color  - 只用于命令行工具(CLI)</h3><p>只在终端下启用，启用/禁用控制台的彩色输出。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">webpack-dev-server --color</span><br></pre></td></tr></table></figure>
+
+<h3 id="devServer-compress"><a href="#devServer-compress" class="headerlink" title="devServer.compress"></a>devServer.compress</h3><p><code>boolean</code></p>
+<p>一切服务都开启gzip压缩。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    compress: true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="devServer-contentBase"><a href="#devServer-contentBase" class="headerlink" title="devServer.contentBase"></a>devServer.contentBase</h3><p><code>boolean: false string [string] number</code></p>
+<p>告诉服务器从哪个目录中提供内容。只有在你想要提供静态文件时才需要。devServer.publicPath 将用于确定应该从哪里提供 bundle，并且此选项优先。</p>
+<p>默认情况下，将使用当前工作目录作为提供内容的目录。将其设置为 false 以禁用 contentBase。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    contentBase: path.join(__dirname, &apos;public&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>也可以从多个目录提供内容：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    contentBase: [path.join(__dirname, &apos;public&apos;), path.join(__dirname, &apos;assets&apos;)]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="devServer-disableHostCheck"><a href="#devServer-disableHostCheck" class="headerlink" title="devServer.disableHostCheck"></a>devServer.disableHostCheck</h3><p><code>boolean</code></p>
+<p>设置为 true 时，此选项绕过主机检查。不建议这样做，因为不检查主机的应用程序容易受到 DNS 重新连接攻击。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    disableHostCheck: true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="devServer-filename"><a href="#devServer-filename" class="headerlink" title="devServer.filename"></a>devServer.filename</h3><p><code>string</code></p>
+<p>在 lazy mode(惰性模式) 中，此选项可减少编译。 默认在 lazy mode(惰性模式)，每个请求结果都会产生全新的编译。使用 filename，可以只在某个文件被请求时编译。</p>
+<p>如果 output.filename 设置为 ‘bundle.js’ ，devServer.filename 用法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &apos;bundle.js&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    lazy: true,</span><br><span class="line">    filename: &apos;bundle.js&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>现在只有在请求了bundle.js时，才会去编译bundle。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>webpack的功能确实很强大，可以针对代码进行各种操作，最终生成出可以适应各种场景的代码，使开发和部署彻底分离开来，开发者可以更加专注项目。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div>
+ 
+ 
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+          <strong>本文作者：</strong>小竹
+      </li>
+      <li class="post-copyright-link">
+        <strong>本文链接：</strong>
+        <a href="/2019/11/25/使用webpack-dev-server来监听项目变化/" title="使用webpack-dev-server来监听项目变化">2019/11/25/使用webpack-dev-server来监听项目变化/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明： </strong>
+        本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+      </li>
+    </ul>
+  
+</div>
+
+      
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/24/给Archlinux开启BFQ和MuQSS/" rel="next" title="给Archlinux开启BFQ和MuQSS">
+                <i class="fa fa-chevron-left"></i> 给Archlinux开启BFQ和MuQSS
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/08/vue-transitions/" rel="prev" title="添加Vue动画">
+                添加Vue动画 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小竹</p>
+              <p class="site-description motion-element" itemprop="description">小竹的博客</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/justforlxz" title="GitHub &rarr; https://github.com/justforlxz" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:justforlxz@gmail.com" title="E-Mail &rarr; mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/5906290378" title="Weibo &rarr; https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/justforlxz" title="Twitter &rarr; https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mioto.me/" title="https://mioto.me/" rel="noopener" target="_blank">Mioto</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://hualet.org/∆" title="https://hualet.org/∆" rel="noopener" target="_blank">hualet</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.nanpuyue.com/" title="https://blog.nanpuyue.com/" rel="noopener" target="_blank">nanpuyue</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.felixc.at/" title="https://blog.felixc.at/" rel="noopener" target="_blank">Felix's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.blumia.net/" title="https://www.blumia.net/" rel="noopener" target="_blank">Blumia</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://rekols.github.io/" title="https://rekols.github.io/" rel="noopener" target="_blank">Rekols</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://satori.moe/" title="https://satori.moe/" rel="noopener" target="_blank">Satori's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kirikira.com/" title="https://kirikira.com/" rel="noopener" target="_blank">It's me, 涩情Kiri!</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.ultrabluefire.cn/" title="http://blog.ultrabluefire.cn/" rel="noopener" target="_blank">超威蓝火</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.sbw.so/" title="https://blog.sbw.so/" rel="noopener" target="_blank">sbw's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://listenerri.com/" title="http://listenerri.com/" rel="noopener" target="_blank">listenerri' blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.findhao.net/" title="https://www.findhao.net/" rel="noopener" target="_blank">FindHao's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://milkice.me/" title="https://milkice.me/" rel="noopener" target="_blank">Milkice's IceBox</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.lilydjwg.me/" title="https://blog.lilydjwg.me/" rel="noopener" target="_blank">依云's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.502.li/" title="https://blog.502.li/" rel="noopener" target="_blank">木子</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://manateelazycat.github.io/" title="https://manateelazycat.github.io/" rel="noopener" target="_blank">manateelazycat</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://iovxw.net/" title="https://iovxw.net/" rel="noopener" target="_blank">iovxw</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#启用webpack-dev-server"><span class="nav-number">1.</span> <span class="nav-text">启用webpack-dev-server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置webpack"><span class="nav-number">2.</span> <span class="nav-text">配置webpack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#devServer-before"><span class="nav-number">2.1.</span> <span class="nav-text">devServer.before</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#devServer-after"><span class="nav-number">2.2.</span> <span class="nav-text">devServer.after</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#devServer-allowedHosts"><span class="nav-number">2.3.</span> <span class="nav-text">devServer.allowedHosts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#devServer-clientLogLevel"><span class="nav-number">2.4.</span> <span class="nav-text">devServer.clientLogLevel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#devServer-color-只用于命令行工具-CLI"><span class="nav-number">2.5.</span> <span class="nav-text">devServer.color  - 只用于命令行工具(CLI)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#devServer-compress"><span class="nav-number">2.6.</span> <span class="nav-text">devServer.compress</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#devServer-contentBase"><span class="nav-number">2.7.</span> <span class="nav-text">devServer.contentBase</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#devServer-disableHostCheck"><span class="nav-number">2.8.</span> <span class="nav-text">devServer.disableHostCheck</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#devServer-filename"><span class="nav-number">2.9.</span> <span class="nav-text">devServer.filename</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小竹</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+  <script>
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66105211";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+  <script id="dsq-count-scr" src="https://ilxz.disqus.com/count.js" async></script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.justforlxz.com/2019/11/25/使用webpack-dev-server来监听项目变化/";
+    this.page.identifier = "2019/11/25/使用webpack-dev-server来监听项目变化/";
+    this.page.title = '使用webpack-dev-server来监听项目变化';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://ilxz.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    loadComments();
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

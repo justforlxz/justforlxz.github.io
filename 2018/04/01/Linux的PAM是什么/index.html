@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文会基础的介绍一下PAM是什么，让你能够回答PAM是什么、PAM有什么用、如何根据需求自己开发PAM模块。 PAM是什么PAM即可插拔认证模块。它提供了一个所有服务的中心验证机制，适用于普通登录、ssh登录等需要进行身份认证的系统中。">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux的PAM是什么">
+<meta property="og:url" content="https://blog.justforlxz.com/2018/04/01/Linux的PAM是什么/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="本文会基础的介绍一下PAM是什么，让你能够回答PAM是什么、PAM有什么用、如何根据需求自己开发PAM模块。 PAM是什么PAM即可插拔认证模块。它提供了一个所有服务的中心验证机制，适用于普通登录、ssh登录等需要进行身份认证的系统中。">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://blog.justforlxz.com/2018/04/01/Linux的PAM是什么/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/PAM%E7%BB%93%E6%9E%84.png">
+<meta property="og:updated_time" content="2020-01-19T08:44:25.796Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux的PAM是什么">
+<meta name="twitter:description" content="本文会基础的介绍一下PAM是什么，让你能够回答PAM是什么、PAM有什么用、如何根据需求自己开发PAM模块。 PAM是什么PAM即可插拔认证模块。它提供了一个所有服务的中心验证机制，适用于普通登录、ssh登录等需要进行身份认证的系统中。">
+<meta name="twitter:image" content="https://blog.justforlxz.com/2018/04/01/Linux的PAM是什么/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/PAM%E7%BB%93%E6%9E%84.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://blog.justforlxz.com/2018/04/01/Linux的PAM是什么/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Linux的PAM是什么 | 小竹's blog</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-129024325-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-129024325-1');
+  </script>
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小竹's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">永远不要停止思考</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-links">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/link" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Links</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2018/04/01/Linux的PAM是什么/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小竹">
+      <meta itemprop="description" content="小竹的博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小竹's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux的PAM是什么
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-04-01 12:16:08" itemprop="dateCreated datePublished" datetime="2018-04-01T12:16:08+00:00">2018-04-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 08:44:25" itemprop="dateModified" datetime="2020-01-19T08:44:25+00:00">2020-01-19</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2018/04/01/Linux的PAM是什么/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/04/01/Linux的PAM是什么/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文会基础的介绍一下PAM是什么，让你能够回答PAM是什么、PAM有什么用、如何根据需求自己开发PAM模块。</p>
+<h3 id="PAM是什么"><a href="#PAM是什么" class="headerlink" title="PAM是什么"></a>PAM是什么</h3><p>PAM即可插拔认证模块。它提供了一个所有服务的中心验证机制，适用于普通登录、ssh登录等需要进行身份认证的系统中。</p>
+<a id="more"></a>
+
+<h3 id="为什么使用PAM"><a href="#为什么使用PAM" class="headerlink" title="为什么使用PAM"></a>为什么使用PAM</h3><p>为了安全起见，计算机只能给通过授权的用户进行使用，在创建用户时，密码会被加密保存在/etc/passwd中,在用户登录时，重新计算密码，然后在/etc/passwd中进行对比。</p>
+<p>除了上面这种，还有其他方式的验证，比如现在经常使用的指纹认证，其核心思想都是检查内容是否匹配。但是这些方案都有一些通病，那就是需要随着应用程序一起编译来使用，如果认证系统有问题，或者更新了算法，就需要重新编译才能使用。</p>
+<blockquote>
+<p>鉴于以上原因，人们开始寻找一种更佳的替代方案：一方面，将鉴别功能从应用中独立出来，单独进行模块化设计，实现和维护；另一方面，为这些鉴别模块建立标准 API，以便各应用程序能方便的使用它们提供的各种功能；同时，鉴别机制对其上层用户（包括应用程序和最终用户）是透明的。</p>
+</blockquote>
+<h3 id="PAM是如何工作的"><a href="#PAM是如何工作的" class="headerlink" title="PAM是如何工作的"></a>PAM是如何工作的</h3><p><img src="/2018/04/01/Linux的PAM是什么/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/PAM%E7%BB%93%E6%9E%84.png" alt></p>
+<p>PAM采用了分层的模块式开发，提供了四种类型的模块:</p>
+<ul>
+<li>认证管理</li>
+<li>账号管理</li>
+<li>会话管理</li>
+<li>口令管理</li>
+</ul>
+<p>这四个接口就可以满足用户的认证和管理。一个模块可以同时属于多种类型，只需实现对应的函数就可以。</p>
+<p>目前PAM的实现有以下三种：</p>
+<blockquote>
+<ol>
+<li>Linux-PAM: Linux-PAM 涵盖了本文中讨论的所有 PAM。在任何一个 Linux 平台中的 PAM 的主要结构都类似于 Linux-PAM 版本。</li>
+<li>OpenPAM: OpenPAM 是由 NAI 实验室的 Dag-Erling Smorgrav 开发的另一个 PAM 实现，属于 DARPA-CHATS 研究项目。由于它是开源的，因此它主要由 FreeBSD、NetBSD 及应用程序（加上 Mac OS X）使用。</li>
+<li>Java™ PAM 或 JPam: PAM 主要是支持 Linux 和 UNIX 的标准验证模块。JPam 将 Java 部分与普通 PAM 联系了起来。JPam 允许基于 Java 的应用程序使用 PAM 模块或工具（如 auth、account、passwd、session 等）。它提供了 JAAS 和直接 API，并且支持大多数 Unix OS 和架构。</li>
+</ol>
+</blockquote>
+<p>虽然有不同的PAM实现，但是主要功能都是类似的，完成用户的验证。</p>
+<p>想要了解更多，可查看IBM的文档库。<br><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-pam/index.html" target="_blank" rel="noopener">深入 Linux PAM 体系结构</a></p>
+<h3 id="如何自己开发PAM模块"><a href="#如何自己开发PAM模块" class="headerlink" title="如何自己开发PAM模块"></a>如何自己开发PAM模块</h3><p>PAM模块使用一个pam_handle类型的结构当做句柄，也是唯一一个PAM和程序进行通信的结构。</p>
+<p>首先在编写的服务模块的源程序里要包含下列头文件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;security/pam_modules.h&gt;</span><br></pre></td></tr></table></figure>
+
+<p>PAM模块是一个个的so动态库。PAM会通过dlopen来装载这些so。四个模块分别需要实现对应的方法，PAM会根据配置文件来调用这些方法。</p>
+<p>每个PAM模块的认证程序都以pam_start开始，以pam_end结束。PAM还提供了pam_get_item和pam_set_item共享有关认证会话的某些公共信息，例如用户名、服务名和密码。应用程序在调用了pam_start以后可以用这些APIs来改变状态信息。实际工作的函数有6个：</p>
+<table>
+<thead>
+<tr>
+<th>模块类型</th>
+<th>函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>认证管理</td>
+<td>PAM_EXTERN int pam_sm_authenticate(pam_handle_t <em>pamh, int flags, int argc, const char *</em>argv)</td>
+<td>认证用户</td>
+</tr>
+<tr>
+<td>认证管理</td>
+<td>PAM_EXTERN int pam_sm_setcred(pam_handle_t <em>pamh, int flags, int argc, const char *</em>argv)</td>
+<td>设置用户证书</td>
+</tr>
+<tr>
+<td>账号管理</td>
+<td>PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t <em>pamh, int flags, int argc, const char *</em>argv)</td>
+<td>账号管理</td>
+</tr>
+<tr>
+<td>会话管理</td>
+<td>PAM_EXTERN int pam_sm_open_session(pam_handle_t <em>pamh, int flags, int argc, const char *</em>argv)</td>
+<td>打开会话</td>
+</tr>
+<tr>
+<td>会话管理</td>
+<td>PAM_EXTERN int pam_sm_close_session(pam_handle_t <em>pamh, int flags, int argc, const char *</em>argv)</td>
+<td>关闭会话</td>
+</tr>
+<tr>
+<td>口令管理</td>
+<td>PAM_EXTERN int pam_sm_chauthtok(pam_handle_t <em>pamh, int flags, int argc, const char *</em>argv)</td>
+<td>设置口令</td>
+</tr>
+</tbody></table>
+<p>同一个模块可以同时支持不同的类型，可以一个模块全部实现这些方法，也可以实现部分。PAM自带的pam_unix.so就是支持四种类型。</p>
+<p>在函数内进行详细的操作，最后返回结果，即可完成整个验证流程。</p>
+<h3 id="配置PAM"><a href="#配置PAM" class="headerlink" title="配置PAM"></a>配置PAM</h3><p>PAM的配置通常在/etc/pam.d/下。</p>
+<p>模块将按照在配置文件中列出的顺序被调用，这取决于每个条目允许的 Control_flag 的值。Control_flag 值包括：</p>
+<blockquote>
+<p>Required：堆栈中的所有 Required 模块必须看作一个成功的结果。如果一个或多个 Required 模块失败，则实现堆栈中的所有 Required 模块，但是将返回第一个错误。</p>
+<p>Sufficient：如果标记为 sufficient 的模块成功并且先前没有 Required 或 sufficient 模块失败，则忽略堆栈中的所有其余模块并返回成功。</p>
+<p>Optional：如果堆栈中没有一个模块是 required 并且没有任何一个 sufficient 模块成功，则服务/应用程序至少要有一个 optional 模块成功。</p>
+</blockquote>
+<h3 id="在程序中使用PAM进行验证"><a href="#在程序中使用PAM进行验证" class="headerlink" title="在程序中使用PAM进行验证"></a>在程序中使用PAM进行验证</h3><ol>
+<li>开发PAM验证模块</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;security/pam_appl.h&gt;</span><br><span class="line">#include &lt;security/pam_modules.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">// 只实现账户认证</span><br><span class="line">PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,</span><br><span class="line">                                   const char **argv) &#123;</span><br><span class="line">  char *username;</span><br><span class="line">  char password[256];</span><br><span class="line"></span><br><span class="line">  //得到用户名</span><br><span class="line">  pam_get_user(pamh, &amp;username, &quot;Username: &quot;);</span><br><span class="line"></span><br><span class="line">  // 得到密码</span><br><span class="line">  printf(&quot;Password: &quot;);</span><br><span class="line">  gets(password);</span><br><span class="line"></span><br><span class="line">  // 测试判断，如果用户名和密码不相等，就认证失败</span><br><span class="line">  if (strcmp(username, password) != 0) &#123;</span><br><span class="line">    return PAM_AUTH_ERR;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  printf(&quot;Password is: %s\n&quot;, password);</span><br><span class="line">  return PAM_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gcc -fPIC -fno-stack-protector -c pam_test_mod.c</span><br><span class="line">sudo ld -x --shared -o /lib/security/pam_test_mod.so pam_test_mod.o</span><br></pre></td></tr></table></figure>
+
+<p>还需要修改pam的配置，来加载这个so。编辑/etc/pam.d/common-auth</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">auth [success=1 default=ignore] pam_test_mod.so</span><br></pre></td></tr></table></figure>
+
+<p>这里的success的值需要根据实际情况来调整，必须是所有里面的最大值。</p>
+<ol start="2">
+<li>使用模块进行验证</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// PAM必须的两个头文件</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;security/pam_appl.h&gt;</span><br><span class="line">#include &lt;security/pam_misc.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">extern int misc_conv(int num_msg, const struct pam_message **msgm,</span><br><span class="line">                     struct pam_response **response, void *appdata_ptr) &#123;</span><br><span class="line"></span><br><span class="line">  return PAM_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const struct pam_conv conv = &#123;misc_conv, NULL&#125;;</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[]) &#123;</span><br><span class="line">  // 初始化</span><br><span class="line">  pam_handle_t *pamh = NULL;</span><br><span class="line">  int retval;</span><br><span class="line">  const char *username = argv[1];</span><br><span class="line"></span><br><span class="line">  // 初始化PAM 设置common-auth为验证配置</span><br><span class="line">  if ((pam_start(&quot;common-auth&quot;, username, &amp;conv, &amp;pamh)) != PAM_SUCCESS) &#123;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // //认证用户</span><br><span class="line">  retval = pam_authenticate(pamh, 0);</span><br><span class="line"></span><br><span class="line">  cout &lt;&lt; (retval == PAM_SUCCESS ? &quot;SUCCESS\n&quot; : &quot;Failed\n&quot;) &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">  // // 结束PAM</span><br><span class="line">  if (pam_end(pamh, retval) != PAM_SUCCESS) &#123;</span><br><span class="line">    cout &lt;&lt; &quot;check_user: failed to release authenticator\n&quot; &lt;&lt; endl;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return retval == PAM_SUCCESS ? 0 : 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译测试一下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">g++ -o pam_test pam_test.cc -lpam -lpam_misc</span><br><span class="line">sudo ./pam_test $USER</span><br></pre></td></tr></table></figure>
+
+<p>输出为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ ./pam_test test       </span><br><span class="line">Password: test</span><br><span class="line">Password is: test</span><br><span class="line">SUCCESS</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>基于PAM认证体系，我们可以根据自己的需求任意的扩展linux账户，linux下的pbis-open，就是基于PAM扩展出来的一个AD域登录模块，它提供了一个pam_lsass.so的文件，来进行账户的验证。我们也可以自己设计一套认证流程，只需要满足上面的接口要求就可以。</p>
+<blockquote>
+<p>提供机制，而非策略</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div>
+ 
+ 
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+          <strong>本文作者：</strong>小竹
+      </li>
+      <li class="post-copyright-link">
+        <strong>本文链接：</strong>
+        <a href="/2018/04/01/Linux的PAM是什么/" title="Linux的PAM是什么">2018/04/01/Linux的PAM是什么/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明： </strong>
+        本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+      </li>
+    </ul>
+  
+</div>
+
+      
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/11/重构dde-session-ui/" rel="next" title="重构dde-session-ui">
+                <i class="fa fa-chevron-left"></i> 重构dde-session-ui
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/23/Dock插件开发/" rel="prev" title="Dock插件开发<等待填坑>">
+                Dock插件开发<等待填坑> <i class="fa fa-chevron-right"></i>
+              </等待填坑></a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小竹</p>
+              <p class="site-description motion-element" itemprop="description">小竹的博客</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/justforlxz" title="GitHub &rarr; https://github.com/justforlxz" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:justforlxz@gmail.com" title="E-Mail &rarr; mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/5906290378" title="Weibo &rarr; https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/justforlxz" title="Twitter &rarr; https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mioto.me/" title="https://mioto.me/" rel="noopener" target="_blank">Mioto</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://hualet.org/∆" title="https://hualet.org/∆" rel="noopener" target="_blank">hualet</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.nanpuyue.com/" title="https://blog.nanpuyue.com/" rel="noopener" target="_blank">nanpuyue</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.felixc.at/" title="https://blog.felixc.at/" rel="noopener" target="_blank">Felix's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.blumia.net/" title="https://www.blumia.net/" rel="noopener" target="_blank">Blumia</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://rekols.github.io/" title="https://rekols.github.io/" rel="noopener" target="_blank">Rekols</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://satori.moe/" title="https://satori.moe/" rel="noopener" target="_blank">Satori's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kirikira.com/" title="https://kirikira.com/" rel="noopener" target="_blank">It's me, 涩情Kiri!</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.ultrabluefire.cn/" title="http://blog.ultrabluefire.cn/" rel="noopener" target="_blank">超威蓝火</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.sbw.so/" title="https://blog.sbw.so/" rel="noopener" target="_blank">sbw's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://listenerri.com/" title="http://listenerri.com/" rel="noopener" target="_blank">listenerri' blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.findhao.net/" title="https://www.findhao.net/" rel="noopener" target="_blank">FindHao's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://milkice.me/" title="https://milkice.me/" rel="noopener" target="_blank">Milkice's IceBox</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.lilydjwg.me/" title="https://blog.lilydjwg.me/" rel="noopener" target="_blank">依云's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.502.li/" title="https://blog.502.li/" rel="noopener" target="_blank">木子</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://manateelazycat.github.io/" title="https://manateelazycat.github.io/" rel="noopener" target="_blank">manateelazycat</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://iovxw.net/" title="https://iovxw.net/" rel="noopener" target="_blank">iovxw</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#PAM是什么"><span class="nav-number">1.</span> <span class="nav-text">PAM是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么使用PAM"><span class="nav-number">2.</span> <span class="nav-text">为什么使用PAM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAM是如何工作的"><span class="nav-number">3.</span> <span class="nav-text">PAM是如何工作的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何自己开发PAM模块"><span class="nav-number">4.</span> <span class="nav-text">如何自己开发PAM模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置PAM"><span class="nav-number">5.</span> <span class="nav-text">配置PAM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在程序中使用PAM进行验证"><span class="nav-number">6.</span> <span class="nav-text">在程序中使用PAM进行验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小竹</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+  <script>
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66105211";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+  <script id="dsq-count-scr" src="https://ilxz.disqus.com/count.js" async></script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.justforlxz.com/2018/04/01/Linux的PAM是什么/";
+    this.page.identifier = "2018/04/01/Linux的PAM是什么/";
+    this.page.title = 'Linux的PAM是什么';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://ilxz.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    loadComments();
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

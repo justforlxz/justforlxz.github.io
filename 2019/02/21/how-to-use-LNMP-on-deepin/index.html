@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="为了节省读者的时间，我先简述一下阅读这篇文章需要了解的知识。 这篇文章将基于Docker来构建nginx、php和mysql来搭建LNMP环境，和其他教程有所不同的是，需要有一定的Docker基础。">
+<meta name="keywords" content="Linux,LNMP,Deepin,Web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在Deepin上使用LNMP">
+<meta property="og:url" content="https://blog.justforlxz.com/2019/02/21/how-to-use-LNMP-on-deepin/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="为了节省读者的时间，我先简述一下阅读这篇文章需要了解的知识。 这篇文章将基于Docker来构建nginx、php和mysql来搭建LNMP环境，和其他教程有所不同的是，需要有一定的Docker基础。">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2020-01-19T08:44:25.804Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何在Deepin上使用LNMP">
+<meta name="twitter:description" content="为了节省读者的时间，我先简述一下阅读这篇文章需要了解的知识。 这篇文章将基于Docker来构建nginx、php和mysql来搭建LNMP环境，和其他教程有所不同的是，需要有一定的Docker基础。">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://blog.justforlxz.com/2019/02/21/how-to-use-LNMP-on-deepin/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>如何在Deepin上使用LNMP | 小竹's blog</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-129024325-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-129024325-1');
+  </script>
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小竹's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">永远不要停止思考</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-links">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/link" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Links</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/02/21/how-to-use-LNMP-on-deepin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小竹">
+      <meta itemprop="description" content="小竹的博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小竹's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何在Deepin上使用LNMP
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-21 10:11:15" itemprop="dateCreated datePublished" datetime="2019-02-21T10:11:15+00:00">2019-02-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 08:44:25" itemprop="dateModified" datetime="2020-01-19T08:44:25+00:00">2020-01-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/02/21/how-to-use-LNMP-on-deepin/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/21/how-to-use-LNMP-on-deepin/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>为了节省读者的时间，我先简述一下阅读这篇文章需要了解的知识。</p>
+<p>这篇文章将基于Docker来构建nginx、php和mysql来搭建LNMP环境，和其他教程有所不同的是，需要有一定的Docker基础。</p>
+<a id="more"></a>
+
+<p>Docker是一个不错的工具，使我们不需要虚拟机那样的庞然大物就可以轻松的隔离运行的程序，这要感谢Linux的资源分离机制，避免启动一个虚拟机造成了大量资源浪费。</p>
+<p>首先需要在Deepin上安装Docker，添加Docker的deb仓库，并安装docker-ce。</p>
+<p>创建文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo nano /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure>
+
+<p>写入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deb [arch=amd64] https://download.docker.com/linux/debian jessie edge</span><br></pre></td></tr></table></figure>
+
+<p>刷新一下仓库就可以安装了。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt update &amp;&amp; sudo apt install docker-ce docker-compose</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后重启一下系统，准备工作就算完成了一半了。</p>
+<p>在家目录创建一个Projects目录，当做我们LNMP的工作目录，创建一个名叫<em>docker-compose.yaml</em>的文件，这是docker-compose的配置文件，我们通过docker-compose这个工具来管理我们的Docker容器。</p>
+<p>所有的镜像均采用最新版本，nginx(1.15.8)，php(7.3.2)，mysql(8.0.15)，如有需要，自行选择不同版本的镜像。</p>
+<p>注意PHP7已经不支持mysql扩展，使用内置的MySQLnd。</p>
+<p>写入以下配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">version: &apos;3&apos;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  nginx:</span><br><span class="line">    # 设置容器名字</span><br><span class="line">    container_name: &quot;nginx&quot;</span><br><span class="line">    # 采用最新的nginx</span><br><span class="line">    image: nginx:latest</span><br><span class="line">    # 绑定80端口</span><br><span class="line">    ports:</span><br><span class="line">        - &quot;80:80&quot;</span><br><span class="line">    # 添加php容器的依赖</span><br><span class="line">    depends_on:</span><br><span class="line">        - &quot;php&quot;</span><br><span class="line">    # 绑定数据目录</span><br><span class="line">    volumes:</span><br><span class="line">        - &quot;./volumes/nginx/conf.d:/etc/nginx/conf.d&quot;</span><br><span class="line">        - &quot;./volumes/html:/usr/share/nginx/html&quot;</span><br><span class="line">    restart: always</span><br><span class="line"></span><br><span class="line">  php:</span><br><span class="line">    # 设置容器名字</span><br><span class="line">    container_name: &quot;php&quot;</span><br><span class="line">    # 采用最新的php</span><br><span class="line">    image: php:fpm</span><br><span class="line">    # 绑定端口</span><br><span class="line">    ports:</span><br><span class="line">        - &quot;9000:9000&quot;</span><br><span class="line">    # 绑定数据目录</span><br><span class="line">    volumes:</span><br><span class="line">        - &quot;./volumes/html:/var/www/html&quot;</span><br><span class="line">    restart: always</span><br><span class="line"></span><br><span class="line">  mysql:</span><br><span class="line">    # 设置容器名字</span><br><span class="line">    container_name: &quot;mysql&quot;</span><br><span class="line">    # 采用最新的mysql</span><br><span class="line">    image: mysql:latest</span><br><span class="line">    # 绑定端口</span><br><span class="line">    ports:</span><br><span class="line">        - &quot;3306:3306&quot;</span><br><span class="line">    # 设置环境变量</span><br><span class="line">    environment:</span><br><span class="line">        - MYSQL_ROOT_PASSWORD=(自己设置密码)</span><br><span class="line">    # 绑定数据目录</span><br><span class="line">    volumes:</span><br><span class="line">        - &quot;./volumes/mysql:/var/lib/mysql&quot;</span><br><span class="line">    restart: always</span><br></pre></td></tr></table></figure>
+
+<p>创建nginx的配置文件，编辑 <em>./volumes/nginx/conf.d/nginx.conf</em> ：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">        index  index.html index.htm index.php;</span><br><span class="line">    &#125;</span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">    &#125;</span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        fastcgi_pass   php:9000;</span><br><span class="line">        fastcgi_index  index.php;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME /var/www/html/$fastcgi_script_name;</span><br><span class="line">        include        fastcgi_params;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建php测试文件，编辑 <em>./volumes/html/index.php</em> :</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">phpinfo();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>启动docker，第一次需要拉取一下镜像:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker-compose up --build -d</span><br></pre></td></tr></table></figure>
+
+<p>等全部结束以后，就可以访问localhost看到php的信息了。</p>
+<p>通过Docker的方法来使用LNMP，不污染宿主机环境，不会再因为各种依赖问题而搞坏系统，这恰恰是新手容易犯的错误，使用Docker，方便你我。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div>
+ 
+ 
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+          <strong>本文作者：</strong>小竹
+      </li>
+      <li class="post-copyright-link">
+        <strong>本文链接：</strong>
+        <a href="/2019/02/21/how-to-use-LNMP-on-deepin/" title="如何在Deepin上使用LNMP">2019/02/21/how-to-use-LNMP-on-deepin/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明： </strong>
+        本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+      </li>
+    </ul>
+  
+</div>
+
+      
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/LNMP/" rel="tag"># LNMP</a>
+          
+            <a href="/tags/Deepin/" rel="tag"># Deepin</a>
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/23/fuck-taobao/" rel="next" title="解决用了xposed后淘宝闪退">
+                <i class="fa fa-chevron-left"></i> 解决用了xposed后淘宝闪退
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/23/CMake-CTests-for-dde-control-center/" rel="prev" title="CMake CTests for dde-control-center">
+                CMake CTests for dde-control-center <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小竹</p>
+              <p class="site-description motion-element" itemprop="description">小竹的博客</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/justforlxz" title="GitHub &rarr; https://github.com/justforlxz" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:justforlxz@gmail.com" title="E-Mail &rarr; mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/5906290378" title="Weibo &rarr; https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/justforlxz" title="Twitter &rarr; https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mioto.me/" title="https://mioto.me/" rel="noopener" target="_blank">Mioto</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://hualet.org/∆" title="https://hualet.org/∆" rel="noopener" target="_blank">hualet</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.nanpuyue.com/" title="https://blog.nanpuyue.com/" rel="noopener" target="_blank">nanpuyue</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.felixc.at/" title="https://blog.felixc.at/" rel="noopener" target="_blank">Felix's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.blumia.net/" title="https://www.blumia.net/" rel="noopener" target="_blank">Blumia</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://rekols.github.io/" title="https://rekols.github.io/" rel="noopener" target="_blank">Rekols</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://satori.moe/" title="https://satori.moe/" rel="noopener" target="_blank">Satori's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kirikira.com/" title="https://kirikira.com/" rel="noopener" target="_blank">It's me, 涩情Kiri!</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.ultrabluefire.cn/" title="http://blog.ultrabluefire.cn/" rel="noopener" target="_blank">超威蓝火</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.sbw.so/" title="https://blog.sbw.so/" rel="noopener" target="_blank">sbw's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://listenerri.com/" title="http://listenerri.com/" rel="noopener" target="_blank">listenerri' blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.findhao.net/" title="https://www.findhao.net/" rel="noopener" target="_blank">FindHao's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://milkice.me/" title="https://milkice.me/" rel="noopener" target="_blank">Milkice's IceBox</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.lilydjwg.me/" title="https://blog.lilydjwg.me/" rel="noopener" target="_blank">依云's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.502.li/" title="https://blog.502.li/" rel="noopener" target="_blank">木子</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://manateelazycat.github.io/" title="https://manateelazycat.github.io/" rel="noopener" target="_blank">manateelazycat</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://iovxw.net/" title="https://iovxw.net/" rel="noopener" target="_blank">iovxw</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小竹</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+  <script>
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66105211";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+  <script id="dsq-count-scr" src="https://ilxz.disqus.com/count.js" async></script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.justforlxz.com/2019/02/21/how-to-use-LNMP-on-deepin/";
+    this.page.identifier = "2019/02/21/how-to-use-LNMP-on-deepin/";
+    this.page.title = '如何在Deepin上使用LNMP';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://ilxz.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    loadComments();
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

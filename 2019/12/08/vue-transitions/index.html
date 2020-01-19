@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="以前一直搞不懂动画是怎么做的，它怎么这么神奇，写了一点看不懂的代码，就实现了非常丰富的效果，现在做了三年Qt开发，接触到了Qt的动画类，明白了动画是怎么一会儿事，现在来看当初的css动画代码，也明白了它是如何工作的了。本文会介绍一下Vue提供的组件过渡动画模块——transitions。">
+<meta name="keywords" content="Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="添加Vue动画">
+<meta property="og:url" content="https://blog.justforlxz.com/2019/12/08/vue-transitions/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="以前一直搞不懂动画是怎么做的，它怎么这么神奇，写了一点看不懂的代码，就实现了非常丰富的效果，现在做了三年Qt开发，接触到了Qt的动画类，明白了动画是怎么一会儿事，现在来看当初的css动画代码，也明白了它是如何工作的了。本文会介绍一下Vue提供的组件过渡动画模块——transitions。">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://cn.vuejs.org/images/transition.png">
+<meta property="og:updated_time" content="2020-01-19T08:44:25.832Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="添加Vue动画">
+<meta name="twitter:description" content="以前一直搞不懂动画是怎么做的，它怎么这么神奇，写了一点看不懂的代码，就实现了非常丰富的效果，现在做了三年Qt开发，接触到了Qt的动画类，明白了动画是怎么一会儿事，现在来看当初的css动画代码，也明白了它是如何工作的了。本文会介绍一下Vue提供的组件过渡动画模块——transitions。">
+<meta name="twitter:image" content="https://cn.vuejs.org/images/transition.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://blog.justforlxz.com/2019/12/08/vue-transitions/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>添加Vue动画 | 小竹's blog</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-129024325-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-129024325-1');
+  </script>
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小竹's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">永远不要停止思考</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-links">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/link" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>Links</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/12/08/vue-transitions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小竹">
+      <meta itemprop="description" content="小竹的博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小竹's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">添加Vue动画
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-12-08 08:03:40" itemprop="dateCreated datePublished" datetime="2019-12-08T08:03:40+00:00">2019-12-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 08:44:25" itemprop="dateModified" datetime="2020-01-19T08:44:25+00:00">2020-01-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/12/08/vue-transitions/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/12/08/vue-transitions/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>以前一直搞不懂动画是怎么做的，它怎么这么神奇，写了一点看不懂的代码，就实现了非常丰富的效果，现在做了三年Qt开发，接触到了Qt的动画类，明白了动画是怎么一会儿事，现在来看当初的css动画代码，也明白了它是如何工作的了。本文会介绍一下Vue提供的组件过渡动画模块——transitions。</p>
+<a id="more"></a>
+
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Vue在插入、更新和移除DOM元素时，提供了多种不同方式的应用过渡效果。包含以下工具：</p>
+<ul>
+<li>在css过渡和动画中自动应用class</li>
+<li>可以配合第三方动画css类，例如Animae.css</li>
+<li>提供钩子函数来使JS操作DOM元素</li>
+<li>可以配合使用第三方JavaScript动画库，例如Velocity.js</li>
+</ul>
+<h2 id="单元素-组件过渡"><a href="#单元素-组件过渡" class="headerlink" title="单元素/组件过渡"></a>单元素/组件过渡</h2><p>Vue提供了 <code>transitions</code> 的封装组件，在下面的情况中，可以给任意元素或组件添加进入和离开的过渡效果。</p>
+<ul>
+<li>条件渲染 (使用 <code>v-show</code>)</li>
+<li>按需渲染 (使用 <code>v-if</code>)</li>
+<li>动态节点</li>
+<li>组件根元素</li>
+</ul>
+<p>这是一个基本的例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">    &lt;button v-on:click=&quot;show = !show&quot;&gt;</span><br><span class="line">    Toggle</span><br><span class="line">    &lt;/button&gt;</span><br><span class="line">    &lt;transitions name=&quot;fade&quot;&gt;</span><br><span class="line">        &lt;p v-if=&quot;show&quot;&gt; hello! &lt;/p&gt;</span><br><span class="line">    &lt;transitions&gt;</span><br><span class="line">&lt;div&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">    el: &quot;#app&quot;,</span><br><span class="line">    data: &#123;</span><br><span class="line">        show: false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在head中添加style：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.fade-enter-active,</span><br><span class="line">.fade-leave-active &#123;</span><br><span class="line">  transition: opacity .5s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.fade-enter,</span><br><span class="line">.fade-leave-to &#123;</span><br><span class="line">  opacity: 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里有三点需要注意一下，需要动画的元素需要使用transitions节包裹起来，transitions需要一个name，css中需要使用固定的拼写来应用动画，入场动画和离场动画的状态是一致的，所以写在了一组里。</p>
+<p>当插入和删除包含在 <code>transitions</code> 组件中的元素时，Vue会做以下的事情：</p>
+<ul>
+<li>自动嗅探组件是否应用了css的过渡或动画，如果有，则在恰当的实际添加/删除css类名。</li>
+<li>如果 <code>transitions</code> 组件提供了钩子函数，Vue会在恰当的时机调用钩子函数。</li>
+<li>如果没有找到css过渡和动画，也没有找到钩子函数，则DOM的操作(插入和删除)在下一帧中立即执行。(注意是指浏览器的逐帧动画，而不是Vue的nextTick机制)</li>
+</ul>
+<h3 id="过渡的类名"><a href="#过渡的类名" class="headerlink" title="过渡的类名"></a>过渡的类名</h3><p>Vue的过渡动画一共有6个状态：</p>
+<ol>
+<li><code>v-enter</code>: 定义进入过渡的开始状态，在元素被插入之前生效，待元素插入以后被移除。</li>
+<li><code>v-enter-active</code>: 定义进入过渡生效时的状态，在整个进入过渡的阶段中应用，在元素插入之前生效，在过渡/动画完成后被移除。这个类可以定义过渡时间、延迟和动画曲线。</li>
+<li><code>v-enter-to</code>: <strong>在2.1.8版本及以上</strong> 定义进入过渡的结束状态，在元素被插入的下一帧生效(与此同时 <code>v-enter</code> 被移除)，在过渡/动画完成后移除。</li>
+<li><code>v-leave</code>: 定义离开过渡的开始状态，在离开过渡被触发时立即生效，下一帧被移除。</li>
+<li><code>v-leave-active</code>: 定义离开过渡生效时的状态，在整个离开过渡的阶段中应用，在离开过渡触发时立即生效，在过渡/动画完成后立即被移除。这个类可以定义离开过渡的过程时间、延迟和动画曲线。</li>
+<li><code>v-leave-to</code>: <strong>在2.1。8版本及以上</strong> 定义离开过渡的结束状态，在离开过渡被触发之后的下一帧被移除(与此同时<code>v-leave</code>也被删除)<br>，在过渡/动画完成之后移除。</li>
+</ol>
+<p><img src="https://cn.vuejs.org/images/transition.png" alt="transitions"></p>
+<p>可以看出一共两组动画，进入和离开的active。并且分别有两个状态，enter和enter-to，这6个状态控制了入场动画和离场动画。(吐槽一下Qt的动画系统，定义一个QAnimation只能做半场动画，想做到Vue这样的要定义两组，或者反向播放)</p>
+<p>对于那些正在过渡中切换的类名来说，如果使用了没有<code>name</code>属性的<code>transition</code>，Vue会使用v-当做默认前缀。为了避免多组动画冲突，我个人建议每一个<code>transition</code>组件都提供name属性。</p>
+<h3 id="JavaScript钩子函数"><a href="#JavaScript钩子函数" class="headerlink" title="JavaScript钩子函数"></a>JavaScript钩子函数</h3><p><code>transition</code>也提供了钩子函数，使我们可以通过JavaScript来控制DOM元素，一共也包含了8个函数：</p>
+<ol>
+<li>beforeEnter</li>
+<li>enter</li>
+<li>afterEnter</li>
+<li>enterCancelled</li>
+<li>beforeLeave</li>
+<li>leave</li>
+<li>afterLeave</li>
+<li>leaveCancelled</li>
+</ol>
+<p>和css上要求的命名保持一致，只是增加了两个取消的接口，当动画被取消的时候被调用。</p>
+<p>这些钩子函数可以结合CSS <code>transition/animations</code> 使用，也可以单独使用。</p>
+<blockquote>
+<p>当只使用JavaScript过渡的时候，必须在 <strong>enter</strong> 和 <strong>leave</strong> 显式调用<code>done()</code>进行回调，否则他们将被同步调用，过渡会立即完成。</p>
+</blockquote>
+<blockquote>
+<p>推荐对于仅使用JavaScript过渡的元素添加<code>v-bind:css=&quot;false&quot;</code>，Vue会跳过CSS的检测，这也可以避免过渡过程中css的影响。</p>
+</blockquote>
+<h2 id="列表元素的过渡"><a href="#列表元素的过渡" class="headerlink" title="列表元素的过渡"></a>列表元素的过渡</h2><p>以上我分享的都是单元素/组件的过渡，那么问题来了，列表这种通过v-for创建的元素该如何增加过渡效果呢？</p>
+<p>Vue提供了<code>&lt;transition-group&gt;</code>组件，在深入了解之前，需要先介绍一下这个组件的一些特点：</p>
+<ul>
+<li>不同于<code>&lt;transition&gt;</code>，<code>&lt;transition-group&gt;</code>会创建一个真实的DOM元素，默认是<span>，可以通过tag属性切换为其他元素。</span></li>
+<li>过渡模式不再可用，因为我们不再相互切换特有的元素</li>
+<li>内部元素总是需要提供唯一的key值来进行区分</li>
+<li>CSS过渡将会应用在内部的元素中，而不是这个组/容器本身</li>
+</ul>
+<h3 id="列表的进入-离开过渡"><a href="#列表的进入-离开过渡" class="headerlink" title="列表的进入/离开过渡"></a>列表的进入/离开过渡</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">&lt;button v-on:click=&quot;add&quot;&gt;add&lt;/button&gt;</span><br><span class="line">&lt;button v-on:click=&quot;remove&quot;&gt;remove&lt;/button&gt;</span><br><span class="line">&lt;transition-group name=&quot;group&quot; tag=&quot;ul&quot;&gt;</span><br><span class="line">&lt;li v-for=&quot;item in items&quot; v-bind:key=&quot;item&quot;&gt;</span><br><span class="line">  &#123;&#123; item &#125;&#125;</span><br><span class="line">&lt;/li&gt;</span><br><span class="line">&lt;/transition-group&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">	el: &quot;#app&quot;,</span><br><span class="line">	data: &#123;</span><br><span class="line">			items: [1,2,3]</span><br><span class="line">	  &#125;,</span><br><span class="line">	  methods: &#123;</span><br><span class="line">	  	add() &#123;</span><br><span class="line">	  		this.items.push(0)</span><br><span class="line">	  	&#125;</span><br><span class="line">	  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.group-enter,</span><br><span class="line">.group-leave-to &#123;</span><br><span class="line">  opacity: 0;</span><br><span class="line">  transform: translateY(10px)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.group-enter-active,</span><br><span class="line">.group-leave-active &#123;</span><br><span class="line">  transition: all 1s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码在<a href="https://jsfiddle.net/justforlxz/9denwmor/20/" target="_blank" rel="noopener">这里，点击访问</a>，只实现了添加元素的过渡效果。</p>
+<p>希望本文可以帮助你理解Vue是如何处理过渡动画，本文是基于官网的知识和demo所编写的，本文只写了一部分我觉得需要掌握的基本功能，Vue的transition组件还有很多功能等待你的挖掘，<a href="https://cn.vuejs.org/v2/guide/transitions.html" target="_blank" rel="noopener">点击前往Vue官网文档</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div>
+ 
+ 
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+          <strong>本文作者：</strong>小竹
+      </li>
+      <li class="post-copyright-link">
+        <strong>本文链接：</strong>
+        <a href="/2019/12/08/vue-transitions/" title="添加Vue动画">2019/12/08/vue-transitions/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明： </strong>
+        本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+      </li>
+    </ul>
+  
+</div>
+
+      
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/25/使用webpack-dev-server来监听项目变化/" rel="next" title="使用webpack-dev-server来监听项目变化">
+                <i class="fa fa-chevron-left"></i> 使用webpack-dev-server来监听项目变化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/08/vue-component-props/" rel="prev" title="Vue父子组件传值 —— props & $emit">
+                Vue父子组件传值 —— props & $emit <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小竹</p>
+              <p class="site-description motion-element" itemprop="description">小竹的博客</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/justforlxz" title="GitHub &rarr; https://github.com/justforlxz" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:justforlxz@gmail.com" title="E-Mail &rarr; mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/5906290378" title="Weibo &rarr; https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/justforlxz" title="Twitter &rarr; https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mioto.me/" title="https://mioto.me/" rel="noopener" target="_blank">Mioto</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://hualet.org/∆" title="https://hualet.org/∆" rel="noopener" target="_blank">hualet</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.nanpuyue.com/" title="https://blog.nanpuyue.com/" rel="noopener" target="_blank">nanpuyue</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.felixc.at/" title="https://blog.felixc.at/" rel="noopener" target="_blank">Felix's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.blumia.net/" title="https://www.blumia.net/" rel="noopener" target="_blank">Blumia</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://rekols.github.io/" title="https://rekols.github.io/" rel="noopener" target="_blank">Rekols</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://satori.moe/" title="https://satori.moe/" rel="noopener" target="_blank">Satori's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kirikira.com/" title="https://kirikira.com/" rel="noopener" target="_blank">It's me, 涩情Kiri!</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.ultrabluefire.cn/" title="http://blog.ultrabluefire.cn/" rel="noopener" target="_blank">超威蓝火</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.sbw.so/" title="https://blog.sbw.so/" rel="noopener" target="_blank">sbw's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://listenerri.com/" title="http://listenerri.com/" rel="noopener" target="_blank">listenerri' blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.findhao.net/" title="https://www.findhao.net/" rel="noopener" target="_blank">FindHao's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://milkice.me/" title="https://milkice.me/" rel="noopener" target="_blank">Milkice's IceBox</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.lilydjwg.me/" title="https://blog.lilydjwg.me/" rel="noopener" target="_blank">依云's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.502.li/" title="https://blog.502.li/" rel="noopener" target="_blank">木子</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://manateelazycat.github.io/" title="https://manateelazycat.github.io/" rel="noopener" target="_blank">manateelazycat</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://iovxw.net/" title="https://iovxw.net/" rel="noopener" target="_blank">iovxw</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单元素-组件过渡"><span class="nav-number">2.</span> <span class="nav-text">单元素/组件过渡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#过渡的类名"><span class="nav-number">2.1.</span> <span class="nav-text">过渡的类名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript钩子函数"><span class="nav-number">2.2.</span> <span class="nav-text">JavaScript钩子函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表元素的过渡"><span class="nav-number">3.</span> <span class="nav-text">列表元素的过渡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#列表的进入-离开过渡"><span class="nav-number">3.1.</span> <span class="nav-text">列表的进入/离开过渡</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小竹</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+  <script>
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66105211";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+  <script id="dsq-count-scr" src="https://ilxz.disqus.com/count.js" async></script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.justforlxz.com/2019/12/08/vue-transitions/";
+    this.page.identifier = "2019/12/08/vue-transitions/";
+    this.page.title = '添加Vue动画';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://ilxz.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    loadComments();
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
