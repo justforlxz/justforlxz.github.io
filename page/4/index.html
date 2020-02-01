@@ -363,6 +363,207 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/05/23/CMake-CTests-for-dde-control-center/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小竹">
+      <meta itemprop="description" content="小竹的博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小竹's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/23/CMake-CTests-for-dde-control-center/" class="post-title-link" itemprop="url">CMake CTests for dde-control-center</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-23 17:16:15" itemprop="dateCreated datePublished" datetime="2019-05-23T17:16:15+00:00">2019-05-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-02-01 07:32:05" itemprop="dateModified" datetime="2020-02-01T07:32:05+00:00">2020-02-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/05/23/CMake-CTests-for-dde-control-center/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/05/23/CMake-CTests-for-dde-control-center/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>什么是单元测试?</p>
+<blockquote>
+<p>在计算机编程中，单元测试又称为模块测试，是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。</p>
+</blockquote>
+<p>单元测试存在的意义在于，如果程序发生了异常情况，比如接收了错误的值，从而导致结果不正确，当修正程序中的错误后，为了避免再次遇到这个问题，需要对出问题的值和函数/功能进行一次测试，确保结果符合预期。</p>
+<p>单元测试很重要，如果是新项目，请一定要刚开始就规划好单元测试。</p>
+<p>为什么说单元测试很重要呢？因为单元测试的目的是隔离其他单元，并证明当前单元是正确的。这需要开发者在设计程序的时候就要考虑很多，合理的设计和规划项目。当未来重构项目的时候，可以局部重构来优化项目，而不是从零重写。</p>
+<p>本文没有详细说明Qt的单元测试是如何编写的，编写Qt的单元测试放在以后再写(<del>咕咕咕</del>)。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/05/23/CMake-CTests-for-dde-control-center/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/02/21/how-to-use-LNMP-on-deepin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -425,7 +626,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 09:03:47" itemprop="dateModified" datetime="2020-01-19T09:03:47+00:00">2020-01-19</time>
+                <time title="Modified: 2020-02-01 07:32:05" itemprop="dateModified" datetime="2020-02-01T07:32:05+00:00">2020-02-01</time>
               
             
           </span>
@@ -620,7 +821,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 09:03:47" itemprop="dateModified" datetime="2020-01-19T09:03:47+00:00">2020-01-19</time>
+                <time title="Modified: 2020-02-01 07:32:05" itemprop="dateModified" datetime="2020-02-01T07:32:05+00:00">2020-02-01</time>
               
             
           </span>
@@ -790,7 +991,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 09:03:47" itemprop="dateModified" datetime="2020-01-19T09:03:47+00:00">2020-01-19</time>
+                <time title="Modified: 2020-02-01 07:32:05" itemprop="dateModified" datetime="2020-02-01T07:32:05+00:00">2020-02-01</time>
               
             
           </span>
@@ -984,7 +1185,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 09:03:47" itemprop="dateModified" datetime="2020-01-19T09:03:47+00:00">2020-01-19</time>
+                <time title="Modified: 2020-02-01 07:32:05" itemprop="dateModified" datetime="2020-02-01T07:32:05+00:00">2020-02-01</time>
               
             
           </span>
@@ -1083,189 +1284,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2018/11/09/use google calendar to finishe work/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小竹">
-      <meta itemprop="description" content="小竹的博客">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小竹's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/09/use google calendar to finishe work/" class="post-title-link" itemprop="url">使用Google日历安排工作任务</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-09 21:15:45" itemprop="dateCreated datePublished" datetime="2018-11-09T21:15:45+00:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 09:03:47" itemprop="dateModified" datetime="2020-01-19T09:03:47+00:00">2020-01-19</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">Comments: </span>
-                <a href="/2018/11/09/use google calendar to finishe work/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/11/09/use google calendar to finishe work/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>目前我们正在尝试把工作的分配和讨论放在github上进行，这样可以使我们的用户和开发者更容易接触到我们，可以提bug和对需求进行讨。</p>
-<p>但是使用起来还是有些不便，比如使用tower进行任务分配的时候，可以方便的移动一个任务到某个分类，或者指派一个时间。但是github上是基于issue的，并不是为了做这种事来设计的，所以需求上有一些出入。但是<a href="https://github.com/hualet" target="_blank" rel="noopener">@hualet</a>大佬根据github的api写了一个bot来做一点微小的事，当一个issue的assignees只剩QA的同事时，issue会被bot移动到测试栏中，只剩一个开发同事时(基本上是负责该任务的开发者)，会被移动到开发栏中。</p>
-<p>但是因为不能做到比如今天、明天、下周等时间的显示，所以任务只能通过每天开会来口头告知时间，但是这并不妨碍我进行自己的任务时间安排。请出世界第一的神器(日历)。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/11/09/use google calendar to finishe work/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1308,7 +1331,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1339,7 +1362,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -1406,7 +1431,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">26</span>
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

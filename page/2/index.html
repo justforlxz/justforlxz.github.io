@@ -363,6 +363,199 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/12/09/记录一个坑爹的usb网卡/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小竹">
+      <meta itemprop="description" content="小竹的博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小竹's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/12/09/记录一个坑爹的usb网卡/" class="post-title-link" itemprop="url">记录一个坑爹的usb网卡</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-12-09 19:31:04" itemprop="dateCreated datePublished" datetime="2019-12-09T19:31:04+00:00">2019-12-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-02-01 07:32:05" itemprop="dateModified" datetime="2020-02-01T07:32:05+00:00">2020-02-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/12/09/记录一个坑爹的usb网卡/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/12/09/记录一个坑爹的usb网卡/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>网卡型号是Realtek RTL8811CU/RTL8821CU USB Wi-Fi adapter，买来是为了让黑苹果上网的，windows下也会自动下载和安装驱动，但是linux比较难受，内核不提供这样的驱动，只能去官方拿源码搞，今天在arch上打算装一下驱动，结果遇到了很多问题。</p>
+<p>wiki上推荐的8821应该使用rtl88xxau-aircrack-dkms-git，但是我安装以后压根不能用，一点变化都没有，而且modprobe也没有作者给出的88XXau，无奈只得放弃。</p>
+<p>继续谷歌之，在<a href="https://forum.mxlinux.org/viewtopic.php?f=107&t=50579" target="_blank" rel="noopener">https://forum.mxlinux.org/viewtopic.php?f=107&amp;t=50579</a>看到了别人给的方案，然后果断clone并make,然后就因为没有适配5.x的内核编译失败，这可不行，翻了一下issue，看到作者在<a href="https://github.com/whitebatman2/rtl8821CU/issues/33" target="_blank" rel="noopener">https://github.com/whitebatman2/rtl8821CU/issues/33</a>提到了一个<a href="https://github.com/whitebatman2/rtl8821CU/issues/23" target="_blank" rel="noopener">#23</a>，这标题写的够可以，<code>Newer version 5.4.1 (Support Linux versions from 4.4.x up to 5.4.x)</code>，赶紧搞起，去源地址clone和make,成功使用上了驱动，按照作者提到的安装<code>usb_modeswitch</code>，并切换usb模式，我成功的使用上了这个usb网卡。</p>
+<blockquote>
+<p>吐槽一下，开发环境还是linux下舒服，仓库的包安装一下就可以开发了，windows下要自己写路径，mac下brew限制太死，一些库安装以后还要自己手动做些处理，一不小心就把shell的环境变量搞不行了，或者压根不能正常工作。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/12/09/use-github-actions-to-depoly-hexo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -425,7 +618,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 09:03:47" itemprop="dateModified" datetime="2020-01-19T09:03:47+00:00">2020-01-19</time>
+                <time title="Modified: 2020-02-01 07:32:05" itemprop="dateModified" datetime="2020-02-01T07:32:05+00:00">2020-02-01</time>
               
             
           </span>
@@ -611,7 +804,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 09:03:47" itemprop="dateModified" datetime="2020-01-19T09:03:47+00:00">2020-01-19</time>
+                <time title="Modified: 2020-02-01 07:32:05" itemprop="dateModified" datetime="2020-02-01T07:32:05+00:00">2020-02-01</time>
               
             
           </span>
@@ -805,7 +998,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 09:03:47" itemprop="dateModified" datetime="2020-01-19T09:03:47+00:00">2020-01-19</time>
+                <time title="Modified: 2020-02-01 07:32:05" itemprop="dateModified" datetime="2020-02-01T07:32:05+00:00">2020-02-01</time>
               
             
           </span>
@@ -999,7 +1192,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 09:03:47" itemprop="dateModified" datetime="2020-01-19T09:03:47+00:00">2020-01-19</time>
+                <time title="Modified: 2020-02-01 07:32:05" itemprop="dateModified" datetime="2020-02-01T07:32:05+00:00">2020-02-01</time>
               
             
           </span>
@@ -1118,205 +1311,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/10/24/给Archlinux开启BFQ和MuQSS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小竹">
-      <meta itemprop="description" content="小竹的博客">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小竹's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/10/24/给Archlinux开启BFQ和MuQSS/" class="post-title-link" itemprop="url">给Archlinux开启BFQ和MuQSS</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-10-24 13:19:21" itemprop="dateCreated datePublished" datetime="2019-10-24T13:19:21+00:00">2019-10-24</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 09:03:47" itemprop="dateModified" datetime="2020-01-19T09:03:47+00:00">2020-01-19</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">Comments: </span>
-                <a href="/2019/10/24/给Archlinux开启BFQ和MuQSS/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/10/24/给Archlinux开启BFQ和MuQSS/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>最近在Arch上更新系统的时候，总是遇到图形完全卡住的情况，今天上午突然想起来自己曾经设置了使用noop的IO调度，猜测是因为这个。然后本着不折腾不舒服的原则，打算使用ck内核上MuQSS的进程调度和BFQ的IO调度。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/10/24/给Archlinux开启BFQ和MuQSS/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1359,7 +1358,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1390,7 +1389,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -1457,7 +1458,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">26</span>
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

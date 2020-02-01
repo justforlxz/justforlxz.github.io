@@ -363,6 +363,183 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2017/07/04/SAOUTILS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小竹">
+      <meta itemprop="description" content="小竹的博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小竹's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/07/04/SAOUTILS/" class="post-title-link" itemprop="url">SAOUTILS</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-07-04 06:20:00" itemprop="dateCreated datePublished" datetime="2017-07-04T06:20:00+00:00">2017-07-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-02-01 07:32:05" itemprop="dateModified" datetime="2020-02-01T07:32:05+00:00">2020-02-01</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2017/07/04/SAOUTILS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/04/SAOUTILS/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>鼠标手势还没想好要怎么实现，流程无法完全确认，这项稍后再做。</p>
+<p>主界面有两层构成，半透明全屏黑色背景和菜单。</p>
+<p>菜单较为复杂，除了左边是一个大面板，其他部分全部都可以使用一种方式实现。使用Qt的QAbstractItemDelegate、QListView来做列表和界面绘制。</p>
+<p>右边则是无限展开的菜单。</p>
+<p>每层菜单只是用一个对象，和topbar dock的popup window一样。<br>点击每层菜单的时候，计算下一项要显示的位置。</p>
+<p>主界面应该是只有左右两部分，除了左边的大面板，右侧全部都是相同结构的菜单，只不过在功能上略有不同。</p>
+<p>点击的时候，所有菜单对鼠标点击的地点进行坐标计算，如果在鼠标右侧，则隐藏。如果要显示的菜单是自己，不隐藏。点击时开始timer，松开时停止，timeout以后显示选项。</p>
+<p>保持最后一个菜单在最中间的位置，主界面向左或向右用动画移动固定长度。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2017/06/26/Topbar/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -425,7 +602,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 09:03:47" itemprop="dateModified" datetime="2020-01-19T09:03:47+00:00">2020-01-19</time>
+                <time title="Modified: 2020-02-01 07:32:05" itemprop="dateModified" datetime="2020-02-01T07:32:05+00:00">2020-02-01</time>
               
             
           </span>
@@ -601,7 +778,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 09:03:47" itemprop="dateModified" datetime="2020-01-19T09:03:47+00:00">2020-01-19</time>
+                <time title="Modified: 2020-02-01 07:32:05" itemprop="dateModified" datetime="2020-02-01T07:32:05+00:00">2020-02-01</time>
               
             
           </span>
@@ -778,7 +955,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 09:03:47" itemprop="dateModified" datetime="2020-01-19T09:03:47+00:00">2020-01-19</time>
+                <time title="Modified: 2020-02-01 07:32:05" itemprop="dateModified" datetime="2020-02-01T07:32:05+00:00">2020-02-01</time>
               
             
           </span>
@@ -960,7 +1137,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 09:03:47" itemprop="dateModified" datetime="2020-01-19T09:03:47+00:00">2020-01-19</time>
+                <time title="Modified: 2020-02-01 07:32:05" itemprop="dateModified" datetime="2020-02-01T07:32:05+00:00">2020-02-01</time>
               
             
           </span>
@@ -1060,189 +1237,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2016/05/29/sakura/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小竹">
-      <meta itemprop="description" content="小竹的博客">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小竹's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/05/29/sakura/" class="post-title-link" itemprop="url">sakura</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-05-29 11:55:20" itemprop="dateCreated datePublished" datetime="2016-05-29T11:55:20+00:00">2016-05-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-01-19 09:03:47" itemprop="dateModified" datetime="2020-01-19T09:03:47+00:00">2020-01-19</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">Comments: </span>
-                <a href="/2016/05/29/sakura/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/29/sakura/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="/2016/05/29/sakura/sakura.jpg" alt="sakura"><br>这是我比较喜欢的一部动漫。</p>
-<p><a href http: baike.baidu.com link?url="z8biExJdMd0fG7ZdoFfYBak4HQhtLZJIRgZ4bA1PtM1DPQwkBFcbEygmLIMZQKqI-SSfdT6Wwo8yzUNMXrgq_Q0OCP8kPcc83LdJgnDIiCu" "">《樱花庄的宠物女孩》</a></p>
-<p>我的域名也是来自女主角的名字，椎名真白（椎名 ましろ）</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2016/05/29/sakura/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1285,7 +1284,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1316,7 +1315,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -1383,7 +1384,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">26</span>
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
