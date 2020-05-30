@@ -27129,12 +27129,7 @@ exports.default = vue_1.defineComponent({
             if (props.post === undefined) {
                 return String;
             }
-            const date = new Date(props.post.attributes.date);
-            const year = String(date.getFullYear());
-            const month = String(("0" + (date.getMonth() + 1)).slice(-2));
-            const day = String(("0" + date.getDate()).slice(-2));
-            const title = String(props.post.attributes.title).replace(/\s/g, "");
-            return `/${year}/${month}/${day}/${title}`;
+            return props.post.link;
         });
         const postDate = vue_1.computed(() => {
             if (props.post === undefined) {
