@@ -22449,16 +22449,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const SideBar_vue_1 = __importDefault(__webpack_require__(/*! ./components/widgets/SideBar.vue */ "./src/components/widgets/SideBar.vue"));
-const vue_1 = __webpack_require__(/*! vue */ "./node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js");
 exports.default = {
     components: {
         "side-bar": SideBar_vue_1.default
-    },
-    setup() {
-        const key = vue_1.computed(() => {
-            return String(Math.random());
-        });
-        return key;
     }
 };
 
@@ -23980,7 +23973,7 @@ function render(_ctx, _cache) {
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [
       (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_side_bar)
     ]),
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view, { key: _ctx.key })
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)
   ]))
 }
 
