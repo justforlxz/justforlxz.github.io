@@ -22449,9 +22449,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const SideBar_vue_1 = __importDefault(__webpack_require__(/*! ./components/widgets/SideBar.vue */ "./src/components/widgets/SideBar.vue"));
+const vue_1 = __webpack_require__(/*! vue */ "./node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js");
 exports.default = {
     components: {
         "side-bar": SideBar_vue_1.default
+    },
+    setup() {
+        const key = vue_1.computed(() => {
+            return String(Math.random());
+        });
+        return key;
     }
 };
 
@@ -22521,7 +22528,7 @@ exports.default = {
             postList.value = res.data.postList;
         });
         return { prepage, nextpage, postList, prePageText, nextPageText };
-    },
+    }
 };
 
 
@@ -22584,33 +22591,25 @@ exports.default = {
 /*! export __esModule [provided] [used] [could be renamed] */
 /*! export default [provided] [used] [could be renamed] */
 /*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__ */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/*! runtime requirements: __webpack_exports__ */
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const vue_1 = __webpack_require__(/*! vue */ "./node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js");
 exports.default = {
     props: {
         link: {
             type: String,
             require: true,
+            default: '',
         },
         text: {
             type: String,
             require: true,
+            default: "",
         }
-    },
-    setup(props) {
-        const link = vue_1.computed(() => {
-            return props.link ?? "";
-        });
-        const text = vue_1.computed(() => {
-            return props.text ?? "";
-        });
-        return { link, text };
-    },
+    }
 };
 
 
@@ -22847,7 +22846,7 @@ const app_vue_1 = __importDefault(__webpack_require__(/*! ./app.vue */ "./src/ap
 const router_1 = __importDefault(__webpack_require__(/*! ./router */ "./src/router.ts"));
 const app = vue_1.createApp(app_vue_1.default);
 app.use(router_1.default);
-app.mount('#app');
+router_1.default.isReady().then(() => app.mount('#app'));
 
 
 /***/ }),
@@ -22913,7 +22912,6 @@ const router = vue_router_1.createRouter({
         },
         { path: '/*', redirect: '/' },
     ],
-    scrollBehavior: scrollBehavior,
 });
 router.beforeEach((to, from, next) => {
     document.title = String(to.params['post']).replace(' ', '');
@@ -23974,7 +23972,7 @@ function render(_ctx, _cache) {
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [
       (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_side_bar)
     ]),
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view, { key: _ctx.key })
   ]))
 }
 
