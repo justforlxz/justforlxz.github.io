@@ -22516,17 +22516,21 @@ exports.default = {
         'v-button': Button_vue_1.default,
     },
     setup() {
-        const pageIndex = router_1.default.currentRoute.value.params['page'] ?? 0;
         const prepage = vue_1.ref('');
         const nextpage = vue_1.ref('');
         const postList = vue_1.ref('');
         const prePageText = vue_1.ref('上一页');
         const nextPageText = vue_1.ref('下一页');
-        axios_1.default.get(`/page-${pageIndex}.json`).then((res) => {
-            prepage.value = String(res.data.prepage);
-            nextpage.value = String(res.data.nextpage);
-            postList.value = res.data.postList;
-        });
+        function refreshPage() {
+            const pageIndex = router_1.default.currentRoute.value.params['page'] ?? 0;
+            axios_1.default.get(`/page-${pageIndex}.json`).then((res) => {
+                prepage.value = String(res.data.prepage);
+                nextpage.value = String(res.data.nextpage);
+                postList.value = res.data.postList;
+            });
+        }
+        vue_1.watch(router_1.default.currentRoute, refreshPage);
+        refreshPage();
         return { prepage, nextpage, postList, prePageText, nextPageText };
     }
 };
@@ -22905,6 +22909,9 @@ const router = vue_router_1.createRouter({
         {
             path: '/page/:page',
             component: () => Promise.resolve().then(() => __importStar(__webpack_require__(/*! ./components/pages/Page.vue */ "./src/components/pages/Page.vue"))),
+            props: (route) => ({
+                title: `第${router.currentRoute.value.params['page']}页`
+            }),
         },
         {
             path: '/about',
@@ -22912,6 +22919,7 @@ const router = vue_router_1.createRouter({
         },
         { path: '/*', redirect: '/' },
     ],
+    scrollBehavior: scrollBehavior,
 });
 router.beforeEach((to, from, next) => {
     document.title = String(to.params['post']).replace(' ', '');
