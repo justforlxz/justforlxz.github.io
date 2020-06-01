@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -21,21 +21,21 @@
   </script>
 
   <meta name="description" content="本文会基础的介绍一下PAM是什么，让你能够回答PAM是什么、PAM有什么用、如何根据需求自己开发PAM模块。 PAM是什么PAM即可插拔认证模块。它提供了一个所有服务的中心验证机制，适用于普通登录、ssh登录等需要进行身份认证的系统中。">
-<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux的PAM是什么">
-<meta property="og:url" content="https://blog.justforlxz.com/2018/04/01/Linux的PAM是什么/index.html">
+<meta property="og:url" content="https://blog.justforlxz.com/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/index.html">
 <meta property="og:site_name" content="小竹&#39;s blog">
 <meta property="og:description" content="本文会基础的介绍一下PAM是什么，让你能够回答PAM是什么、PAM有什么用、如何根据需求自己开发PAM模块。 PAM是什么PAM即可插拔认证模块。它提供了一个所有服务的中心验证机制，适用于普通登录、ssh登录等需要进行身份认证的系统中。">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="https://blog.justforlxz.com/2018/04/01/Linux的PAM是什么/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/PAM%E7%BB%93%E6%9E%84.png">
-<meta property="og:updated_time" content="2020-05-31T15:39:00.595Z">
+<meta property="og:image" content="https://blog.justforlxz.com/.com//PAM%E7%BB%93%E6%9E%84.png">
+<meta property="article:published_time" content="2018-04-01T12:16:08.000Z">
+<meta property="article:modified_time" content="2020-06-01T01:00:51.729Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux的PAM是什么">
-<meta name="twitter:description" content="本文会基础的介绍一下PAM是什么，让你能够回答PAM是什么、PAM有什么用、如何根据需求自己开发PAM模块。 PAM是什么PAM即可插拔认证模块。它提供了一个所有服务的中心验证机制，适用于普通登录、ssh登录等需要进行身份认证的系统中。">
-<meta name="twitter:image" content="https://blog.justforlxz.com/2018/04/01/Linux的PAM是什么/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/PAM%E7%BB%93%E6%9E%84.png">
+<meta name="twitter:image" content="https://blog.justforlxz.com/.com//PAM%E7%BB%93%E6%9E%84.png">
 
-<link rel="canonical" href="https://blog.justforlxz.com/2018/04/01/Linux的PAM是什么/">
+<link rel="canonical" href="https://blog.justforlxz.com/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/">
 
 
 <script id="page-configurations">
@@ -97,6 +97,7 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -187,7 +188,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
-    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2018/04/01/Linux的PAM是什么/">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/12298476?s=460&u=2c38b7ed987489b75cd4d1ee1353c671add86985&v=4">
@@ -217,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-31 15:39:00" itemprop="dateModified" datetime="2020-05-31T15:39:00+00:00">2020-05-31</time>
+                <time title="Modified: 2020-06-01 01:00:51" itemprop="dateModified" datetime="2020-06-01T01:00:51+00:00">2020-06-01</time>
               </span>
 
           
@@ -229,7 +230,7 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2018/04/01/Linux的PAM是什么/#disqus_thread" itemprop="discussionUrl">
+    <a title="disqus" href="/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/#disqus_thread" itemprop="discussionUrl">
       <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/04/01/Linux的PAM是什么/" itemprop="commentCount"></span>
     </a>
   </span>
@@ -254,7 +255,7 @@
 <blockquote>
 <p>鉴于以上原因，人们开始寻找一种更佳的替代方案：一方面，将鉴别功能从应用中独立出来，单独进行模块化设计，实现和维护；另一方面，为这些鉴别模块建立标准 API，以便各应用程序能方便的使用它们提供的各种功能；同时，鉴别机制对其上层用户（包括应用程序和最终用户）是透明的。</p>
 </blockquote>
-<h3 id="PAM是如何工作的"><a href="#PAM是如何工作的" class="headerlink" title="PAM是如何工作的"></a>PAM是如何工作的</h3><p><img src="/2018/04/01/Linux的PAM是什么/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/PAM%E7%BB%93%E6%9E%84.png" alt></p>
+<h3 id="PAM是如何工作的"><a href="#PAM是如何工作的" class="headerlink" title="PAM是如何工作的"></a>PAM是如何工作的</h3><p><img src="/.com//PAM%E7%BB%93%E6%9E%84.png" alt></p>
 <p>PAM采用了分层的模块式开发，提供了四种类型的模块:</p>
 <ul>
 <li>认证管理</li>
@@ -275,7 +276,7 @@
 <p>想要了解更多，可查看IBM的文档库。<br><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-pam/index.html" target="_blank" rel="noopener">深入 Linux PAM 体系结构</a></p>
 <h3 id="如何自己开发PAM模块"><a href="#如何自己开发PAM模块" class="headerlink" title="如何自己开发PAM模块"></a>如何自己开发PAM模块</h3><p>PAM模块使用一个pam_handle类型的结构当做句柄，也是唯一一个PAM和程序进行通信的结构。</p>
 <p>首先在编写的服务模块的源程序里要包含下列头文件：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;security/pam_modules.h&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;security&#x2F;pam_modules.h&gt;</span><br></pre></td></tr></table></figure>
 
 <p>PAM模块是一个个的so动态库。PAM会通过dlopen来装载这些so。四个模块分别需要实现对应的方法，PAM会根据配置文件来调用这些方法。</p>
 <p>每个PAM模块的认证程序都以pam_start开始，以pam_end结束。PAM还提供了pam_get_item和pam_set_item共享有关认证会话的某些公共信息，例如用户名、服务名和密码。应用程序在调用了pam_start以后可以用这些APIs来改变状态信息。实际工作的函数有6个：</p>
@@ -330,25 +331,25 @@
 <h3 id="在程序中使用PAM进行验证"><a href="#在程序中使用PAM进行验证" class="headerlink" title="在程序中使用PAM进行验证"></a>在程序中使用PAM进行验证</h3><ol>
 <li>开发PAM验证模块</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;security/pam_appl.h&gt;</span><br><span class="line">#include &lt;security/pam_modules.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">// 只实现账户认证</span><br><span class="line">PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,</span><br><span class="line">                                   const char **argv) &#123;</span><br><span class="line">  char *username;</span><br><span class="line">  char password[256];</span><br><span class="line"></span><br><span class="line">  //得到用户名</span><br><span class="line">  pam_get_user(pamh, &amp;username, &quot;Username: &quot;);</span><br><span class="line"></span><br><span class="line">  // 得到密码</span><br><span class="line">  printf(&quot;Password: &quot;);</span><br><span class="line">  gets(password);</span><br><span class="line"></span><br><span class="line">  // 测试判断，如果用户名和密码不相等，就认证失败</span><br><span class="line">  if (strcmp(username, password) != 0) &#123;</span><br><span class="line">    return PAM_AUTH_ERR;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  printf(&quot;Password is: %s\n&quot;, password);</span><br><span class="line">  return PAM_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;security&#x2F;pam_appl.h&gt;</span><br><span class="line">#include &lt;security&#x2F;pam_modules.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 只实现账户认证</span><br><span class="line">PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc,</span><br><span class="line">                                   const char **argv) &#123;</span><br><span class="line">  char *username;</span><br><span class="line">  char password[256];</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;得到用户名</span><br><span class="line">  pam_get_user(pamh, &amp;username, &quot;Username: &quot;);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 得到密码</span><br><span class="line">  printf(&quot;Password: &quot;);</span><br><span class="line">  gets(password);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 测试判断，如果用户名和密码不相等，就认证失败</span><br><span class="line">  if (strcmp(username, password) !&#x3D; 0) &#123;</span><br><span class="line">    return PAM_AUTH_ERR;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  printf(&quot;Password is: %s\n&quot;, password);</span><br><span class="line">  return PAM_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>编译:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gcc -fPIC -fno-stack-protector -c pam_test_mod.c</span><br><span class="line">sudo ld -x --shared -o /lib/security/pam_test_mod.so pam_test_mod.o</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gcc -fPIC -fno-stack-protector -c pam_test_mod.c</span><br><span class="line">sudo ld -x --shared -o &#x2F;lib&#x2F;security&#x2F;pam_test_mod.so pam_test_mod.o</span><br></pre></td></tr></table></figure>
 
 <p>还需要修改pam的配置，来加载这个so。编辑/etc/pam.d/common-auth</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">auth [success=1 default=ignore] pam_test_mod.so</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">auth [success&#x3D;1 default&#x3D;ignore] pam_test_mod.so</span><br></pre></td></tr></table></figure>
 
 <p>这里的success的值需要根据实际情况来调整，必须是所有里面的最大值。</p>
 <ol start="2">
 <li>使用模块进行验证</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// PAM必须的两个头文件</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;security/pam_appl.h&gt;</span><br><span class="line">#include &lt;security/pam_misc.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">extern int misc_conv(int num_msg, const struct pam_message **msgm,</span><br><span class="line">                     struct pam_response **response, void *appdata_ptr) &#123;</span><br><span class="line"></span><br><span class="line">  return PAM_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const struct pam_conv conv = &#123;misc_conv, NULL&#125;;</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[]) &#123;</span><br><span class="line">  // 初始化</span><br><span class="line">  pam_handle_t *pamh = NULL;</span><br><span class="line">  int retval;</span><br><span class="line">  const char *username = argv[1];</span><br><span class="line"></span><br><span class="line">  // 初始化PAM 设置common-auth为验证配置</span><br><span class="line">  if ((pam_start(&quot;common-auth&quot;, username, &amp;conv, &amp;pamh)) != PAM_SUCCESS) &#123;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // //认证用户</span><br><span class="line">  retval = pam_authenticate(pamh, 0);</span><br><span class="line"></span><br><span class="line">  cout &lt;&lt; (retval == PAM_SUCCESS ? &quot;SUCCESS\n&quot; : &quot;Failed\n&quot;) &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">  // // 结束PAM</span><br><span class="line">  if (pam_end(pamh, retval) != PAM_SUCCESS) &#123;</span><br><span class="line">    cout &lt;&lt; &quot;check_user: failed to release authenticator\n&quot; &lt;&lt; endl;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return retval == PAM_SUCCESS ? 0 : 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; PAM必须的两个头文件</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;security&#x2F;pam_appl.h&gt;</span><br><span class="line">#include &lt;security&#x2F;pam_misc.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">extern int misc_conv(int num_msg, const struct pam_message **msgm,</span><br><span class="line">                     struct pam_response **response, void *appdata_ptr) &#123;</span><br><span class="line"></span><br><span class="line">  return PAM_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const struct pam_conv conv &#x3D; &#123;misc_conv, NULL&#125;;</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[]) &#123;</span><br><span class="line">  &#x2F;&#x2F; 初始化</span><br><span class="line">  pam_handle_t *pamh &#x3D; NULL;</span><br><span class="line">  int retval;</span><br><span class="line">  const char *username &#x3D; argv[1];</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 初始化PAM 设置common-auth为验证配置</span><br><span class="line">  if ((pam_start(&quot;common-auth&quot;, username, &amp;conv, &amp;pamh)) !&#x3D; PAM_SUCCESS) &#123;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; &#x2F;&#x2F;认证用户</span><br><span class="line">  retval &#x3D; pam_authenticate(pamh, 0);</span><br><span class="line"></span><br><span class="line">  cout &lt;&lt; (retval &#x3D;&#x3D; PAM_SUCCESS ? &quot;SUCCESS\n&quot; : &quot;Failed\n&quot;) &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; &#x2F;&#x2F; 结束PAM</span><br><span class="line">  if (pam_end(pamh, retval) !&#x3D; PAM_SUCCESS) &#123;</span><br><span class="line">    cout &lt;&lt; &quot;check_user: failed to release authenticator\n&quot; &lt;&lt; endl;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return retval &#x3D;&#x3D; PAM_SUCCESS ? 0 : 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>编译测试一下:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">g++ -o pam_test pam_test.cc -lpam -lpam_misc</span><br><span class="line">sudo ./pam_test $USER</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">g++ -o pam_test pam_test.cc -lpam -lpam_misc</span><br><span class="line">sudo .&#x2F;pam_test $USER</span><br></pre></td></tr></table></figure>
 
 <p>输出为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ ./pam_test test       </span><br><span class="line">Password: test</span><br><span class="line">Password is: test</span><br><span class="line">SUCCESS</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ .&#x2F;pam_test test       </span><br><span class="line">Password: test</span><br><span class="line">Password is: test</span><br><span class="line">SUCCESS</span><br></pre></td></tr></table></figure>
 
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>基于PAM认证体系，我们可以根据自己的需求任意的扩展linux账户，linux下的pbis-open，就是基于PAM扩展出来的一个AD域登录模块，它提供了一个pam_lsass.so的文件，来进行账户的验证。我们也可以自己设计一套认证流程，只需要满足上面的接口要求就可以。</p>
 <blockquote>
@@ -372,11 +373,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2018/03/11/重构dde-session-ui/" rel="prev" title="重构dde-session-ui">
+    <a href="/2018/03/11/%E9%87%8D%E6%9E%84dde-session-ui/" rel="prev" title="重构dde-session-ui">
       <i class="fa fa-chevron-left"></i> 重构dde-session-ui
     </a></div>
       <div class="post-nav-item">
-    <a href="/2018/05/23/Dock插件开发/" rel="next" title="Dock插件开发<等待填坑>">
+    <a href="/2018/05/23/Dock%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" rel="next" title="Dock插件开发<等待填坑>">
       Dock插件开发<等待填坑> <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -466,29 +467,29 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/justforlxz" title="GitHub → https://github.com/justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/justforlxz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
         <a href="mailto:justforlxz@gmail.com" title="E-Mail → mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/5906290378" title="Weibo → https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
+        <a href="https://weibo.com/5906290378" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://twitter.com/justforlxz" title="Twitter → https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+        <a href="https://twitter.com/justforlxz" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
       </span>
   </div>
 
@@ -519,7 +520,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">小竹</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
@@ -539,9 +540,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -577,7 +586,7 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.justforlxz.com/2018/04/01/Linux的PAM是什么/";
+    this.page.url = "https://blog.justforlxz.com/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/";
     this.page.identifier = "2018/04/01/Linux的PAM是什么/";
     this.page.title = "Linux的PAM是什么";
     };

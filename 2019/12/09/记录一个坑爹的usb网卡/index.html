@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="网卡型号是Realtek RTL8811CU/RTL8821CU USB Wi-Fi adapter，买来是为了让黑苹果上网的，windows下也会自动下载和安装驱动，但是linux比较难受，内核不提供这样的驱动，只能去官方拿源码搞，今天在arch上打算装一下驱动，结果遇到了很多问题。 wiki上推荐的8821应该使用rtl88xxau-aircrack-dkms-git，但是我安装以后压根不能用">
-<meta name="keywords" content="Linux">
+  <meta name="description" content="网卡型号是Realtek RTL8811CU&#x2F;RTL8821CU USB Wi-Fi adapter，买来是为了让黑苹果上网的，windows下也会自动下载和安装驱动，但是linux比较难受，内核不提供这样的驱动，只能去官方拿源码搞，今天在arch上打算装一下驱动，结果遇到了很多问题。 wiki上推荐的8821应该使用rtl88xxau-aircrack-dkms-git，但是我安装以后压根不能用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记录一个坑爹的usb网卡">
-<meta property="og:url" content="https://blog.justforlxz.com/2019/12/09/记录一个坑爹的usb网卡/index.html">
+<meta property="og:url" content="https://blog.justforlxz.com/2019/12/09/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E5%9D%91%E7%88%B9%E7%9A%84usb%E7%BD%91%E5%8D%A1/index.html">
 <meta property="og:site_name" content="小竹&#39;s blog">
-<meta property="og:description" content="网卡型号是Realtek RTL8811CU/RTL8821CU USB Wi-Fi adapter，买来是为了让黑苹果上网的，windows下也会自动下载和安装驱动，但是linux比较难受，内核不提供这样的驱动，只能去官方拿源码搞，今天在arch上打算装一下驱动，结果遇到了很多问题。 wiki上推荐的8821应该使用rtl88xxau-aircrack-dkms-git，但是我安装以后压根不能用">
+<meta property="og:description" content="网卡型号是Realtek RTL8811CU&#x2F;RTL8821CU USB Wi-Fi adapter，买来是为了让黑苹果上网的，windows下也会自动下载和安装驱动，但是linux比较难受，内核不提供这样的驱动，只能去官方拿源码搞，今天在arch上打算装一下驱动，结果遇到了很多问题。 wiki上推荐的8821应该使用rtl88xxau-aircrack-dkms-git，但是我安装以后压根不能用">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2020-05-31T15:39:00.639Z">
+<meta property="article:published_time" content="2019-12-09T19:31:04.000Z">
+<meta property="article:modified_time" content="2020-06-01T01:00:51.777Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记录一个坑爹的usb网卡">
-<meta name="twitter:description" content="网卡型号是Realtek RTL8811CU/RTL8821CU USB Wi-Fi adapter，买来是为了让黑苹果上网的，windows下也会自动下载和安装驱动，但是linux比较难受，内核不提供这样的驱动，只能去官方拿源码搞，今天在arch上打算装一下驱动，结果遇到了很多问题。 wiki上推荐的8821应该使用rtl88xxau-aircrack-dkms-git，但是我安装以后压根不能用">
 
-<link rel="canonical" href="https://blog.justforlxz.com/2019/12/09/记录一个坑爹的usb网卡/">
+<link rel="canonical" href="https://blog.justforlxz.com/2019/12/09/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E5%9D%91%E7%88%B9%E7%9A%84usb%E7%BD%91%E5%8D%A1/">
 
 
 <script id="page-configurations">
@@ -95,6 +95,7 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -185,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
-    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/12/09/记录一个坑爹的usb网卡/">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/12/09/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E5%9D%91%E7%88%B9%E7%9A%84usb%E7%BD%91%E5%8D%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/12298476?s=460&u=2c38b7ed987489b75cd4d1ee1353c671add86985&v=4">
@@ -215,7 +216,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-31 15:39:00" itemprop="dateModified" datetime="2020-05-31T15:39:00+00:00">2020-05-31</time>
+                <time title="Modified: 2020-06-01 01:00:51" itemprop="dateModified" datetime="2020-06-01T01:00:51+00:00">2020-06-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -236,7 +237,7 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2019/12/09/记录一个坑爹的usb网卡/#disqus_thread" itemprop="discussionUrl">
+    <a title="disqus" href="/2019/12/09/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E5%9D%91%E7%88%B9%E7%9A%84usb%E7%BD%91%E5%8D%A1/#disqus_thread" itemprop="discussionUrl">
       <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/12/09/记录一个坑爹的usb网卡/" itemprop="commentCount"></span>
     </a>
   </span>
@@ -369,29 +370,29 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/justforlxz" title="GitHub → https://github.com/justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/justforlxz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
         <a href="mailto:justforlxz@gmail.com" title="E-Mail → mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/5906290378" title="Weibo → https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
+        <a href="https://weibo.com/5906290378" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://twitter.com/justforlxz" title="Twitter → https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+        <a href="https://twitter.com/justforlxz" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
       </span>
   </div>
 
@@ -422,7 +423,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">小竹</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
@@ -442,9 +443,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -480,7 +489,7 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.justforlxz.com/2019/12/09/记录一个坑爹的usb网卡/";
+    this.page.url = "https://blog.justforlxz.com/2019/12/09/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E5%9D%91%E7%88%B9%E7%9A%84usb%E7%BD%91%E5%8D%A1/";
     this.page.identifier = "2019/12/09/记录一个坑爹的usb网卡/";
     this.page.title = "记录一个坑爹的usb网卡";
     };

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -21,22 +21,22 @@
   </script>
 
   <meta name="description" content="wsl2已经是虚拟机平台了。">
-<meta name="keywords" content="Windows">
 <meta property="og:type" content="article">
 <meta property="og:title" content="wsl2的使用体验">
-<meta property="og:url" content="https://blog.justforlxz.com/2019/06/16/wsl2的使用体验/index.html">
+<meta property="og:url" content="https://blog.justforlxz.com/2019/06/16/wsl2%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/index.html">
 <meta property="og:site_name" content="小竹&#39;s blog">
 <meta property="og:description" content="wsl2已经是虚拟机平台了。">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="https://blog.justforlxz.com/2019/06/16/wsl2的使用体验/Snipaste_2019-06-16_21-52-42.png">
-<meta property="og:image" content="https://blog.justforlxz.com/2019/06/16/wsl2的使用体验/Snipaste_2019-06-16_21-49-15.png">
-<meta property="og:updated_time" content="2020-05-31T15:39:00.631Z">
+<meta property="og:image" content="https://blog.justforlxz.com/.com//Snipaste_2019-06-16_21-52-42.png">
+<meta property="og:image" content="https://blog.justforlxz.com/.com//Snipaste_2019-06-16_21-49-15.png">
+<meta property="article:published_time" content="2019-06-16T12:59:59.000Z">
+<meta property="article:modified_time" content="2020-06-01T01:00:51.765Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="Windows">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="wsl2的使用体验">
-<meta name="twitter:description" content="wsl2已经是虚拟机平台了。">
-<meta name="twitter:image" content="https://blog.justforlxz.com/2019/06/16/wsl2的使用体验/Snipaste_2019-06-16_21-52-42.png">
+<meta name="twitter:image" content="https://blog.justforlxz.com/.com//Snipaste_2019-06-16_21-52-42.png">
 
-<link rel="canonical" href="https://blog.justforlxz.com/2019/06/16/wsl2的使用体验/">
+<link rel="canonical" href="https://blog.justforlxz.com/2019/06/16/wsl2%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/">
 
 
 <script id="page-configurations">
@@ -98,6 +98,7 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -188,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
-    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/06/16/wsl2的使用体验/">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/06/16/wsl2%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/12298476?s=460&u=2c38b7ed987489b75cd4d1ee1353c671add86985&v=4">
@@ -218,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-31 15:39:00" itemprop="dateModified" datetime="2020-05-31T15:39:00+00:00">2020-05-31</time>
+                <time title="Modified: 2020-06-01 01:00:51" itemprop="dateModified" datetime="2020-06-01T01:00:51+00:00">2020-06-01</time>
               </span>
 
           
@@ -230,7 +231,7 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2019/06/16/wsl2的使用体验/#disqus_thread" itemprop="discussionUrl">
+    <a title="disqus" href="/2019/06/16/wsl2%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/#disqus_thread" itemprop="discussionUrl">
       <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/16/wsl2的使用体验/" itemprop="commentCount"></span>
     </a>
   </span>
@@ -292,12 +293,12 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run --rm hello-world</span><br></pre></td></tr></table></figure>
 
 <p>然后就看到了想要的结果，hello world成功的跑起来了。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears to be working correctly.</span><br><span class="line"></span><br><span class="line">To generate this message, Docker took the following steps:</span><br><span class="line"> 1. The Docker client contacted the Docker daemon.</span><br><span class="line"> 2. The Docker daemon pulled the &quot;hello-world&quot; image from the Docker Hub.</span><br><span class="line">    (amd64)</span><br><span class="line"> 3. The Docker daemon created a new container from that image which runs the</span><br><span class="line">    executable that produces the output you are currently reading.</span><br><span class="line"> 4. The Docker daemon streamed that output to the Docker client, which sent it</span><br><span class="line">    to your terminal.</span><br><span class="line"></span><br><span class="line">To try something more ambitious, you can run an Ubuntu container with:</span><br><span class="line"> $ docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line">Share images, automate workflows, and more with a free Docker ID:</span><br><span class="line"> https://hub.docker.com/</span><br><span class="line"></span><br><span class="line">For more examples and ideas, visit:</span><br><span class="line"> https://docs.docker.com/get-started/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears to be working correctly.</span><br><span class="line"></span><br><span class="line">To generate this message, Docker took the following steps:</span><br><span class="line"> 1. The Docker client contacted the Docker daemon.</span><br><span class="line"> 2. The Docker daemon pulled the &quot;hello-world&quot; image from the Docker Hub.</span><br><span class="line">    (amd64)</span><br><span class="line"> 3. The Docker daemon created a new container from that image which runs the</span><br><span class="line">    executable that produces the output you are currently reading.</span><br><span class="line"> 4. The Docker daemon streamed that output to the Docker client, which sent it</span><br><span class="line">    to your terminal.</span><br><span class="line"></span><br><span class="line">To try something more ambitious, you can run an Ubuntu container with:</span><br><span class="line"> $ docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line">Share images, automate workflows, and more with a free Docker ID:</span><br><span class="line"> https:&#x2F;&#x2F;hub.docker.com&#x2F;</span><br><span class="line"></span><br><span class="line">For more examples and ideas, visit:</span><br><span class="line"> https:&#x2F;&#x2F;docs.docker.com&#x2F;get-started&#x2F;</span><br></pre></td></tr></table></figure>
 
 <p>总的来说，因为wsl2改成虚拟机方案了，不过wsl2的启动速度还是挺快的，微软也努力让wsl2和wsl1之间在使用上没有差异。目前微软还没有完成wsl2的网络部分，wsl2和宿主机之间还需要使用专门的ip进行访问，等微软完成wsl2的localhost网络以后，就可以像以前一样直接跑一些网站或者需要端口的服务了。</p>
-<p><img src="/2019/06/16/wsl2的使用体验/Snipaste_2019-06-16_21-52-42.png" alt="网络截图"></p>
+<p><img src="/.com//Snipaste_2019-06-16_21-52-42.png" alt="网络截图"></p>
 <p>来一张合照</p>
-<p><img src="/2019/06/16/wsl2的使用体验/Snipaste_2019-06-16_21-49-15.png" alt="合照"></p>
+<p><img src="/.com//Snipaste_2019-06-16_21-49-15.png" alt="合照"></p>
 <p><a href="https://devblogs.microsoft.com/commandline/wsl-2-is-now-available-in-windows-insiders/" target="_blank" rel="noopener">点我查看wsl2的发布说明</a></p>
 <p><a href="https://docs.microsoft.com/en-us/windows/wsl/wsl2-install" target="_blank" rel="noopener">点我查看如何安装wsl2</a></p>
 
@@ -318,11 +319,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/06/15/入坑typescript了/" rel="prev" title="入坑typescript了">
+    <a href="/2019/06/15/%E5%85%A5%E5%9D%91typescript%E4%BA%86/" rel="prev" title="入坑typescript了">
       <i class="fa fa-chevron-left"></i> 入坑typescript了
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/10/14/webpack入门/" rel="next" title="webpack入门">
+    <a href="/2019/10/14/webpack%E5%85%A5%E9%97%A8/" rel="next" title="webpack入门">
       webpack入门 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -411,29 +412,29 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/justforlxz" title="GitHub → https://github.com/justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/justforlxz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
         <a href="mailto:justforlxz@gmail.com" title="E-Mail → mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/5906290378" title="Weibo → https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
+        <a href="https://weibo.com/5906290378" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://twitter.com/justforlxz" title="Twitter → https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+        <a href="https://twitter.com/justforlxz" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
       </span>
   </div>
 
@@ -464,7 +465,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">小竹</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
@@ -484,9 +485,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -522,7 +531,7 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.justforlxz.com/2019/06/16/wsl2的使用体验/";
+    this.page.url = "https://blog.justforlxz.com/2019/06/16/wsl2%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/";
     this.page.identifier = "2019/06/16/wsl2的使用体验/";
     this.page.title = "wsl2的使用体验";
     };

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -21,19 +21,19 @@
   </script>
 
   <meta name="description" content="建造者模式就是指将类的构造和其表示分离开来，调用者可以通过不同的构建过程创造出不同表示的对象。主要解决在软件系统中，有时候面临着”一个复杂对象”的创建工作，由于需求的变化，这个复杂对象的某些部分经常面临着剧烈的变化，一些基本部件不会变。所以需要将变与不变分离。与抽象工厂的区别：在建造者模式里，有个指导者(Director)，由指导者来管理建造者，用户是与指导者联系的，指导者联系建造者最后得到产品。">
-<meta name="keywords" content="Javascript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript建造者模式">
-<meta property="og:url" content="https://blog.justforlxz.com/2020/02/01/JavaScript建造者模式/index.html">
+<meta property="og:url" content="https://blog.justforlxz.com/2020/02/01/JavaScript%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="小竹&#39;s blog">
 <meta property="og:description" content="建造者模式就是指将类的构造和其表示分离开来，调用者可以通过不同的构建过程创造出不同表示的对象。主要解决在软件系统中，有时候面临着”一个复杂对象”的创建工作，由于需求的变化，这个复杂对象的某些部分经常面临着剧烈的变化，一些基本部件不会变。所以需要将变与不变分离。与抽象工厂的区别：在建造者模式里，有个指导者(Director)，由指导者来管理建造者，用户是与指导者联系的，指导者联系建造者最后得到产品。">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2020-05-31T15:39:00.595Z">
+<meta property="article:published_time" content="2020-02-01T20:52:58.000Z">
+<meta property="article:modified_time" content="2020-06-01T01:00:51.729Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="Javascript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript建造者模式">
-<meta name="twitter:description" content="建造者模式就是指将类的构造和其表示分离开来，调用者可以通过不同的构建过程创造出不同表示的对象。主要解决在软件系统中，有时候面临着”一个复杂对象”的创建工作，由于需求的变化，这个复杂对象的某些部分经常面临着剧烈的变化，一些基本部件不会变。所以需要将变与不变分离。与抽象工厂的区别：在建造者模式里，有个指导者(Director)，由指导者来管理建造者，用户是与指导者联系的，指导者联系建造者最后得到产品。">
 
-<link rel="canonical" href="https://blog.justforlxz.com/2020/02/01/JavaScript建造者模式/">
+<link rel="canonical" href="https://blog.justforlxz.com/2020/02/01/JavaScript%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">
 
 
 <script id="page-configurations">
@@ -95,6 +95,7 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -185,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
-    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2020/02/01/JavaScript建造者模式/">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2020/02/01/JavaScript%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/12298476?s=460&u=2c38b7ed987489b75cd4d1ee1353c671add86985&v=4">
@@ -215,7 +216,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-31 15:39:00" itemprop="dateModified" datetime="2020-05-31T15:39:00+00:00">2020-05-31</time>
+                <time title="Modified: 2020-06-01 01:00:51" itemprop="dateModified" datetime="2020-06-01T01:00:51+00:00">2020-06-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -223,7 +224,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
                 </span>
             </span>
 
@@ -236,7 +237,7 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2020/02/01/JavaScript建造者模式/#disqus_thread" itemprop="discussionUrl">
+    <a title="disqus" href="/2020/02/01/JavaScript%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/#disqus_thread" itemprop="discussionUrl">
       <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/02/01/JavaScript建造者模式/" itemprop="commentCount"></span>
     </a>
   </span>
@@ -264,19 +265,19 @@
 <h2 id="建造者模式的优点"><a href="#建造者模式的优点" class="headerlink" title="建造者模式的优点"></a>建造者模式的优点</h2><p>建造者模式的封装很好，使用建造者模式可以进行有效的封装变化，在使用建造者模式的场景中，产品类和建造者类是比较稳定的，因此，将主要的业务逻辑封装在指导者类中对整体可以取得比较好的稳定性。</p>
 <p>建造者类也很方便扩展，如果有新的需求，只需要实现一个新的建造者类即可。</p>
 <p>产品类 product.ts</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Product &#123;</span><br><span class="line">    private _name: String;</span><br><span class="line">    public name(): String &#123;</span><br><span class="line">        return this._name;</span><br><span class="line">    &#125;</span><br><span class="line">    public setName(name: String) &#123;</span><br><span class="line">        this._name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Product &#123;</span><br><span class="line">    private _name: String;</span><br><span class="line">    public name(): String &#123;</span><br><span class="line">        return this._name;</span><br><span class="line">    &#125;</span><br><span class="line">    public setName(name: String) &#123;</span><br><span class="line">        this._name &#x3D; name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>抽象建造类 builder.ts</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">interface Builder &#123;</span><br><span class="line">    _product: Product;</span><br><span class="line">    setName(name: String): Product;</span><br><span class="line">    build(): Product;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>建造类 concreatebuilder.ts</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class ConcreateBuilder implements Builder &#123;</span><br><span class="line">    _product: Product = new Product;</span><br><span class="line">    public setName(name: String): Product &#123;</span><br><span class="line">        this._product.setName(name);</span><br><span class="line">        return this._product;</span><br><span class="line">    &#125;</span><br><span class="line">    public build(): Product &#123;</span><br><span class="line">        return this._product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class HelloworldBuilder extends ConcreateBuilder &#123;</span><br><span class="line">    public build(): Product &#123;</span><br><span class="line">        this._product.setName(&quot;hello world!&quot;);</span><br><span class="line">        return this._product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class ConcreateBuilder implements Builder &#123;</span><br><span class="line">    _product: Product &#x3D; new Product;</span><br><span class="line">    public setName(name: String): Product &#123;</span><br><span class="line">        this._product.setName(name);</span><br><span class="line">        return this._product;</span><br><span class="line">    &#125;</span><br><span class="line">    public build(): Product &#123;</span><br><span class="line">        return this._product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class HelloworldBuilder extends ConcreateBuilder &#123;</span><br><span class="line">    public build(): Product &#123;</span><br><span class="line">        this._product.setName(&quot;hello world!&quot;);</span><br><span class="line">        return this._product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>指导类 director.ts</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Director &#123;</span><br><span class="line">    private _defaultBuilder: ConcreateBuilder = new ConcreateBuilder;</span><br><span class="line">    private _helloworldBuilder: HelloworldBuilder = new HelloworldBuilder;</span><br><span class="line">    public buildForDefault(): Product  &#123;</span><br><span class="line">        return this._defaultBuilder.build();</span><br><span class="line">    &#125;</span><br><span class="line">    public buildForHelloworld(): Product &#123;</span><br><span class="line">        return this._helloworldBuilder.build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Director &#123;</span><br><span class="line">    private _defaultBuilder: ConcreateBuilder &#x3D; new ConcreateBuilder;</span><br><span class="line">    private _helloworldBuilder: HelloworldBuilder &#x3D; new HelloworldBuilder;</span><br><span class="line">    public buildForDefault(): Product  &#123;</span><br><span class="line">        return this._defaultBuilder.build();</span><br><span class="line">    &#125;</span><br><span class="line">    public buildForHelloworld(): Product &#123;</span><br><span class="line">        return this._helloworldBuilder.build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>测试运行:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let director = new Director();</span><br><span class="line">console.log(director.buildForDefault().name());</span><br><span class="line">console.log(director.buildForHelloworld().name());</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let director &#x3D; new Director();</span><br><span class="line">console.log(director.buildForDefault().name());</span><br><span class="line">console.log(director.buildForHelloworld().name());</span><br></pre></td></tr></table></figure>
 
 <p>执行结果</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">undefined</span><br><span class="line">hello world!</span><br></pre></td></tr></table></figure>
@@ -300,7 +301,7 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/01/31/浅谈Javascript构造器模式/" rel="prev" title="浅谈Javascript构造器模式">
+    <a href="/2020/01/31/%E6%B5%85%E8%B0%88Javascript%E6%9E%84%E9%80%A0%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="prev" title="浅谈Javascript构造器模式">
       <i class="fa fa-chevron-left"></i> 浅谈Javascript构造器模式
     </a></div>
       <div class="post-nav-item">
@@ -394,29 +395,29 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/justforlxz" title="GitHub → https://github.com/justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/justforlxz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
         <a href="mailto:justforlxz@gmail.com" title="E-Mail → mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/5906290378" title="Weibo → https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
+        <a href="https://weibo.com/5906290378" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://twitter.com/justforlxz" title="Twitter → https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+        <a href="https://twitter.com/justforlxz" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
       </span>
   </div>
 
@@ -447,7 +448,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">小竹</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
@@ -467,9 +468,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -505,7 +514,7 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.justforlxz.com/2020/02/01/JavaScript建造者模式/";
+    this.page.url = "https://blog.justforlxz.com/2020/02/01/JavaScript%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/";
     this.page.identifier = "2020/02/01/JavaScript建造者模式/";
     this.page.title = "JavaScript建造者模式";
     };

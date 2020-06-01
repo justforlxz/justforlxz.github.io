@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -21,21 +21,22 @@
   </script>
 
   <meta name="description" content="快速排序是基于分治思想的排序算法，通过这种策略把列表分为两个子列，重复该过程。是由东尼·霍尔提出，在平均状况下，排序N个数据要O(nlogn)次比较，在最坏情况下则需要O(n^2)，但退化成冒泡的情况比较少见，快速排序比其他排序算法通常情况是最佳的，因为内部使用的循环在很多平台都有优化。">
-<meta name="keywords" content="C++,Program">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++快速排序">
-<meta property="og:url" content="https://blog.justforlxz.com/2018/11/11/quick sort for c++/index.html">
+<meta property="og:url" content="https://blog.justforlxz.com/2018/11/11/quick%20sort%20for%20c++/index.html">
 <meta property="og:site_name" content="小竹&#39;s blog">
 <meta property="og:description" content="快速排序是基于分治思想的排序算法，通过这种策略把列表分为两个子列，重复该过程。是由东尼·霍尔提出，在平均状况下，排序N个数据要O(nlogn)次比较，在最坏情况下则需要O(n^2)，但退化成冒泡的情况比较少见，快速排序比其他排序算法通常情况是最佳的，因为内部使用的循环在很多平台都有优化。">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="https://blog.justforlxz.com/2018/11/11/quick%20sort%20for%20c++/Sorting_quicksort_anim.gif">
-<meta property="og:updated_time" content="2020-05-31T15:39:00.615Z">
+<meta property="og:image" content="https://blog.justforlxz.com/.com//Sorting_quicksort_anim.gif">
+<meta property="article:published_time" content="2018-11-11T16:57:44.000Z">
+<meta property="article:modified_time" content="2020-06-01T01:00:51.749Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Program">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++快速排序">
-<meta name="twitter:description" content="快速排序是基于分治思想的排序算法，通过这种策略把列表分为两个子列，重复该过程。是由东尼·霍尔提出，在平均状况下，排序N个数据要O(nlogn)次比较，在最坏情况下则需要O(n^2)，但退化成冒泡的情况比较少见，快速排序比其他排序算法通常情况是最佳的，因为内部使用的循环在很多平台都有优化。">
-<meta name="twitter:image" content="https://blog.justforlxz.com/2018/11/11/quick%20sort%20for%20c++/Sorting_quicksort_anim.gif">
+<meta name="twitter:image" content="https://blog.justforlxz.com/.com//Sorting_quicksort_anim.gif">
 
-<link rel="canonical" href="https://blog.justforlxz.com/2018/11/11/quick sort for c++/">
+<link rel="canonical" href="https://blog.justforlxz.com/2018/11/11/quick%20sort%20for%20c++/">
 
 
 <script id="page-configurations">
@@ -97,6 +98,7 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -187,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
-    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2018/11/11/quick sort for c++/">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2018/11/11/quick%20sort%20for%20c++/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/12298476?s=460&u=2c38b7ed987489b75cd4d1ee1353c671add86985&v=4">
@@ -217,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-31 15:39:00" itemprop="dateModified" datetime="2020-05-31T15:39:00+00:00">2020-05-31</time>
+                <time title="Modified: 2020-06-01 01:00:51" itemprop="dateModified" datetime="2020-06-01T01:00:51+00:00">2020-06-01</time>
               </span>
 
           
@@ -229,7 +231,7 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2018/11/11/quick sort for c++/#disqus_thread" itemprop="discussionUrl">
+    <a title="disqus" href="/2018/11/11/quick%20sort%20for%20c++/#disqus_thread" itemprop="discussionUrl">
       <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/11/11/quick sort for c++/" itemprop="commentCount"></span>
     </a>
   </span>
@@ -255,13 +257,13 @@
 <li>递归这个操作</li>
 </ul>
 <p>在维基百科上的这张图可以很直观的展示快速排序的过程</p>
-<p><img src="/2018/11/11/quick sort for c++/Sorting_quicksort_anim.gif" alt="quicksort"></p>
+<p><img src="/.com//Sorting_quicksort_anim.gif" alt="quicksort"></p>
 <p>代码实现:</p>
 <p>首先需要一个返回基准的函数，该函数负责从指定的范围中挑选一个位置作为基准，并对范围内列表进行排序，并返回基准所在的位置。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int Division(int a[], int left, int right) &#123;</span><br><span class="line">    int base = a[left]; // 取第一个数为基准</span><br><span class="line">    while (left &lt; right) &#123;</span><br><span class="line">        while (left &lt; right &amp;&amp; a[left] &gt; base) &#123;</span><br><span class="line">            // 从右向左找第一个比基准小的元素</span><br><span class="line">            --right;</span><br><span class="line">        &#125;</span><br><span class="line">        a[left] = a[right]; // 交换位置，把小元素放在左侧</span><br><span class="line"></span><br><span class="line">        while (left &lt; right &amp;&amp; a[left] &lt; base) &#123;</span><br><span class="line">            // 从左向右找第一个比基准大的元素</span><br><span class="line">            ++left;</span><br><span class="line">        &#125;</span><br><span class="line">        a[right] = a[left]; // 交换位置，把大元素放在右侧</span><br><span class="line">    &#125;</span><br><span class="line">    a[left] = base;</span><br><span class="line">    return left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int Division(int a[], int left, int right) &#123;</span><br><span class="line">    int base &#x3D; a[left]; &#x2F;&#x2F; 取第一个数为基准</span><br><span class="line">    while (left &lt; right) &#123;</span><br><span class="line">        while (left &lt; right &amp;&amp; a[left] &gt; base) &#123;</span><br><span class="line">            &#x2F;&#x2F; 从右向左找第一个比基准小的元素</span><br><span class="line">            --right;</span><br><span class="line">        &#125;</span><br><span class="line">        a[left] &#x3D; a[right]; &#x2F;&#x2F; 交换位置，把小元素放在左侧</span><br><span class="line"></span><br><span class="line">        while (left &lt; right &amp;&amp; a[left] &lt; base) &#123;</span><br><span class="line">            &#x2F;&#x2F; 从左向右找第一个比基准大的元素</span><br><span class="line">            ++left;</span><br><span class="line">        &#125;</span><br><span class="line">        a[right] &#x3D; a[left]; &#x2F;&#x2F; 交换位置，把大元素放在右侧</span><br><span class="line">    &#125;</span><br><span class="line">    a[left] &#x3D; base;</span><br><span class="line">    return left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>Division函数只做了最简单的事，找一个基准，并交换左右的元素，使列表左侧均小于基准元素，使右侧均大于基准元素，接下来需要一个函数，使列表趋向最小，直至列表元素剩一(这里我感觉其实有点极限的思想)。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void quick_sort(int a[], int left, int right) &#123;</span><br><span class="line">    if (left &lt; right) &#123;</span><br><span class="line">        int index = Division(a, left, right); //对列表进行分割</span><br><span class="line">        quick_sort(a, left, i -1); //对左侧进行排序</span><br><span class="line">        quick_sort(a, i + 1, right); //对右侧进行排序</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void quick_sort(int a[], int left, int right) &#123;</span><br><span class="line">    if (left &lt; right) &#123;</span><br><span class="line">        int index &#x3D; Division(a, left, right); &#x2F;&#x2F;对列表进行分割</span><br><span class="line">        quick_sort(a, left, i -1); &#x2F;&#x2F;对左侧进行排序</span><br><span class="line">        quick_sort(a, i + 1, right); &#x2F;&#x2F;对右侧进行排序</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>配合上方的gif，就可以很清楚的了解快速排序是如何使用分治法来排序的，通过将大任务拆分成小任务，最终达成完整的排序.</p>
 
@@ -283,7 +285,7 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2018/11/09/use google calendar to finishe work/" rel="prev" title="使用Google日历安排工作任务">
+    <a href="/2018/11/09/use%20google%20calendar%20to%20finishe%20work/" rel="prev" title="使用Google日历安排工作任务">
       <i class="fa fa-chevron-left"></i> 使用Google日历安排工作任务
     </a></div>
       <div class="post-nav-item">
@@ -376,29 +378,29 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/justforlxz" title="GitHub → https://github.com/justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/justforlxz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
         <a href="mailto:justforlxz@gmail.com" title="E-Mail → mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/5906290378" title="Weibo → https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
+        <a href="https://weibo.com/5906290378" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://twitter.com/justforlxz" title="Twitter → https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+        <a href="https://twitter.com/justforlxz" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
       </span>
   </div>
 
@@ -429,7 +431,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">小竹</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
@@ -449,9 +451,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -487,7 +497,7 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.justforlxz.com/2018/11/11/quick sort for c++/";
+    this.page.url = "https://blog.justforlxz.com/2018/11/11/quick%20sort%20for%20c++/";
     this.page.identifier = "2018/11/11/quick sort for c++/";
     this.page.title = "C++快速排序";
     };

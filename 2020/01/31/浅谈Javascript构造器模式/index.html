@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -21,19 +21,19 @@
   </script>
 
   <meta name="description" content="为了简化操作，JavaScript提供了new关键字。new关键字用于创建一个用户定义类型的实例，或者具有构造函数的内置对象的实例。">
-<meta name="keywords" content="Javascript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈Javascript构造器模式">
-<meta property="og:url" content="https://blog.justforlxz.com/2020/01/31/浅谈Javascript构造器模式/index.html">
+<meta property="og:url" content="https://blog.justforlxz.com/2020/01/31/%E6%B5%85%E8%B0%88Javascript%E6%9E%84%E9%80%A0%E5%99%A8%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="小竹&#39;s blog">
 <meta property="og:description" content="为了简化操作，JavaScript提供了new关键字。new关键字用于创建一个用户定义类型的实例，或者具有构造函数的内置对象的实例。">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2020-05-31T15:39:00.639Z">
+<meta property="article:published_time" content="2020-01-31T23:15:23.000Z">
+<meta property="article:modified_time" content="2020-06-01T01:00:51.773Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="Javascript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浅谈Javascript构造器模式">
-<meta name="twitter:description" content="为了简化操作，JavaScript提供了new关键字。new关键字用于创建一个用户定义类型的实例，或者具有构造函数的内置对象的实例。">
 
-<link rel="canonical" href="https://blog.justforlxz.com/2020/01/31/浅谈Javascript构造器模式/">
+<link rel="canonical" href="https://blog.justforlxz.com/2020/01/31/%E6%B5%85%E8%B0%88Javascript%E6%9E%84%E9%80%A0%E5%99%A8%E6%A8%A1%E5%BC%8F/">
 
 
 <script id="page-configurations">
@@ -95,6 +95,7 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -185,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
-    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2020/01/31/浅谈Javascript构造器模式/">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2020/01/31/%E6%B5%85%E8%B0%88Javascript%E6%9E%84%E9%80%A0%E5%99%A8%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/12298476?s=460&u=2c38b7ed987489b75cd4d1ee1353c671add86985&v=4">
@@ -215,7 +216,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-31 15:39:00" itemprop="dateModified" datetime="2020-05-31T15:39:00+00:00">2020-05-31</time>
+                <time title="Modified: 2020-06-01 01:00:51" itemprop="dateModified" datetime="2020-06-01T01:00:51+00:00">2020-06-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -223,7 +224,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
                 </span>
             </span>
 
@@ -236,7 +237,7 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2020/01/31/浅谈Javascript构造器模式/#disqus_thread" itemprop="discussionUrl">
+    <a title="disqus" href="/2020/01/31/%E6%B5%85%E8%B0%88Javascript%E6%9E%84%E9%80%A0%E5%99%A8%E6%A8%A1%E5%BC%8F/#disqus_thread" itemprop="discussionUrl">
       <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/01/31/浅谈Javascript构造器模式/" itemprop="commentCount"></span>
     </a>
   </span>
@@ -257,7 +258,7 @@
 
 <p>每当我们在一个函数调用前使用new关键字，该函数便会以一种特殊模式——构造模式来运行，在此模式中，JavaScript可以自动完成一些操作。基本上它是指解释器在你的代码中嵌入几行操作代码。</p>
 <p>在JavaScript中，构造函数通常是认为用来实现实例的，但是JavaScript中没有类的概念，但是有特殊的构造函数，通过new关键字来调用定义的构造函数，你可以告诉JavaScript你需要创建一个新对象，并且新对象的成员声明都是构造函数里定义的。在构造函数内部，this引用的是新创建的对象。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function People(name: String, age: Number) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.age = age;</span><br><span class="line">    this.output = function() &#123;</span><br><span class="line">        return this.name + &quot;已经&quot; + this.age + &quot;岁了&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let people = new People(&quot;justforlxz&quot;, 24);</span><br><span class="line"></span><br><span class="line">console.log(people.output());</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function People(name: String, age: Number) &#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">    this.age &#x3D; age;</span><br><span class="line">    this.output &#x3D; function() &#123;</span><br><span class="line">        return this.name + &quot;已经&quot; + this.age + &quot;岁了&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let people &#x3D; new People(&quot;justforlxz&quot;, 24);</span><br><span class="line"></span><br><span class="line">console.log(people.output());</span><br></pre></td></tr></table></figure>
 
 <p>上面是个很简单的构造函数模式，我们从字面上this是people对象，但是其实并不是这样的，new运算符帮助我们生成了this的初始化代码。</p>
 <p>new运算符一共做了三件事：</p>
@@ -266,7 +267,7 @@
 <li>将空对象的原型赋值为构造器函数的原型</li>
 <li>更改构造器函数内部的this，将其指向新创建的对象</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let tmp = new Object();</span><br><span class="line">tmp.__proto__ = People.prototype;</span><br><span class="line">People.call(tmp);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let tmp &#x3D; new Object();</span><br><span class="line">tmp.__proto__ &#x3D; People.prototype;</span><br><span class="line">People.call(tmp);</span><br></pre></td></tr></table></figure>
 
 <p>最后会经过一个判断，如果构造器函数设置了返回值，并且返回值是一个Object类型的话，就直接返回该Object，否则就会返回新创建的空对象。</p>
 <p>总结一下： JavaScript没有类的概念，但是为了实现OOP，就通过new关键字实现对函数进行插入代码来实现对象实例的初始化。构造器模式就是通过一个方法来new出一个对象，这个操作就叫构造器模式。</p>
@@ -292,7 +293,7 @@
       <i class="fa fa-chevron-left"></i> 2019 Review
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/02/01/JavaScript建造者模式/" rel="next" title="JavaScript建造者模式">
+    <a href="/2020/02/01/JavaScript%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="next" title="JavaScript建造者模式">
       JavaScript建造者模式 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -381,29 +382,29 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/justforlxz" title="GitHub → https://github.com/justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/justforlxz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
         <a href="mailto:justforlxz@gmail.com" title="E-Mail → mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/5906290378" title="Weibo → https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
+        <a href="https://weibo.com/5906290378" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://twitter.com/justforlxz" title="Twitter → https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+        <a href="https://twitter.com/justforlxz" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
       </span>
   </div>
 
@@ -434,7 +435,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">小竹</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
@@ -454,9 +455,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -492,7 +501,7 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.justforlxz.com/2020/01/31/浅谈Javascript构造器模式/";
+    this.page.url = "https://blog.justforlxz.com/2020/01/31/%E6%B5%85%E8%B0%88Javascript%E6%9E%84%E9%80%A0%E5%99%A8%E6%A8%A1%E5%BC%8F/";
     this.page.identifier = "2020/01/31/浅谈Javascript构造器模式/";
     this.page.title = "浅谈Javascript构造器模式";
     };

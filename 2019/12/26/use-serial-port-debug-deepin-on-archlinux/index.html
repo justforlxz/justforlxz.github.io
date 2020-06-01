@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -21,17 +21,17 @@
   </script>
 
   <meta name="description" content="电脑主板上的接口：进行串行传输的接口，它一次只能传输1Bit。串行端口可以用于连接外置调制解调器、绘图仪或串行打印机。它也可以控制台连接的方式连接网络设备，例如路由器和交换机，主要用来配置它们。消费性电子已经由USB取代串列接口；但在非消费性用途，如网络设备等，串列接口仍是主要的传输控制方式。">
-<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在ArchLinux通过串口调试VMware虚拟机中的deepin">
 <meta property="og:url" content="https://blog.justforlxz.com/2019/12/26/use-serial-port-debug-deepin-on-archlinux/index.html">
 <meta property="og:site_name" content="小竹&#39;s blog">
 <meta property="og:description" content="电脑主板上的接口：进行串行传输的接口，它一次只能传输1Bit。串行端口可以用于连接外置调制解调器、绘图仪或串行打印机。它也可以控制台连接的方式连接网络设备，例如路由器和交换机，主要用来配置它们。消费性电子已经由USB取代串列接口；但在非消费性用途，如网络设备等，串列接口仍是主要的传输控制方式。">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2020-05-31T15:39:00.631Z">
+<meta property="article:published_time" content="2019-12-26T17:26:13.000Z">
+<meta property="article:modified_time" content="2020-06-01T01:00:51.765Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在ArchLinux通过串口调试VMware虚拟机中的deepin">
-<meta name="twitter:description" content="电脑主板上的接口：进行串行传输的接口，它一次只能传输1Bit。串行端口可以用于连接外置调制解调器、绘图仪或串行打印机。它也可以控制台连接的方式连接网络设备，例如路由器和交换机，主要用来配置它们。消费性电子已经由USB取代串列接口；但在非消费性用途，如网络设备等，串列接口仍是主要的传输控制方式。">
 
 <link rel="canonical" href="https://blog.justforlxz.com/2019/12/26/use-serial-port-debug-deepin-on-archlinux/">
 
@@ -95,6 +95,7 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -215,7 +216,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-31 15:39:00" itemprop="dateModified" datetime="2020-05-31T15:39:00+00:00">2020-05-31</time>
+                <time title="Modified: 2020-06-01 01:00:51" itemprop="dateModified" datetime="2020-06-01T01:00:51+00:00">2020-06-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,7 +261,7 @@
 <p>socket方式需要给一个固定的路径分配/tmp/<socket>，我调试的时候给出的是/tmp/vhost，From选择Server，To选择An Application。From的意思是信息从哪里来，信息是虚拟机里的系统发出的，所以这里选择的是Server，如果是反向操作，需要选择Client。To也是有两个选项，第一个是An Virtual Machine，第二个是An Application。用于把消息发送给另外的虚拟机，或者是宿主机的一个应用程序。</socket></p>
 <p>安装minicom包，用于进行调试，minicom这个东西，不是太好用，退出方式是先按Ctrl+A，然后按q，有时候还不一定管用，不知道是没接受到，还是按错了。</p>
 <p>先minicom -s 进行初始化，选择<code>Serial port setup</code>，按A编辑<code>Serial Device</code>，这里需要注意一下，通过socket进行调试，需要使用<code>unix#</code>前缀，然后加上在虚拟机里写的路径 <code>unix#/tmp/vhost</code>。然后保存，选择Exit，退出以后其实重启minicom，就进入minicom的调试界面了，然后此时开启虚拟机，给内核添加一个console=ttyS0的参数，就看到minicom显示输出的信息了，还可以交互。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[    3.855725] [drm:vmw_fb_setcolreg [vmwgfx]] *ERROR* Bad regno 254.</span><br><span class="line">[    3.857125] [drm:vmw_fb_setcolreg [vmwgfx]] *ERROR* Bad regno 255.</span><br><span class="line">deepin Login:</span><br><span class="line"></span><br><span class="line">CTRL-A Z for help | unix-socket | NOR | Minicom 2.7.1 | VT102 | Offline | unix#/tmp/vhost</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[    3.855725] [drm:vmw_fb_setcolreg [vmwgfx]] *ERROR* Bad regno 254.</span><br><span class="line">[    3.857125] [drm:vmw_fb_setcolreg [vmwgfx]] *ERROR* Bad regno 255.</span><br><span class="line">deepin Login:</span><br><span class="line"></span><br><span class="line">CTRL-A Z for help | unix-socket | NOR | Minicom 2.7.1 | VT102 | Offline | unix#&#x2F;tmp&#x2F;vhost</span><br></pre></td></tr></table></figure>
 
 <p>此时就可以交互了，用法和tty一样，最后一行是minicom的输出，可以看到CTRL-A Z可以看help，minicom的版本，和访问的串口socket。</p>
 
@@ -285,7 +286,7 @@
       <i class="fa fa-chevron-left"></i> 使用标准库std::sort函数进行排序
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/01/01/使用伪元素创建一个圆点/" rel="next" title="使用伪元素创建一个圆点">
+    <a href="/2020/01/01/%E4%BD%BF%E7%94%A8%E4%BC%AA%E5%85%83%E7%B4%A0%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%9C%86%E7%82%B9/" rel="next" title="使用伪元素创建一个圆点">
       使用伪元素创建一个圆点 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -374,29 +375,29 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/justforlxz" title="GitHub → https://github.com/justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/justforlxz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
         <a href="mailto:justforlxz@gmail.com" title="E-Mail → mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/5906290378" title="Weibo → https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
+        <a href="https://weibo.com/5906290378" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://twitter.com/justforlxz" title="Twitter → https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+        <a href="https://twitter.com/justforlxz" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
       </span>
   </div>
 
@@ -427,7 +428,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">小竹</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
@@ -447,9 +448,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 

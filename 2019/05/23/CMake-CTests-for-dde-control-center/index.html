@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -20,18 +20,18 @@
     var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="什么是单元测试?  在计算机编程中，单元测试又称为模块测试，是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。  单元测试存在的意义在于，如果程序发生了异常情况，比如接收了错误的值，从而导致结果不正确，当修正程序中的错误后，为了避免再次遇到这个问题，需要对出问题的值和函数/功能进行一次测试，确保结果符合预期。 单元测试很重要，如果是新项目，请一定要刚开始就规划好单元测试。 为什么说单">
-<meta name="keywords" content="CMake Linux">
+  <meta name="description" content="什么是单元测试?  在计算机编程中，单元测试又称为模块测试，是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。  单元测试存在的意义在于，如果程序发生了异常情况，比如接收了错误的值，从而导致结果不正确，当修正程序中的错误后，为了避免再次遇到这个问题，需要对出问题的值和函数&#x2F;功能进行一次测试，确保结果符合预期。 单元测试很重要，如果是新项目，请一定要刚开始就规划好单元测试。 为什么说单">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CMake CTests for dde-control-center">
 <meta property="og:url" content="https://blog.justforlxz.com/2019/05/23/CMake-CTests-for-dde-control-center/index.html">
 <meta property="og:site_name" content="小竹&#39;s blog">
-<meta property="og:description" content="什么是单元测试?  在计算机编程中，单元测试又称为模块测试，是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。  单元测试存在的意义在于，如果程序发生了异常情况，比如接收了错误的值，从而导致结果不正确，当修正程序中的错误后，为了避免再次遇到这个问题，需要对出问题的值和函数/功能进行一次测试，确保结果符合预期。 单元测试很重要，如果是新项目，请一定要刚开始就规划好单元测试。 为什么说单">
+<meta property="og:description" content="什么是单元测试?  在计算机编程中，单元测试又称为模块测试，是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。  单元测试存在的意义在于，如果程序发生了异常情况，比如接收了错误的值，从而导致结果不正确，当修正程序中的错误后，为了避免再次遇到这个问题，需要对出问题的值和函数&#x2F;功能进行一次测试，确保结果符合预期。 单元测试很重要，如果是新项目，请一定要刚开始就规划好单元测试。 为什么说单">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2020-05-31T15:39:00.595Z">
+<meta property="article:published_time" content="2019-05-23T17:16:15.000Z">
+<meta property="article:modified_time" content="2020-06-01T01:00:51.729Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="CMake Linux">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CMake CTests for dde-control-center">
-<meta name="twitter:description" content="什么是单元测试?  在计算机编程中，单元测试又称为模块测试，是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。  单元测试存在的意义在于，如果程序发生了异常情况，比如接收了错误的值，从而导致结果不正确，当修正程序中的错误后，为了避免再次遇到这个问题，需要对出问题的值和函数/功能进行一次测试，确保结果符合预期。 单元测试很重要，如果是新项目，请一定要刚开始就规划好单元测试。 为什么说单">
 
 <link rel="canonical" href="https://blog.justforlxz.com/2019/05/23/CMake-CTests-for-dde-control-center/">
 
@@ -95,6 +95,7 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -215,7 +216,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-31 15:39:00" itemprop="dateModified" datetime="2020-05-31T15:39:00+00:00">2020-05-31</time>
+                <time title="Modified: 2020-06-01 01:00:51" itemprop="dateModified" datetime="2020-06-01T01:00:51+00:00">2020-06-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -269,19 +270,18 @@
 <p>控制中心项目使用的CMake作为项目构建工具，所以用到了CTests，控制中心使用的Qt进行的开发，Qt也提供了自己的单元测试，我两个都做了支持。</p>
 <p>在顶层的CMakeLists.txt中添加CTests的支持：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 启用CTest检查</span><br><span class="line">include(Dart)</span><br><span class="line"></span><br><span class="line"># 启用CTest</span><br><span class="line">include(CTest)</span><br></pre></td></tr></table></figure>
-
 <p>这两行内容需要在顶层CMakeLists.txt中添加，不然不会生效。</p>
 <p>在子项目中创建一个dcc_test.h，用来写单元测试的类。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#ifndef DCC_TEST_H</span><br><span class="line">#define DCC_TEST_H</span><br><span class="line"></span><br><span class="line">#include &lt;QMap&gt;</span><br><span class="line">#include &lt;QString&gt;</span><br><span class="line">#include &lt;QTest&gt;</span><br><span class="line"></span><br><span class="line">#include &quot;modules/display/displaywidget.h&quot;</span><br><span class="line"></span><br><span class="line">namespace Tests &#123;</span><br><span class="line"></span><br><span class="line">class Tests : public QObject &#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"></span><br><span class="line">private Q_SLOTS:</span><br><span class="line">    void testSliderValue_data()</span><br><span class="line">    &#123;</span><br><span class="line">        QTest::addColumn&lt;float&gt;(&quot;value&quot;);</span><br><span class="line">        QTest::addColumn&lt;int&gt;(&quot;result&quot;);</span><br><span class="line"></span><br><span class="line">        QMap&lt;float, int&gt; testMap&#123; &#123; 1.0, 1 &#125;,  &#123; 1.25, 2 &#125;, &#123; 1.5, 3 &#125;,</span><br><span class="line">                                  &#123; 1.75, 4 &#125;, &#123; 2.0, 5 &#125;,  &#123; 2.25, 6 &#125;,</span><br><span class="line">                                  &#123; 2.5, 7 &#125;,  &#123; 2.75, 8 &#125;, &#123; 3.0, 9 &#125; &#125;;</span><br><span class="line"></span><br><span class="line">        for (auto it = testMap.constBegin(); it != testMap.constEnd(); ++it) &#123;</span><br><span class="line">            QTest::newRow(&quot;converToSlider&quot;) &lt;&lt; it.key() &lt;&lt; it.value();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    void testSliderValue()</span><br><span class="line">    &#123;</span><br><span class="line">        QFETCH(float, value);</span><br><span class="line">        QFETCH(int, result);</span><br><span class="line"></span><br><span class="line">        using namespace dcc::display;</span><br><span class="line"></span><br><span class="line">        QCOMPARE(DisplayWidget::convertToSlider(value), result);</span><br><span class="line">        QCOMPARE(DisplayWidget::convertToScale(result), value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&#125;  // namespace Tests</span><br><span class="line"></span><br><span class="line">QTEST_MAIN(Tests::Tests)</span><br><span class="line">#endif  // !DCC_TEST_H</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#ifndef DCC_TEST_H</span><br><span class="line">#define DCC_TEST_H</span><br><span class="line"></span><br><span class="line">#include &lt;QMap&gt;</span><br><span class="line">#include &lt;QString&gt;</span><br><span class="line">#include &lt;QTest&gt;</span><br><span class="line"></span><br><span class="line">#include &quot;modules&#x2F;display&#x2F;displaywidget.h&quot;</span><br><span class="line"></span><br><span class="line">namespace Tests &#123;</span><br><span class="line"></span><br><span class="line">class Tests : public QObject &#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"></span><br><span class="line">private Q_SLOTS:</span><br><span class="line">    void testSliderValue_data()</span><br><span class="line">    &#123;</span><br><span class="line">        QTest::addColumn&lt;float&gt;(&quot;value&quot;);</span><br><span class="line">        QTest::addColumn&lt;int&gt;(&quot;result&quot;);</span><br><span class="line"></span><br><span class="line">        QMap&lt;float, int&gt; testMap&#123; &#123; 1.0, 1 &#125;,  &#123; 1.25, 2 &#125;, &#123; 1.5, 3 &#125;,</span><br><span class="line">                                  &#123; 1.75, 4 &#125;, &#123; 2.0, 5 &#125;,  &#123; 2.25, 6 &#125;,</span><br><span class="line">                                  &#123; 2.5, 7 &#125;,  &#123; 2.75, 8 &#125;, &#123; 3.0, 9 &#125; &#125;;</span><br><span class="line"></span><br><span class="line">        for (auto it &#x3D; testMap.constBegin(); it !&#x3D; testMap.constEnd(); ++it) &#123;</span><br><span class="line">            QTest::newRow(&quot;converToSlider&quot;) &lt;&lt; it.key() &lt;&lt; it.value();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    void testSliderValue()</span><br><span class="line">    &#123;</span><br><span class="line">        QFETCH(float, value);</span><br><span class="line">        QFETCH(int, result);</span><br><span class="line"></span><br><span class="line">        using namespace dcc::display;</span><br><span class="line"></span><br><span class="line">        QCOMPARE(DisplayWidget::convertToSlider(value), result);</span><br><span class="line">        QCOMPARE(DisplayWidget::convertToScale(result), value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&#125;  &#x2F;&#x2F; namespace Tests</span><br><span class="line"></span><br><span class="line">QTEST_MAIN(Tests::Tests)</span><br><span class="line">#endif  &#x2F;&#x2F; !DCC_TEST_H</span><br></pre></td></tr></table></figure>
 
 <p>在子项目的CMakeLists.txt中添加一个二进制，用来当作单元测试程序。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 这个宏是Dart提供的，用来判断是否开启CTest</span><br><span class="line">if(BUILD_TESTING)</span><br><span class="line">find_package(Qt5 COMPONENTS</span><br><span class="line">    Test</span><br><span class="line">REQUIRED)</span><br><span class="line"></span><br><span class="line">set(Qt_LIBS</span><br><span class="line">    $&#123;Qt_LIBS&#125;</span><br><span class="line">    Qt5::Test</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">set(TEST_SRCS</span><br><span class="line">tests/dcc_test.h</span><br><span class="line">$&#123;DISPLAY_FILES&#125;</span><br><span class="line">$&#123;WIDGETS_FILES&#125;</span><br><span class="line">$&#123;MODULE_FILES&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"># 添加一个叫unit-test的二进制</span><br><span class="line">add_executable(unit-test</span><br><span class="line">$&#123;TEST_SRCS&#125;</span><br><span class="line">$&#123;PROJECT_BINARY_DIR&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">target_include_directories(unit-test PUBLIC</span><br><span class="line">$&#123;TEST_SRCS&#125;</span><br><span class="line">$&#123;PROJECT_BINARY_DIR&#125;</span><br><span class="line">$&#123;DFrameworkDBus_INCLUDE_DIRS&#125;</span><br><span class="line">$&#123;QGSettings_INCLUDE_DIRS&#125;</span><br><span class="line">$&#123;Qt5Gui_PRIVATE_INCLUDE_DIRS&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">target_link_libraries(unit-test PRIVATE</span><br><span class="line">$&#123;Qt_LIBS&#125;</span><br><span class="line">$&#123;DFrameworkDBus_LIBRARIES&#125;</span><br><span class="line">$&#123;QGSettings_LIBRARIES&#125;</span><br><span class="line">$&#123;DtkWidget_LIBRARIES&#125;</span><br><span class="line">$&#123;XCB_EWMH_LIBRARIES&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 这个宏是Dart提供的，用来判断是否开启CTest</span><br><span class="line">if(BUILD_TESTING)</span><br><span class="line">find_package(Qt5 COMPONENTS</span><br><span class="line">    Test</span><br><span class="line">REQUIRED)</span><br><span class="line"></span><br><span class="line">set(Qt_LIBS</span><br><span class="line">    $&#123;Qt_LIBS&#125;</span><br><span class="line">    Qt5::Test</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">set(TEST_SRCS</span><br><span class="line">tests&#x2F;dcc_test.h</span><br><span class="line">$&#123;DISPLAY_FILES&#125;</span><br><span class="line">$&#123;WIDGETS_FILES&#125;</span><br><span class="line">$&#123;MODULE_FILES&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"># 添加一个叫unit-test的二进制</span><br><span class="line">add_executable(unit-test</span><br><span class="line">$&#123;TEST_SRCS&#125;</span><br><span class="line">$&#123;PROJECT_BINARY_DIR&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">target_include_directories(unit-test PUBLIC</span><br><span class="line">$&#123;TEST_SRCS&#125;</span><br><span class="line">$&#123;PROJECT_BINARY_DIR&#125;</span><br><span class="line">$&#123;DFrameworkDBus_INCLUDE_DIRS&#125;</span><br><span class="line">$&#123;QGSettings_INCLUDE_DIRS&#125;</span><br><span class="line">$&#123;Qt5Gui_PRIVATE_INCLUDE_DIRS&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">target_link_libraries(unit-test PRIVATE</span><br><span class="line">$&#123;Qt_LIBS&#125;</span><br><span class="line">$&#123;DFrameworkDBus_LIBRARIES&#125;</span><br><span class="line">$&#123;QGSettings_LIBRARIES&#125;</span><br><span class="line">$&#123;DtkWidget_LIBRARIES&#125;</span><br><span class="line">$&#123;XCB_EWMH_LIBRARIES&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
 <p>到这里，直接编译启动unit-test就可以使用Qt的单元测试了，但是加上CTest的支持只需要一行：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add_test(ctest unit-test)</span><br><span class="line">endif()</span><br></pre></td></tr></table></figure>
 
 <p>使用ctest -j6 -C Debug -T test –output-on-failure跑CTest，得到执行结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[ctest]    Site: xiaomi-air</span><br><span class="line">[ctest]    Build name: Linux-c++</span><br><span class="line">[ctest] Test project /home/justforlxz/Projects/Deepin/dde-control-center/build</span><br><span class="line">[ctest]     Start 1: ctest</span><br><span class="line">[ctest] 1/1 Test #1: ctest ............................   Passed    0.05 sec</span><br><span class="line">[ctest]</span><br><span class="line">[ctest] 100% tests passed, 0 tests failed out of 1</span><br><span class="line">[ctest]</span><br><span class="line">[ctest] Total Test time (real) =   0.06 sec</span><br><span class="line">[ctest] CTest finished with return code 0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[ctest]    Site: xiaomi-air</span><br><span class="line">[ctest]    Build name: Linux-c++</span><br><span class="line">[ctest] Test project &#x2F;home&#x2F;justforlxz&#x2F;Projects&#x2F;Deepin&#x2F;dde-control-center&#x2F;build</span><br><span class="line">[ctest]     Start 1: ctest</span><br><span class="line">[ctest] 1&#x2F;1 Test #1: ctest ............................   Passed    0.05 sec</span><br><span class="line">[ctest]</span><br><span class="line">[ctest] 100% tests passed, 0 tests failed out of 1</span><br><span class="line">[ctest]</span><br><span class="line">[ctest] Total Test time (real) &#x3D;   0.06 sec</span><br><span class="line">[ctest] CTest finished with return code 0</span><br></pre></td></tr></table></figure>
 
 <p>如果是跑unit-test二进制，则会得到Qt打印的相关信息：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">********* Start testing of Tests::Tests *********</span><br><span class="line">Config: Using QtTest library 5.12.3, Qt 5.12.3 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 8.3.0)</span><br><span class="line">PASS   : Tests::Tests::initTestCase()</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::testSliderValue(converToSlider)</span><br><span class="line">PASS   : Tests::Tests::cleanupTestCase()</span><br><span class="line">Totals: 11 passed, 0 failed, 0 skipped, 0 blacklisted, 0ms</span><br><span class="line">********* Finished testing of Tests::Tests *********</span><br></pre></td></tr></table></figure>
@@ -310,7 +310,7 @@
       <i class="fa fa-chevron-left"></i> 如何在Deepin上使用LNMP
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/06/15/入坑typescript了/" rel="next" title="入坑typescript了">
+    <a href="/2019/06/15/%E5%85%A5%E5%9D%91typescript%E4%BA%86/" rel="next" title="入坑typescript了">
       入坑typescript了 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -399,29 +399,29 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/justforlxz" title="GitHub → https://github.com/justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/justforlxz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
         <a href="mailto:justforlxz@gmail.com" title="E-Mail → mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/5906290378" title="Weibo → https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
+        <a href="https://weibo.com/5906290378" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://twitter.com/justforlxz" title="Twitter → https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+        <a href="https://twitter.com/justforlxz" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
       </span>
   </div>
 
@@ -452,7 +452,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">小竹</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
@@ -472,9 +472,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 

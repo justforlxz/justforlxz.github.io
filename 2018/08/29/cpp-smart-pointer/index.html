@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -21,17 +21,17 @@
   </script>
 
   <meta name="description" content="其实一直都对智能指针的应用场景不清楚，项目中也很少用到，今天在 @zccrs 大佬的帮助下，大概理解了智能指针的作用和应用场景。">
-<meta name="keywords" content="C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="智能指针">
 <meta property="og:url" content="https://blog.justforlxz.com/2018/08/29/cpp-smart-pointer/index.html">
 <meta property="og:site_name" content="小竹&#39;s blog">
 <meta property="og:description" content="其实一直都对智能指针的应用场景不清楚，项目中也很少用到，今天在 @zccrs 大佬的帮助下，大概理解了智能指针的作用和应用场景。">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2020-05-31T15:39:00.595Z">
+<meta property="article:published_time" content="2018-08-29T09:43:17.000Z">
+<meta property="article:modified_time" content="2020-06-01T01:00:51.729Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="智能指针">
-<meta name="twitter:description" content="其实一直都对智能指针的应用场景不清楚，项目中也很少用到，今天在 @zccrs 大佬的帮助下，大概理解了智能指针的作用和应用场景。">
 
 <link rel="canonical" href="https://blog.justforlxz.com/2018/08/29/cpp-smart-pointer/">
 
@@ -95,6 +95,7 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -215,7 +216,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-31 15:39:00" itemprop="dateModified" datetime="2020-05-31T15:39:00+00:00">2020-05-31</time>
+                <time title="Modified: 2020-06-01 01:00:51" itemprop="dateModified" datetime="2020-06-01T01:00:51+00:00">2020-06-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -256,7 +257,7 @@
 <a id="more"></a>
 
 <h1 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h1><p>智能指针依赖一种叫引用计数的手段来协助管理对象指针，通过引用计数为0时删除对象指针来完成内存的释放，本质上是通过栈对象来管理堆对象的一种方法。</p>
-<h2 id="传统做法"><a href="#传统做法" class="headerlink" title="传统做法"></a>传统做法</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void test() &#123;</span><br><span class="line">    Test* t = new Test;</span><br><span class="line">    ...</span><br><span class="line">    if (...) &#123;</span><br><span class="line">        throw exception();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    delete t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="传统做法"><a href="#传统做法" class="headerlink" title="传统做法"></a>传统做法</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void test() &#123;</span><br><span class="line">    Test* t &#x3D; new Test;</span><br><span class="line">    ...</span><br><span class="line">    if (...) &#123;</span><br><span class="line">        throw exception();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    delete t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>当出现异常时，delete将不会被执行到，t也就泄露了。虽然我们可以在异常那里把delete给加上，但是在较为大型的项目中，如果对代码进行review来排查这种错误，将会是非常麻烦的一件事，所以为了避免内存泄漏，发明了基于引用技术的智能指针。</p>
 <h2 id="智能指针做法"><a href="#智能指针做法" class="headerlink" title="智能指针做法"></a>智能指针做法</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void test() &#123;</span><br><span class="line">    std::unique_ptr&lt;Test&gt; t(new Test);</span><br><span class="line">    ...</span><br><span class="line">    if (...) &#123;</span><br><span class="line">        throw exception();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -270,11 +271,11 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename T&gt;</span><br><span class="line">class P_ptr &#123;</span><br><span class="line">    private:</span><br><span class="line">        friend class Pointer&lt;T&gt;;</span><br><span class="line">        P_ptr(T t)</span><br><span class="line">        : pointer(t)</span><br><span class="line">        , count(1)</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        uint count;</span><br><span class="line">        T pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>外层的控制类</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename T&gt;</span><br><span class="line">class Pointer &#123;</span><br><span class="line">    public:</span><br><span class="line">        Pointer(T t)</span><br><span class="line">        : m_ptr(new P_ptr(t))</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Pointer(const Pointer &amp;pointer)</span><br><span class="line">        : m_ptr(pointer.m_ptr)</span><br><span class="line">        &#123;</span><br><span class="line">            ++m_ptr-&gt;count;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Pointer&amp; operator=(const Pointer &amp;pointer) &#123;</span><br><span class="line">            ++pointer-&gt;count;</span><br><span class="line">            if (--m_ptr-&gt;count == 0) &#123; // 应对自赋值</span><br><span class="line">                delete m_ptr;</span><br><span class="line">            &#125;</span><br><span class="line">            m_ptr = pointer-&gt;m_ptr;</span><br><span class="line">            return *this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ~Pointer() &#123;</span><br><span class="line">            if (--m_ptr-&gt;count == 0) &#123;</span><br><span class="line">                delete m_ptr;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    private:</span><br><span class="line">        P_ptr m_ptr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename T&gt;</span><br><span class="line">class Pointer &#123;</span><br><span class="line">    public:</span><br><span class="line">        Pointer(T t)</span><br><span class="line">        : m_ptr(new P_ptr(t))</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Pointer(const Pointer &amp;pointer)</span><br><span class="line">        : m_ptr(pointer.m_ptr)</span><br><span class="line">        &#123;</span><br><span class="line">            ++m_ptr-&gt;count;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Pointer&amp; operator&#x3D;(const Pointer &amp;pointer) &#123;</span><br><span class="line">            ++pointer-&gt;count;</span><br><span class="line">            if (--m_ptr-&gt;count &#x3D;&#x3D; 0) &#123; &#x2F;&#x2F; 应对自赋值</span><br><span class="line">                delete m_ptr;</span><br><span class="line">            &#125;</span><br><span class="line">            m_ptr &#x3D; pointer-&gt;m_ptr;</span><br><span class="line">            return *this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ~Pointer() &#123;</span><br><span class="line">            if (--m_ptr-&gt;count &#x3D;&#x3D; 0) &#123;</span><br><span class="line">                delete m_ptr;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    private:</span><br><span class="line">        P_ptr m_ptr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>通过重写控制类的拷贝构造函数和赋值运算符重载来更新引用计数。</p>
 <p>使用实例</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void test() &#123;</span><br><span class="line">    Pointer&lt;Test&gt; t(new Test); // 引用计数目前是1</span><br><span class="line">    Pointer&lt;Test&gt; t1 = t; // t的引用计数是2，t1的引用计数也是2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 离开作用域，t被删除，引用计数是1. t1被删除，引用计数为0，Test被删除，内存没有泄露。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void test() &#123;</span><br><span class="line">    Pointer&lt;Test&gt; t(new Test); &#x2F;&#x2F; 引用计数目前是1</span><br><span class="line">    Pointer&lt;Test&gt; t1 &#x3D; t; &#x2F;&#x2F; t的引用计数是2，t1的引用计数也是2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 离开作用域，t被删除，引用计数是1. t1被删除，引用计数为0，Test被删除，内存没有泄露。</span><br></pre></td></tr></table></figure>
 
 <p>这样我们就有一个简单的智能指针了，不过他还存在一些问题，比如循环引用导致内存泄漏，没有-&gt;和*的操作运算符等。所以我们需要更强大的智能指针来帮助我们。</p>
 <h1 id="几种智能指针的介绍"><a href="#几种智能指针的介绍" class="headerlink" title="几种智能指针的介绍"></a>几种智能指针的介绍</h1><p>标准库提供了几个针对不同方面使用的智能指针，以满足我们的需求。</p>
@@ -317,11 +318,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2018/07/14/卷积神经网络简述/" rel="prev" title="卷积神经网络简述">
+    <a href="/2018/07/14/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E8%BF%B0/" rel="prev" title="卷积神经网络简述">
       <i class="fa fa-chevron-left"></i> 卷积神经网络简述
     </a></div>
       <div class="post-nav-item">
-    <a href="/2018/11/09/hexo page move to coding/" rel="next" title="把博客转移到coding">
+    <a href="/2018/11/09/hexo%20page%20move%20to%20coding/" rel="next" title="把博客转移到coding">
       把博客转移到coding <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -411,29 +412,29 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/justforlxz" title="GitHub → https://github.com/justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/justforlxz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
         <a href="mailto:justforlxz@gmail.com" title="E-Mail → mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/5906290378" title="Weibo → https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
+        <a href="https://weibo.com/5906290378" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://twitter.com/justforlxz" title="Twitter → https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+        <a href="https://twitter.com/justforlxz" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
       </span>
   </div>
 
@@ -464,7 +465,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">小竹</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
@@ -484,9 +485,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -21,19 +21,19 @@
   </script>
 
   <meta name="description" content="webpack的出现方便了前端开发者，使开发和部署分成了两部分，开发者可以正常根据工程化的要求进行开发，部署时通过webpack实现代码的裁剪和优化。 本次就介绍一个webpack的功能 webpack-dev-server 将webpack与提供实时重载的开发服务器一起使用。这仅应用于开发。它在后台使用了webpack-dev-middleware，它提供了对Webpack资产的快速内存访问。">
-<meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用webpack-dev-server来监听项目变化">
-<meta property="og:url" content="https://blog.justforlxz.com/2019/11/25/使用webpack-dev-server来监听项目变化/index.html">
+<meta property="og:url" content="https://blog.justforlxz.com/2019/11/25/%E4%BD%BF%E7%94%A8webpack-dev-server%E6%9D%A5%E7%9B%91%E5%90%AC%E9%A1%B9%E7%9B%AE%E5%8F%98%E5%8C%96/index.html">
 <meta property="og:site_name" content="小竹&#39;s blog">
 <meta property="og:description" content="webpack的出现方便了前端开发者，使开发和部署分成了两部分，开发者可以正常根据工程化的要求进行开发，部署时通过webpack实现代码的裁剪和优化。 本次就介绍一个webpack的功能 webpack-dev-server 将webpack与提供实时重载的开发服务器一起使用。这仅应用于开发。它在后台使用了webpack-dev-middleware，它提供了对Webpack资产的快速内存访问。">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2020-05-31T15:39:00.631Z">
+<meta property="article:published_time" content="2019-11-25T17:54:36.000Z">
+<meta property="article:modified_time" content="2020-06-01T01:00:51.769Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用webpack-dev-server来监听项目变化">
-<meta name="twitter:description" content="webpack的出现方便了前端开发者，使开发和部署分成了两部分，开发者可以正常根据工程化的要求进行开发，部署时通过webpack实现代码的裁剪和优化。 本次就介绍一个webpack的功能 webpack-dev-server 将webpack与提供实时重载的开发服务器一起使用。这仅应用于开发。它在后台使用了webpack-dev-middleware，它提供了对Webpack资产的快速内存访问。">
 
-<link rel="canonical" href="https://blog.justforlxz.com/2019/11/25/使用webpack-dev-server来监听项目变化/">
+<link rel="canonical" href="https://blog.justforlxz.com/2019/11/25/%E4%BD%BF%E7%94%A8webpack-dev-server%E6%9D%A5%E7%9B%91%E5%90%AC%E9%A1%B9%E7%9B%AE%E5%8F%98%E5%8C%96/">
 
 
 <script id="page-configurations">
@@ -95,6 +95,7 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -185,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
-    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/11/25/使用webpack-dev-server来监听项目变化/">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2019/11/25/%E4%BD%BF%E7%94%A8webpack-dev-server%E6%9D%A5%E7%9B%91%E5%90%AC%E9%A1%B9%E7%9B%AE%E5%8F%98%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/12298476?s=460&u=2c38b7ed987489b75cd4d1ee1353c671add86985&v=4">
@@ -215,7 +216,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-31 15:39:00" itemprop="dateModified" datetime="2020-05-31T15:39:00+00:00">2020-05-31</time>
+                <time title="Modified: 2020-06-01 01:00:51" itemprop="dateModified" datetime="2020-06-01T01:00:51+00:00">2020-06-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -236,7 +237,7 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2019/11/25/使用webpack-dev-server来监听项目变化/#disqus_thread" itemprop="discussionUrl">
+    <a title="disqus" href="/2019/11/25/%E4%BD%BF%E7%94%A8webpack-dev-server%E6%9D%A5%E7%9B%91%E5%90%AC%E9%A1%B9%E7%9B%AE%E5%8F%98%E5%8C%96/#disqus_thread" itemprop="discussionUrl">
       <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/25/使用webpack-dev-server来监听项目变化/" itemprop="commentCount"></span>
     </a>
   </span>
@@ -262,14 +263,14 @@
 <h2 id="启用webpack-dev-server"><a href="#启用webpack-dev-server" class="headerlink" title="启用webpack-dev-server"></a>启用webpack-dev-server</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -D webpack-dev-server</span><br></pre></td></tr></table></figure>
 
 <p>在webpack.config.js中添加devServer对象：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var path = require(&apos;path&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    contentBase: path.join(__dirname, &apos;dist&apos;),</span><br><span class="line">    compress: true, // 开启压缩</span><br><span class="line">    port: 9000 // 指定运行的端口</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var path &#x3D; require(&#39;path&#39;);</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F;...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    contentBase: path.join(__dirname, &#39;dist&#39;),</span><br><span class="line">    compress: true, &#x2F;&#x2F; 开启压缩</span><br><span class="line">    port: 9000 &#x2F;&#x2F; 指定运行的端口</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>然后通过<code>npx webpack-dev-server</code>启动，终端上会输出一些信息，一般我们会增加一些参数来使输出更加好看:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">webpack-dev-server --devtool eval-source-map --progress --colors --hot --inline</span><br></pre></td></tr></table></figure>
 
 <p>上面的命令增加一个开发工具 <code>eval-source-map</code>，开启了progress进度显示，开启了colors颜色，hot热更新和inline更新模式。上面的参数也可以添加到devServer的属性中。</p>
 <p>终端输出的内容如下:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10% building 1/1 modules 0 activeℹ ｢wds｣: Project is running at http://localhost:9000/</span><br><span class="line">ℹ ｢wds｣: webpack output is served from /dist/</span><br><span class="line">ℹ ｢wds｣: Content not from webpack is served from /home/justforlxz/Projects/VueBlog/dist</span><br><span class="line">ℹ ｢wdm｣: Hash: ff9005d9f6ffafd11cd4</span><br><span class="line">Version: webpack 4.41.0</span><br><span class="line">Time: 2938ms</span><br><span class="line">Built at: 11/25/2019 6:03:50 PM</span><br><span class="line">  Asset      Size  Chunks             Chunk Names</span><br><span class="line">main.js  2.09 MiB    main  [emitted]  main</span><br><span class="line">Entrypoint main = main.js</span><br><span class="line">[0] multi (webpack)-dev-server/client?http://localhost:9000 (webpack)/hot/dev-server.js ./src/main.ts 52 bytes &#123;main&#125; [built]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10% building 1&#x2F;1 modules 0 activeℹ ｢wds｣: Project is running at http:&#x2F;&#x2F;localhost:9000&#x2F;</span><br><span class="line">ℹ ｢wds｣: webpack output is served from &#x2F;dist&#x2F;</span><br><span class="line">ℹ ｢wds｣: Content not from webpack is served from &#x2F;home&#x2F;justforlxz&#x2F;Projects&#x2F;VueBlog&#x2F;dist</span><br><span class="line">ℹ ｢wdm｣: Hash: ff9005d9f6ffafd11cd4</span><br><span class="line">Version: webpack 4.41.0</span><br><span class="line">Time: 2938ms</span><br><span class="line">Built at: 11&#x2F;25&#x2F;2019 6:03:50 PM</span><br><span class="line">  Asset      Size  Chunks             Chunk Names</span><br><span class="line">main.js  2.09 MiB    main  [emitted]  main</span><br><span class="line">Entrypoint main &#x3D; main.js</span><br><span class="line">[0] multi (webpack)-dev-server&#x2F;client?http:&#x2F;&#x2F;localhost:9000 (webpack)&#x2F;hot&#x2F;dev-server.js .&#x2F;src&#x2F;main.ts 52 bytes &#123;main&#125; [built]</span><br></pre></td></tr></table></figure>
 
 <p>我们就可以通过localhost:9000来访问我们的应用了。</p>
 <p>需要注意的是，由于我们经常把内容输出到dist目录，但是webpack运行是在项目目录的，访问webpack生成在dist目录的main.js时，需要写上相对于webpack的目录，例如dist/main.js。否则会找不到文件。</p>
@@ -277,43 +278,43 @@
 <h2 id="配置webpack"><a href="#配置webpack" class="headerlink" title="配置webpack"></a>配置webpack</h2><p>webpack-dev-server支持在服务内部调用中间件对数据进行处理。</p>
 <h3 id="devServer-before"><a href="#devServer-before" class="headerlink" title="devServer.before"></a>devServer.before</h3><p><code>function (app, server)</code></p>
 <p>在服务内部的所有其他中间件之前， 提供执行自定义中间件的功能。 这可以用来配置自定义处理程序，例如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    before: function(app, server) &#123;</span><br><span class="line">      app.get(&apos;/some/path&apos;, function(req, res) &#123;</span><br><span class="line">        res.json(&#123; custom: &apos;response&apos; &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F;...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    before: function(app, server) &#123;</span><br><span class="line">      app.get(&#39;&#x2F;some&#x2F;path&#39;, function(req, res) &#123;</span><br><span class="line">        res.json(&#123; custom: &#39;response&#39; &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h3 id="devServer-after"><a href="#devServer-after" class="headerlink" title="devServer.after"></a>devServer.after</h3><p>同devServer.before，在服务内部的所有中间件之后，提供执行自定义中间件的功能。</p>
 <h3 id="devServer-allowedHosts"><a href="#devServer-allowedHosts" class="headerlink" title="devServer.allowedHosts"></a>devServer.allowedHosts</h3><p>允许添加白名单服务，允许一些开发服务器访问。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    allowedHosts: [</span><br><span class="line">      &apos;host.com&apos;,</span><br><span class="line">      &apos;subdomain.host.com&apos;,</span><br><span class="line">      &apos;subdomain2.host.com&apos;,</span><br><span class="line">      &apos;host2.com&apos;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F;...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    allowedHosts: [</span><br><span class="line">      &#39;host.com&#39;,</span><br><span class="line">      &#39;subdomain.host.com&#39;,</span><br><span class="line">      &#39;subdomain2.host.com&#39;,</span><br><span class="line">      &#39;host2.com&#39;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>模仿 django 的 ALLOWED_HOSTS，以 . 开头的值可以用作子域通配符。.host.com 将会匹配 host.com, <a href="http://www.host.com" target="_blank" rel="noopener">www.host.com</a> 和 host.com 的任何其他子域名。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    // 这实现了与第一个示例相同的效果，</span><br><span class="line">    // 如果新的子域名需要访问 dev server，</span><br><span class="line">    // 则无需更新您的配置</span><br><span class="line">    allowedHosts: [</span><br><span class="line">      &apos;.host.com&apos;,</span><br><span class="line">      &apos;host2.com&apos;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F;...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    &#x2F;&#x2F; 这实现了与第一个示例相同的效果，</span><br><span class="line">    &#x2F;&#x2F; 如果新的子域名需要访问 dev server，</span><br><span class="line">    &#x2F;&#x2F; 则无需更新您的配置</span><br><span class="line">    allowedHosts: [</span><br><span class="line">      &#39;.host.com&#39;,</span><br><span class="line">      &#39;host2.com&#39;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h3 id="devServer-clientLogLevel"><a href="#devServer-clientLogLevel" class="headerlink" title="devServer.clientLogLevel"></a>devServer.clientLogLevel</h3><p><code>string: &#39;none&#39; | &#39;info&#39; | &#39;error&#39; | &#39;warning&#39;</code></p>
 <p>当使用内联模式(inline mode)时，会在开发工具(DevTools)的控制台(console)显示消息，例如：在重新加载之前，在一个错误之前，或者 模块热替换(Hot Module Replacement) 启用时。默认值是 info。</p>
 <p>devServer.clientLogLevel 可能会显得很繁琐，你可以通过将其设置为 ‘none’ 来关闭 log。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    clientLogLevel: &apos;none&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F;...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    clientLogLevel: &#39;none&#39;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h3 id="devServer-color-只用于命令行工具-CLI"><a href="#devServer-color-只用于命令行工具-CLI" class="headerlink" title="devServer.color  - 只用于命令行工具(CLI)"></a>devServer.color  - 只用于命令行工具(CLI)</h3><p>只在终端下启用，启用/禁用控制台的彩色输出。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">webpack-dev-server --color</span><br></pre></td></tr></table></figure>
 
 <h3 id="devServer-compress"><a href="#devServer-compress" class="headerlink" title="devServer.compress"></a>devServer.compress</h3><p><code>boolean</code></p>
 <p>一切服务都开启gzip压缩。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    compress: true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F;...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    compress: true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h3 id="devServer-contentBase"><a href="#devServer-contentBase" class="headerlink" title="devServer.contentBase"></a>devServer.contentBase</h3><p><code>boolean: false string [string] number</code></p>
 <p>告诉服务器从哪个目录中提供内容。只有在你想要提供静态文件时才需要。devServer.publicPath 将用于确定应该从哪里提供 bundle，并且此选项优先。</p>
 <p>默认情况下，将使用当前工作目录作为提供内容的目录。将其设置为 false 以禁用 contentBase。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    contentBase: path.join(__dirname, &apos;public&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F;...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    contentBase: path.join(__dirname, &#39;public&#39;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>也可以从多个目录提供内容：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    contentBase: [path.join(__dirname, &apos;public&apos;), path.join(__dirname, &apos;assets&apos;)]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F;...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    contentBase: [path.join(__dirname, &#39;public&#39;), path.join(__dirname, &#39;assets&#39;)]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h3 id="devServer-disableHostCheck"><a href="#devServer-disableHostCheck" class="headerlink" title="devServer.disableHostCheck"></a>devServer.disableHostCheck</h3><p><code>boolean</code></p>
 <p>设置为 true 时，此选项绕过主机检查。不建议这样做，因为不检查主机的应用程序容易受到 DNS 重新连接攻击。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    disableHostCheck: true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F;...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    disableHostCheck: true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h3 id="devServer-filename"><a href="#devServer-filename" class="headerlink" title="devServer.filename"></a>devServer.filename</h3><p><code>string</code></p>
 <p>在 lazy mode(惰性模式) 中，此选项可减少编译。 默认在 lazy mode(惰性模式)，每个请求结果都会产生全新的编译。使用 filename，可以只在某个文件被请求时编译。</p>
 <p>如果 output.filename 设置为 ‘bundle.js’ ，devServer.filename 用法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &apos;bundle.js&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    lazy: true,</span><br><span class="line">    filename: &apos;bundle.js&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F;...</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &#39;bundle.js&#39;</span><br><span class="line">  &#125;,</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    lazy: true,</span><br><span class="line">    filename: &#39;bundle.js&#39;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>现在只有在请求了bundle.js时，才会去编译bundle。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>webpack的功能确实很强大，可以针对代码进行各种操作，最终生成出可以适应各种场景的代码，使开发和部署彻底分离开来，开发者可以更加专注项目。</p>
@@ -335,7 +336,7 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/10/24/给Archlinux开启BFQ和MuQSS/" rel="prev" title="给Archlinux开启BFQ和MuQSS">
+    <a href="/2019/10/24/%E7%BB%99Archlinux%E5%BC%80%E5%90%AFBFQ%E5%92%8CMuQSS/" rel="prev" title="给Archlinux开启BFQ和MuQSS">
       <i class="fa fa-chevron-left"></i> 给Archlinux开启BFQ和MuQSS
     </a></div>
       <div class="post-nav-item">
@@ -429,29 +430,29 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/justforlxz" title="GitHub → https://github.com/justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/justforlxz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
         <a href="mailto:justforlxz@gmail.com" title="E-Mail → mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/5906290378" title="Weibo → https://weibo.com/5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
+        <a href="https://weibo.com/5906290378" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://twitter.com/justforlxz" title="Twitter → https://twitter.com/justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+        <a href="https://twitter.com/justforlxz" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
       </span>
   </div>
 
@@ -482,7 +483,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">小竹</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
@@ -502,9 +503,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -540,7 +549,7 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.justforlxz.com/2019/11/25/使用webpack-dev-server来监听项目变化/";
+    this.page.url = "https://blog.justforlxz.com/2019/11/25/%E4%BD%BF%E7%94%A8webpack-dev-server%E6%9D%A5%E7%9B%91%E5%90%AC%E9%A1%B9%E7%9B%AE%E5%8F%98%E5%8C%96/";
     this.page.identifier = "2019/11/25/使用webpack-dev-server来监听项目变化/";
     this.page.title = "使用webpack-dev-server来监听项目变化";
     };
