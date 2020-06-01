@@ -15182,7 +15182,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.id, ".wrapper {\n  min-width: 500px;\n}\n.wrapper .page {\n    width: 100%;\n}\n.wrapper .page .post {\n      margin-bottom: 10px;\n}\n.wrapper .page .pageOrder {\n      width: 50%;\n      overflow: hidden;\n      margin: 0 auto;\n}\n.wrapper .page .pageOrder .button {\n        width: 141px;\n        height: 36px;\n        padding: 0px auto;\n}\n.wrapper .page .pageOrder .prepage {\n        float: left;\n}\n.wrapper .page .pageOrder .nextpage {\n        float: right;\n}\n", ""]);
+exports.push([module.id, ".wrapper {\n  min-width: 100px;\n}\n.wrapper .page {\n    width: 100%;\n}\n.wrapper .page .post {\n      margin-bottom: 10px;\n}\n.wrapper .page .pageOrder {\n      width: 50%;\n      overflow: hidden;\n      margin: 0 auto;\n}\n.wrapper .page .pageOrder .button {\n        width: 141px;\n        height: 36px;\n        padding: 0px auto;\n}\n.wrapper .page .pageOrder .prepage {\n        float: left;\n}\n.wrapper .page .pageOrder .nextpage {\n        float: right;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
