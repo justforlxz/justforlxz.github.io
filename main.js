@@ -15162,7 +15162,7 @@ module.exports = {
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.id, "body {\n  margin: 0px 0px;\n}\n#app {\n  background: #eee;\n}\n#site {\n  display: flex;\n}\n#site #site-side {\n    min-width: 240px;\n}\n", ""]);
+exports.push([module.id, "body {\n  margin: 0px 0px;\n}\n#app {\n  background: #eee;\n}\n#site {\n  overflow: auto;\n  position: relative;\n  margin: 0 auto;\n}\n@media only screen and (min-width: 768px) {\n#site {\n      width: 95%;\n}\n#site #site-side {\n        width: 100%;\n        margin: 0;\n}\n#site .view {\n        float: left;\n        margin-top: 10px;\n        width: 100%;\n}\n}\n@media only screen and (min-width: 1366px) {\n#site {\n      width: 80%;\n}\n#site #site-side {\n        width: 240px;\n        float: left;\n        margin: 0 10px;\n        height: 500px;\n}\n#site .view {\n        float: left;\n        width: calc(100% - 240px - 10px - 10px);\n}\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -15182,7 +15182,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.id, ".page {\n  display: flex;\n  flex-direction: column;\n  align-content: center;\n  align-items: center;\n}\n.page .postlis {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    flex-direction: column;\n}\n@media screen and (min-width: 1366px) {\n.page .postlis .post {\n        min-width: 1134px;\n        max-width: 1134px;\n}\n}\n.page .pageOrder {\n    display: flex;\n    justify-content: space-around;\n}\n.page .pageOrder .prepage {\n      margin-right: 10px;\n}\n.page .pageOrder .nextpage {\n      margin-left: 10px;\n}\n", ""]);
+exports.push([module.id, ".wrapper {\n  min-width: 500px;\n}\n.wrapper .page {\n    width: 100%;\n}\n.wrapper .page .post {\n      margin-bottom: 10px;\n}\n.wrapper .page .pageOrder {\n      width: 50%;\n      overflow: hidden;\n      margin: 0 auto;\n}\n.wrapper .page .pageOrder .button {\n        width: 141px;\n        height: 36px;\n        padding: 0px auto;\n}\n.wrapper .page .pageOrder .prepage {\n        float: left;\n}\n.wrapper .page .pageOrder .nextpage {\n        float: right;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -15242,7 +15242,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.id, ".post-block {\n  display: inline-flex;\n  flex-direction: column;\n  justify-content: space-around;\n  align-items: center;\n  align-content: center;\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  border-radius: initial;\n  background-color: #fff;\n  padding: 40px;\n  margin: 0px 0px 10px 0px;\n}\nv-button {\n  margin-top: 40px;\n}\n.post-title {\n  text-align: center;\n}\n.post-title-link {\n  line-height: inherit;\n}\n.post-meta {\n  display: inline-flex;\n  color: #999;\n  font-size: 12px;\n  text-align: center;\n}\n.post-meta-divder {\n  margin: 0 0.5em;\n}\n.post-summary {\n  font-size: 16px;\n}\n.post-summary p {\n    word-break: break-word;\n    white-space: pre-wrap;\n    width: 828px;\n}\n.post-summary pre {\n    width: 828px;\n    overflow: auto;\n}\n", ""]);
+exports.push([module.id, ".post-block {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n  align-items: center;\n  align-content: center;\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  border-radius: initial;\n  background-color: #fff;\n  padding: 40px;\n  margin: 0px 0px 10px 0px;\n}\nv-button {\n  margin-top: 40px;\n}\n.post-title {\n  text-align: center;\n}\n.post-title-link {\n  line-height: inherit;\n}\n.post-meta {\n  display: inline-flex;\n  color: #999;\n  font-size: 12px;\n  text-align: center;\n}\n.post-meta-divder {\n  margin: 0 0.5em;\n}\n.post-summary {\n  font-size: 16px;\n}\n.post-summary p {\n    word-break: break-word;\n    white-space: pre-wrap;\n}\n.post-summary pre {\n    overflow: auto;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -28484,7 +28484,7 @@ function render(_ctx, _cache) {
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [
       (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_side_bar)
     ]),
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view, { class: "view" })
   ]))
 }
 
@@ -28530,8 +28530,8 @@ function render(_ctx, _cache) {
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js");
 
 
-const _hoisted_1 = { class: "page" }
-const _hoisted_2 = { class: "postlis" }
+const _hoisted_1 = { class: "wrapper" }
+const _hoisted_2 = { class: "page" }
 const _hoisted_3 = { class: "pageOrder" }
 
 function render(_ctx, _cache) {
@@ -28546,19 +28546,19 @@ function render(_ctx, _cache) {
           key: post.id,
           post: post
         }, null, 8 /* PROPS */, ["post"]))
-      }), 128 /* KEYED_FRAGMENT */))
-    ]),
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_button, {
-        class: "prepage",
-        link: _ctx.prepage,
-        text: _ctx.prePageText
-      }, null, 8 /* PROPS */, ["link", "text"]),
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_button, {
-        class: "nextpage",
-        link: _ctx.nextpage,
-        text: _ctx.nextPageText
-      }, null, 8 /* PROPS */, ["link", "text"])
+      }), 128 /* KEYED_FRAGMENT */)),
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_button, {
+          class: "prepage button",
+          link: _ctx.prepage,
+          text: _ctx.prePageText
+        }, null, 8 /* PROPS */, ["link", "text"]),
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_button, {
+          class: "nextpage button",
+          link: _ctx.nextpage,
+          text: _ctx.nextPageText
+        }, null, 8 /* PROPS */, ["link", "text"])
+      ])
     ])
   ]))
 }
