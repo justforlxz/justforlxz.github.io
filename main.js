@@ -15162,7 +15162,7 @@ module.exports = {
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.id, "body {\n  margin: 0px 0px;\n}\n#app {\n  background: #eee;\n}\n#site {\n  overflow: auto;\n  position: relative;\n  margin: 0 auto;\n}\n@media only screen and (min-width: 768px) {\n#site {\n      width: 95%;\n}\n#site #site-side {\n        width: 100%;\n        margin: 0;\n}\n#site .view {\n        float: left;\n        margin-top: 10px;\n        width: 100%;\n}\n}\n@media only screen and (min-width: 1366px) {\n#site {\n      width: 80%;\n}\n#site #site-side {\n        width: 240px;\n        float: left;\n        margin: 0 10px;\n        height: 500px;\n}\n#site .view {\n        float: left;\n        width: calc(100% - 240px - 10px - 10px);\n}\n}\n", ""]);
+exports.push([module.id, "body {\n  margin: 0px 0px;\n}\n#app {\n  background: #eee;\n}\n#site {\n  overflow: auto;\n  position: relative;\n  margin: 0 auto;\n  width: 95%;\n}\n#site #site-side {\n    width: 100%;\n    margin: 0;\n}\n#site .view {\n    float: left;\n    margin-top: 10px;\n    width: 100%;\n}\n@media only screen and (min-width: 1366px) {\n#site {\n      width: 80%;\n}\n#site #site-side {\n        width: 240px;\n        float: left;\n        margin: 0 10px;\n}\n#site .view {\n        float: left;\n        width: calc(100% - 240px - 10px - 10px);\n}\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -15182,7 +15182,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.id, ".wrapper {\n  min-width: 100px;\n}\n.wrapper .page {\n    width: 100%;\n}\n.wrapper .page .post {\n      margin-bottom: 10px;\n}\n.wrapper .page .pageOrder {\n      width: 50%;\n      overflow: hidden;\n      margin: 0 auto;\n}\n.wrapper .page .pageOrder .button {\n        width: 141px;\n        height: 36px;\n        padding: 0px auto;\n}\n.wrapper .page .pageOrder .prepage {\n        float: left;\n}\n.wrapper .page .pageOrder .nextpage {\n        float: right;\n}\n", ""]);
+exports.push([module.id, ".wrapper {\n  min-width: 23.4375rem;\n}\n.wrapper .page {\n    width: 100%;\n}\n.wrapper .page .post {\n      margin-bottom: .625rem;\n}\n.wrapper .page .pageOrder {\n      width: 50%;\n      overflow: hidden;\n      margin: 0 auto;\n}\n.wrapper .page .pageOrder .button {\n        width: 8.8125rem;\n        height: 1.625rem;\n        padding: 0px auto;\n}\n.wrapper .page .pageOrder .prepage {\n        float: left;\n}\n.wrapper .page .pageOrder .nextpage {\n        float: right;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
