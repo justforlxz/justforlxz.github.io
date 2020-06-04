@@ -15830,10 +15830,10 @@ module.exports = exports;
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss":
-/*!*********************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
 /*! runtime requirements: __webpack_exports__, module, __webpack_require__, module.id */
@@ -15850,10 +15850,10 @@ module.exports = exports;
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
 /*! runtime requirements: __webpack_exports__, module, __webpack_require__, module.id */
@@ -15863,7 +15863,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.id, ".post {\n  margin: 0px 10px;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n}\n", ""]);
+exports.push([module.id, ".post {\n  margin: 0px 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  margin: 20px 0px 0px 0px;\n}\n.post .post-block {\n    padding: 0px 80px;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -15903,7 +15903,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.id, ".post-block {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n  align-items: center;\n  align-content: center;\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  border-radius: initial;\n  background-color: #fff;\n  padding: 40px;\n  margin: 0px 0px 10px 0px;\n}\nv-button {\n  margin-top: 40px;\n}\n.post-title {\n  text-align: center;\n}\n.post-title-link {\n  line-height: inherit;\n}\n.post-meta {\n  display: inline-flex;\n  color: #999;\n  font-size: 12px;\n  text-align: center;\n}\n.post-meta-divder {\n  margin: 0 0.5em;\n}\n.post-summary {\n  font-size: 16px;\n  width: 100%;\n}\n.post-summary p {\n    word-break: break-word;\n    white-space: pre-wrap;\n}\n.post-summary pre {\n    overflow: auto;\n}\n", ""]);
+exports.push([module.id, ".post-block {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n  align-items: center;\n  align-content: center;\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  border-radius: initial;\n  background-color: #fff;\n}\nv-button {\n  margin-top: 40px;\n}\n.post-title {\n  text-align: center;\n}\n.post-title-link {\n  line-height: inherit;\n}\n.post-meta {\n  display: inline-flex;\n  color: #999;\n  font-size: 12px;\n  text-align: center;\n}\n.post-meta-divder {\n  margin: 0 0.5em;\n}\n.post-summary {\n  font-size: 16px;\n  width: 100%;\n}\n.post-summary p {\n    word-break: break-word;\n    white-space: pre-wrap;\n}\n.post-summary pre {\n    overflow: auto;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -27076,17 +27076,17 @@ module.exports = content.locals || {};
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
 /*! runtime requirements: module, __webpack_require__, module.id */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var api = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-            var content = __webpack_require__(/*! !!../../../node_modules/vue-style-loader/index.js!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss");
+            var content = __webpack_require__(/*! !!../../../node_modules/vue-style-loader/index.js!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true");
 
             content = content.__esModule ? content.default : content;
 
@@ -27107,17 +27107,17 @@ module.exports = content.locals || {};
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss":
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
 /*! runtime requirements: module, __webpack_require__, module.id */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var api = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-            var content = __webpack_require__(/*! !!../../../node_modules/vue-style-loader/index.js!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss");
+            var content = __webpack_require__(/*! !!../../../node_modules/vue-style-loader/index.js!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true");
 
             content = content.__esModule ? content.default : content;
 
@@ -27789,7 +27789,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
 /* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _Page_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _Page_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
-/* harmony import */ var _Page_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss */ "./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss");
+/* harmony import */ var _Page_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ "./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true");
 
 
 
@@ -27825,7 +27825,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
 /* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _PostDetail_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _PostDetail_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
-/* harmony import */ var _PostDetail_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss */ "./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss");
+/* harmony import */ var _PostDetail_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ "./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true");
 
 
 
@@ -28302,10 +28302,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss":
-/*!**********************************************************************************************!*\
-  !*** ./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss ***!
-  \**********************************************************************************************/
+/***/ "./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true":
+/*!*********************************************************************************************************!*\
+  !*** ./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \*********************************************************************************************************/
 /*! namespace exports */
 /*! export default [provided] [unused] [provision prevents renaming] */
 /*! other exports [maybe provided (runtime-defined)] [unused] */
@@ -28313,16 +28313,16 @@ __webpack_require__.r(__webpack_exports__);
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_Page_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/vue-style-loader/index.js!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss");
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_Page_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_Page_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_Page_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/vue-style-loader/index.js!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ "./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true");
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_Page_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_Page_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_0__);
  
 
 /***/ }),
 
-/***/ "./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss":
-/*!****************************************************************************************************!*\
-  !*** ./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss ***!
-  \****************************************************************************************************/
+/***/ "./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true":
+/*!***************************************************************************************************************!*\
+  !*** ./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \***************************************************************************************************************/
 /*! namespace exports */
 /*! export default [provided] [unused] [provision prevents renaming] */
 /*! other exports [maybe provided (runtime-defined)] [unused] */
@@ -28330,8 +28330,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_PostDetail_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/vue-style-loader/index.js!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss");
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_PostDetail_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_PostDetail_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_PostDetail_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/vue-style-loader/index.js!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ "./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true");
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_PostDetail_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_PostDetail_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_0__);
  
 
 /***/ }),
@@ -31610,10 +31610,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
 /*! runtime requirements: module, __webpack_require__, module.id */
@@ -31622,21 +31622,21 @@ if(false) {}
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss");
+var content = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true");
 if(typeof content === 'string') content = [[module.id, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(/*! !../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
-var update = add("61e63003", content, false, {});
+var update = add("1a8b0736", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
 /*! runtime requirements: module, __webpack_require__, module.id */
@@ -31645,12 +31645,12 @@ if(false) {}
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss");
+var content = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/components/pages/PostDetail.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true");
 if(typeof content === 'string') content = [[module.id, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(/*! !../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
-var update = add("db387a7a", content, false, {});
+var update = add("ec7f6f0c", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
