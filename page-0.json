@@ -1,1 +1,123 @@
-{"prepage":"","nextpage":"/page/1/","postList":[{"id":"4ea9e92653417fe234dfa3b765de1114","body":"安装好aria2，然后执行一下内容\r\n    $ sudo nano /etc/systemd/user/aria2.service  \r\n    [Unit]\r\n    Description=Aria2 Service\r\n    After=network.target\r\n    [Service]\r\n    ExecStart=/usr/bin/aria2c --enable-rpc --rpc-listen-all=true   --rpc-secret=secret  --rpc-allow-origin-all  --conf-path=/home/用户名字/.config/aria2/aria2.conf  --input-file /home/用户名字/.config/aria2/session.lock --disk-cache=100M --max-overall-download-limit=0  --split=10 --max-connection-per-server=10 --max-concurrent-downloads=4   --dir=/home/用户名字/Downloads/\r\n    [Install]\r\n    WantedBy=default.target\r\n<!--more-->\r\n# 注意\r\n以上内容需要把用户名字更改成自己的\r\n在用户目录新建三个文件\r\n    touch ~/.config/aria2.conf  \r\n    touch ~/.config/aria2.session  \r\n    touch ~/.config/session.lock\r\n~/.config/aria2.conf 里面需要填写以下内容，其他两个文件保持空。\r\n    dir=下载目录【需要自行修改】\r\n    enable-rpc=true\r\n启动服务  \r\n    systemctl --user enable aria2\r\n    systemctl --user start aria\r\n浏览器打开：[http://yaaw.qiniudn.com/](http://yaaw.qiniudn.com/ \"aria2\")\r\n将服务器地址改成\r\n    http://token:secret@127.0.0.1:6800/jsonrpc\r\n然后应该页面的右上角就显示网速了。\r\n\r\n","attributes":{"layout":"post","title":"aria2配置","subtitle":"以前总是忘了aria2的配置","date":"2016-05-25 23:56","author":"kirigaya","header-img":"home-bg.jpg","tags":["教程"]},"link":"/2016/05/25/aria2配置"},{"id":"7c122ec6349a9ff77f023a9003000f3e","body":"建造者模式就是指将类的构造和其表示分离开来，调用者可以通过不同的构建过程创造出不同表示的对象。主要解决在软件系统中，有时候面临着\"一个复杂对象\"的创建工作，由于需求的变化，这个复杂对象的某些部分经常面临着剧烈的变化，一些基本部件不会变。所以需要将变与不变分离。与抽象工厂的区别：在建造者模式里，有个指导者(Director)，由指导者来管理建造者，用户是与指导者联系的，指导者联系建造者最后得到产品。即建造者模式可以强制实行一种分步骤进行的建造过程。\r\n","attributes":{"title":"JavaScript建造者模式","date":"2020-02-01T20:52:58.000Z","tags":"Javascript","categories":"设计模式"},"link":"/2020/02/01/JavaScript建造者模式"},{"id":"2cdf4183246d7070b22a95cfcea9c02d","body":"为了简化操作，JavaScript提供了new关键字。new关键字用于创建一个用户定义类型的实例，或者具有构造函数的内置对象的实例。\r\n","attributes":{"title":"浅谈Javascript构造器模式","date":"2020-01-31T23:15:23.000Z","tags":"Javascript","categories":"设计模式"},"link":"/2020/01/31/浅谈Javascript构造器模式"},{"id":"649cab2dc98e80ce6ff9f6dd8516c194","body":"上一次写年终总结还是18年回家的动车上，可惜写了一半没发表，觉得一年了没有什么能够回想起来的，就又删除了。今年不同了，今年有好多想说的。\r\n","attributes":{"title":"2019 Review","date":"2020-01-01T21:25:54.000Z","tags":2019,"categories":"年度总结"},"link":"/2020/01/01/2019Review"},{"id":"906dd5a14cdcd987ef633f675acde117","body":"我最早接触到CSS中的伪元素是在一次写背景模糊的时候，CSS中的blur会模糊下面所有的元素，但是可以通过伪元素在before中先模糊，这样下层是没有任何元素的，自然也不会有元素被模糊。\r\n伪元素就如同它的名字一样，是假的元素，只是CSS引擎在排版的时候创建出来的，在DOM树中是不存在的，所以javascript是没办法操作伪元素的。伪元素分为before和after，可以在元素的前面或者后面创建一个假的元素，伪元素选择器的标志符号是`::`。\r\n1. `div::before` 在div元素的前面创建一个元素，配合content属性一起使用。\r\n2. `div::after` 在div元素的后面创建一个元素，配合content属性一起使用。\r\n![1657](16-57-30屏幕截图.png)\r\n使用伪元素选择器需要注意一点的是，必须使用content属性，否则将不起任何作用。\r\n伪元素选择器生效以后，可以在DOM中看到::before或者::after，这里提供一个例子。\r\nhtml部分：\r\n```\r\n<body>\r\n    <div>\r\n        Text\r\n    </div>\r\n</body>\r\n```\r\ncss部分：\r\n```\r\ndiv::before {\r\n  content: \"This is before Text, \";\r\n}\r\ndiv::after {\r\n  content: \", This is after Text.\";\r\n}\r\n```\r\n此时页面上会看到输出这么一句话，`This  is before Text, Text , This is after Text.`，并且使用鼠标只能选择到最中间的Text文本。\r\n![1657](16-57-16屏幕截图.png)\r\n代码可以点击[这里](https://jsfiddle.net/justforlxz/shg21kvb/18/)查看。\r\n今天写这篇文章呢，是因为今天我在实现hexo的Next主题，看到它在列表中使用after创建了一个小圆点，并且我遇到了一个问题，所以写这篇文章记录一下。\r\nNext用的是浮动布局来实现的，而我决定flex一把梭，整体布局是垂直的flex，首页、分类等列表内部是用水平的inline-flex实现的，最左边是图标，来自fortawesome，中间的文本使用span包裹一下，实现左对齐，然后通过伪元素在最右边创建一个小圆点，设置a元素的宽度为100%，就可以实现圆点在最右边。\r\n坑就是在这里遇到的，如果a元素的宽度设置为100%，伪元素创建的小圆点就不能完全显示，少1像素或者多1像素就可以完全显示。最终的解决办法是给小圆点的周围增加了1像素的padding解决了，但是原因位置，谁看到这篇文章并且恰好知道原因的，还请帮忙评论回复一下。\r\n```\r\n<div id=\"site-nav\">\r\n  <ul>\r\n    <li v-for=\"item in items\" v-bind:key=\"item.title\">\r\n      <a v-bind:href=\"item.link\">\r\n        <span id=\"menu-left\" v-bind:class=\"item.class\"></span>\r\n        <span id=\"menu-text\">\r\n          {{ item.title }}\r\n        </span>\r\n      </a>\r\n    </li>\r\n  </ul>\r\n</div>\r\n```\r\n```\r\n#site-nav {\r\n  background: white;\r\n  padding: 20px 0;\r\n}\r\nul {\r\n  margin: 0;\r\n  padding: 0 0;\r\n}\r\n#site-nav li {\r\n  list-style-type: none;\r\n}\r\n#site-nav li a {\r\n  padding: 5px 0px;\r\n  text-align: left;\r\n  line-height: inherit;\r\n  transition-property: background-color;\r\n  transition-duration: 0.2s;\r\n  transition-timing-function: ease-in-out;\r\n  transition-delay: 0s;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  text-decoration: none;\r\n  font-size: 13px;\r\n  border-bottom: 1px solid transparent;\r\n  color: #555;\r\n}\r\n#site-nav li a:hover {\r\n  background: #f9f9f9;\r\n}\r\n#menu-left {\r\n  align-content: center;\r\n  margin-left: 10px;\r\n}\r\n#menu-text {\r\n  width: 100%;\r\n  margin-left: 10px;\r\n}\r\n#site-nav li a::after {\r\n  content: ' ';\r\n  background: #bbb;\r\n  width: 6px;\r\n  height: 6px;\r\n  border-radius: 50%;\r\n  margin: 0 10px 0 0;\r\n  min-width: 6px;\r\n  min-height: 6px;\r\n  max-height: 6px;\r\n  max-width: 6px;\r\n  display: block;\r\n  box-sizing: border-box;\r\n}\r\n```\r\n但我提取了基本结构和css，demo是能够正常显示小圆点的，但是自己的Vue却不能正常显示，后来发现是display写成块级元素用的flex了，改成inline-flex就能正常显示了，但是在调整宽度的时候，就发现了上面的问题，它又不正常显示了，实在解决不了了，就用padding处理了。\r\n参考资料： [千古壹号](https://github.com/qianguyihao/Web/blob/master/02-CSS%E5%9F%BA%E7%A1%80/10-CSS3%E9%80%89%E6%8B%A9%E5%99%A8%E8%AF%A6%E8%A7%A3.md)\r\n\r\n","attributes":{"title":"使用伪元素创建一个圆点","date":"2020-01-01T11:11:12.000Z","tags":"CSS","categories":"Web"},"link":"/2020/01/01/使用伪元素创建一个圆点"},{"id":"dc00fbaae4e7ffb1fea884b9bc3bee21","body":"电脑主板上的接口：进行串行传输的接口，它一次只能传输1Bit。串行端口可以用于连接外置调制解调器、绘图仪或串行打印机。它也可以控制台连接的方式连接网络设备，例如路由器和交换机，主要用来配置它们。消费性电子已经由USB取代串列接口；但在非消费性用途，如网络设备等，串列接口仍是主要的传输控制方式。\r\n","attributes":{"title":"在ArchLinux通过串口调试VMware虚拟机中的deepin","s":"use-serial-port-debug-deepin-on-archlinux","date":"2019-12-26T17:26:13.000Z","tags":"Linux","categories":"Linux"},"link":"/2019/12/26/在ArchLinux通过串口调试VMware虚拟机中的deepin"},{"id":"aeda0f60ffbede15fc512bef6e84cd7c","body":"std的sort方法接受两个迭代器begin和end。通过迭代器来抽象元素的访问，隐藏内部实现。\r\n","attributes":{"title":"使用标准库std::sort函数进行排序","s":"cpp-sort","date":"2019-12-26T17:24:23.000Z","tags":null,"categories":null},"link":"/2019/12/26/使用标准库std::sort函数进行排序"},{"id":"78eab1da8a1f118221a333b120d5a864","body":"网卡型号是Realtek RTL8811CU/RTL8821CU USB Wi-Fi adapter，买来是为了让黑苹果上网的，windows下也会自动下载和安装驱动，但是linux比较难受，内核不提供这样的驱动，只能去官方拿源码搞，今天在arch上打算装一下驱动，结果遇到了很多问题。\r\nwiki上推荐的8821应该使用rtl88xxau-aircrack-dkms-git，但是我安装以后压根不能用，一点变化都没有，而且modprobe也没有作者给出的88XXau，无奈只得放弃。\r\n继续谷歌之，在[https://forum.mxlinux.org/viewtopic.php?f=107&t=50579](https://forum.mxlinux.org/viewtopic.php?f=107&t=50579)看到了别人给的方案，然后果断clone并make,然后就因为没有适配5.x的内核编译失败，这可不行，翻了一下issue，看到作者在[https://github.com/whitebatman2/rtl8821CU/issues/33](https://github.com/whitebatman2/rtl8821CU/issues/33)提到了一个[#23](https://github.com/whitebatman2/rtl8821CU/issues/23)，这标题写的够可以，`Newer version 5.4.1 (Support Linux versions from 4.4.x up to 5.4.x) `，赶紧搞起，去源地址clone和make,成功使用上了驱动，按照作者提到的安装`usb_modeswitch`，并切换usb模式，我成功的使用上了这个usb网卡。\r\n> 吐槽一下，开发环境还是linux下舒服，仓库的包安装一下就可以开发了，windows下要自己写路径，mac下brew限制太死，一些库安装以后还要自己手动做些处理，一不小心就把shell的环境变量搞不行了，或者压根不能正常工作。\r\n\r\n","attributes":{"title":"记录一个坑爹的usb网卡","date":"2019-12-09T19:31:04.000Z","tags":"Linux","categories":"Linux"},"link":"/2019/12/09/记录一个坑爹的usb网卡"},{"id":"24ebd17d4a71c5ccdfd73cadcf614ff1","body":"请先允许我大喊一声：微软牛逼！\r\n本文没有啥含金量，就是简单的说一下如何部署github-actions来自动生成hexo的public，并且再推送到html仓库的。\r\n我的博客仓库一共分为两个，blog仓库是私有的，需要通过我的私钥才能访问，html仓库是公开的，hexo生成的静态内容会被上传到这里。\r\n首先在package.json中添加一些命令，方便我们一键编译和提交:\r\n```\r\n  \"scripts\": {\r\n    \"build\": \"hexo clean && hexo g\",\r\n    \"deploy\": \"yarn run build && hexo d\",\r\n    \"backup\": \"hexo b\",\r\n  }\r\n```\r\n因为CI环境需要提交代码到仓库，所以申请一个个人用的token，访问[https://github.com/settings/tokens](https://github.com/settings/tokens)创建一个新的，勾选上`repo`，生成完token以后，修改一下`_config.yml`中对deploy仓库的url，格式固定为`https://x-access-token:你的token@github.com/你的名字/仓库名.git`,例如我这里是`https://x-access-token:xxxxxxxxxx@github.com/justforlxz/html.git`。\r\n然后新家一个github actions，选择nodejs环境，我们只需要修改最后一个步骤，执行我们自己的命令即可。\r\n- 设置git的用户名和邮箱地址\r\n- npm install -g yarn\r\n- yarn run deploy\r\n如果你还有一些其他步骤，可以自行扩展，比如我就有主题相关的操作，具体的内容如下:\r\n```\r\n    - name: npm install, build, and deploy\r\n      run: |\r\n        git config --global user.email \"justforlxz@gmail.com\"\r\n        git config --global user.name \"justforlxz\"\r\n        git submodule update --init\r\n        cd themes/next\r\n        git checkout dev\r\n        cd ../../\r\n        npm install -g yarn\r\n        yarn\r\n        yarn run deploy\r\n```\r\n然后就可以愉快的自动部署了。\r\n\r\n","attributes":{"title":"使用github actions自动部署hexo文章到html仓库","date":"2019-12-09T13:19:11.000Z","tags":null,"categories":null},"link":"/2019/12/09/使用githubactions自动部署hexo文章到html仓库"},{"id":"989a5930e5b352224e1138b2a2c7bc00","body":"Vue的父子组件传值比较有意思，父组件通过属性绑定，把自身的值和子组件的一个属性绑定起来，子组件通过props属性接收，该属性类型为数组，是Vue对象中比较少有的类型，data、computer、methods等方法都是对象的形式，props则是数组的形式。父组件通过v-on来监听子组件发出的事件来接收子组件的调用。在这里我是理解成子组件发送信号来通知上层，毕竟调用的是this.$emit来做到的。\r\n","attributes":{"title":"Vue父子组件传值 —— props & $emit","date":"2019-12-08T21:08:00.000Z","tags":"Vue","categories":"Vue"},"link":"/2019/12/08/Vue父子组件传值——props&$emit"}]}
+{
+    "prepage": "",
+    "nextpage": "/page/1/",
+    "postList": [
+        {
+            "id": "4ea9e92653417fe234dfa3b765de1114",
+            "body": "<p>安装好aria2，然后执行一下内容\n$ sudo nano /etc/systemd/user/aria2.service<br>\n[Unit]\nDescription=Aria2 Service\nAfter=network.target\n[Service]\nExecStart=/usr/bin/aria2c --enable-rpc --rpc-listen-all=true   --rpc-secret=secret  --rpc-allow-origin-all  --conf-path=/home/用户名字/.config/aria2/aria2.conf  --input-file /home/用户名字/.config/aria2/session.lock --disk-cache=100M --max-overall-download-limit=0  --split=10 --max-connection-per-server=10 --max-concurrent-downloads=4   --dir=/home/用户名字/Downloads/\n[Install]\nWantedBy=default.target\n&lt;!--more--&gt;</p>\n<h1>注意</h1>\n<p>以上内容需要把用户名字更改成自己的\n在用户目录新建三个文件\ntouch ~/.config/aria2.conf<br>\ntouch ~/.config/aria2.session<br>\ntouch ~/.config/session.lock\n~/.config/aria2.conf 里面需要填写以下内容，其他两个文件保持空。\ndir=下载目录【需要自行修改】\nenable-rpc=true\n启动服务<br>\nsystemctl --user enable aria2\nsystemctl --user start aria\n浏览器打开：<a href=\"http://yaaw.qiniudn.com/\" title=\"aria2\">http://yaaw.qiniudn.com/</a>\n将服务器地址改成\nhttp://token:secret@127.0.0.1:6800/jsonrpc\n然后应该页面的右上角就显示网速了。</p>\n",
+            "attributes": {
+                "layout": "post",
+                "title": "aria2配置",
+                "subtitle": "以前总是忘了aria2的配置",
+                "date": "2016-05-25 23:56",
+                "author": "kirigaya",
+                "header-img": "home-bg.jpg",
+                "tags": [
+                    "教程"
+                ]
+            },
+            "link": "/2016/05/25/aria2配置"
+        },
+        {
+            "id": "7c122ec6349a9ff77f023a9003000f3e",
+            "body": "<p>建造者模式就是指将类的构造和其表示分离开来，调用者可以通过不同的构建过程创造出不同表示的对象。主要解决在软件系统中，有时候面临着&quot;一个复杂对象&quot;的创建工作，由于需求的变化，这个复杂对象的某些部分经常面临着剧烈的变化，一些基本部件不会变。所以需要将变与不变分离。与抽象工厂的区别：在建造者模式里，有个指导者(Director)，由指导者来管理建造者，用户是与指导者联系的，指导者联系建造者最后得到产品。即建造者模式可以强制实行一种分步骤进行的建造过程。</p>\n",
+            "attributes": {
+                "title": "JavaScript建造者模式",
+                "date": "2020-02-01T20:52:58.000Z",
+                "tags": "Javascript",
+                "categories": "设计模式"
+            },
+            "link": "/2020/02/01/JavaScript建造者模式"
+        },
+        {
+            "id": "2cdf4183246d7070b22a95cfcea9c02d",
+            "body": "<p>为了简化操作，JavaScript提供了new关键字。new关键字用于创建一个用户定义类型的实例，或者具有构造函数的内置对象的实例。</p>\n",
+            "attributes": {
+                "title": "浅谈Javascript构造器模式",
+                "date": "2020-01-31T23:15:23.000Z",
+                "tags": "Javascript",
+                "categories": "设计模式"
+            },
+            "link": "/2020/01/31/浅谈Javascript构造器模式"
+        },
+        {
+            "id": "649cab2dc98e80ce6ff9f6dd8516c194",
+            "body": "<p>上一次写年终总结还是18年回家的动车上，可惜写了一半没发表，觉得一年了没有什么能够回想起来的，就又删除了。今年不同了，今年有好多想说的。</p>\n",
+            "attributes": {
+                "title": "2019 Review",
+                "date": "2020-01-01T21:25:54.000Z",
+                "tags": 2019,
+                "categories": "年度总结"
+            },
+            "link": "/2020/01/01/2019Review"
+        },
+        {
+            "id": "906dd5a14cdcd987ef633f675acde117",
+            "body": "<p>我最早接触到CSS中的伪元素是在一次写背景模糊的时候，CSS中的blur会模糊下面所有的元素，但是可以通过伪元素在before中先模糊，这样下层是没有任何元素的，自然也不会有元素被模糊。\n伪元素就如同它的名字一样，是假的元素，只是CSS引擎在排版的时候创建出来的，在DOM树中是不存在的，所以javascript是没办法操作伪元素的。伪元素分为before和after，可以在元素的前面或者后面创建一个假的元素，伪元素选择器的标志符号是<code>::</code>。</p>\n<ol>\n<li><code>div::before</code> 在div元素的前面创建一个元素，配合content属性一起使用。</li>\n<li><code>div::after</code> 在div元素的后面创建一个元素，配合content属性一起使用。\n<img src=\"16-57-30%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png\" alt=\"1657\">\n使用伪元素选择器需要注意一点的是，必须使用content属性，否则将不起任何作用。\n伪元素选择器生效以后，可以在DOM中看到::before或者::after，这里提供一个例子。\nhtml部分：</li>\n</ol>\n<pre><code>&lt;body&gt;\n    &lt;div&gt;\n        Text\n    &lt;/div&gt;\n&lt;/body&gt;\n</code></pre>\n<p>css部分：</p>\n<pre><code>div::before {\n  content: &quot;This is before Text, &quot;;\n}\ndiv::after {\n  content: &quot;, This is after Text.&quot;;\n}\n</code></pre>\n<p>此时页面上会看到输出这么一句话，<code>This  is before Text, Text , This is after Text.</code>，并且使用鼠标只能选择到最中间的Text文本。\n<img src=\"16-57-16%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png\" alt=\"1657\">\n代码可以点击<a href=\"https://jsfiddle.net/justforlxz/shg21kvb/18/\">这里</a>查看。\n今天写这篇文章呢，是因为今天我在实现hexo的Next主题，看到它在列表中使用after创建了一个小圆点，并且我遇到了一个问题，所以写这篇文章记录一下。\nNext用的是浮动布局来实现的，而我决定flex一把梭，整体布局是垂直的flex，首页、分类等列表内部是用水平的inline-flex实现的，最左边是图标，来自fortawesome，中间的文本使用span包裹一下，实现左对齐，然后通过伪元素在最右边创建一个小圆点，设置a元素的宽度为100%，就可以实现圆点在最右边。\n坑就是在这里遇到的，如果a元素的宽度设置为100%，伪元素创建的小圆点就不能完全显示，少1像素或者多1像素就可以完全显示。最终的解决办法是给小圆点的周围增加了1像素的padding解决了，但是原因位置，谁看到这篇文章并且恰好知道原因的，还请帮忙评论回复一下。</p>\n<pre><code>&lt;div id=&quot;site-nav&quot;&gt;\n  &lt;ul&gt;\n    &lt;li v-for=&quot;item in items&quot; v-bind:key=&quot;item.title&quot;&gt;\n      &lt;a v-bind:href=&quot;item.link&quot;&gt;\n        &lt;span id=&quot;menu-left&quot; v-bind:class=&quot;item.class&quot;&gt;&lt;/span&gt;\n        &lt;span id=&quot;menu-text&quot;&gt;\n          {{ item.title }}\n        &lt;/span&gt;\n      &lt;/a&gt;\n    &lt;/li&gt;\n  &lt;/ul&gt;\n&lt;/div&gt;\n</code></pre>\n<pre><code>#site-nav {\n  background: white;\n  padding: 20px 0;\n}\nul {\n  margin: 0;\n  padding: 0 0;\n}\n#site-nav li {\n  list-style-type: none;\n}\n#site-nav li a {\n  padding: 5px 0px;\n  text-align: left;\n  line-height: inherit;\n  transition-property: background-color;\n  transition-duration: 0.2s;\n  transition-timing-function: ease-in-out;\n  transition-delay: 0s;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  text-decoration: none;\n  font-size: 13px;\n  border-bottom: 1px solid transparent;\n  color: #555;\n}\n#site-nav li a:hover {\n  background: #f9f9f9;\n}\n#menu-left {\n  align-content: center;\n  margin-left: 10px;\n}\n#menu-text {\n  width: 100%;\n  margin-left: 10px;\n}\n#site-nav li a::after {\n  content: ' ';\n  background: #bbb;\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  margin: 0 10px 0 0;\n  min-width: 6px;\n  min-height: 6px;\n  max-height: 6px;\n  max-width: 6px;\n  display: block;\n  box-sizing: border-box;\n}\n</code></pre>\n<p>但我提取了基本结构和css，demo是能够正常显示小圆点的，但是自己的Vue却不能正常显示，后来发现是display写成块级元素用的flex了，改成inline-flex就能正常显示了，但是在调整宽度的时候，就发现了上面的问题，它又不正常显示了，实在解决不了了，就用padding处理了。\n参考资料： <a href=\"https://github.com/qianguyihao/Web/blob/master/02-CSS%E5%9F%BA%E7%A1%80/10-CSS3%E9%80%89%E6%8B%A9%E5%99%A8%E8%AF%A6%E8%A7%A3.md\">千古壹号</a></p>\n",
+            "attributes": {
+                "title": "使用伪元素创建一个圆点",
+                "date": "2020-01-01T11:11:12.000Z",
+                "tags": "CSS",
+                "categories": "Web"
+            },
+            "link": "/2020/01/01/使用伪元素创建一个圆点"
+        },
+        {
+            "id": "dc00fbaae4e7ffb1fea884b9bc3bee21",
+            "body": "<p>电脑主板上的接口：进行串行传输的接口，它一次只能传输1Bit。串行端口可以用于连接外置调制解调器、绘图仪或串行打印机。它也可以控制台连接的方式连接网络设备，例如路由器和交换机，主要用来配置它们。消费性电子已经由USB取代串列接口；但在非消费性用途，如网络设备等，串列接口仍是主要的传输控制方式。</p>\n",
+            "attributes": {
+                "title": "在ArchLinux通过串口调试VMware虚拟机中的deepin",
+                "s": "use-serial-port-debug-deepin-on-archlinux",
+                "date": "2019-12-26T17:26:13.000Z",
+                "tags": "Linux",
+                "categories": "Linux"
+            },
+            "link": "/2019/12/26/在ArchLinux通过串口调试VMware虚拟机中的deepin"
+        },
+        {
+            "id": "aeda0f60ffbede15fc512bef6e84cd7c",
+            "body": "<p>std的sort方法接受两个迭代器begin和end。通过迭代器来抽象元素的访问，隐藏内部实现。</p>\n",
+            "attributes": {
+                "title": "使用标准库std::sort函数进行排序",
+                "s": "cpp-sort",
+                "date": "2019-12-26T17:24:23.000Z",
+                "tags": null,
+                "categories": null
+            },
+            "link": "/2019/12/26/使用标准库std::sort函数进行排序"
+        },
+        {
+            "id": "78eab1da8a1f118221a333b120d5a864",
+            "body": "<p>网卡型号是Realtek RTL8811CU/RTL8821CU USB Wi-Fi adapter，买来是为了让黑苹果上网的，windows下也会自动下载和安装驱动，但是linux比较难受，内核不提供这样的驱动，只能去官方拿源码搞，今天在arch上打算装一下驱动，结果遇到了很多问题。\nwiki上推荐的8821应该使用rtl88xxau-aircrack-dkms-git，但是我安装以后压根不能用，一点变化都没有，而且modprobe也没有作者给出的88XXau，无奈只得放弃。\n继续谷歌之，在<a href=\"https://forum.mxlinux.org/viewtopic.php?f=107&amp;t=50579\">https://forum.mxlinux.org/viewtopic.php?f=107&amp;t=50579</a>看到了别人给的方案，然后果断clone并make,然后就因为没有适配5.x的内核编译失败，这可不行，翻了一下issue，看到作者在<a href=\"https://github.com/whitebatman2/rtl8821CU/issues/33\">https://github.com/whitebatman2/rtl8821CU/issues/33</a>提到了一个<a href=\"https://github.com/whitebatman2/rtl8821CU/issues/23\">#23</a>，这标题写的够可以，<code>Newer version 5.4.1 (Support Linux versions from 4.4.x up to 5.4.x) </code>，赶紧搞起，去源地址clone和make,成功使用上了驱动，按照作者提到的安装<code>usb_modeswitch</code>，并切换usb模式，我成功的使用上了这个usb网卡。</p>\n<blockquote>\n<p>吐槽一下，开发环境还是linux下舒服，仓库的包安装一下就可以开发了，windows下要自己写路径，mac下brew限制太死，一些库安装以后还要自己手动做些处理，一不小心就把shell的环境变量搞不行了，或者压根不能正常工作。</p>\n</blockquote>\n",
+            "attributes": {
+                "title": "记录一个坑爹的usb网卡",
+                "date": "2019-12-09T19:31:04.000Z",
+                "tags": "Linux",
+                "categories": "Linux"
+            },
+            "link": "/2019/12/09/记录一个坑爹的usb网卡"
+        },
+        {
+            "id": "24ebd17d4a71c5ccdfd73cadcf614ff1",
+            "body": "<p>请先允许我大喊一声：微软牛逼！\n本文没有啥含金量，就是简单的说一下如何部署github-actions来自动生成hexo的public，并且再推送到html仓库的。\n我的博客仓库一共分为两个，blog仓库是私有的，需要通过我的私钥才能访问，html仓库是公开的，hexo生成的静态内容会被上传到这里。\n首先在package.json中添加一些命令，方便我们一键编译和提交:</p>\n<pre><code>  &quot;scripts&quot;: {\n    &quot;build&quot;: &quot;hexo clean &amp;&amp; hexo g&quot;,\n    &quot;deploy&quot;: &quot;yarn run build &amp;&amp; hexo d&quot;,\n    &quot;backup&quot;: &quot;hexo b&quot;,\n  }\n</code></pre>\n<p>因为CI环境需要提交代码到仓库，所以申请一个个人用的token，访问<a href=\"https://github.com/settings/tokens\">https://github.com/settings/tokens</a>创建一个新的，勾选上<code>repo</code>，生成完token以后，修改一下<code>_config.yml</code>中对deploy仓库的url，格式固定为<code>https://x-access-token:你的token@github.com/你的名字/仓库名.git</code>,例如我这里是<code>https://x-access-token:xxxxxxxxxx@github.com/justforlxz/html.git</code>。\n然后新家一个github actions，选择nodejs环境，我们只需要修改最后一个步骤，执行我们自己的命令即可。</p>\n<ul>\n<li>设置git的用户名和邮箱地址</li>\n<li>npm install -g yarn</li>\n<li>yarn run deploy\n如果你还有一些其他步骤，可以自行扩展，比如我就有主题相关的操作，具体的内容如下:</li>\n</ul>\n<pre><code>    - name: npm install, build, and deploy\n      run: |\n        git config --global user.email &quot;justforlxz@gmail.com&quot;\n        git config --global user.name &quot;justforlxz&quot;\n        git submodule update --init\n        cd themes/next\n        git checkout dev\n        cd ../../\n        npm install -g yarn\n        yarn\n        yarn run deploy\n</code></pre>\n<p>然后就可以愉快的自动部署了。</p>\n",
+            "attributes": {
+                "title": "使用github actions自动部署hexo文章到html仓库",
+                "date": "2019-12-09T13:19:11.000Z",
+                "tags": null,
+                "categories": null
+            },
+            "link": "/2019/12/09/使用githubactions自动部署hexo文章到html仓库"
+        },
+        {
+            "id": "989a5930e5b352224e1138b2a2c7bc00",
+            "body": "<p>Vue的父子组件传值比较有意思，父组件通过属性绑定，把自身的值和子组件的一个属性绑定起来，子组件通过props属性接收，该属性类型为数组，是Vue对象中比较少有的类型，data、computer、methods等方法都是对象的形式，props则是数组的形式。父组件通过v-on来监听子组件发出的事件来接收子组件的调用。在这里我是理解成子组件发送信号来通知上层，毕竟调用的是this.$emit来做到的。</p>\n",
+            "attributes": {
+                "title": "Vue父子组件传值 —— props & $emit",
+                "date": "2019-12-08T21:08:00.000Z",
+                "tags": "Vue",
+                "categories": "Vue"
+            },
+            "link": "/2019/12/08/Vue父子组件传值——props&$emit"
+        }
+    ]
+}

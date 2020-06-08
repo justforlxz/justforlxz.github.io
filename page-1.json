@@ -1,1 +1,135 @@
-{"prepage":"/page/0/","nextpage":"/page/2/","postList":[{"id":"d560b3f834af2faf3284b51e5ceaa328","body":"以前一直搞不懂动画是怎么做的，它怎么这么神奇，写了一点看不懂的代码，就实现了非常丰富的效果，现在做了三年Qt开发，接触到了Qt的动画类，明白了动画是怎么一会儿事，现在来看当初的css动画代码，也明白了它是如何工作的了。本文会介绍一下Vue提供的组件过渡动画模块——transitions。\r\n","attributes":{"title":"添加Vue动画","date":"2019-12-08T08:03:40.000Z","tags":"Vue","categories":"Vue"},"link":"/2019/12/08/添加Vue动画"},{"id":"6d39c7c84d7c4c365d3e55d6e1676429","body":"webpack的出现方便了前端开发者，使开发和部署分成了两部分，开发者可以正常根据工程化的要求进行开发，部署时通过webpack实现代码的裁剪和优化。\r\n本次就介绍一个webpack的功能 `webpack-dev-server`\r\n将webpack与提供实时重载的开发服务器一起使用。这仅应用于开发。\r\n它在后台使用了webpack-dev-middleware，它提供了对Webpack资产的快速内存访问。\r\n","attributes":{"title":"使用webpack-dev-server来监听项目变化","date":"2019-11-25T17:54:36.000Z","tags":"Vue","categories":"Vue"},"link":"/2019/11/25/使用webpack-dev-server来监听项目变化"},{"id":"5c7d5535bc4867a366610bc7e2bf2fff","body":"最近在Arch上更新系统的时候，总是遇到图形完全卡住的情况，今天上午突然想起来自己曾经设置了使用noop的IO调度，猜测是因为这个。然后本着不折腾不舒服的原则，打算使用ck内核上MuQSS的进程调度和BFQ的IO调度。\r\n","attributes":{"title":"给Archlinux开启BFQ和MuQSS","date":"2019-10-24T13:19:21.000Z","tags":"Linux","categories":"Linux"},"link":"/2019/10/24/给Archlinux开启BFQ和MuQSS"},{"id":"eb5e31eba4260e2683ba9964334c8cba","body":"本文将会介绍如何通过Webpack将基于TypeScript的Vue项目进行打包。\r\n","attributes":{"title":"使用webpack打包Vue和TypeScript","date":"2019-10-22T15:20:08.000Z","tags":["Vue","Webpack","TypeScript"],"categories":"Web"},"link":"/2019/10/22/使用webpack打包Vue和TypeScript"},{"id":"a98abe2610eb762e74187f3fa091ed65","body":"现在前端开发不像以前一样，只需要写html、css和javascript文件就可以了。现代前端开发讲究工程化。\r\n**什么是工程化？**\r\n工程化即系统化、模块化、规范化的一个过程。\r\n**为什么要工程化？**\r\n工程化是让开发、测试和维护都变得更加可靠和提高效率的方式。\r\n1. 制定规范\r\n2. 版本管理\r\n3. 单元测试\r\n4. 自动化\r\n通过制定流程的方式，规范了开发和测试的流程，让工作有章可循，方便团队协作。\r\n<!--more -->\r\n最初的网页开发，是写好几份的javascript代码和css文件，手动在html中引入的。这样不适合多人协作开发，一旦开发人员多了，不可避免的会造成文件和命名冲突。\r\n为了避免这些事情的发生，javascript增加了模块的概念。\r\n有好的事情出现，就会有坏的事情发生。\r\n过多的模块导致js文件下载很慢，而且有冗余，为了避免这件事情影响用户体验，webpack横空出世了。\r\nwebpack是一个现代javascript的静态模块打包器。它会递归的构建出依赖图，并根据依赖图来输出应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。\r\nwebpack有四个核心概念:\r\n- 入口(entry)\r\n- 输出(output)\r\n- loader\r\n- 插件\r\n入口决定了webpack要从哪个文件开始构建依赖图。\r\n看一个简单的例子:\r\n```\r\nmodule.exports = {\r\n    entry: './src/index.js'\r\n}\r\n```\r\noutput则决定了webpack会在哪里输出生成的bundles，以及如何命名这些bundles。输出目录默认为 `./dist/` 。\r\n```\r\nconst path = require('path');\r\nmodule.exports = {\r\n    entry: './src/index.js',\r\n    output: {\r\n        path: path.resolve(__dirname, 'dist'),\r\n        filename: 'bundle.js'\r\n    }\r\n}\r\n```\r\nloader可以让webpack打包非javascript文件，loader可以将所有类型的文件转换为webpack可以识别的有效模块，然后利用webpack的打包能力，对他们进行处理。\r\n```\r\nconst path = require('path');\r\nmodule.exports = {\r\n    entry: './src/index.js',\r\n    output: {\r\n        path: path.resolve(__dirname, 'dist'),\r\n        filename: 'bundle.js'\r\n    },\r\n    module: {\r\n        rules: {\r\n            test: /\\.css$/,\r\n            use: 'css-loader'\r\n        }\r\n    }\r\n}\r\n```\r\nrules中的意思是，当require()/impot中被解析为.css的路径时，先使用css-loader转换一下。\r\n我们可以开发新的loader去加载不同的文件，最终都通过webpack来打包到一起。\r\nloader用于转换某些类型的模块，插件则工作的更加广泛。插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。插件接口功能极其强大，可以用来处理各种各样的任务。\r\n想要使用一个插件，你只需要 require() 它，然后把它添加到 plugins 数组中。多数插件可以通过选项(option)自定义。你也可以在一个配置文件中因为不同目的而多次使用同一个插件，这时需要通过使用 new 操作符来创建它的一个实例。\r\n```\r\nconst path = require('path');\r\nconst HtmlWebpackPlugin = require('html-webpack-plugin'); // 通过 npm 安装\r\nconst webpack = require('webpack');\r\nmodule.exports = {\r\n    entry: './src/index.js',\r\n    output: {\r\n        path: path.resolve(__dirname, 'dist'),\r\n        filename: 'bundle.js'\r\n    },\r\n    module: {\r\n        rules: {\r\n            test: /\\.css$/,\r\n            use: 'css-loader'\r\n        }\r\n    },\r\n    plugins: [\r\n        new HtmlWebpackPlugin({template: './src/index.html'})\r\n    ]\r\n}\r\n```\r\n## 总结\r\n通过webpack，我们可以将整个项目都打包为一个文件进行分发，而且还可以进行优化。webpack的出现，将前端的开发和发布彻底的分离开，开发人员可以以各种方式进行开发，通过webpack打包以后输出部署需要的文件。\r\n\r\n","attributes":{"title":"webpack入门","date":"2019-10-14T15:34:52.000Z","tags":"Web","categories":["Web","webpack"]},"link":"/2019/10/14/webpack入门"},{"id":"99ec8a9d9ba3a68bd318ba53b3cc288f","body":"wsl2已经是虚拟机平台了。\r\n","attributes":{"title":"wsl2的使用体验","date":"2019-06-16T12:59:59.000Z","tags":"Windows","categories":null},"link":"/2019/06/16/wsl2的使用体验"},{"id":"1f1cb6277ee60d735f8b86c5ad273f06","body":"今天算是正式入坑 typescript 了，基于 vue 写了第一个函数，用来做一个文字效果。\r\n演示效果：\r\n![](深度录屏_选择区域_20190615202044.gif)\r\n","attributes":{"title":"入坑typescript了","date":"2019-06-15T23:41:49.000Z","tags":"typescript","categories":null},"link":"/2019/06/15/入坑typescript了"},{"id":"9ec35bb654ffc0cbd1277fe1e4e4b5d8","body":"什么是单元测试?\r\n>在计算机编程中，单元测试又称为模块测试，是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。\r\n单元测试存在的意义在于，如果程序发生了异常情况，比如接收了错误的值，从而导致结果不正确，当修正程序中的错误后，为了避免再次遇到这个问题，需要对出问题的值和函数/功能进行一次测试，确保结果符合预期。\r\n单元测试很重要，如果是新项目，请一定要刚开始就规划好单元测试。\r\n为什么说单元测试很重要呢？因为单元测试的目的是隔离其他单元，并证明当前单元是正确的。这需要开发者在设计程序的时候就要考虑很多，合理的设计和规划项目。当未来重构项目的时候，可以局部重构来优化项目，而不是从零重写。\r\n本文没有详细说明Qt的单元测试是如何编写的，编写Qt的单元测试放在以后再写(~~咕咕咕~~)。\r\n","attributes":{"title":"CMake CTests for dde-control-center","date":"2019-05-23T17:16:15.000Z","tags":["CMake Linux"],"categories":"Linux"},"link":"/2019/05/23/CMakeCTestsfordde-control-center"},{"id":"e1aa7dbe1a07108e48cb64584f29df65","body":"为了节省读者的时间，我先简述一下阅读这篇文章需要了解的知识。\r\n这篇文章将基于Docker来构建nginx、php和mysql来搭建LNMP环境，和其他教程有所不同的是，需要有一定的Docker基础。\r\n","attributes":{"title":"如何在Deepin上使用LNMP","date":"2019-02-21T10:11:15.000Z","tags":["LNMP","Linux","Deepin","Web"],"categories":["Linux"],"author":"Lorem Ipsum","url":"http://generator.lorem-ipsum.info"},"link":"/2019/02/21/如何在Deepin上使用LNMP"},{"id":"f2d8a4c260dfd8559bbabebc5c412e07","body":"反正都用xposed了，肯定也有root权限。\r\n删除/data/data/com.taobao.taobao/files/bundleBaseline/里的文件，然后设置该目录为500。\r\n\r\n","attributes":{"title":"解决用了xposed后淘宝闪退","s":"fuck_taobao","date":"2019-01-23T10:27:52.000Z","tags":null,"categories":null},"link":"/2019/01/23/解决用了xposed后淘宝闪退"}]}
+{
+    "prepage": "/page/0/",
+    "nextpage": "/page/2/",
+    "postList": [
+        {
+            "id": "d560b3f834af2faf3284b51e5ceaa328",
+            "body": "<p>以前一直搞不懂动画是怎么做的，它怎么这么神奇，写了一点看不懂的代码，就实现了非常丰富的效果，现在做了三年Qt开发，接触到了Qt的动画类，明白了动画是怎么一会儿事，现在来看当初的css动画代码，也明白了它是如何工作的了。本文会介绍一下Vue提供的组件过渡动画模块——transitions。</p>\n",
+            "attributes": {
+                "title": "添加Vue动画",
+                "date": "2019-12-08T08:03:40.000Z",
+                "tags": "Vue",
+                "categories": "Vue"
+            },
+            "link": "/2019/12/08/添加Vue动画"
+        },
+        {
+            "id": "6d39c7c84d7c4c365d3e55d6e1676429",
+            "body": "<p>webpack的出现方便了前端开发者，使开发和部署分成了两部分，开发者可以正常根据工程化的要求进行开发，部署时通过webpack实现代码的裁剪和优化。\n本次就介绍一个webpack的功能 <code>webpack-dev-server</code>\n将webpack与提供实时重载的开发服务器一起使用。这仅应用于开发。\n它在后台使用了webpack-dev-middleware，它提供了对Webpack资产的快速内存访问。</p>\n",
+            "attributes": {
+                "title": "使用webpack-dev-server来监听项目变化",
+                "date": "2019-11-25T17:54:36.000Z",
+                "tags": "Vue",
+                "categories": "Vue"
+            },
+            "link": "/2019/11/25/使用webpack-dev-server来监听项目变化"
+        },
+        {
+            "id": "5c7d5535bc4867a366610bc7e2bf2fff",
+            "body": "<p>最近在Arch上更新系统的时候，总是遇到图形完全卡住的情况，今天上午突然想起来自己曾经设置了使用noop的IO调度，猜测是因为这个。然后本着不折腾不舒服的原则，打算使用ck内核上MuQSS的进程调度和BFQ的IO调度。</p>\n",
+            "attributes": {
+                "title": "给Archlinux开启BFQ和MuQSS",
+                "date": "2019-10-24T13:19:21.000Z",
+                "tags": "Linux",
+                "categories": "Linux"
+            },
+            "link": "/2019/10/24/给Archlinux开启BFQ和MuQSS"
+        },
+        {
+            "id": "eb5e31eba4260e2683ba9964334c8cba",
+            "body": "<p>本文将会介绍如何通过Webpack将基于TypeScript的Vue项目进行打包。</p>\n",
+            "attributes": {
+                "title": "使用webpack打包Vue和TypeScript",
+                "date": "2019-10-22T15:20:08.000Z",
+                "tags": [
+                    "Vue",
+                    "Webpack",
+                    "TypeScript"
+                ],
+                "categories": "Web"
+            },
+            "link": "/2019/10/22/使用webpack打包Vue和TypeScript"
+        },
+        {
+            "id": "a98abe2610eb762e74187f3fa091ed65",
+            "body": "<p>现在前端开发不像以前一样，只需要写html、css和javascript文件就可以了。现代前端开发讲究工程化。\n<strong>什么是工程化？</strong>\n工程化即系统化、模块化、规范化的一个过程。\n<strong>为什么要工程化？</strong>\n工程化是让开发、测试和维护都变得更加可靠和提高效率的方式。</p>\n<ol>\n<li>制定规范</li>\n<li>版本管理</li>\n<li>单元测试</li>\n<li>自动化\n通过制定流程的方式，规范了开发和测试的流程，让工作有章可循，方便团队协作。\n&lt;!--more --&gt;\n最初的网页开发，是写好几份的javascript代码和css文件，手动在html中引入的。这样不适合多人协作开发，一旦开发人员多了，不可避免的会造成文件和命名冲突。\n为了避免这些事情的发生，javascript增加了模块的概念。\n有好的事情出现，就会有坏的事情发生。\n过多的模块导致js文件下载很慢，而且有冗余，为了避免这件事情影响用户体验，webpack横空出世了。\nwebpack是一个现代javascript的静态模块打包器。它会递归的构建出依赖图，并根据依赖图来输出应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。\nwebpack有四个核心概念:</li>\n</ol>\n<ul>\n<li>入口(entry)</li>\n<li>输出(output)</li>\n<li>loader</li>\n<li>插件\n入口决定了webpack要从哪个文件开始构建依赖图。\n看一个简单的例子:</li>\n</ul>\n<pre><code>module.exports = {\n    entry: './src/index.js'\n}\n</code></pre>\n<p>output则决定了webpack会在哪里输出生成的bundles，以及如何命名这些bundles。输出目录默认为 <code>./dist/</code> 。</p>\n<pre><code>const path = require('path');\nmodule.exports = {\n    entry: './src/index.js',\n    output: {\n        path: path.resolve(__dirname, 'dist'),\n        filename: 'bundle.js'\n    }\n}\n</code></pre>\n<p>loader可以让webpack打包非javascript文件，loader可以将所有类型的文件转换为webpack可以识别的有效模块，然后利用webpack的打包能力，对他们进行处理。</p>\n<pre><code>const path = require('path');\nmodule.exports = {\n    entry: './src/index.js',\n    output: {\n        path: path.resolve(__dirname, 'dist'),\n        filename: 'bundle.js'\n    },\n    module: {\n        rules: {\n            test: /\\.css$/,\n            use: 'css-loader'\n        }\n    }\n}\n</code></pre>\n<p>rules中的意思是，当require()/impot中被解析为.css的路径时，先使用css-loader转换一下。\n我们可以开发新的loader去加载不同的文件，最终都通过webpack来打包到一起。\nloader用于转换某些类型的模块，插件则工作的更加广泛。插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。插件接口功能极其强大，可以用来处理各种各样的任务。\n想要使用一个插件，你只需要 require() 它，然后把它添加到 plugins 数组中。多数插件可以通过选项(option)自定义。你也可以在一个配置文件中因为不同目的而多次使用同一个插件，这时需要通过使用 new 操作符来创建它的一个实例。</p>\n<pre><code>const path = require('path');\nconst HtmlWebpackPlugin = require('html-webpack-plugin'); // 通过 npm 安装\nconst webpack = require('webpack');\nmodule.exports = {\n    entry: './src/index.js',\n    output: {\n        path: path.resolve(__dirname, 'dist'),\n        filename: 'bundle.js'\n    },\n    module: {\n        rules: {\n            test: /\\.css$/,\n            use: 'css-loader'\n        }\n    },\n    plugins: [\n        new HtmlWebpackPlugin({template: './src/index.html'})\n    ]\n}\n</code></pre>\n<h2>总结</h2>\n<p>通过webpack，我们可以将整个项目都打包为一个文件进行分发，而且还可以进行优化。webpack的出现，将前端的开发和发布彻底的分离开，开发人员可以以各种方式进行开发，通过webpack打包以后输出部署需要的文件。</p>\n",
+            "attributes": {
+                "title": "webpack入门",
+                "date": "2019-10-14T15:34:52.000Z",
+                "tags": "Web",
+                "categories": [
+                    "Web",
+                    "webpack"
+                ]
+            },
+            "link": "/2019/10/14/webpack入门"
+        },
+        {
+            "id": "99ec8a9d9ba3a68bd318ba53b3cc288f",
+            "body": "<p>wsl2已经是虚拟机平台了。</p>\n",
+            "attributes": {
+                "title": "wsl2的使用体验",
+                "date": "2019-06-16T12:59:59.000Z",
+                "tags": "Windows",
+                "categories": null
+            },
+            "link": "/2019/06/16/wsl2的使用体验"
+        },
+        {
+            "id": "1f1cb6277ee60d735f8b86c5ad273f06",
+            "body": "<p>今天算是正式入坑 typescript 了，基于 vue 写了第一个函数，用来做一个文字效果。\n演示效果：\n<img src=\"%E6%B7%B1%E5%BA%A6%E5%BD%95%E5%B1%8F_%E9%80%89%E6%8B%A9%E5%8C%BA%E5%9F%9F_20190615202044.gif\" alt=\"\"></p>\n",
+            "attributes": {
+                "title": "入坑typescript了",
+                "date": "2019-06-15T23:41:49.000Z",
+                "tags": "typescript",
+                "categories": null
+            },
+            "link": "/2019/06/15/入坑typescript了"
+        },
+        {
+            "id": "9ec35bb654ffc0cbd1277fe1e4e4b5d8",
+            "body": "<p>什么是单元测试?</p>\n<blockquote>\n<p>在计算机编程中，单元测试又称为模块测试，是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。\n单元测试存在的意义在于，如果程序发生了异常情况，比如接收了错误的值，从而导致结果不正确，当修正程序中的错误后，为了避免再次遇到这个问题，需要对出问题的值和函数/功能进行一次测试，确保结果符合预期。\n单元测试很重要，如果是新项目，请一定要刚开始就规划好单元测试。\n为什么说单元测试很重要呢？因为单元测试的目的是隔离其他单元，并证明当前单元是正确的。这需要开发者在设计程序的时候就要考虑很多，合理的设计和规划项目。当未来重构项目的时候，可以局部重构来优化项目，而不是从零重写。\n本文没有详细说明Qt的单元测试是如何编写的，编写Qt的单元测试放在以后再写(<s>咕咕咕</s>)。</p>\n</blockquote>\n",
+            "attributes": {
+                "title": "CMake CTests for dde-control-center",
+                "date": "2019-05-23T17:16:15.000Z",
+                "tags": [
+                    "CMake Linux"
+                ],
+                "categories": "Linux"
+            },
+            "link": "/2019/05/23/CMakeCTestsfordde-control-center"
+        },
+        {
+            "id": "e1aa7dbe1a07108e48cb64584f29df65",
+            "body": "<p>为了节省读者的时间，我先简述一下阅读这篇文章需要了解的知识。\n这篇文章将基于Docker来构建nginx、php和mysql来搭建LNMP环境，和其他教程有所不同的是，需要有一定的Docker基础。</p>\n",
+            "attributes": {
+                "title": "如何在Deepin上使用LNMP",
+                "date": "2019-02-21T10:11:15.000Z",
+                "tags": [
+                    "LNMP",
+                    "Linux",
+                    "Deepin",
+                    "Web"
+                ],
+                "categories": [
+                    "Linux"
+                ],
+                "author": "Lorem Ipsum",
+                "url": "http://generator.lorem-ipsum.info"
+            },
+            "link": "/2019/02/21/如何在Deepin上使用LNMP"
+        },
+        {
+            "id": "f2d8a4c260dfd8559bbabebc5c412e07",
+            "body": "<p>反正都用xposed了，肯定也有root权限。\n删除/data/data/com.taobao.taobao/files/bundleBaseline/里的文件，然后设置该目录为500。</p>\n",
+            "attributes": {
+                "title": "解决用了xposed后淘宝闪退",
+                "s": "fuck_taobao",
+                "date": "2019-01-23T10:27:52.000Z",
+                "tags": null,
+                "categories": null
+            },
+            "link": "/2019/01/23/解决用了xposed后淘宝闪退"
+        }
+    ]
+}

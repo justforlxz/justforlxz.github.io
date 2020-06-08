@@ -1,1 +1,10 @@
-{"attributes":{"title":"标题","date":"2017-05-15T00:00:00.000Z","author":"justforlxz"},"body":"正文内容\r\n## test\r\n\r\n","id":"b128b7694e4de962e0088bcb1bcb254f","link":"/2017/05/15/标题"}
+{
+    "attributes": {
+        "title": "标题",
+        "date": "2017-05-15T00:00:00.000Z",
+        "author": "justforlxz"
+    },
+    "body": "<p>正文内容</p>\n<h2>test</h2>\n",
+    "id": "b128b7694e4de962e0088bcb1bcb254f",
+    "link": "/2017/05/15/标题"
+}

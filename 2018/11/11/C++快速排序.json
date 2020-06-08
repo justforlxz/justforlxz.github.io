@@ -1,1 +1,15 @@
-{"attributes":{"title":"C++快速排序","p":"quick sort for c++","date":"2018-11-11T16:57:44.000Z","tags":["Program","C++"],"categories":null},"body":"快速排序是基于分治思想的排序算法，通过这种策略把列表分为两个子列，重复该过程。是由东尼·霍尔提出，在平均状况下，排序N个数据要O(nlogn)次比较，在最坏情况下则需要O(n^2)，但退化成冒泡的情况比较少见，快速排序比其他排序算法通常情况是最佳的，因为内部使用的循环在很多平台都有优化。\r\n快速排序的步骤很简单：\r\n- 选择一个基准\r\n- 遍历列表，将小于基准的放在列表左边，大于基准的放在列表右边\r\n- 递归这个操作\r\n在维基百科上的这张图可以很直观的展示快速排序的过程\r\n![quicksort](Sorting_quicksort_anim.gif)\r\n代码实现:\r\n首先需要一个返回基准的函数，该函数负责从指定的范围中挑选一个位置作为基准，并对范围内列表进行排序，并返回基准所在的位置。\r\n```\r\nint Division(int a[], int left, int right) {\r\n    int base = a[left]; // 取第一个数为基准\r\n    while (left < right) {\r\n        while (left < right && a[left] > base) {\r\n            // 从右向左找第一个比基准小的元素\r\n            --right;\r\n        }\r\n        a[left] = a[right]; // 交换位置，把小元素放在左侧\r\n        while (left < right && a[left] < base) {\r\n            // 从左向右找第一个比基准大的元素\r\n            ++left;\r\n        }\r\n        a[right] = a[left]; // 交换位置，把大元素放在右侧\r\n    }\r\n    a[left] = base;\r\n    return left;\r\n}\r\n```\r\nDivision函数只做了最简单的事，找一个基准，并交换左右的元素，使列表左侧均小于基准元素，使右侧均大于基准元素，接下来需要一个函数，使列表趋向最小，直至列表元素剩一(这里我感觉其实有点极限的思想)。\r\n```\r\nvoid quick_sort(int a[], int left, int right) {\r\n    if (left < right) {\r\n        int index = Division(a, left, right); //对列表进行分割\r\n        quick_sort(a, left, i -1); //对左侧进行排序\r\n        quick_sort(a, i + 1, right); //对右侧进行排序\r\n    }\r\n}\r\n```\r\n配合上方的gif，就可以很清楚的了解快速排序是如何使用分治法来排序的，通过将大任务拆分成小任务，最终达成完整的排序.\r\n\r\n","id":"6080b4334bf5e6d54d7934e9fd84d682","link":"/2018/11/11/C++快速排序"}
+{
+    "attributes": {
+        "title": "C++快速排序",
+        "p": "quick sort for c++",
+        "date": "2018-11-11T16:57:44.000Z",
+        "tags": [
+            "Program",
+            "C++"
+        ],
+        "categories": null
+    },
+    "body": "<p>快速排序是基于分治思想的排序算法，通过这种策略把列表分为两个子列，重复该过程。是由东尼·霍尔提出，在平均状况下，排序N个数据要O(nlogn)次比较，在最坏情况下则需要O(n^2)，但退化成冒泡的情况比较少见，快速排序比其他排序算法通常情况是最佳的，因为内部使用的循环在很多平台都有优化。\n快速排序的步骤很简单：</p>\n<ul>\n<li>选择一个基准</li>\n<li>遍历列表，将小于基准的放在列表左边，大于基准的放在列表右边</li>\n<li>递归这个操作\n在维基百科上的这张图可以很直观的展示快速排序的过程\n<img src=\"Sorting_quicksort_anim.gif\" alt=\"quicksort\">\n代码实现:\n首先需要一个返回基准的函数，该函数负责从指定的范围中挑选一个位置作为基准，并对范围内列表进行排序，并返回基准所在的位置。</li>\n</ul>\n<pre><code>int Division(int a[], int left, int right) {\n    int base = a[left]; // 取第一个数为基准\n    while (left &lt; right) {\n        while (left &lt; right &amp;&amp; a[left] &gt; base) {\n            // 从右向左找第一个比基准小的元素\n            --right;\n        }\n        a[left] = a[right]; // 交换位置，把小元素放在左侧\n        while (left &lt; right &amp;&amp; a[left] &lt; base) {\n            // 从左向右找第一个比基准大的元素\n            ++left;\n        }\n        a[right] = a[left]; // 交换位置，把大元素放在右侧\n    }\n    a[left] = base;\n    return left;\n}\n</code></pre>\n<p>Division函数只做了最简单的事，找一个基准，并交换左右的元素，使列表左侧均小于基准元素，使右侧均大于基准元素，接下来需要一个函数，使列表趋向最小，直至列表元素剩一(这里我感觉其实有点极限的思想)。</p>\n<pre><code>void quick_sort(int a[], int left, int right) {\n    if (left &lt; right) {\n        int index = Division(a, left, right); //对列表进行分割\n        quick_sort(a, left, i -1); //对左侧进行排序\n        quick_sort(a, i + 1, right); //对右侧进行排序\n    }\n}\n</code></pre>\n<p>配合上方的gif，就可以很清楚的了解快速排序是如何使用分治法来排序的，通过将大任务拆分成小任务，最终达成完整的排序.</p>\n",
+    "id": "6080b4334bf5e6d54d7934e9fd84d682",
+    "link": "/2018/11/11/C++快速排序"
+}

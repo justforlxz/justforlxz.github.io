@@ -252,8 +252,6 @@ Object.defineProperty(exports, "__esModule", ({
 
 var vue_1 = __webpack_require__(/*! vue */ 9963);
 
-var markdown_it_1 = __importDefault(__webpack_require__(/*! markdown-it */ 9980));
-
 var Button_vue_1 = __importDefault(__webpack_require__(/*! ./Button.vue */ 7494));
 
 ;
@@ -300,8 +298,7 @@ exports.default = vue_1.defineComponent({
         return String;
       }
 
-      var md = new markdown_it_1["default"]();
-      return md.render(props.post.body.toString());
+      return props.post.body.toString();
     });
     var postTitle = vue_1.computed(function () {
       if (props.post === undefined) {
@@ -715,7 +712,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ 3645);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.id, ".post {\n  margin: 0px 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  margin: 20px 0px 0px 0px;\n}\n.post .post-block {\n    padding: 0px 20px;\n}\n@media only screen and (min-width: 1366px) {\n.post .post-block {\n        padding: 0px 40px;\n}\n}\n", ""]);
+exports.push([module.id, ".post {\n  margin: 0px 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -755,7 +752,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ 3645);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.id, ".post-block {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n  align-items: center;\n  align-content: center;\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  border-radius: initial;\n  background-color: #fff;\n  font-family: 'Lato', \"PingFang SC\", \"Microsoft YaHei\", sans-serif;\n}\nv-button {\n  margin-top: 40px;\n}\n.post-title {\n  text-align: center;\n}\n.post-title-link {\n  line-height: inherit;\n}\n.post-meta {\n  display: inline-flex;\n  color: #999;\n  font-size: 12px;\n  text-align: center;\n}\n.post-meta-divder {\n  margin: 0 0.5em;\n}\n.post-summary {\n  font-size: 16px;\n  width: 100%;\n}\n.post-summary p {\n    word-break: break-word;\n    white-space: pre-wrap;\n}\n.post-summary pre {\n    overflow: auto;\n}\n", ""]);
+exports.push([module.id, ".post-block {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n  align-items: center;\n  align-content: center;\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  border-radius: initial;\n  background-color: #fff;\n  font-family: 'Lato', \"PingFang SC\", \"Microsoft YaHei\", sans-serif;\n  padding: 0px 40px;\n  padding-bottom: 30px;\n}\nv-button {\n  margin-top: 40px;\n}\n.post-title {\n  text-align: center;\n}\n.post-title-link {\n  line-height: inherit;\n}\n.post-meta {\n  display: inline-flex;\n  color: #999;\n  font-size: 12px;\n  text-align: center;\n}\n.post-meta-divder {\n  margin: 0 0.5em;\n}\n.post-summary {\n  font-size: 16px;\n  width: 100%;\n}\n.post-summary p {\n    word-break: break-word;\n    white-space: pre-wrap;\n}\n.post-summary pre {\n    overflow: auto;\n}\n", ""]);
 // Exports
 module.exports = exports;
 

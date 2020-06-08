@@ -1,1 +1,15 @@
-{"attributes":{"title":"ArchLinux运行steam出现缺少LibGL--steam libGL error: failed to load driver: swrast","subtitle":"arch库太新，steam库太旧导致的问题。","date":"2016-07-15T07:18:53.000Z","author":"kirigaya","header-img":"home-bg.jpg","tags":["实验室"]},"body":"其实arch的wiki已经提到了，而且这个问题是比较常见的，只需要删除steam的库就行。\r\n[wiki原文链接](https://wiki.archlinux.org/index.php/Steam/Troubleshooting#Deleting_the_runtime_libraries)\r\n<!--more-->\r\n删除运行库\r\n运行此命令，删除在issues上已知的运行库问题:\r\n    find ~/.steam/root/ \\( -name \"libgcc_s.so*\" -o -name \"libstdc++.so*\" -o -name \"libxcb.so*\" -o -name \"libgpg-error.so*\" \\) -print -delete\r\n如果上面的命令不工作，则再次运行上面的命令，然后运行此命令。\r\n    find ~/.local/share/Steam/ \\( -name \"libgcc_s.so*\" -o -name \"libstdc++.so*\" -o -name \"libxcb.so*\" -o -name \"libgpg-error.so*\" \\) -print -delete\r\n\r\n","id":"de84ebf81747eb9e386cbfbc97812966","link":"/2016/07/15/ArchLinux运行steam出现缺少LibGL--steamlibGLerror:failedtoloaddriver:swrast"}
+{
+    "attributes": {
+        "title": "ArchLinux运行steam出现缺少LibGL--steam libGL error: failed to load driver: swrast",
+        "subtitle": "arch库太新，steam库太旧导致的问题。",
+        "date": "2016-07-15T07:18:53.000Z",
+        "author": "kirigaya",
+        "header-img": "home-bg.jpg",
+        "tags": [
+            "实验室"
+        ]
+    },
+    "body": "<p>其实arch的wiki已经提到了，而且这个问题是比较常见的，只需要删除steam的库就行。\n<a href=\"https://wiki.archlinux.org/index.php/Steam/Troubleshooting#Deleting_the_runtime_libraries\">wiki原文链接</a>\n&lt;!--more--&gt;\n删除运行库\n运行此命令，删除在issues上已知的运行库问题:\nfind ~/.steam/root/ ( -name &quot;libgcc_s.so*&quot; -o -name &quot;libstdc++.so*&quot; -o -name &quot;libxcb.so*&quot; -o -name &quot;libgpg-error.so*&quot; ) -print -delete\n如果上面的命令不工作，则再次运行上面的命令，然后运行此命令。\nfind ~/.local/share/Steam/ ( -name &quot;libgcc_s.so*&quot; -o -name &quot;libstdc++.so*&quot; -o -name &quot;libxcb.so*&quot; -o -name &quot;libgpg-error.so*&quot; ) -print -delete</p>\n",
+    "id": "de84ebf81747eb9e386cbfbc97812966",
+    "link": "/2016/07/15/ArchLinux运行steam出现缺少LibGL--steamlibGLerror:failedtoloaddriver:swrast"
+}

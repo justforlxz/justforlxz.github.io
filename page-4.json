@@ -1,1 +1,106 @@
-{"prepage":"/page/3/","nextpage":"/page/5/","postList":[{"id":"932abc55aac0e50579fd73d2292c8650","body":"这里记录了开发topbar中遇到的坑和一些问题。\r\n","attributes":{"title":"开发topbar中的技术问题","date":"2017-08-23T08:54:56.000Z","tags":null},"link":"/2017/08/23/开发topbar中的技术问题"},{"id":"9507bb4b8542c7c5229aa902981e79dc","body":"[http://suninuni.com/2015/09/30/frontend/hexo/hexo-config/](http://suninuni.com/2015/09/30/frontend/hexo/hexo-config/)\r\n这个主题确实挺好的，我也魔改了一部分来达成自己的目的，添加tags是看的这篇文章。\r\n","attributes":{"title":"TKL主题优化 -<转>","date":"2017-08-20T05:05:54.000Z","tags":"Hexo"},"link":"/2017/08/20/TKL主题优化-<转>"},{"id":"72ea220e09cca76106cdcab9bb0bf778","body":"前言： 项目一定要留一些文档！！ 修bug前一定要知道所有的流程！！！\r\n","attributes":{"title":"debug了两天，只删了一行代码","date":"2017-08-16T18:25:39.000Z","tags":null},"link":"/2017/08/16/debug了两天，只删了一行代码"},{"id":"f40ecf809aeac53f3006a1e540877352","body":"排查了一天，最后终于确认了流程，知道了问题所在，不得不说，dde-session-ui这个项目太需要一个文档了，要把工作流程写的非常详细才可以。\r\n","attributes":{"title":"正常的流程在界面上却是bug","date":"2017-08-15T07:43:43.000Z","tags":null},"link":"/2017/08/15/正常的流程在界面上却是bug"},{"id":"6c0149bf21d9e5eda6a4de16dc973615","body":"其实这个问题影响并不是很大，只是稍微的增加一点点访问速度，缓存这东西有利有弊。\r\n","attributes":{"title":"在deepin上使用dnsmasq来解决dns解析缓慢","date":"2017-08-11T14:07:26.000Z","tags":null},"link":"/2017/08/11/在deepin上使用dnsmasq来解决dns解析缓慢"},{"id":"39479c1656fa8ca58026fc948c852edd","body":"也许需要安装dirmngr\r\nmaybe you need install dirmngr\r\n追加内容到/etc/apt/sources.list\r\nAppend content to /etc/apt/sources.list\r\n```\r\ndeb [arch=amd64] https://packages.mkacg.com panda main \r\n```\r\n导入key \r\nimport key\r\n```\r\nsudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3BBF73EE77F2FB2A\r\n```\r\n","attributes":{"title":"PPA","date":"2017-07-24T16:07:50.000Z","tags":null},"link":"/2017/07/24/PPA"},{"id":"2160f8b621443cce3b19cb7d787fd057","body":"自己搭了一个仓库，提供deepin-topbar及相关依赖的包。\r\nI created a repository,provide deepin-topbar and dependencies.\r\n","attributes":{"title":"topbar PPA","date":"2017-07-20T13:37:51.000Z","tags":null},"link":"/2017/07/20/topbarPPA"},{"id":"95424174b467660d9d29374c13638004","body":"blog现在是用hexo，放在自己的[code](https://code.mkacg.com)网站上。\r\ncode是用无闻大大的gogs搭建的，跑在台式机的docker中，本机跑了很多docker服务，有hexo，有aria2c，有gogs，还有个webserver caddy。\r\ncaddy这东西还是基友 [不爱写博客的mioto](https://mioto.me/)推荐给我的，之前我一直是用nginx的，那配置文件太复杂了，根本玩不来。\r\n写一篇文章，会先提交到code，然后触发webhook，caddy会拉取code中的文章，由于是静态的，所以不需要处理其他的，只需要拉取最新的就可以了。\r\ncaddy的配置\r\n```\r\nblog.mkacg.com {\r\n    gzip\r\n    redir 301 {\r\n    if {>X-Forwarded-Proto} is http\r\n        /  https://{host}{uri}\r\n    }\r\n    tls kirigaya@mkacg.com\r\n    root /srv/www/blog\r\n    git code.mkacg.com/kirigayakazushin/blog {\r\n        path /srv/www/blog\r\n        branch gh-pages\r\n        hook /_webhook xxx\r\n        hook_type gogs\r\n        then git pull\r\n    }\r\n}\r\n```\r\ngogs上只需要创建一个webhook，地址填写成caddy中的hook地址，加密填写hook后的xxx即可，加密自己设置。\r\n然后就可以提交了。\r\n提交会触发push操作，gogs会根据设置的webhook中的规则，执行和push相关的webhook，webhook会向指定的url发送POST操作，发送的内容中包含了相关信息，caddy会根据相关信息，来处理webhook，执行你规定的操作。\r\n","attributes":{"title":"webhook","date":"2017-07-14T02:52:20.000Z","tags":"linux"},"link":"/2017/07/14/webhook"},{"id":"5737edc6587a6dc7fec48fa8bdee5aaa","body":"鼠标手势还没想好要怎么实现，流程无法完全确认，这项稍后再做。\r\n主界面有两层构成，半透明全屏黑色背景和菜单。\r\n菜单较为复杂，除了左边是一个大面板，其他部分全部都可以使用一种方式实现。使用Qt的QAbstractItemDelegate、QListView来做列表和界面绘制。\r\n右边则是无限展开的菜单。\r\n每层菜单只是用一个对象，和topbar dock的popup window一样。\r\n点击每层菜单的时候，计算下一项要显示的位置。\r\n主界面应该是只有左右两部分，除了左边的大面板，右侧全部都是相同结构的菜单，只不过在功能上略有不同。\r\n点击的时候，所有菜单对鼠标点击的地点进行坐标计算，如果在鼠标右侧，则隐藏。如果要显示的菜单是自己，不隐藏。点击时开始timer，松开时停止，timeout以后显示选项。\r\n保持最后一个菜单在最中间的位置，主界面向左或向右用动画移动固定长度。\r\n","attributes":{"title":"SAOUTILS","date":"2017-07-04T06:20:00.000Z","tags":"linux"},"link":"/2017/07/04/SAOUTILS"},{"id":"dbdcbbe9d0265fc8d05157fa7721cc98","body":"　　topbar的架构参考的是dde-dock，就是一个精简的dock，只有一个方向，一个位置，没有右键菜单，只有插件类型。\r\n<!--more-->\r\n<video controls=\"\" autoplay=\"false\" name=\"media\"><source src=\"https://cache.mkacg.com/t.mp4\" type=\"video/mp4\"></video>\r\n　　计划是用来支持各种各样的方便的插件，比如：\r\n- 活动窗口指示器\r\n- 多媒体控制器\r\n- 电源控制\r\n- 时间控制\r\n计划要完成有：\r\n- shadowsocks\r\n- vpn控制器\r\n- 系统资源监视器\r\n剩下的计划待完成的插件由于各种原因，开发比较难，还需要学习一部分知识才可以完成。\r\n","attributes":{"title":"Topbar","date":"2017-06-26T02:32:35.000Z","tags":"linux"},"link":"/2017/06/26/Topbar"}]}
+{
+    "prepage": "/page/3/",
+    "nextpage": "/page/5/",
+    "postList": [
+        {
+            "id": "932abc55aac0e50579fd73d2292c8650",
+            "body": "<p>这里记录了开发topbar中遇到的坑和一些问题。</p>\n",
+            "attributes": {
+                "title": "开发topbar中的技术问题",
+                "date": "2017-08-23T08:54:56.000Z",
+                "tags": null
+            },
+            "link": "/2017/08/23/开发topbar中的技术问题"
+        },
+        {
+            "id": "9507bb4b8542c7c5229aa902981e79dc",
+            "body": "<p><a href=\"http://suninuni.com/2015/09/30/frontend/hexo/hexo-config/\">http://suninuni.com/2015/09/30/frontend/hexo/hexo-config/</a>\n这个主题确实挺好的，我也魔改了一部分来达成自己的目的，添加tags是看的这篇文章。</p>\n",
+            "attributes": {
+                "title": "TKL主题优化 -<转>",
+                "date": "2017-08-20T05:05:54.000Z",
+                "tags": "Hexo"
+            },
+            "link": "/2017/08/20/TKL主题优化-<转>"
+        },
+        {
+            "id": "72ea220e09cca76106cdcab9bb0bf778",
+            "body": "<p>前言： 项目一定要留一些文档！！ 修bug前一定要知道所有的流程！！！</p>\n",
+            "attributes": {
+                "title": "debug了两天，只删了一行代码",
+                "date": "2017-08-16T18:25:39.000Z",
+                "tags": null
+            },
+            "link": "/2017/08/16/debug了两天，只删了一行代码"
+        },
+        {
+            "id": "f40ecf809aeac53f3006a1e540877352",
+            "body": "<p>排查了一天，最后终于确认了流程，知道了问题所在，不得不说，dde-session-ui这个项目太需要一个文档了，要把工作流程写的非常详细才可以。</p>\n",
+            "attributes": {
+                "title": "正常的流程在界面上却是bug",
+                "date": "2017-08-15T07:43:43.000Z",
+                "tags": null
+            },
+            "link": "/2017/08/15/正常的流程在界面上却是bug"
+        },
+        {
+            "id": "6c0149bf21d9e5eda6a4de16dc973615",
+            "body": "<p>其实这个问题影响并不是很大，只是稍微的增加一点点访问速度，缓存这东西有利有弊。</p>\n",
+            "attributes": {
+                "title": "在deepin上使用dnsmasq来解决dns解析缓慢",
+                "date": "2017-08-11T14:07:26.000Z",
+                "tags": null
+            },
+            "link": "/2017/08/11/在deepin上使用dnsmasq来解决dns解析缓慢"
+        },
+        {
+            "id": "39479c1656fa8ca58026fc948c852edd",
+            "body": "<p>也许需要安装dirmngr\nmaybe you need install dirmngr\n追加内容到/etc/apt/sources.list\nAppend content to /etc/apt/sources.list</p>\n<pre><code>deb [arch=amd64] https://packages.mkacg.com panda main \n</code></pre>\n<p>导入key\nimport key</p>\n<pre><code>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3BBF73EE77F2FB2A\n</code></pre>\n",
+            "attributes": {
+                "title": "PPA",
+                "date": "2017-07-24T16:07:50.000Z",
+                "tags": null
+            },
+            "link": "/2017/07/24/PPA"
+        },
+        {
+            "id": "2160f8b621443cce3b19cb7d787fd057",
+            "body": "<p>自己搭了一个仓库，提供deepin-topbar及相关依赖的包。\nI created a repository,provide deepin-topbar and dependencies.</p>\n",
+            "attributes": {
+                "title": "topbar PPA",
+                "date": "2017-07-20T13:37:51.000Z",
+                "tags": null
+            },
+            "link": "/2017/07/20/topbarPPA"
+        },
+        {
+            "id": "95424174b467660d9d29374c13638004",
+            "body": "<p>blog现在是用hexo，放在自己的<a href=\"https://code.mkacg.com\">code</a>网站上。\ncode是用无闻大大的gogs搭建的，跑在台式机的docker中，本机跑了很多docker服务，有hexo，有aria2c，有gogs，还有个webserver caddy。\ncaddy这东西还是基友 <a href=\"https://mioto.me/\">不爱写博客的mioto</a>推荐给我的，之前我一直是用nginx的，那配置文件太复杂了，根本玩不来。\n写一篇文章，会先提交到code，然后触发webhook，caddy会拉取code中的文章，由于是静态的，所以不需要处理其他的，只需要拉取最新的就可以了。\ncaddy的配置</p>\n<pre><code>blog.mkacg.com {\n    gzip\n    redir 301 {\n    if {&gt;X-Forwarded-Proto} is http\n        /  https://{host}{uri}\n    }\n    tls kirigaya@mkacg.com\n    root /srv/www/blog\n    git code.mkacg.com/kirigayakazushin/blog {\n        path /srv/www/blog\n        branch gh-pages\n        hook /_webhook xxx\n        hook_type gogs\n        then git pull\n    }\n}\n</code></pre>\n<p>gogs上只需要创建一个webhook，地址填写成caddy中的hook地址，加密填写hook后的xxx即可，加密自己设置。\n然后就可以提交了。\n提交会触发push操作，gogs会根据设置的webhook中的规则，执行和push相关的webhook，webhook会向指定的url发送POST操作，发送的内容中包含了相关信息，caddy会根据相关信息，来处理webhook，执行你规定的操作。</p>\n",
+            "attributes": {
+                "title": "webhook",
+                "date": "2017-07-14T02:52:20.000Z",
+                "tags": "linux"
+            },
+            "link": "/2017/07/14/webhook"
+        },
+        {
+            "id": "5737edc6587a6dc7fec48fa8bdee5aaa",
+            "body": "<p>鼠标手势还没想好要怎么实现，流程无法完全确认，这项稍后再做。\n主界面有两层构成，半透明全屏黑色背景和菜单。\n菜单较为复杂，除了左边是一个大面板，其他部分全部都可以使用一种方式实现。使用Qt的QAbstractItemDelegate、QListView来做列表和界面绘制。\n右边则是无限展开的菜单。\n每层菜单只是用一个对象，和topbar dock的popup window一样。\n点击每层菜单的时候，计算下一项要显示的位置。\n主界面应该是只有左右两部分，除了左边的大面板，右侧全部都是相同结构的菜单，只不过在功能上略有不同。\n点击的时候，所有菜单对鼠标点击的地点进行坐标计算，如果在鼠标右侧，则隐藏。如果要显示的菜单是自己，不隐藏。点击时开始timer，松开时停止，timeout以后显示选项。\n保持最后一个菜单在最中间的位置，主界面向左或向右用动画移动固定长度。</p>\n",
+            "attributes": {
+                "title": "SAOUTILS",
+                "date": "2017-07-04T06:20:00.000Z",
+                "tags": "linux"
+            },
+            "link": "/2017/07/04/SAOUTILS"
+        },
+        {
+            "id": "dbdcbbe9d0265fc8d05157fa7721cc98",
+            "body": "<p>topbar的架构参考的是dde-dock，就是一个精简的dock，只有一个方向，一个位置，没有右键菜单，只有插件类型。\n&lt;!--more--&gt;\n&lt;video controls=&quot;&quot; autoplay=&quot;false&quot; name=&quot;media&quot;&gt;&lt;source src=&quot;https://cache.mkacg.com/t.mp4&quot; type=&quot;video/mp4&quot;&gt;&lt;/video&gt;\n　　计划是用来支持各种各样的方便的插件，比如：</p>\n<ul>\n<li>活动窗口指示器</li>\n<li>多媒体控制器</li>\n<li>电源控制</li>\n<li>时间控制\n计划要完成有：</li>\n<li>shadowsocks</li>\n<li>vpn控制器</li>\n<li>系统资源监视器\n剩下的计划待完成的插件由于各种原因，开发比较难，还需要学习一部分知识才可以完成。</li>\n</ul>\n",
+            "attributes": {
+                "title": "Topbar",
+                "date": "2017-06-26T02:32:35.000Z",
+                "tags": "linux"
+            },
+            "link": "/2017/06/26/Topbar"
+        }
+    ]
+}
