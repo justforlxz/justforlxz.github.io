@@ -1,6 +1,98 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 314:
+/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/header/HeaderBar.vue?vue&type=script&lang=ts ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: top-level-this-exports, __webpack_exports__, __webpack_require__ */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var Logo_vue_1 = __importDefault(__webpack_require__(/*! ./Logo.vue */ 7291));
+
+var Menu_vue_1 = __importDefault(__webpack_require__(/*! ./Menu.vue */ 7461));
+
+exports.default = {
+  components: {
+    logo: Logo_vue_1["default"],
+    "menu-bar": Menu_vue_1["default"]
+  },
+  setup: function setup() {
+    console.log("hello");
+  }
+};
+
+/***/ }),
+
+/***/ 1956:
+/*!************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/header/Logo.vue?vue&type=script&lang=ts ***!
+  \************************************************************************************************************************************************************************************************************************************************************/
+/*! flagged exports */
+/*! export __esModule [provided] [used] [could be renamed] */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_exports__ */
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = {
+  setup: function setup() {}
+};
+
+/***/ }),
+
+/***/ 2828:
+/*!************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/header/Menu.vue?vue&type=script&lang=ts ***!
+  \************************************************************************************************************************************************************************************************************************************************************/
+/*! flagged exports */
+/*! export __esModule [provided] [used] [could be renamed] */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__ */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var vue_1 = __webpack_require__(/*! vue */ 9963);
+
+exports.default = {
+  setup: function setup() {
+    var list = vue_1.reactive(["首页", "归档", "清单", "留言板", "关于", "后院"]);
+    return {
+      list: list
+    };
+  }
+};
+
+/***/ }),
+
 /***/ 1335:
 /*!************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/pages/About.vue?vue&type=script&lang=ts ***!
@@ -54,49 +146,13 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
-var axios_1 = __importDefault(__webpack_require__(/*! axios */ 9669));
-
-var vue_1 = __webpack_require__(/*! vue */ 9963);
-
-var router_1 = __importDefault(__webpack_require__(/*! ../../router */ 8185));
-
-var PostBlock_vue_1 = __importDefault(__webpack_require__(/*! ../widgets/PostBlock.vue */ 1632));
-
-var Button_vue_1 = __importDefault(__webpack_require__(/*! ../widgets/Button.vue */ 9632));
+var HeaderBar_vue_1 = __importDefault(__webpack_require__(/*! ../header/HeaderBar.vue */ 4606));
 
 exports.default = {
   components: {
-    'post-block': PostBlock_vue_1["default"],
-    'v-button': Button_vue_1["default"]
+    "header-bar": HeaderBar_vue_1["default"]
   },
-  setup: function setup() {
-    var prepage = vue_1.ref('');
-    var nextpage = vue_1.ref('');
-    var postList = vue_1.ref('');
-    var prePageText = vue_1.ref('上一页');
-    var nextPageText = vue_1.ref('下一页');
-
-    function refreshPage() {
-      var _router_1$default$cur;
-
-      var pageIndex = (_router_1$default$cur = router_1["default"].currentRoute.value.params['page']) !== null && _router_1$default$cur !== void 0 ? _router_1$default$cur : 0;
-      axios_1["default"].get("/page-".concat(pageIndex, ".json")).then(function (res) {
-        prepage.value = String(res.data.prepage);
-        nextpage.value = String(res.data.nextpage);
-        postList.value = res.data.postList;
-      });
-    }
-
-    vue_1.watch(router_1["default"].currentRoute, refreshPage);
-    refreshPage();
-    return {
-      prepage: prepage,
-      nextpage: nextpage,
-      postList: postList,
-      prePageText: prePageText,
-      nextPageText: nextPageText
-    };
-  }
+  setup: function setup() {}
 };
 
 /***/ }),
@@ -292,221 +348,24 @@ exports.default = vue_1.defineComponent({
 
 /***/ }),
 
-/***/ 6412:
-/*!****************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SideBar.vue?vue&type=script&lang=ts ***!
-  \****************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: top-level-this-exports, __webpack_exports__, __webpack_require__ */
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var SiteDescription_vue_1 = __importDefault(__webpack_require__(/*! ./SiteDescription.vue */ 4306));
-
-var SiteInfo_vue_1 = __importDefault(__webpack_require__(/*! ./SiteInfo.vue */ 7877));
-
-exports.default = {
-  components: {
-    "site-description": SiteDescription_vue_1["default"],
-    "site-info": SiteInfo_vue_1["default"]
-  }
-};
-
-/***/ }),
-
-/***/ 1848:
-/*!************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SiteDescription.vue?vue&type=script&lang=ts ***!
-  \************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: top-level-this-exports, __webpack_exports__, __webpack_require__ */
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var vue_1 = __webpack_require__(/*! vue */ 9963);
-
-var SiteMenu_vue_1 = __importDefault(__webpack_require__(/*! ./SiteMenu.vue */ 4743));
-
-exports.default = {
-  components: {
-    'site-menu': SiteMenu_vue_1["default"]
-  },
-  setup: function setup() {
-    var title = vue_1.ref("小竹's blog");
-    var subTitle = vue_1.ref("永远不要停止思考");
-    var items = vue_1.ref([{
-      title: 'Home',
-      link: '/',
-      icon: 'fa fa-fw fa-home',
-      isMain: true
-    }, {
-      title: 'About',
-      link: '/about',
-      icon: 'fa fa-fw fa-user',
-      isMain: false
-    }]);
-
-    function enter(index) {}
-
-    function onMouseLeave(index) {}
-
-    return {
-      title: title,
-      subTitle: subTitle,
-      items: items,
-      enter: enter,
-      onMouseLeave: onMouseLeave
-    };
-  }
-};
-
-/***/ }),
-
-/***/ 2626:
-/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SiteInfo.vue?vue&type=script&lang=ts ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************/
-/*! flagged exports */
-/*! export __esModule [provided] [used] [could be renamed] */
-/*! export default [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__ */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var vue_1 = __webpack_require__(/*! vue */ 9963);
-
-exports.default = {
-  setup: function setup() {
-    var title = vue_1.ref("小竹's blog");
-    var description = vue_1.ref("永远不要停止思考");
-    var links = vue_1.ref([{
-      url: 'http://baidu.com',
-      title: 'Mioto'
-    }, {
-      url: 'http://baidu.com',
-      title: 'hualet'
-    }]);
-    return {
-      title: title,
-      description: description,
-      links: links
-    };
-  }
-};
-
-/***/ }),
-
-/***/ 1079:
-/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SiteMenu.vue?vue&type=script&lang=ts ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************/
-/*! flagged exports */
-/*! export __esModule [provided] [used] [could be renamed] */
-/*! export default [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__ */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var vue_1 = __webpack_require__(/*! vue */ 9963);
-
-__webpack_require__(/*! @fortawesome/fontawesome-free/js/fontawesome */ 7287);
-
-__webpack_require__(/*! @fortawesome/fontawesome-free/js/solid */ 8805);
-
-__webpack_require__(/*! @fortawesome/fontawesome-free/js/regular */ 2247);
-
-__webpack_require__(/*! @fortawesome/fontawesome-free/js/brands */ 5858);
-
-exports.default = {
-  props: {
-    link: String,
-    icon: String,
-    title: String,
-    isMain: Boolean
-  },
-  setup: function setup(props) {
-    var _props$link;
-
-    var path = vue_1.reactive({
-      path: (_props$link = props.link) !== null && _props$link !== void 0 ? _props$link : "/"
-    });
-    return {
-      path: path
-    };
-  }
-};
-
-/***/ }),
-
 /***/ 7803:
 /*!*******************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/theme.vue?vue&type=script&lang=ts ***!
   \*******************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: top-level-this-exports, __webpack_exports__, __webpack_require__ */
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+/*! flagged exports */
+/*! export __esModule [provided] [used] [could be renamed] */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_exports__ */
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
 
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-
-var SideBar_vue_1 = __importDefault(__webpack_require__(/*! ./components/widgets/SideBar.vue */ 6613));
-
-exports.default = {
-  components: {
-    "side-bar": SideBar_vue_1["default"]
-  }
-};
+exports.default = {};
 
 /***/ }),
 
@@ -723,6 +582,66 @@ exports.default = {
 
 /***/ }),
 
+/***/ 396:
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/header/HeaderBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: __webpack_exports__, module, __webpack_require__, module.id */
+/***/ ((module, exports, __webpack_require__) => {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ 3645);
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.id, ".title-bar {\n  overflow: hidden;\n}\n.title-bar .logo {\n    float: left;\n}\n.title-bar .menu {\n    float: left;\n    margin: 0 auto;\n}\n", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+
+/***/ 8342:
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/header/Logo.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: __webpack_exports__, module, __webpack_require__, module.id */
+/***/ ((module, exports, __webpack_require__) => {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ 3645);
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.id, ".logolink a {\n  color: #464646;\n  float: left;\n  font-size: 20px;\n  font-weight: 800;\n  height: 56px;\n  line-height: 56px;\n  padding-left: 35px;\n  padding-right: 15px;\n  padding-top: 11px;\n  text-decoration-line: none;\n}\n.logolink a:hover .sakuraso {\n  background-color: orange;\n  color: #fff;\n}\n.logolink a:hover .shironeko, .logolink .logolink a:hover rt {\n  color: orange;\n}\n.logolink .sakuraso {\n  background-color: rgba(255, 255, 255, 0.5);\n  border-radius: 5px;\n  color: #464646;\n  height: auto;\n  line-height: 25px;\n  margin-right: 0;\n  padding-bottom: 0;\n  padding-top: 1px;\n  text-size-adjust: 100%;\n  width: auto;\n}\n.logolink.moe-mashiro a {\n  color: #464646;\n  float: left;\n  font-size: 25px;\n  font-weight: 800;\n  height: 56px;\n  line-height: 56px;\n  padding-left: 6px;\n  padding-right: 15px;\n  padding-top: 11px;\n  text-decoration-line: none;\n}\n.logolink.moe-mashiro .sakuraso, .logolink.moe-mashiro .no {\n  font-size: 25px;\n  border-radius: 9px;\n  padding-bottom: 2px;\n  padding-top: 5px;\n}\n.logolink.moe-mashiro .no {\n  display: inline-block;\n  margin-left: 5px;\n}\n.logolink a:hover .no {\n  -webkit-animation: spin 1.5s linear infinite;\n  animation: spin 1.5s linear infinite;\n}\n", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+
+/***/ 8143:
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/header/Menu.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: __webpack_exports__, module, __webpack_require__, module.id */
+/***/ ((module, exports, __webpack_require__) => {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ 3645);
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.id, ".menu {\n  overflow: hidden;\n}\n.menu .menu-entry {\n    float: left;\n    margin: 5px 5px;\n}\n", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+
 /***/ 4364:
 /*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/pages/Page.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
@@ -736,7 +655,7 @@ exports.default = {
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ 3645);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.id, ".wrapper {\n  min-width: 23.4375rem;\n}\n.wrapper .page {\n    width: 100%;\n}\n.wrapper .page .post {\n      margin-bottom: .625rem;\n}\n.wrapper .page .pageOrder {\n      width: 80%;\n      overflow: hidden;\n      margin: 0 auto;\n}\n.wrapper .page .pageOrder .button {\n        padding: 0px auto;\n}\n.wrapper .page .pageOrder .prepage {\n        float: left;\n}\n.wrapper .page .pageOrder .nextpage {\n        float: right;\n}\n@media only screen and (min-width: 1366px) {\n.wrapper .page .pageOrder {\n        width: 50%;\n}\n}\n", ""]);
+exports.push([module.id, "", ""]);
 // Exports
 module.exports = exports;
 
@@ -803,86 +722,6 @@ module.exports = exports;
 
 /***/ }),
 
-/***/ 1432:
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SideBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: __webpack_exports__, module, __webpack_require__, module.id */
-/***/ ((module, exports, __webpack_require__) => {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ 3645);
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.id, "", ""]);
-// Exports
-module.exports = exports;
-
-
-/***/ }),
-
-/***/ 6276:
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SiteDescription.vue?vue&type=style&index=0&id=3adde256&rel=stylesheet%2Fscss&lang=scss&scoped=true ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: __webpack_exports__, module, __webpack_require__, module.id */
-/***/ ((module, exports, __webpack_require__) => {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ 3645);
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.id, "#site-description[data-v-3adde256] {\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  border-radius: initial;\n}\n#site-meta[data-v-3adde256] {\n  background: #222;\n  display: flex;\n  justify-content: center;\n  align-items: space-around;\n  flex-direction: column;\n  padding: 20px 0;\n}\n#site-title[data-v-3adde256] {\n  color: white;\n  font-size: 20px;\n  text-align: center;\n  margin: 10px 0;\n  line-height: 36px;\n  font-weight: normal;\n  font-family: 'Lato', 'PingFang SC', 'Microsoft YaHei', sans-serif;\n}\n#site-subtitle[data-v-3adde256] {\n  font-size: 13px;\n  text-align: center;\n  font-weight: initial;\n  color: #ddd;\n}\n#site-nav[data-v-3adde256] {\n  background: white;\n  padding: 20px 0;\n}\n#site-nav li[data-v-3adde256] {\n    list-style-type: none;\n}\nul[data-v-3adde256] {\n  margin: 0;\n  padding: 0 0;\n}\nsite-menu[data-v-3adde256] {\n  width: 100%;\n}\n", ""]);
-// Exports
-module.exports = exports;
-
-
-/***/ }),
-
-/***/ 426:
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SiteInfo.vue?vue&type=style&index=0&id=3fd4f125&rel=stylesheet%2Fscss&lang=scss&scoped=true ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: __webpack_exports__, module, __webpack_require__, module.id */
-/***/ ((module, exports, __webpack_require__) => {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ 3645);
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.id, "#site-info[data-v-3fd4f125] {\n  margin-top: 20px;\n  background: white;\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  border-radius: initial;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  color: #555;\n  align-items: center;\n}\n#site-friend[data-v-3fd4f125] {\n  padding: 20px 0px;\n  text-align: center;\n}\n#title[data-v-3fd4f125] {\n  color: #222;\n  margin: 5px;\n}\n#description[data-v-3fd4f125] {\n  font-size: 13px;\n  color: #999;\n  text-align: center;\n}\n#links-title[data-v-3fd4f125] {\n  margin-bottom: auto;\n  font-size: 14px;\n  font-weight: 600;\n}\n.flex-stretch-bottom[data-v-3fd4f125] {\n  margin-bottom: auto;\n}\nul[data-v-3fd4f125] {\n  margin: 0;\n  padding: 0px 0px 20px 0px;\n}\nul li[data-v-3fd4f125] {\n    list-style-type: none;\n    text-align: center;\n    line-height: 2;\n}\nul li a[data-v-3fd4f125] {\n      color: #555;\n      white-space: nowrap;\n      border-bottom: 1px solid #999;\n      cursor: pointer;\n      font-size: 13px;\n      text-decoration: none;\n      outline: none;\n}\n", ""]);
-// Exports
-module.exports = exports;
-
-
-/***/ }),
-
-/***/ 6578:
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SiteMenu.vue?vue&type=style&index=0&id=113ce156&rel=stylesheet%2Fscss&lang=scss&scoped=true ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: __webpack_exports__, module, __webpack_require__, module.id */
-/***/ ((module, exports, __webpack_require__) => {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ 3645);
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.id, ".site-menu[data-v-113ce156] {\n  display: inline;\n}\n.site-menu .icon-right[data-v-113ce156] {\n    width: 8px;\n    height: 8px;\n    background: #736e6e;\n    border-radius: 50%;\n    float: right;\n    margin-top: 17px;\n    margin-right: 25px;\n}\n.site-menu a[data-v-113ce156] {\n    display: block;\n    color: #736e6e;\n    text-decoration: none;\n    padding: 10px 0px;\n}\n.site-menu a[data-v-113ce156]:hover {\n    background: #f9f9f9;\n}\n.site-menu .menu-background[isActive='true'][data-v-113ce156] {\n    background: #f9f9f9;\n}\n.site-menu .menu-icon[data-v-113ce156] {\n    margin-left: 20px;\n    margin-right: 20px;\n}\n", ""]);
-// Exports
-module.exports = exports;
-
-
-/***/ }),
-
 /***/ 8474:
 /*!******************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/theme.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss ***!
@@ -896,10 +735,103 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ 3645);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.id, "body {\n  margin: 0px 0px;\n}\n#app {\n  background: #eee;\n}\n#site {\n  overflow: auto;\n  position: relative;\n  margin: 0 auto;\n  width: 100vw;\n}\n#site #site-side {\n    width: 100%;\n    margin: 0;\n}\n#site .view {\n    float: left;\n    margin-top: 10px;\n    width: 100%;\n}\n@media only screen and (min-width: 1366px) {\n#site {\n      width: 80%;\n}\n#site #site-side {\n        width: 240px;\n        float: left;\n        margin: 0 10px;\n}\n#site .view {\n        float: left;\n        width: calc(100% - 240px - 10px - 10px);\n        margin-top: 0px;\n}\n}\n", ""]);
+exports.push([module.id, "body {\n  margin: 0px 0px;\n}\n#app {\n  background: #eee;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
+
+/***/ }),
+
+/***/ 882:
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/header/HeaderBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: module, __webpack_require__, module.id */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var api = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ 3379);
+            var content = __webpack_require__(/*! !!../../../../../node_modules/vue-style-loader/index.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./HeaderBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ 5649);
+
+            content = content.__esModule ? content.default : content;
+
+            if (typeof content === 'string') {
+              content = [[module.id, content, '']];
+            }
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = api(content, options);
+
+
+
+module.exports = content.locals || {};
+
+/***/ }),
+
+/***/ 9590:
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/header/Logo.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: module, __webpack_require__, module.id */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var api = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ 3379);
+            var content = __webpack_require__(/*! !!../../../../../node_modules/vue-style-loader/index.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Logo.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ 1742);
+
+            content = content.__esModule ? content.default : content;
+
+            if (typeof content === 'string') {
+              content = [[module.id, content, '']];
+            }
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = api(content, options);
+
+
+
+module.exports = content.locals || {};
+
+/***/ }),
+
+/***/ 2045:
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/header/Menu.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: module, __webpack_require__, module.id */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var api = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ 3379);
+            var content = __webpack_require__(/*! !!../../../../../node_modules/vue-style-loader/index.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Menu.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ 5754);
+
+            content = content.__esModule ? content.default : content;
+
+            if (typeof content === 'string') {
+              content = [[module.id, content, '']];
+            }
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = api(content, options);
+
+
+
+module.exports = content.locals || {};
 
 /***/ }),
 
@@ -1027,130 +959,6 @@ module.exports = content.locals || {};
 
 /***/ }),
 
-/***/ 2352:
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SideBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: module, __webpack_require__, module.id */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-var api = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ 3379);
-            var content = __webpack_require__(/*! !!../../../../../node_modules/vue-style-loader/index.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SideBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss */ 5959);
-
-            content = content.__esModule ? content.default : content;
-
-            if (typeof content === 'string') {
-              content = [[module.id, content, '']];
-            }
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = api(content, options);
-
-
-
-module.exports = content.locals || {};
-
-/***/ }),
-
-/***/ 7661:
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SiteDescription.vue?vue&type=style&index=0&id=3adde256&rel=stylesheet%2Fscss&lang=scss&scoped=true ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: module, __webpack_require__, module.id */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-var api = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ 3379);
-            var content = __webpack_require__(/*! !!../../../../../node_modules/vue-style-loader/index.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SiteDescription.vue?vue&type=style&index=0&id=3adde256&rel=stylesheet%2Fscss&lang=scss&scoped=true */ 35);
-
-            content = content.__esModule ? content.default : content;
-
-            if (typeof content === 'string') {
-              content = [[module.id, content, '']];
-            }
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = api(content, options);
-
-
-
-module.exports = content.locals || {};
-
-/***/ }),
-
-/***/ 6894:
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SiteInfo.vue?vue&type=style&index=0&id=3fd4f125&rel=stylesheet%2Fscss&lang=scss&scoped=true ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: module, __webpack_require__, module.id */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-var api = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ 3379);
-            var content = __webpack_require__(/*! !!../../../../../node_modules/vue-style-loader/index.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SiteInfo.vue?vue&type=style&index=0&id=3fd4f125&rel=stylesheet%2Fscss&lang=scss&scoped=true */ 3477);
-
-            content = content.__esModule ? content.default : content;
-
-            if (typeof content === 'string') {
-              content = [[module.id, content, '']];
-            }
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = api(content, options);
-
-
-
-module.exports = content.locals || {};
-
-/***/ }),
-
-/***/ 4842:
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SiteMenu.vue?vue&type=style&index=0&id=113ce156&rel=stylesheet%2Fscss&lang=scss&scoped=true ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: module, __webpack_require__, module.id */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-var api = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ 3379);
-            var content = __webpack_require__(/*! !!../../../../../node_modules/vue-style-loader/index.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SiteMenu.vue?vue&type=style&index=0&id=113ce156&rel=stylesheet%2Fscss&lang=scss&scoped=true */ 7635);
-
-            content = content.__esModule ? content.default : content;
-
-            if (typeof content === 'string') {
-              content = [[module.id, content, '']];
-            }
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = api(content, options);
-
-
-
-module.exports = content.locals || {};
-
-/***/ }),
-
 /***/ 3612:
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/theme.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss ***!
@@ -1179,6 +987,112 @@ var update = api(content, options);
 
 
 module.exports = content.locals || {};
+
+/***/ }),
+
+/***/ 4606:
+/*!**********************************************************!*\
+  !*** ./src/theme/sakura/components/header/HeaderBar.vue ***!
+  \**********************************************************/
+/*! namespace exports */
+/*! export default [provided] [maybe used (runtime-defined)] [usage and provision prevents renaming] */
+/*! other exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _HeaderBar_vue_vue_type_template_id_1dee4298__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HeaderBar.vue?vue&type=template&id=1dee4298 */ 9420);
+/* harmony import */ var _HeaderBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HeaderBar.vue?vue&type=script&lang=ts */ 5324);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _HeaderBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _HeaderBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+/* harmony import */ var _HeaderBar_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./HeaderBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ 485);
+
+
+
+
+
+_HeaderBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.render = _HeaderBar_vue_vue_type_template_id_1dee4298__WEBPACK_IMPORTED_MODULE_0__.render
+/* hot reload */
+if (false) {}
+
+_HeaderBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.__file = "src/theme/sakura/components/header/HeaderBar.vue"
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_HeaderBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default);
+
+/***/ }),
+
+/***/ 7291:
+/*!*****************************************************!*\
+  !*** ./src/theme/sakura/components/header/Logo.vue ***!
+  \*****************************************************/
+/*! namespace exports */
+/*! export __esModule [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export default [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! other exports [not provided] [maybe used (runtime-defined)] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "__esModule": () => /* reexport safe */ _Logo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.__esModule,
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _Logo_vue_vue_type_template_id_4d8eb82d__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Logo.vue?vue&type=template&id=4d8eb82d */ 8258);
+/* harmony import */ var _Logo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Logo.vue?vue&type=script&lang=ts */ 7681);
+/* harmony import */ var _Logo_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Logo.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ 1623);
+
+
+
+
+
+_Logo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.render = _Logo_vue_vue_type_template_id_4d8eb82d__WEBPACK_IMPORTED_MODULE_0__.render
+/* hot reload */
+if (false) {}
+
+_Logo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.__file = "src/theme/sakura/components/header/Logo.vue"
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_Logo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default);
+
+/***/ }),
+
+/***/ 7461:
+/*!*****************************************************!*\
+  !*** ./src/theme/sakura/components/header/Menu.vue ***!
+  \*****************************************************/
+/*! namespace exports */
+/*! export __esModule [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export default [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! other exports [not provided] [maybe used (runtime-defined)] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "__esModule": () => /* reexport safe */ _Menu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.__esModule,
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _Menu_vue_vue_type_template_id_9e8fe43e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Menu.vue?vue&type=template&id=9e8fe43e */ 384);
+/* harmony import */ var _Menu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Menu.vue?vue&type=script&lang=ts */ 2947);
+/* harmony import */ var _Menu_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Menu.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ 1020);
+
+
+
+
+
+_Menu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.render = _Menu_vue_vue_type_template_id_9e8fe43e__WEBPACK_IMPORTED_MODULE_0__.render
+/* hot reload */
+if (false) {}
+
+_Menu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.__file = "src/theme/sakura/components/header/Menu.vue"
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_Menu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default);
 
 /***/ }),
 
@@ -1357,171 +1271,25 @@ _PostBlock_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.__fi
 
 /***/ }),
 
-/***/ 6613:
-/*!*********************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SideBar.vue ***!
-  \*********************************************************/
-/*! namespace exports */
-/*! export default [provided] [maybe used (runtime-defined)] [usage and provision prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _SideBar_vue_vue_type_template_id_bd95f748__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SideBar.vue?vue&type=template&id=bd95f748 */ 425);
-/* harmony import */ var _SideBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SideBar.vue?vue&type=script&lang=ts */ 4115);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _SideBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _SideBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
-/* harmony import */ var _SideBar_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SideBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss */ 8543);
-
-
-
-
-
-_SideBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.render = _SideBar_vue_vue_type_template_id_bd95f748__WEBPACK_IMPORTED_MODULE_0__.render
-/* hot reload */
-if (false) {}
-
-_SideBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.__file = "src/theme/sakura/components/widgets/SideBar.vue"
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_SideBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default);
-
-/***/ }),
-
-/***/ 4306:
-/*!*****************************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SiteDescription.vue ***!
-  \*****************************************************************/
-/*! namespace exports */
-/*! export default [provided] [maybe used (runtime-defined)] [usage and provision prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _SiteDescription_vue_vue_type_template_id_3adde256_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SiteDescription.vue?vue&type=template&id=3adde256&scoped=true */ 3049);
-/* harmony import */ var _SiteDescription_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SiteDescription.vue?vue&type=script&lang=ts */ 4484);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _SiteDescription_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _SiteDescription_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
-/* harmony import */ var _SiteDescription_vue_vue_type_style_index_0_id_3adde256_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SiteDescription.vue?vue&type=style&index=0&id=3adde256&rel=stylesheet%2Fscss&lang=scss&scoped=true */ 828);
-
-
-
-
-
-_SiteDescription_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.render = _SiteDescription_vue_vue_type_template_id_3adde256_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render
-_SiteDescription_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.__scopeId = "data-v-3adde256"
-/* hot reload */
-if (false) {}
-
-_SiteDescription_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.__file = "src/theme/sakura/components/widgets/SiteDescription.vue"
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_SiteDescription_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default);
-
-/***/ }),
-
-/***/ 7877:
-/*!**********************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SiteInfo.vue ***!
-  \**********************************************************/
-/*! namespace exports */
-/*! export __esModule [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
-/*! export default [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
-/*! other exports [not provided] [maybe used (runtime-defined)] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "__esModule": () => /* reexport safe */ _SiteInfo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.__esModule,
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _SiteInfo_vue_vue_type_template_id_3fd4f125_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SiteInfo.vue?vue&type=template&id=3fd4f125&scoped=true */ 6285);
-/* harmony import */ var _SiteInfo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SiteInfo.vue?vue&type=script&lang=ts */ 2239);
-/* harmony import */ var _SiteInfo_vue_vue_type_style_index_0_id_3fd4f125_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SiteInfo.vue?vue&type=style&index=0&id=3fd4f125&rel=stylesheet%2Fscss&lang=scss&scoped=true */ 6518);
-
-
-
-
-
-_SiteInfo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.render = _SiteInfo_vue_vue_type_template_id_3fd4f125_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render
-_SiteInfo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.__scopeId = "data-v-3fd4f125"
-/* hot reload */
-if (false) {}
-
-_SiteInfo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.__file = "src/theme/sakura/components/widgets/SiteInfo.vue"
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_SiteInfo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default);
-
-/***/ }),
-
-/***/ 4743:
-/*!**********************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SiteMenu.vue ***!
-  \**********************************************************/
-/*! namespace exports */
-/*! export __esModule [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
-/*! export default [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
-/*! other exports [not provided] [maybe used (runtime-defined)] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "__esModule": () => /* reexport safe */ _SiteMenu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.__esModule,
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _SiteMenu_vue_vue_type_template_id_113ce156_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SiteMenu.vue?vue&type=template&id=113ce156&scoped=true */ 493);
-/* harmony import */ var _SiteMenu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SiteMenu.vue?vue&type=script&lang=ts */ 4669);
-/* harmony import */ var _SiteMenu_vue_vue_type_style_index_0_id_113ce156_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SiteMenu.vue?vue&type=style&index=0&id=113ce156&rel=stylesheet%2Fscss&lang=scss&scoped=true */ 241);
-
-
-
-
-
-_SiteMenu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.render = _SiteMenu_vue_vue_type_template_id_113ce156_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render
-_SiteMenu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.__scopeId = "data-v-113ce156"
-/* hot reload */
-if (false) {}
-
-_SiteMenu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.__file = "src/theme/sakura/components/widgets/SiteMenu.vue"
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_SiteMenu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default);
-
-/***/ }),
-
 /***/ 8361:
 /*!************************************!*\
   !*** ./src/theme/sakura/theme.vue ***!
   \************************************/
 /*! namespace exports */
-/*! export default [provided] [maybe used (runtime-defined)] [usage and provision prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! export __esModule [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export default [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! other exports [not provided] [maybe used (runtime-defined)] */
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "__esModule": () => /* reexport safe */ _theme_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.__esModule,
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _theme_vue_vue_type_template_id_d35a6680__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./theme.vue?vue&type=template&id=d35a6680 */ 6093);
 /* harmony import */ var _theme_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./theme.vue?vue&type=script&lang=ts */ 5897);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _theme_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _theme_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 /* harmony import */ var _theme_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./theme.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss */ 5490);
 
 
@@ -1535,6 +1303,72 @@ if (false) {}
 _theme_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default.__file = "src/theme/sakura/theme.vue"
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_theme_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.default);
+
+/***/ }),
+
+/***/ 5324:
+/*!**********************************************************************************!*\
+  !*** ./src/theme/sakura/components/header/HeaderBar.vue?vue&type=script&lang=ts ***!
+  \**********************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [used] [usage and provision prevents renaming] */
+/*! other exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* reexport default from dynamic */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_HeaderBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0___default.a
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_HeaderBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!../../../../../node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./HeaderBar.vue?vue&type=script&lang=ts */ 314);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_HeaderBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_HeaderBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_HeaderBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_HeaderBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+ 
+
+/***/ }),
+
+/***/ 7681:
+/*!*****************************************************************************!*\
+  !*** ./src/theme/sakura/components/header/Logo.vue?vue&type=script&lang=ts ***!
+  \*****************************************************************************/
+/*! namespace exports */
+/*! export __esModule [provided] [used] [could be renamed] */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_Logo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__.default,
+/* harmony export */   "__esModule": () => /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_Logo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__.__esModule
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_Logo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!../../../../../node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Logo.vue?vue&type=script&lang=ts */ 1956);
+ 
+
+/***/ }),
+
+/***/ 2947:
+/*!*****************************************************************************!*\
+  !*** ./src/theme/sakura/components/header/Menu.vue?vue&type=script&lang=ts ***!
+  \*****************************************************************************/
+/*! namespace exports */
+/*! export __esModule [provided] [used] [could be renamed] */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_Menu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__.default,
+/* harmony export */   "__esModule": () => /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_Menu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__.__esModule
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_Menu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!../../../../../node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Menu.vue?vue&type=script&lang=ts */ 2828);
+ 
 
 /***/ }),
 
@@ -1652,116 +1486,74 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 4115:
-/*!*********************************************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SideBar.vue?vue&type=script&lang=ts ***!
-  \*********************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [used] [usage and provision prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* reexport default from dynamic */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SideBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0___default.a
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SideBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!../../../../../node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SideBar.vue?vue&type=script&lang=ts */ 6412);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SideBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SideBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SideBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SideBar_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
- 
-
-/***/ }),
-
-/***/ 4484:
-/*!*****************************************************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SiteDescription.vue?vue&type=script&lang=ts ***!
-  \*****************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [used] [usage and provision prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* reexport default from dynamic */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteDescription_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0___default.a
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteDescription_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!../../../../../node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SiteDescription.vue?vue&type=script&lang=ts */ 1848);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteDescription_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteDescription_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteDescription_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteDescription_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
- 
-
-/***/ }),
-
-/***/ 2239:
-/*!**********************************************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SiteInfo.vue?vue&type=script&lang=ts ***!
-  \**********************************************************************************/
-/*! namespace exports */
-/*! export __esModule [provided] [used] [could be renamed] */
-/*! export default [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteInfo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__.default,
-/* harmony export */   "__esModule": () => /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteInfo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__.__esModule
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteInfo_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!../../../../../node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SiteInfo.vue?vue&type=script&lang=ts */ 2626);
- 
-
-/***/ }),
-
-/***/ 4669:
-/*!**********************************************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SiteMenu.vue?vue&type=script&lang=ts ***!
-  \**********************************************************************************/
-/*! namespace exports */
-/*! export __esModule [provided] [used] [could be renamed] */
-/*! export default [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteMenu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__.default,
-/* harmony export */   "__esModule": () => /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteMenu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__.__esModule
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteMenu_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!../../../../../node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SiteMenu.vue?vue&type=script&lang=ts */ 1079);
- 
-
-/***/ }),
-
 /***/ 5897:
 /*!************************************************************!*\
   !*** ./src/theme/sakura/theme.vue?vue&type=script&lang=ts ***!
   \************************************************************/
 /*! namespace exports */
-/*! export default [provided] [used] [usage and provision prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
+/*! export __esModule [provided] [used] [could be renamed] */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* reexport default from dynamic */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_theme_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0___default.a
+/* harmony export */   "default": () => /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_theme_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__.default,
+/* harmony export */   "__esModule": () => /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_theme_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__.__esModule
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_theme_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-2.use[0]!../../../node_modules/ts-loader/index.js??clonedRuleSet-2.use[1]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./theme.vue?vue&type=script&lang=ts */ 7803);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_theme_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_theme_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_theme_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_babel_loader_lib_index_js_clonedRuleSet_2_use_0_node_modules_ts_loader_index_js_clonedRuleSet_2_use_1_node_modules_vue_loader_dist_index_js_ruleSet_0_theme_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+ 
+
+/***/ }),
+
+/***/ 485:
+/*!****************************************************************************************************************************!*\
+  !*** ./src/theme/sakura/components/header/HeaderBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \****************************************************************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [unused] [provision prevents renaming] */
+/*! other exports [maybe provided (runtime-defined)] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_HeaderBar_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/vue-style-loader/index.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./HeaderBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ 882);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_HeaderBar_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_HeaderBar_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_0__);
+ 
+
+/***/ }),
+
+/***/ 1623:
+/*!***********************************************************************************************************************!*\
+  !*** ./src/theme/sakura/components/header/Logo.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \***********************************************************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [unused] [provision prevents renaming] */
+/*! other exports [maybe provided (runtime-defined)] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_Logo_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/vue-style-loader/index.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Logo.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ 9590);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_Logo_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_Logo_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_0__);
+ 
+
+/***/ }),
+
+/***/ 1020:
+/*!***********************************************************************************************************************!*\
+  !*** ./src/theme/sakura/components/header/Menu.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \***********************************************************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [unused] [provision prevents renaming] */
+/*! other exports [maybe provided (runtime-defined)] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_Menu_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/vue-style-loader/index.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Menu.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ 2045);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_Menu_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_Menu_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss_scope_true__WEBPACK_IMPORTED_MODULE_0__);
  
 
 /***/ }),
@@ -1834,74 +1626,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 8543:
-/*!****************************************************************************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SideBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss ***!
-  \****************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [unused] [provision prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_SideBar_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/vue-style-loader/index.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SideBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss */ 2352);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_SideBar_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_SideBar_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_0__);
- 
-
-/***/ }),
-
-/***/ 828:
-/*!************************************************************************************************************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SiteDescription.vue?vue&type=style&index=0&id=3adde256&rel=stylesheet%2Fscss&lang=scss&scoped=true ***!
-  \************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [unused] [provision prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteDescription_vue_vue_type_style_index_0_id_3adde256_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/vue-style-loader/index.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SiteDescription.vue?vue&type=style&index=0&id=3adde256&rel=stylesheet%2Fscss&lang=scss&scoped=true */ 7661);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteDescription_vue_vue_type_style_index_0_id_3adde256_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteDescription_vue_vue_type_style_index_0_id_3adde256_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__);
- 
-
-/***/ }),
-
-/***/ 6518:
-/*!*****************************************************************************************************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SiteInfo.vue?vue&type=style&index=0&id=3fd4f125&rel=stylesheet%2Fscss&lang=scss&scoped=true ***!
-  \*****************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [unused] [provision prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteInfo_vue_vue_type_style_index_0_id_3fd4f125_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/vue-style-loader/index.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SiteInfo.vue?vue&type=style&index=0&id=3fd4f125&rel=stylesheet%2Fscss&lang=scss&scoped=true */ 6894);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteInfo_vue_vue_type_style_index_0_id_3fd4f125_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteInfo_vue_vue_type_style_index_0_id_3fd4f125_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__);
- 
-
-/***/ }),
-
-/***/ 241:
-/*!*****************************************************************************************************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SiteMenu.vue?vue&type=style&index=0&id=113ce156&rel=stylesheet%2Fscss&lang=scss&scoped=true ***!
-  \*****************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [unused] [provision prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteMenu_vue_vue_type_style_index_0_id_113ce156_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/vue-style-loader/index.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SiteMenu.vue?vue&type=style&index=0&id=113ce156&rel=stylesheet%2Fscss&lang=scss&scoped=true */ 4842);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteMenu_vue_vue_type_style_index_0_id_113ce156_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteMenu_vue_vue_type_style_index_0_id_113ce156_rel_stylesheet_2Fscss_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__);
- 
-
-/***/ }),
-
 /***/ 5490:
 /*!*******************************************************************************************!*\
   !*** ./src/theme/sakura/theme.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss ***!
@@ -1916,6 +1640,63 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_theme_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/vue-style-loader/index.js!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./theme.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss */ 3612);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_theme_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_cjs_js_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_0_theme_vue_vue_type_style_index_0_rel_stylesheet_2Fscss_lang_scss__WEBPACK_IMPORTED_MODULE_0__);
  
+
+/***/ }),
+
+/***/ 9420:
+/*!****************************************************************************************!*\
+  !*** ./src/theme/sakura/components/header/HeaderBar.vue?vue&type=template&id=1dee4298 ***!
+  \****************************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_HeaderBar_vue_vue_type_template_id_1dee4298__WEBPACK_IMPORTED_MODULE_0__.render
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_HeaderBar_vue_vue_type_template_id_1dee4298__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./HeaderBar.vue?vue&type=template&id=1dee4298 */ 6368);
+
+
+/***/ }),
+
+/***/ 8258:
+/*!***********************************************************************************!*\
+  !*** ./src/theme/sakura/components/header/Logo.vue?vue&type=template&id=4d8eb82d ***!
+  \***********************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_Logo_vue_vue_type_template_id_4d8eb82d__WEBPACK_IMPORTED_MODULE_0__.render
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_Logo_vue_vue_type_template_id_4d8eb82d__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Logo.vue?vue&type=template&id=4d8eb82d */ 7525);
+
+
+/***/ }),
+
+/***/ 384:
+/*!***********************************************************************************!*\
+  !*** ./src/theme/sakura/components/header/Menu.vue?vue&type=template&id=9e8fe43e ***!
+  \***********************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_Menu_vue_vue_type_template_id_9e8fe43e__WEBPACK_IMPORTED_MODULE_0__.render
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_Menu_vue_vue_type_template_id_9e8fe43e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Menu.vue?vue&type=template&id=9e8fe43e */ 3866);
+
 
 /***/ }),
 
@@ -2014,82 +1795,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 425:
-/*!***************************************************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SideBar.vue?vue&type=template&id=bd95f748 ***!
-  \***************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_SideBar_vue_vue_type_template_id_bd95f748__WEBPACK_IMPORTED_MODULE_0__.render
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_SideBar_vue_vue_type_template_id_bd95f748__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SideBar.vue?vue&type=template&id=bd95f748 */ 8298);
-
-
-/***/ }),
-
-/***/ 3049:
-/*!***********************************************************************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SiteDescription.vue?vue&type=template&id=3adde256&scoped=true ***!
-  \***********************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteDescription_vue_vue_type_template_id_3adde256_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteDescription_vue_vue_type_template_id_3adde256_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SiteDescription.vue?vue&type=template&id=3adde256&scoped=true */ 4688);
-
-
-/***/ }),
-
-/***/ 6285:
-/*!****************************************************************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SiteInfo.vue?vue&type=template&id=3fd4f125&scoped=true ***!
-  \****************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteInfo_vue_vue_type_template_id_3fd4f125_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteInfo_vue_vue_type_template_id_3fd4f125_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SiteInfo.vue?vue&type=template&id=3fd4f125&scoped=true */ 1229);
-
-
-/***/ }),
-
-/***/ 493:
-/*!****************************************************************************************************!*\
-  !*** ./src/theme/sakura/components/widgets/SiteMenu.vue?vue&type=template&id=113ce156&scoped=true ***!
-  \****************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteMenu_vue_vue_type_template_id_113ce156_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_SiteMenu_vue_vue_type_template_id_113ce156_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SiteMenu.vue?vue&type=template&id=113ce156&scoped=true */ 9666);
-
-
-/***/ }),
-
 /***/ 6093:
 /*!******************************************************************!*\
   !*** ./src/theme/sakura/theme.vue?vue&type=template&id=d35a6680 ***!
@@ -2106,6 +1811,116 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_theme_vue_vue_type_template_id_d35a6680__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./theme.vue?vue&type=template&id=d35a6680 */ 9835);
 
+
+/***/ }),
+
+/***/ 6368:
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/header/HeaderBar.vue?vue&type=template&id=1dee4298 ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ 6252);
+
+
+const _hoisted_1 = { class: "title-bar" }
+const _hoisted_2 = { class: "logo" }
+const _hoisted_3 = { class: "menu" }
+
+function render(_ctx, _cache) {
+  const _component_logo = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("logo")
+  const _component_menu_bar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("menu-bar")
+
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_logo)
+    ]),
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_menu_bar)
+    ])
+  ]))
+}
+
+/***/ }),
+
+/***/ 7525:
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/header/Logo.vue?vue&type=template&id=4d8eb82d ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ 6252);
+
+
+const _hoisted_1 = { class: "logolink moe-mashiro" }
+const _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
+  href: "/",
+  alt: "樱花庄的白猫"
+}, [
+  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", { class: "sakuraso" }, "さくら荘"),
+  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", { class: "no" }, "の"),
+  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", { class: "shironeko" }, "白猫")
+], -1 /* HOISTED */)
+
+function render(_ctx, _cache) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_1, [
+    _hoisted_2
+  ]))
+}
+
+/***/ }),
+
+/***/ 3866:
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/header/Menu.vue?vue&type=template&id=9e8fe43e ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ 6252);
+
+
+const _hoisted_1 = {
+  id: "menu-new",
+  class: "menu"
+}
+const _hoisted_2 = { href: "" }
+
+function render(_ctx, _cache) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [
+    ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.list, (item) => {
+      return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", {
+        key: item,
+        class: "menu-entry"
+      }, [
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item), 1 /* TEXT */)
+      ]))
+    }), 128 /* KEYED_FRAGMENT */))
+  ]))
+}
 
 /***/ }),
 
@@ -2150,35 +1965,12 @@ function render(_ctx, _cache) {
 
 
 const _hoisted_1 = { class: "wrapper" }
-const _hoisted_2 = { class: "page" }
-const _hoisted_3 = { class: "pageOrder" }
 
 function render(_ctx, _cache) {
-  const _component_post_block = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("post-block")
-  const _component_v_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-button")
+  const _component_header_bar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("header-bar")
 
   return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [
-      ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.postList, (post) => {
-        return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_post_block, {
-          class: "post",
-          key: post.id,
-          post: post
-        }, null, 8 /* PROPS */, ["post"]))
-      }), 128 /* KEYED_FRAGMENT */)),
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [
-        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_button, {
-          class: "prepage button",
-          link: _ctx.prepage,
-          text: _ctx.prePageText
-        }, null, 8 /* PROPS */, ["link", "text"]),
-        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_button, {
-          class: "nextpage button",
-          link: _ctx.nextpage,
-          text: _ctx.nextPageText
-        }, null, 8 /* PROPS */, ["link", "text"])
-      ])
-    ])
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_header_bar)
   ]))
 }
 
@@ -2349,200 +2141,6 @@ function render(_ctx, _cache) {
 
 /***/ }),
 
-/***/ 8298:
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SideBar.vue?vue&type=template&id=bd95f748 ***!
-  \*****************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ 6252);
-
-
-const _hoisted_1 = { id: "site-meta" }
-
-function render(_ctx, _cache) {
-  const _component_site_description = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("site-description")
-  const _component_site_info = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("site-info")
-
-  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_site_description),
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_site_info)
-  ]))
-}
-
-/***/ }),
-
-/***/ 4688:
-/*!*************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SiteDescription.vue?vue&type=template&id=3adde256&scoped=true ***!
-  \*************************************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ 6252);
-
-const _withId = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.withScopeId)("data-v-3adde256")
-
-Object(vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-3adde256")
-const _hoisted_1 = { id: "site-description" }
-const _hoisted_2 = { id: "site-meta" }
-const _hoisted_3 = { id: "site-title" }
-const _hoisted_4 = { id: "site-subtitle" }
-const _hoisted_5 = { id: "site-nav" }
-Object(vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)()
-
-const render = /*#__PURE__*/_withId(function render(_ctx, _cache) {
-  const _component_site_menu = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("site-menu")
-
-  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.title), 1 /* TEXT */),
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.subTitle), 1 /* TEXT */)
-    ]),
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [
-      ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.items, (item) => {
-        return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_site_menu, {
-          key: item.link,
-          link: item.link,
-          title: item.title,
-          icon: item.icon,
-          isMain: item.isMain
-        }, null, 8 /* PROPS */, ["link", "title", "icon", "isMain"]))
-      }), 128 /* KEYED_FRAGMENT */))
-    ])
-  ]))
-})
-
-/***/ }),
-
-/***/ 1229:
-/*!******************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SiteInfo.vue?vue&type=template&id=3fd4f125&scoped=true ***!
-  \******************************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ 6252);
-
-const _withId = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.withScopeId)("data-v-3fd4f125")
-
-Object(vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-3fd4f125")
-const _hoisted_1 = { id: "site-info" }
-const _hoisted_2 = { id: "site-friend" }
-const _hoisted_3 = {
-  id: "title",
-  class: "text-align-center"
-}
-const _hoisted_4 = {
-  id: "description",
-  class: "text-align-center"
-}
-const _hoisted_5 = { id: "links" }
-const _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", { class: "links-title" }, [
-  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", { class: "fa fa-fw fa-link" }),
-  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Links: ")
-], -1 /* HOISTED */)
-const _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", { class: "flex-stretch-bottom" }, null, -1 /* HOISTED */)
-Object(vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)()
-
-const render = /*#__PURE__*/_withId(function render(_ctx, _cache) {
-  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.title), 1 /* TEXT */),
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.description), 1 /* TEXT */)
-    ]),
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [
-      _hoisted_6,
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", null, [
-        ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.links, (link, index) => {
-          return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("li", { key: index }, [
-            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
-              href: link.url,
-              title: link.title,
-              class: "text-align-center",
-              rel: "noopener",
-              target: "_blank"
-            }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(link.title), 9 /* TEXT, PROPS */, ["href", "title"])
-          ]))
-        }), 128 /* KEYED_FRAGMENT */))
-      ]),
-      _hoisted_7
-    ])
-  ]))
-})
-
-/***/ }),
-
-/***/ 9666:
-/*!******************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SiteMenu.vue?vue&type=template&id=113ce156&scoped=true ***!
-  \******************************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ 6252);
-
-const _withId = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.withScopeId)("data-v-113ce156")
-
-Object(vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-113ce156")
-const _hoisted_1 = { class: "site-menu" }
-const _hoisted_2 = { class: "menu-text" }
-Object(vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)()
-
-const render = /*#__PURE__*/_withId(function render(_ctx, _cache) {
-  const _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link")
-
-  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
-      class: [_ctx.isMain ? 'icon-right' : '']
-    }, null, 2 /* CLASS */),
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-      to: _ctx.path,
-      class: "menu-background",
-      isActive: _ctx.isMain
-    }, {
-      default: _withId(() => [
-        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
-          class: ["menu-icon", _ctx.icon]
-        }, null, 2 /* CLASS */),
-        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.title), 1 /* TEXT */)
-      ]),
-      _: 1
-    }, 8 /* PROPS */, ["to", "isActive"])
-  ]))
-})
-
-/***/ }),
-
 /***/ 9835:
 /*!********************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/theme.vue?vue&type=template&id=d35a6680 ***!
@@ -2560,20 +2158,82 @@ const render = /*#__PURE__*/_withId(function render(_ctx, _cache) {
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ 6252);
 
 
-const _hoisted_1 = { id: "site" }
-const _hoisted_2 = { id: "site-side" }
-
 function render(_ctx, _cache) {
-  const _component_side_bar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("side-bar")
   const _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view")
 
-  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_side_bar)
-    ]),
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", null, [
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view, { class: "view" })
   ]))
 }
+
+/***/ }),
+
+/***/ 5649:
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/header/HeaderBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: module, __webpack_require__, module.id */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./HeaderBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ 396);
+if(typeof content === 'string') content = [[module.id, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! !../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ 7913).default
+var update = add("5edc82b6", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ 1742:
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/header/Logo.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: module, __webpack_require__, module.id */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Logo.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ 8342);
+if(typeof content === 'string') content = [[module.id, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! !../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ 7913).default
+var update = add("2a2160d5", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ 5754:
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/header/Menu.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: module, __webpack_require__, module.id */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./Menu.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss&scope=true */ 8143);
+if(typeof content === 'string') content = [[module.id, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! !../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ 7913).default
+var update = add("579e8b86", content, false, {});
+// Hot Module Replacement
+if(false) {}
 
 /***/ }),
 
@@ -2664,98 +2324,6 @@ if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(/*! !../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ 7913).default
 var update = add("0fc967e3", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ 5959:
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SideBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: module, __webpack_require__, module.id */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SideBar.vue?vue&type=style&index=0&rel=stylesheet%2Fscss&lang=scss */ 1432);
-if(typeof content === 'string') content = [[module.id, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(/*! !../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ 7913).default
-var update = add("c8baa788", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ 35:
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SiteDescription.vue?vue&type=style&index=0&id=3adde256&rel=stylesheet%2Fscss&lang=scss&scoped=true ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: module, __webpack_require__, module.id */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SiteDescription.vue?vue&type=style&index=0&id=3adde256&rel=stylesheet%2Fscss&lang=scss&scoped=true */ 6276);
-if(typeof content === 'string') content = [[module.id, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(/*! !../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ 7913).default
-var update = add("123caa2e", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ 3477:
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SiteInfo.vue?vue&type=style&index=0&id=3fd4f125&rel=stylesheet%2Fscss&lang=scss&scoped=true ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: module, __webpack_require__, module.id */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SiteInfo.vue?vue&type=style&index=0&id=3fd4f125&rel=stylesheet%2Fscss&lang=scss&scoped=true */ 426);
-if(typeof content === 'string') content = [[module.id, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(/*! !../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ 7913).default
-var update = add("0476d6d0", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ 7635:
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/theme/sakura/components/widgets/SiteMenu.vue?vue&type=style&index=0&id=113ce156&rel=stylesheet%2Fscss&lang=scss&scoped=true ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
-/*! runtime requirements: module, __webpack_require__, module.id */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0]!./SiteMenu.vue?vue&type=style&index=0&id=113ce156&rel=stylesheet%2Fscss&lang=scss&scoped=true */ 6578);
-if(typeof content === 'string') content = [[module.id, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(/*! !../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ 7913).default
-var update = add("26f43ae6", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
