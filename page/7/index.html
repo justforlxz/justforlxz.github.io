@@ -182,6 +182,94 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2018/06/28/%E5%9C%A8DeepinLinux%E4%B8%8B%E4%BD%BF%E7%94%A8nVidia-CUDA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/12298476?s=460&u=2c38b7ed987489b75cd4d1ee1353c671add86985&v=4">
+      <meta itemprop="name" content="小竹">
+      <meta itemprop="description" content="小竹的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小竹's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/06/28/%E5%9C%A8DeepinLinux%E4%B8%8B%E4%BD%BF%E7%94%A8nVidia-CUDA/" class="post-title-link" itemprop="url">在DeepinLinux下使用nVidia CUDA</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-28 03:21:50" itemprop="dateCreated datePublished" datetime="2018-06-28T03:21:50+00:00">2018-06-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-15 03:11:09" itemprop="dateModified" datetime="2020-06-15T03:11:09+00:00">2020-06-15</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2018/06/28/%E5%9C%A8DeepinLinux%E4%B8%8B%E4%BD%BF%E7%94%A8nVidia-CUDA/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/06/28/在DeepinLinux下使用nVidia-CUDA/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>CUDA（Compute Unified Device Architecture，统一计算架构）是由NVIDIA所推出的一种集成技术，是该公司对于GPGPU的正式名称。通过这个技术，用户可利用NVIDIA的GeForce 8以后的GPU和较新的Quadro GPU进行计算。亦是首次可以利用GPU作为C-编译器的开发环境。NVIDIA营销的时候，往往将编译器与架构混合推广，造成混乱。实际上，CUDA可以兼容OpenCL或者自家的C-编译器。无论是CUDA C-语言或是OpenCL，指令最终都会被驱动程序转换成PTX代码，交由显示核心计算。</p>
+<p>在论坛上看到有些用户希望在deepin下使用CUDA，但是他们采取的做法往往是手动下载nvidia的二进制文件，直接进行安装。</p>
+<p>但是这样会破坏一部分的glx链接，导致卸载的时候无法彻底恢复，结果就是系统因为卸载nvidia驱动而废掉，所以我推荐使用包管理器的方式安装nvidia驱动和cuda相关的东西，尽量不要手动修改。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/06/28/%E5%9C%A8DeepinLinux%E4%B8%8B%E4%BD%BF%E7%94%A8nVidia-CUDA/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
     <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2018/06/25/deepin%E5%BE%85%E6%9C%BA%E5%90%8E%E9%94%AE%E7%9B%98%E5%92%8C%E8%A7%A6%E6%91%B8%E6%9D%BF%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -213,7 +301,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-08 02:08:36" itemprop="dateModified" datetime="2020-06-08T02:08:36+00:00">2020-06-08</time>
+                <time title="Modified: 2020-06-15 03:11:09" itemprop="dateModified" datetime="2020-06-15T03:11:09+00:00">2020-06-15</time>
               </span>
 
           
@@ -299,7 +387,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-08 02:08:36" itemprop="dateModified" datetime="2020-06-08T02:08:36+00:00">2020-06-08</time>
+                <time title="Modified: 2020-06-15 03:11:09" itemprop="dateModified" datetime="2020-06-15T03:11:09+00:00">2020-06-15</time>
               </span>
 
           
@@ -385,7 +473,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-08 02:08:36" itemprop="dateModified" datetime="2020-06-08T02:08:36+00:00">2020-06-08</time>
+                <time title="Modified: 2020-06-15 03:11:09" itemprop="dateModified" datetime="2020-06-15T03:11:09+00:00">2020-06-15</time>
               </span>
 
           
@@ -471,7 +559,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-08 02:08:36" itemprop="dateModified" datetime="2020-06-08T02:08:36+00:00">2020-06-08</time>
+                <time title="Modified: 2020-06-15 03:11:09" itemprop="dateModified" datetime="2020-06-15T03:11:09+00:00">2020-06-15</time>
               </span>
 
           
@@ -504,92 +592,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
-    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2018/03/11/%E9%87%8D%E6%9E%84dde-session-ui/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/12298476?s=460&u=2c38b7ed987489b75cd4d1ee1353c671add86985&v=4">
-      <meta itemprop="name" content="小竹">
-      <meta itemprop="description" content="小竹的博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小竹's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/03/11/%E9%87%8D%E6%9E%84dde-session-ui/" class="post-title-link" itemprop="url">重构dde-session-ui</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-11 11:48:01" itemprop="dateCreated datePublished" datetime="2018-03-11T11:48:01+00:00">2018-03-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-08 02:08:36" itemprop="dateModified" datetime="2020-06-08T02:08:36+00:00">2020-06-08</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2018/03/11/%E9%87%8D%E6%9E%84dde-session-ui/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/11/重构dde-session-ui/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>dde-session-ui里面包含了很多项目，是一个集合，但是其中的代码缺少合理的维护，以至于已经到了必须重构才能继续开发和维护，在支持AD域登录的时候，如果强制加上功能，代码会变得更加糟糕，所以和石博文一块重构了其中非常重要的UserWidget。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/03/11/%E9%87%8D%E6%9E%84dde-session-ui/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -679,7 +681,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
