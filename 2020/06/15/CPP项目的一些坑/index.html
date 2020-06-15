@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本篇文章记录这几年项目中C++的一些问题和优化方法。需要注意的是，代码优化没有一本万利的方法，只能见招拆招，而且还要避免过早优化等问题，代码优化一定是要中后期才可以，而且不要为了优化而优化。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CPP项目的一些坑">
+<meta property="og:url" content="https://blog.justforlxz.com/2020/06/15/CPP%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="本篇文章记录这几年项目中C++的一些问题和优化方法。需要注意的是，代码优化没有一本万利的方法，只能见招拆招，而且还要避免过早优化等问题，代码优化一定是要中后期才可以，而且不要为了优化而优化。">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2020-06-15T11:11:40.000Z">
+<meta property="article:modified_time" content="2020-06-15T03:22:34.654Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.justforlxz.com/2020/06/15/CPP%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh'
+  };
+</script>
+
+  <title>CPP项目的一些坑 | 小竹's blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129024325-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-129024325-1');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">小竹's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">永远不要停止思考</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/link/" rel="section"><i class="link fa-fw"></i>links</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
+    <link itemprop="mainEntityOfPage" href="https://blog.justforlxz.com/2020/06/15/CPP%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/12298476?s=460&u=2c38b7ed987489b75cd4d1ee1353c671add86985&v=4">
+      <meta itemprop="name" content="小竹">
+      <meta itemprop="description" content="小竹的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小竹's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CPP项目的一些坑
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-15 11:11:40 / Modified: 03:22:34" itemprop="dateCreated datePublished" datetime="2020-06-15T11:11:40+00:00">2020-06-15</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/06/15/CPP%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/06/15/CPP项目的一些坑/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本篇文章记录这几年项目中C++的一些问题和优化方法。需要注意的是，代码优化没有一本万利的方法，只能见招拆招，而且还要避免过早优化等问题，代码优化一定是要中后期才可以，而且不要为了优化而优化。</p>
+<a id="more"></a>
+
+<h2 id="const和const-amp"><a href="#const和const-amp" class="headerlink" title="const和const &amp;"></a>const和const &amp;</h2><p>在接收一个返回值或者声明局部只读变量时没有使用const修饰。const的目的不仅仅是为了只读，更多的是编译器可以在此处提供优化。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">QRect <span class="built_in">rect</span> = m_displayInter-&gt;primaryRawRect();</span><br><span class="line">qreal scale = qApp-&gt;primaryScreen()-&gt;devicePixelRatio();</span><br></pre></td></tr></table></figure>
+
+<p>在这两行例子中，react和scale都在当前函数内没有任何修改，而且不应该修改，需要添加const来修饰只读，并且QRect应该使用&amp;来减少内存复制带来的额外影响。</p>
+<h2 id="类型强转"><a href="#类型强转" class="headerlink" title="类型强转"></a>类型强转</h2><p>在部分代码中，经常能看到C风格的代码强转，应当根据具体情况使用static_cast、dynamic_cast和reinterpret_cast。</p>
+<p>static_cast是使用的比较多的cast，经常用于派生类和基类之间转换。dynamic_cast也用于派生类和基类的转换，如果类型T是指针类型，若转换失败，则返回T类型的空指针，如果时T是引用类型，则会抛出异常，返回std::bad_cast。reinterpret_cast并不会做实际的转换，只会在编译时进行检查，如果不能进行cast转换，则编译报错。</p>
+<h2 id="过多的嵌套"><a href="#过多的嵌套" class="headerlink" title="过多的嵌套"></a>过多的嵌套</h2><p>过多的嵌套会严重影响代码阅读，经常出现只有if通过才会进入执行的情况，这种情况应该修改为不通过就不要继续执行，或者安排合理的if将条件限制在之前。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BluetoothWorker::setAdapterPowered</span><span class="params">(<span class="keyword">const</span> Adapter *adapter, <span class="keyword">const</span> <span class="keyword">bool</span> &amp;powered)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">QDBusObjectPath <span class="title">path</span><span class="params">(adapter-&gt;id())</span></span>;</span><br><span class="line">    <span class="comment">//关闭蓝牙之前删除历史蓝牙设备列表，确保完全是删除后再设置开关</span></span><br><span class="line">    <span class="keyword">if</span> (!powered) &#123;</span><br><span class="line">        QDBusPendingCall call = m_bluetoothInter-&gt;ClearUnpairedDevice();</span><br><span class="line">        QDBusPendingCallWatcher *watcher = <span class="keyword">new</span> QDBusPendingCallWatcher(call, <span class="keyword">this</span>);</span><br><span class="line">        <span class="built_in">connect</span>(watcher, &amp;QDBusPendingCallWatcher::finished, [ = ] &#123;</span><br><span class="line">            <span class="keyword">if</span> (!call.isError()) &#123;</span><br><span class="line">                QDBusPendingCall adapterPoweredOffCall  = m_bluetoothInter-&gt;SetAdapterPowered(path, <span class="literal">false</span>);</span><br><span class="line">                QDBusPendingCallWatcher *watcher = <span class="keyword">new</span> QDBusPendingCallWatcher(adapterPoweredOffCall, <span class="keyword">this</span>);</span><br><span class="line">                <span class="built_in">connect</span>(watcher, &amp;QDBusPendingCallWatcher::finished, [<span class="keyword">this</span>, adapterPoweredOffCall, adapter] &#123;</span><br><span class="line">                    <span class="keyword">if</span> (!adapterPoweredOffCall.isError()) &#123;</span><br><span class="line">                        setAdapterDiscoverable(adapter-&gt;id());</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        qWarning() &lt;&lt; adapterPoweredOffCall.error().message();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                qWarning() &lt;&lt; call.error().message();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        QDBusPendingCall adapterPoweredOnCall  = m_bluetoothInter-&gt;SetAdapterPowered(path, <span class="literal">true</span>);</span><br><span class="line">        QDBusPendingCallWatcher *watcher = <span class="keyword">new</span> QDBusPendingCallWatcher(adapterPoweredOnCall, <span class="keyword">this</span>);</span><br><span class="line">        <span class="built_in">connect</span>(watcher, &amp;QDBusPendingCallWatcher::finished, [<span class="keyword">this</span>, adapterPoweredOnCall, adapter] &#123;</span><br><span class="line">            <span class="keyword">if</span> (!adapterPoweredOnCall.isError()) &#123;</span><br><span class="line">                setAdapterDiscoverable(adapter-&gt;id());</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                qWarning() &lt;&lt; adapterPoweredOnCall.error().message();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的代码其实是可以优化的，我们可以通过三元表达式获取某个QDBusPendingCall，这样就可以使用一个QDBusPendingCallWatcher对象，然后将原本的lambda内容提取到其他函数内，在新的lambda中同样使用三元表达式运行对应的函数，这样拆分代码的好处是，阅读代码时的顺序会和执行顺序一致，分支判断对机器和人类都不是太友好，特别是判断体内有很长的代码段，找到else段是一件不容易的事情，通过降低if else块来提高代码可读性。同时应提取相同动作的代码到公共区域，以免将来修改时发现没有将所有的地方都做修改。</p>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><p>避免使用数组的方式来访问元素，使用迭代器的方式统一循环方式。</p>
+<p>我注意到有些情况下，有人在for循环内直接定义静态变量，这种方式使用的时候需要注意，静态变量将会永远存在，但是大部分for循环内需要保存的数据都是成员变量，否则内存空间将永远不会释放，对内存有浪费。</p>
+<p>而且经常遇到的问题就是foreach宏和for混用，在语法上就没有统一使用。</p>
+<p>我推荐的方式是for+迭代器的方式，如果是简单遍历，使用原生的foreach语法即可。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">list</span>&#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 原生foreach语法，推荐只读遍历使用</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> item: <span class="built_in">list</span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// for+迭代器，只读遍历</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = <span class="built_in">list</span>.cbegin(); it != <span class="built_in">list</span>.cend(); ++it) &#123;</span><br><span class="line">    <span class="comment">// it是迭代器对象，需要解引用使用。</span></span><br><span class="line">    *it</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// for+迭代器方式，推荐需要修改容器的长度使用</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = <span class="built_in">list</span>.<span class="built_in">begin</span>(); it != <span class="built_in">list</span>.<span class="built_in">end</span>();) &#123;</span><br><span class="line">    <span class="comment">// 注意，如果要移除某个元素，需要手动下一步</span></span><br><span class="line">    <span class="keyword">if</span> (*it == <span class="number">2</span>) &#123;</span><br><span class="line">        it = <span class="built_in">list</span>.erase(it);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        ++it;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h2><p>经常遇到使用容器将指针保存下来的场景，但是当对象被析构或者容器被清空的时候，有时候会忘记删除内部的对象，或者删除了不该删除的对象。对数据的处理应该保持RAII原则，避免直接使用裸指针，而是通过智能指针将指针保存起来，当最后一个对象不再持有智能指针对象时，智能指针会删除持有的对象，完成内存释放。</p>
+<p>智能指针的类型</p>
+<p>智能指针包含有三种：独占指针<code>unique_ptr</code>、共享指针<code>shared_ptr</code>和弱引用指针<code>week_ptr</code>。</p>
+<h3 id="独占指针"><a href="#独占指针" class="headerlink" title="独占指针"></a>独占指针</h3><p>独占指针<code>std::unique_ptr</code>可以避免对象被转移到其他对象中，如果某个对象持有<code>unique_ptr</code>，则该ptr不允许转移给其他对象，但是可以使用<code>std::move</code>来转移控制权，注意这和普通的转移不一样，<code>unique_ptr</code>禁止的是拷贝，但是没有禁止移动，我们可以转移控制转，<code>unique_ptr</code>保证的是只有一个智能指针持有对象。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;T&gt; p1 = <span class="built_in">std</span>::<span class="built_in">move</span>(ptr);</span><br></pre></td></tr></table></figure>
+
+<h3 id="共享指针"><a href="#共享指针" class="headerlink" title="共享指针"></a>共享指针</h3><p>共享指针<code>std::shared_ptr</code>顾名思义是用作共享的，和独占指针不同的是，它支持复制，内部通过引用计数来维持对象的生命周期，当没有任何一个对象持有共享指针时，也就意味着没有任何一个对象可以访问到内部对象了，就可以安全的删除对象，释放内存。</p>
+<h4 id="弱引用指针"><a href="#弱引用指针" class="headerlink" title="弱引用指针"></a>弱引用指针</h4><p>弱引用指针<code>std::week_ptr</code>是为了避免两个共享指针相互持有导致引用计数永远不会归零，导致内存永远不释放而提出的解决方案，具体就是弱引用指针不会导致引用计数增加，但是week_ptr同样不支持复制，必须转换为共享指针<code>std::shared_ptr</code>。</p>
+<h2 id="优化判断条件"><a href="#优化判断条件" class="headerlink" title="优化判断条件"></a>优化判断条件</h2><p>对于常数的判断，尽量使用宏或者定义静态常量来避免直接使用数字或者字符判断。</p>
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p>发现很多人在需要排序的时候总是使用冒泡算法，我介绍几个比较方便的排序方法。</p>
+<h3 id="使用std-sort"><a href="#使用std-sort" class="headerlink" title="使用std::sort"></a>使用std::sort</h3><p>C++标准库提供了<code>std::sort</code>方法来方便的排序，它有三个参数，第一个参数是容器的begin迭代器，第二个参数是end迭代器，第三个参数接收一个返回值为bool类型的函数，该函数用于实现手动控制排序的判断。</p>
+<p>我们可以提供一个lambda表达式来方便的控制排序，或者提供一个函数指针。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">list</span>&#123; <span class="number">10</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">5</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::sort(<span class="built_in">list</span>.<span class="built_in">begin</span>(), <span class="built_in">list</span>.<span class="built_in">end</span>(), [](<span class="keyword">int</span> num1, <span class="keyword">int</span> num2) &#123;</span><br><span class="line">    <span class="keyword">return</span> num1 &lt; num2;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这种排序方式是直接对原始容器进行操作的，如果不希望数据成为脏数据，应该先复制一份。</p>
+<h3 id="使用容器"><a href="#使用容器" class="headerlink" title="使用容器"></a>使用容器</h3><p>使用容器的方式比较麻烦一些，我们需要对象自己支持大小比较，或者顺序是外部某个列表列表控制的。</p>
+<p>我们可以使用map将内部数据和标记数据建立映射关系，再通过外部的list或者其他方式，从map中将数据读出来，添加到新的列表容器中，从而完成排序。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">    <span class="string">"page1"</span>, <span class="string">"page2"</span>, <span class="string">"page3"</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">String</span>, QWidget*&gt; <span class="built_in">map</span>;</span><br><span class="line">…</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> StringList &amp; <span class="built_in">list</span> = QJsonDocument::fromJson(readAll(“order.json”)).toStdList();</span><br><span class="line"></span><br><span class="line">QList&lt;QWidget*&gt; pages;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> QString&amp; key : <span class="built_in">list</span>) &#123;</span><br><span class="line">    pages &lt;&lt; <span class="built_in">map</span>[key];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/15/%E4%BD%BF%E7%94%A8inquirer%E6%8F%90%E4%BE%9B%E4%BA%A4%E4%BA%92%E5%BC%8Fgit-commit/" rel="prev" title="使用inquirer提供交互式git commit">
+      <i class="fa fa-chevron-left"></i> 使用inquirer提供交互式git commit
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#const和const-amp"><span class="nav-number">1.</span> <span class="nav-text">const和const &amp;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型强转"><span class="nav-number">2.</span> <span class="nav-text">类型强转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过多的嵌套"><span class="nav-number">3.</span> <span class="nav-text">过多的嵌套</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">4.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存泄漏"><span class="nav-number">5.</span> <span class="nav-text">内存泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#独占指针"><span class="nav-number">5.1.</span> <span class="nav-text">独占指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共享指针"><span class="nav-number">5.2.</span> <span class="nav-text">共享指针</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#弱引用指针"><span class="nav-number">5.2.1.</span> <span class="nav-text">弱引用指针</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化判断条件"><span class="nav-number">6.</span> <span class="nav-text">优化判断条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序"><span class="nav-number">7.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用std-sort"><span class="nav-number">7.1.</span> <span class="nav-text">使用std::sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用容器"><span class="nav-number">7.2.</span> <span class="nav-text">使用容器</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小竹"
+      src="https://avatars1.githubusercontent.com/u/12298476?s=460&u=2c38b7ed987489b75cd4d1ee1353c671add86985&v=4">
+  <p class="site-author-name" itemprop="name">小竹</p>
+  <div class="site-description" itemprop="description">小竹的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/justforlxz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:justforlxz@gmail.com" title="E-Mail → mailto:justforlxz@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/5906290378" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;5906290378" rel="noopener" target="_blank"><i class="weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/justforlxz" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;justforlxz" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小竹</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://ilxz.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.justforlxz.com/2020/06/15/CPP%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/";
+    this.page.identifier = "2020/06/15/CPP项目的一些坑/";
+    this.page.title = "CPP项目的一些坑";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://ilxz.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
