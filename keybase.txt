@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/justforlxz
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://blog.justforlxz.com
+  * I am justforlxz (https://keybase.io/justforlxz) on keybase.
+  * I have a public key ASD_4HgwR99edQjmioTJPxkDTaBFqRt0XDT6mx-LhKJOwwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120cee959c7143f58ed5597a4cf6fef7c549e481a42eda3c78dd5dcf29b3debb4ee0a",
+      "host": "keybase.io",
+      "kid": "0120ffe0783047df5e7508e68a84c93f19034da045a91b745c34fa9b1f8b84a24ec30a",
+      "uid": "15fa5fc1727a7a4fe8420504ce38c819",
+      "username": "justforlxz"
+    },
+    "merkle_root": {
+      "ctime": 1617348905,
+      "hash": "8e61799d7033ea3d92cde96aeea2fab192acd3f453ddea2e8eb3daf2accb16c800de6ad83c482898796e7781601bd14313902ab6d522b49c8433654bc93b33f3",
+      "hash_meta": "8d99e25cef9c3f0705cdb3ee66b7709c6188e9daeb0cccd89efb2760acd60464",
+      "seqno": 19529785
+    },
+    "service": {
+      "entropy": "IYR4NNbNiYArmNlXdYa4WTbT",
+      "hostname": "blog.justforlxz.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.6.1"
+  },
+  "ctime": 1617348945,
+  "expire_in": 504576000,
+  "prev": "924eb9556bd3de3fed5e0d6fba0ab71a39df9001f8a9f97c79f844f82dd7cf1a",
+  "seqno": 37,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg/+B4MEffXnUI5oqEyT8ZA02gRakbdFw0+psfi4SiTsMKp3BheWxvYWTESpcCJcQgkk65VWvT3j/tXg1vugq3GjnfkAH4qfl8efhE+C3XzxrEIPtB+XoIV/FskjZYOMmNIivzD66d7nWfEIGOGctf1rfaAgHCo3NpZ8RAexDohOxyAsFOzs57cyx+XkQC7iiiR8WgNJTNZiqn1F5+4fevbitVGs0a09cTNQF/xtphw2P/DrER5ozie+UqD6hzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIOPGN8ydCZA97tuZ4vXg6j5YuORAUa1U8gN9aVPKmkSBo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/justforlxz
+
+==================================================================

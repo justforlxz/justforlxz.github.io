@@ -1,0 +1,777 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="小竹">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="LSP(Language Server Protocol) 语言服务协议，此协议定义了在编辑器或IDE与语言服务器之间使用的协议，该语言服务器提供了例如自动补全，转到定义，查找所有引用等的功能；语言服务器索引格式的目标是支持在开发工具中进行丰富的代码导航或者一个无需本地源码副本的WebUI。 而ccls就是为c&#x2F;c++开发的一个的lsp服务，可以为vim、emacs和vscode等工具提">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ccls">
+<meta property="og:url" content="https://blog.justforlxz.com/2020/12/23/ccls/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="LSP(Language Server Protocol) 语言服务协议，此协议定义了在编辑器或IDE与语言服务器之间使用的协议，该语言服务器提供了例如自动补全，转到定义，查找所有引用等的功能；语言服务器索引格式的目标是支持在开发工具中进行丰富的代码导航或者一个无需本地源码副本的WebUI。 而ccls就是为c&#x2F;c++开发的一个的lsp服务，可以为vim、emacs和vscode等工具提">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.justforlxz.com/2020/12/23/ccls/ccls.png">
+<meta property="article:published_time" content="2020-12-23T08:27:39.000Z">
+<meta property="article:modified_time" content="2023-02-01T06:35:51.158Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="vim">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://blog.justforlxz.com/2020/12/23/ccls/ccls.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>ccls - 小竹&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.google-analytics.com/analytics.js', function() {
+          window.ga = window.ga || function() { (ga.q = ga.q || []).push(arguments) };
+          ga.l = +new Date;
+          ga('create', 'UA-129024325-1', 'auto');
+          ga('send', 'pageview');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>小竹&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ccls"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-12-23 16:27" pubdate>
+          2020年12月23日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          18k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          153 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ccls</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>LSP(Language Server Protocol) 语言服务协议，此协议定义了在编辑器或IDE与语言服务器之间使用的协议，该语言服务器提供了例如自动补全，转到定义，查找所有引用等的功能；语言服务器索引格式的目标是支持在开发工具中进行丰富的代码导航或者一个无需本地源码副本的WebUI。</p>
+<p>而ccls就是为c&#x2F;c++开发的一个的lsp服务，可以为vim、emacs和vscode等工具提供自动补全，定义跳转等功能。</p>
+<p>根据本文的指导，你可以将vim配置成一个不错的c++开发工具。</p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>由于公司部分项目并不是CMake开发的，所以vscode无法完成胜任开发工作，所以我开始使用vim。系统我使用的是ArchLinux,我会尽量使用仓库中的包，而不是通过pip等工具安装组件。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>安装neovim、ccls和bear,bear目前只在archlinuxcn仓库，需要注意。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">sudo pacman -S neovim ccls bear python node<br></code></pre></td></tr></table></figure>
+<p>下载SpaceVim，由于我使用的是neovim,所以下载配置时选择了neovim.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">curl -sLf https://spacevim.org/cn/install.sh | bash -s -- --install neovim<br></code></pre></td></tr></table></figure>
+<p>创建自己的配置文件目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">mkdir ~/.SpaceVim.d/<br></code></pre></td></tr></table></figure>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>首先要先创建基本的SpaceVim配置文件，配置文件参考了<a target="_blank" rel="noopener" href="https://github.com/Martins3/My-Linux-config">https://github.com/Martins3/My-Linux-config</a>。</p>
+<p>整个配置都在~&#x2F;.SpaceVim.d目录下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">.SpaceVim.d<br>├── autoload<br>│   └── myspacevim.vim<br>├── coc-settings.json<br>├── init.toml<br>└── plugin<br>    ├── coc.nvim<br>    └── defx.nvim<br>2 directories, 5 files<br></code></pre></td></tr></table></figure>
+<p>在.SpaceVim.d目录下创建init.toml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 所有的 SpaceVim 选项都列在 [options] 之下<br>[options]<br>    # 设置 SpaceVim 主题及背景，默认的主题是 gruvbox，如果你需要使用更<br>    # 多的主题，你可以载入 colorscheme 模块<br>    colorscheme = &quot;gruvbox&quot;<br>    # 背景可以取值 &quot;dark&quot; 或 &quot;light&quot;<br>    colorscheme_bg = &quot;dark&quot;<br>    # 启用/禁用终端真色，在目前大多数终端下都是支持真色的，当然也有<br>    # 一小部分终端不支持真色，如果你的 SpaceVim 颜色看上去比较怪异<br>    # 可以禁用终端真色，将下面的值设为 false<br>    enable_guicolors = true<br>    # 设置状态栏上分割符号形状，如果字体安装失败，可以将值设为 &quot;nil&quot; 以<br>    # 禁用分割符号，默认为箭头 &quot;arrow&quot;<br>    statusline_separator = &quot;nil&quot;<br>    statusline_iseparator = &quot;bar&quot;<br>    # 设置顶部标签列表序号类型，有以下五种类型，分别是 0 - 4<br>    # 0: 1 ➛ ➊<br>    # 1: 1 ➛ ➀<br>    # 2: 1 ➛ ⓵<br>    # 3: 1 ➛ ¹<br>    # 4: 1 ➛ 1<br>    buffer_index_type = 4<br>    # 显示/隐藏顶部标签栏上的文件类型图标，这一图标需要安装 nerd fonts，<br>    # 如果未能成功安装这一字体，可以隐藏图标<br>    enable_tabline_filetype_icon = true<br>    # 是否在状态栏上显示当前模式，默认情况下，不显示 Normal/Insert 等<br>    # 字样，只以颜色区分当前模式<br>    enable_statusline_mode = false<br>    filemanager = &quot;defx&quot;<br>    autocomplete_method = &quot;coc&quot;<br>    bootstrap_before = &quot;myspacevim#before&quot;<br>    bootstrap_after = &quot;myspacevim#after&quot;<br># SpaceVim 模块设置，主要包括启用/禁用模块<br># 计算器 日历 书签等小工具<br>[[layers]]<br>  name = &#x27;tools&#x27;<br>[[layers]]<br>  name = &quot;checkers&quot;<br>  enable = false<br># 版本控制<br>[[layers]]<br>  name = &quot;VersionControl&quot;<br>  enable-gtm-status = true<br>[[layers]]<br>  name = &quot;git&quot;<br>  git-plugin = &quot;fugitive&quot;<br>[[layers]]<br>  name = &quot;fzf&quot;<br># coc.nvim 核心配置，不要删除<br>[[custom_plugins]]<br>  name = &#x27;neoclide/coc.nvim&#x27;<br>  merge = 0<br># 主要用于快速搜索 文件, buffer 和 函数<br>[[custom_plugins]]<br>    name = &quot;Yggdroot/LeaderF&quot;<br>    build = &quot;./install.sh&quot;<br># 更加美观的 tagbar<br>[[custom_plugins]]<br>    name = &#x27;liuchengxu/vista.vim&#x27;<br>[[custom_plugins]]<br>    name = &#x27;junegunn/fzf.vim&#x27;<br># 更加方便的调节窗口的大小<br>[[custom_plugins]]<br>    name = &#x27;simeji/winresizer&#x27;<br># 基于lsp的高亮插件<br>[[custom_plugins]]<br>    name = &#x27;jackguo380/vim-lsp-cxx-highlight&#x27;<br># 从 http://cplusplus.com/ 和 http://cppreference.com/ 获取文档<br>[[custom_plugins]]<br>    name = &#x27;skywind3000/vim-cppman&#x27;<br># 利用 git blame 显示当前行的 commit message<br>[[custom_plugins]]<br>    name = &#x27;rhysd/git-messenger.vim&#x27;<br>    lazy =  1<br>    on_cmd = &#x27;GitMessenger&#x27;<br># 以悬浮窗口的形式打开终端<br>[[custom_plugins]]<br>    name = &#x27;voldikss/vim-floaterm&#x27;<br># 显示搜索的标号<br>[[custom_plugins]]<br>    name = &#x27;google/vim-searchindex.git&#x27;<br>[[custom_plugins]]<br>  name = &#x27;kenn7/vim-arsync&#x27;<br>[[custom_plugins]]<br>  name = &#x27;fatih/vim-go&#x27;<br># 禁用 shell 模块，禁用模块时，需要加入 enable = false<br>[[layers]]<br>    name = &quot;shell&quot;<br>    enable = false<br># 添加自定义插件<br>[[custom_plugins]]<br>    repo = &quot;lilydjwg/colorizer&quot;<br>    merged = false<br>[[layers]]<br>  name = &quot;format&quot;<br></code></pre></td></tr></table></figure>
+<p>创建plugin目录，新建两个文件。<br>coc.nvim</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br></pre></td><td class="code"><pre><code class="hljs plain">&quot; coc.nvim 的配置, 来自于 https://github.com/neoclide/coc.nvim<br>&quot; Use &lt;c-space&gt; for trigger completion.<br>inoremap &lt;silent&gt;&lt;expr&gt; &lt;c-space&gt; coc#refresh()<br>set hidden<br>&quot; Some servers have issues with backup files, see #649<br>set nobackup<br>set nowritebackup<br>&quot; 使用 Microsoft Python Language Server 不然 coc.nvim 会警告<br>call coc#config(&quot;python.jediEnabled&quot;, v:false)<br>call coc#config(&quot;smartf.wordJump&quot;, v:false)<br>call coc#config(&quot;smartf.jumpOnTrigger&quot;, v:false)<br>&quot; https://rust-analyzer.github.io/manual.html#rust-analyzer-language-server-binary<br>call coc#config(&quot;rust-analyzer.serverPath&quot;, &quot;~/.cargo/bin/rust-analyzer&quot;)<br>call coc#config(&#x27;coc.preferences&#x27;, &#123;<br>			\ &quot;autoTrigger&quot;: &quot;always&quot;,<br>			\ &quot;maxCompleteItemCount&quot;: 10,<br>			\ &quot;codeLens.enable&quot;: 1,<br>			\ &quot;diagnostic.virtualText&quot;: 1,<br>			\&#125;)<br><br>&quot; coc.nvim 插件，用于支持 python java 等语言<br>let s:coc_extensions = [<br>			\ &#x27;coc-python&#x27;,<br>			\ &#x27;coc-java&#x27;,<br>			\ &#x27;coc-json&#x27;,<br>      \ &#x27;coc-css&#x27;,<br>      \ &#x27;coc-html&#x27;,<br>      \ &#x27;coc-word&#x27;,<br>      \ &#x27;coc-cmake&#x27;,<br>      \ &#x27;coc-dictionary&#x27;,<br>      \ &#x27;coc-rust-analyzer&#x27;,<br>      \ &#x27;coc-vimlsp&#x27;,<br>      \ &#x27;coc-ci&#x27;,<br>      \ &#x27;coc-snippets&#x27;,<br>      \ &#x27;coc-vimtex&#x27;,<br>      \ &#x27;coc-smartf&#x27;,<br>			\]<br>for extension in s:coc_extensions<br>	call coc#add_extension(extension)<br>endfor<br>inoremap &lt;silent&gt;&lt;expr&gt; &lt;TAB&gt;<br>      \ pumvisible() ? &quot;\&lt;C-n&gt;&quot; :<br>      \ &lt;SID&gt;check_back_space() ? &quot;\&lt;TAB&gt;&quot; :<br>      \ coc#refresh()<br>inoremap &lt;expr&gt;&lt;S-TAB&gt; pumvisible() ? &quot;\&lt;C-p&gt;&quot; : &quot;\&lt;C-h&gt;&quot;<br>function! s:check_back_space() abort<br>  let col = col(&#x27;.&#x27;) - 1<br>  return !col || getline(&#x27;.&#x27;)[col - 1]  =~# &#x27;\s&#x27;<br>endfunction<br>&quot; 方便在中文中间使用 w 和 b 移动<br>nmap &lt;silent&gt; w &lt;Plug&gt;(coc-ci-w)<br>nmap &lt;silent&gt; b &lt;Plug&gt;(coc-ci-b)<br><br>&quot; Use &lt;cr&gt; for confirm completion, `&lt;C-g&gt;u` means break undo chain at current position.<br>&quot; Coc only does snippet and additional edit on confirm.<br>inoremap &lt;expr&gt; &lt;cr&gt; pumvisible() ? &quot;\&lt;C-y&gt;&quot; : &quot;\&lt;C-g&gt;u\&lt;CR&gt;&quot;<br>&quot; Remap keys for gotos<br>nmap &lt;silent&gt; gd &lt;Plug&gt;(coc-definition)<br>nmap &lt;silent&gt; gy &lt;Plug&gt;(coc-type-definition)<br>nmap &lt;silent&gt; gi &lt;Plug&gt;(coc-implementation)<br>nmap &lt;silent&gt; gr &lt;Plug&gt;(coc-references)<br>&quot; Use K for show documentation in preview window<br>nnoremap &lt;silent&gt; K :call &lt;SID&gt;show_documentation()&lt;CR&gt;<br>function! s:show_documentation()<br>  if &amp;filetype == &#x27;vim&#x27;<br>    execute &#x27;h &#x27;.expand(&#x27;&lt;cword&gt;&#x27;)<br>  else<br>    call CocAction(&#x27;doHover&#x27;)<br>  endif<br>endfunction<br>&quot; Highlight symbol under cursor on CursorHold<br>set updatetime=300<br>autocmd CursorHold * silent call CocActionAsync(&#x27;highlight&#x27;)<br>autocmd CursorHoldI * sil call CocActionAsync(&#x27;showSignatureHelp&#x27;)<br>&quot; Remap for rename current word<br>nmap &lt;leader&gt;rn &lt;Plug&gt;(coc-rename)<br>&quot; 注释掉，一般使用 `Space` `r` `f` 直接格式化整个文件<br>&quot; Remap for format selected region<br>&quot; vmap &lt;leader&gt;f  &lt;Plug&gt;(coc-format-selected)<br>&quot; nmap &lt;leader&gt;f  &lt;Plug&gt;(coc-format-selected)<br>augroup mygroup<br>  autocmd!<br>  &quot; Setup formatexpr specified filetype(s).<br>  autocmd FileType typescript,json setl formatexpr=CocAction(&#x27;formatSelected&#x27;)<br>  &quot; Update signature help on jump placeholder<br>  autocmd User CocJumpPlaceholder call CocActionAsync(&#x27;showSignatureHelp&#x27;)<br>augroup end<br>&quot; Remap for do codeAction of selected region, ex: `&lt;leader&gt;aap` for current paragraph<br>vmap &lt;leader&gt;a  &lt;Plug&gt;(coc-codeaction-selected)<br>nmap &lt;leader&gt;a  &lt;Plug&gt;(coc-codeaction-selected)<br>&quot; Remap for do codeAction of current line<br>nmap &lt;leader&gt;ac  &lt;Plug&gt;(coc-codeaction)<br>&quot; Fix autofix problem of current line<br>nmap &lt;leader&gt;qf  &lt;Plug&gt;(coc-fix-current)<br>&quot; Use `:Format` for format current buffer<br>&quot; command! -nargs=0 Format :call CocAction(&#x27;format&#x27;)<br>call SpaceVim#custom#SPC(&#x27;nnoremap&#x27;, [&#x27;r&#x27;, &#x27;f&#x27;], &quot;call CocAction(&#x27;format&#x27;)&quot;, &#x27;format file with coc.nvim&#x27;, 1)<br>&quot; Use `:Fold` for fold current buffer<br>command! -nargs=? Fold :call     CocAction(&#x27;fold&#x27;, &lt;f-args&gt;)<br>&quot; auto import for go on save<br>autocmd BufWritePre *.go :call CocAction(&#x27;runCommand&#x27;, &#x27;editor.action.organizeImport&#x27;)<br>&quot; 这个和 SpaceVim 的 statusline/tabline 冲突了<br>&quot; Add diagnostic info for https://github.com/itchyny/lightline.vim<br>&quot; let g:lightline = &#123;<br>&quot;       \ &#x27;colorscheme&#x27;: &#x27;wombat&#x27;,<br>&quot;       \ &#x27;active&#x27;: &#123;<br>&quot;       \   &#x27;left&#x27;: [ [ &#x27;mode&#x27;, &#x27;paste&#x27; ],<br>&quot;       \             [ &#x27;cocstatus&#x27;, &#x27;readonly&#x27;, &#x27;filename&#x27;, &#x27;modified&#x27; ] ]<br>&quot;       \ &#125;,<br>&quot;       \ &#x27;component_function&#x27;: &#123;<br>&quot;       \   &#x27;cocstatus&#x27;: &#x27;coc#status&#x27;<br>&quot;       \ &#125;,<br>&quot;       \ &#125;<br><br>&quot; Using CocList<br>&quot; Show all diagnostics<br>nnoremap &lt;silent&gt; &lt;leader&gt;d  :&lt;C-u&gt;CocList diagnostics&lt;cr&gt;<br><br>&quot; 下面是 ccls 提供的 LSP Extension<br>&quot; https://github.com/MaskRay/ccls/wiki/coc.nvim<br>&quot; Manage extensions<br>&quot; nnoremap &lt;silent&gt; &lt;space&gt;e  :&lt;C-u&gt;CocList extensions&lt;cr&gt;<br>&quot; Show commands<br>&quot; nnoremap &lt;silent&gt; &lt;space&gt;c  :&lt;C-u&gt;CocList commands&lt;cr&gt;<br>&quot; Find symbol of current document<br>&quot; nnoremap &lt;silent&gt; &lt;space&gt;o  :&lt;C-u&gt;CocList outline&lt;cr&gt;<br>&quot; Search workspace symbols<br>&quot; nnoremap &lt;silent&gt; &lt;space&gt;s  :&lt;C-u&gt;CocList -I symbols&lt;cr&gt;<br>&quot; Do default action for next item.<br>&quot; nnoremap &lt;silent&gt; &lt;space&gt;j  :&lt;C-u&gt;CocNext&lt;CR&gt;<br>&quot; Do default action for previous item.<br>&quot; nnoremap &lt;silent&gt; &lt;space&gt;k  :&lt;C-u&gt;CocPrev&lt;CR&gt;<br>&quot; Resume latest coc list<br>&quot; nnoremap &lt;silent&gt; &lt;space&gt;p  :&lt;C-u&gt;CocListResume&lt;CR&gt;<br>nn &lt;silent&gt; xl :call CocLocations(&#x27;ccls&#x27;,&#x27;$ccls/navigate&#x27;,&#123;&#x27;direction&#x27;:&#x27;D&#x27;&#125;)&lt;cr&gt;<br>nn &lt;silent&gt; xk :call CocLocations(&#x27;ccls&#x27;,&#x27;$ccls/navigate&#x27;,&#123;&#x27;direction&#x27;:&#x27;L&#x27;&#125;)&lt;cr&gt;<br>nn &lt;silent&gt; xj :call CocLocations(&#x27;ccls&#x27;,&#x27;$ccls/navigate&#x27;,&#123;&#x27;direction&#x27;:&#x27;R&#x27;&#125;)&lt;cr&gt;<br>nn &lt;silent&gt; xh :call CocLocations(&#x27;ccls&#x27;,&#x27;$ccls/navigate&#x27;,&#123;&#x27;direction&#x27;:&#x27;U&#x27;&#125;)&lt;cr&gt;<br>noremap x &lt;Nop&gt;<br>nn &lt;silent&gt; xb :call CocLocations(&#x27;ccls&#x27;,&#x27;$ccls/inheritance&#x27;)&lt;cr&gt;<br>&quot; bases of up to 3 levels<br>nn &lt;silent&gt; xb :call CocLocations(&#x27;ccls&#x27;,&#x27;$ccls/inheritance&#x27;,&#123;&#x27;levels&#x27;:3&#125;)&lt;cr&gt;<br>&quot; derived<br>nn &lt;silent&gt; xd :call CocLocations(&#x27;ccls&#x27;,&#x27;$ccls/inheritance&#x27;,&#123;&#x27;derived&#x27;:v:true&#125;)&lt;cr&gt;<br>&quot; derived of up to 3 levels<br>nn &lt;silent&gt; xD :call CocLocations(&#x27;ccls&#x27;,&#x27;$ccls/inheritance&#x27;,&#123;&#x27;derived&#x27;:v:true,&#x27;levels&#x27;:3&#125;)&lt;cr&gt;<br>&quot; caller<br>nn &lt;silent&gt; xc :call CocLocations(&#x27;ccls&#x27;,&#x27;$ccls/call&#x27;)&lt;cr&gt;<br>&quot; callee<br>nn &lt;silent&gt; xC :call CocLocations(&#x27;ccls&#x27;,&#x27;$ccls/call&#x27;,&#123;&#x27;callee&#x27;:v:true&#125;)&lt;cr&gt;<br>&quot; $ccls/member<br>&quot; member variables / variables in a namespace<br>nn &lt;silent&gt; xm :call CocLocations(&#x27;ccls&#x27;,&#x27;$ccls/member&#x27;)&lt;cr&gt;<br>&quot; member functions / functions in a namespace<br>nn &lt;silent&gt; xf :call CocLocations(&#x27;ccls&#x27;,&#x27;$ccls/member&#x27;,&#123;&#x27;kind&#x27;:3&#125;)&lt;cr&gt;<br>&quot; nested classes / types in a namespace<br>nn &lt;silent&gt; xs :call CocLocations(&#x27;ccls&#x27;,&#x27;$ccls/member&#x27;,&#123;&#x27;kind&#x27;:2&#125;)&lt;cr&gt;<br>nmap &lt;silent&gt; xt &lt;Plug&gt;(coc-type-definition)&lt;cr&gt;<br>nn &lt;silent&gt; xv :call CocLocations(&#x27;ccls&#x27;,&#x27;$ccls/vars&#x27;)&lt;cr&gt;<br>nn &lt;silent&gt; xV :call CocLocations(&#x27;ccls&#x27;,&#x27;$ccls/vars&#x27;,&#123;&#x27;kind&#x27;:1&#125;)&lt;cr&gt;<br>nn xx x<br></code></pre></td></tr></table></figure>
+<p>defx.nvim</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">&quot; defx 将会自动忽略如下的文件<br>call defx#custom#option(&#x27;_&#x27;, &#123;<br>    \ &#x27;ignored_files&#x27;: &quot;.*,*.class,*.out,*.o,*.bc,*.a,compile_commands.json,*.d,*.mod*,*.cmd,.tmp_versions/,modules.order,Module.symvers,Mkfile.old,dkms.conf,*.ko,*.elf,*.img&quot;,<br>    \ &#125;)<br></code></pre></td></tr></table></figure>
+<p>创建autoload目录，新建myspacevim.vim</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><code class="hljs plain">func! myspacevim#before() abort<br>    let g:coc_config_home = &#x27;~/.SpaceVim.d/&#x27;<br>    &quot; 焦点消失的时候自动保存<br>    au FocusLost * :wa<br>    au FocusGained,BufEnter * :checktime<br>    &quot; 当文件被其他编辑器修改时，自动加载<br>    set autowrite<br>    set autoread<br>    &quot; 设置按照syntax高亮进行折叠<br>    set foldmethod=syntax<br>    set nofoldenable<br>    &quot; 重新映射 leader 键<br>    let g:mapleader = &#x27;,&#x27;<br>    &quot; 重新映射 window 键位<br>    let g:spacevim_windows_leader = &#x27;c&#x27;<br>    call SpaceVim#custom#SPC(&#x27;nnoremap&#x27;, [&#x27;s&#x27;, &#x27;f&#x27;], &#x27;Vista finder coc&#x27;, &#x27;search simbols&#x27;, 1)<br>    call SpaceVim#custom#SPC(&#x27;nnoremap&#x27;, [&#x27;s&#x27;, &#x27;F&#x27;], &#x27;LeaderfFunction!&#x27;, &#x27;list functions&#x27;, 1)<br>    let g:Lf_ShortcutF = &quot;&lt;leader&gt;s&quot;<br>    &quot; 让 leaderf 可以搜索 git 的 submodule，否则是自动忽略的<br>    let g:Lf_RecurseSubmodules = 1<br>    let g:spacevim_snippet_engine = &#x27;ultisnips&#x27;<br>    let g:table_mode_corner=&#x27;|&#x27;<br>    &quot; 调节 window 大小<br>    let g:winresizer_start_key = &#x27;&lt;space&gt;wa&#x27;<br>    &quot; If you cancel and quit window resize mode by `q` (keycode 113)<br>    let g:winresizer_keycode_cancel = 113<br>    &quot; 让file tree 显示文件图标，需要 terminal 安装 nerd font<br>    let g:spacevim_enable_vimfiler_filetypeicon = 1<br>    &quot; 让 filetree 显示 git 的状态，会变得很卡，所以关掉<br>    let g:spacevim_enable_vimfiler_gitstatus = 1<br>    &quot; 默认 markdown preview 在切换到其他的 buffer 或者 vim<br>    &quot; 失去焦点的时候会自动关闭 preview，让<br>    let g:mkdp_auto_close = 0<br>    &quot; 书签选中之后自动关闭 quickfix window<br>    let g:bookmark_auto_close = 1<br>    &quot; vim-lsp-cxx-highlight 和这个选项存在冲突<br>    &quot; let g:rainbow_active = 1<br>    &quot; ctrl + ] 查询 cppman<br>    &quot; 如果想让该快捷键自动查询 man，将Cppman 替换为 Cppman!<br>    autocmd FileType c,cpp noremap &lt;C-]&gt; &lt;Esc&gt;:execute &quot;Cppman &quot; . expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;<br>    &quot; 让光标自动进入到popup window 中间<br>    let g:git_messenger_always_into_popup = v:true<br>    &quot; 设置映射规则，和 spacevim 保持一致<br>    call SpaceVim#custom#SPC(&#x27;nnoremap&#x27;, [&#x27;g&#x27;, &#x27;m&#x27;], &#x27;GitMessenger&#x27;, &#x27;show commit message in popup window&#x27;, 1)<br>    call SpaceVim#custom#SPC(&#x27;nnoremap&#x27;, [&#x27;g&#x27;, &#x27;l&#x27;], &#x27;FloatermNew lazygit&#x27;, &#x27;open lazygit in floaterm&#x27;, 1)<br>    &quot; 设置默认的pdf阅览工具<br>    let g:vimtex_view_method = &#x27;zathura&#x27;<br>    &quot; 关闭所有隐藏设置<br>		let g:tex_conceal = &quot;&quot;<br>    &quot; 实现一键运行各种文件，适合非交互式的，少量的代码，比如 leetcode<br>    func! QuickRun()<br>        exec &quot;w&quot;<br>        let ext = expand(&quot;%:e&quot;)<br>        let file = expand(&quot;%&quot;)<br>        if ext ==# &quot;sh&quot;<br>            exec &quot;!sh %&quot;<br>        elseif ext ==# &quot;cpp&quot;<br>            exec &quot;!clang++ % -Wall -O3 -g -std=c++17 -o %&lt;.out &amp;&amp; ./%&lt;.out&quot;<br>        elseif ext ==# &quot;c&quot;<br>            exec &quot;!clang % -Wall -g -std=c11 -o %&lt;.out &amp;&amp; ./%&lt;.out&quot;<br>        elseif ext ==# &quot;java&quot;<br>            let classPath = expand(&#x27;%:h&#x27;)<br>            let className = expand(&#x27;%:p:t:r&#x27;)<br>            &quot; echo classPath<br>            &quot; echo className<br>            exec &quot;!javac %&quot;<br>            exec &quot;!java -classpath &quot; . classPath . &quot; &quot; . className<br>        elseif ext ==# &quot;go&quot;<br>            exec &quot;!go run %&quot;<br>        elseif ext ==# &quot;js&quot;<br>            exec &quot;!node %&quot;<br>        elseif ext ==# &quot;bin&quot;<br>            exec &quot;!readelf -h %&quot;<br>        elseif ext ==# &quot;py&quot;<br>            exec &quot;!python3 %&quot;<br>        elseif ext ==# &quot;vim&quot;<br>            exec &quot;so %&quot;<br>        elseif ext ==# &quot;html&quot;<br>            exec &quot;!google-chrome-stable %&quot;<br>        elseif ext ==# &quot;rs&quot;<br>            call CargoRun()<br>        else<br>            echo &quot;Check file type !&quot;<br>        endif<br>        echo &#x27;done&#x27;<br>    endf<br>    &quot; 一键运行 rust 工程，不断向上查找直到遇到 Cargo.toml，然后执行 cargo run<br>    func! CargoRun()<br>      let cargo_run_path = fnamemodify(resolve(expand(&#x27;%:p&#x27;)), &#x27;:h&#x27;)<br>      while cargo_run_path != &quot;/&quot;<br>        if filereadable(cargo_run_path . &quot;/Cargo.toml&quot;)<br>            echo cargo_run_path<br>            exec &quot;cd &quot; . cargo_run_path<br>            exec &quot;!cargo run&quot;<br>            exec &quot;cd -&quot;<br>            return<br>        endif<br>       let cargo_run_path = fnamemodify(cargo_run_path, &#x27;:h&#x27;)<br>      endwhile<br>      echo &quot;Cargo.toml not found !&quot;<br>    endf<br>endf<br>func! myspacevim#after() abort<br>    &quot; &lt;F3&gt; 打开文件树<br>    nnoremap  &lt;F4&gt;  :call QuickRun()&lt;CR&gt;<br>    &quot; &lt;F5&gt; floaterm toggle<br>    &quot; &lt;F7&gt; 打开历史记录<br>    tnoremap  &lt;Esc&gt;  &lt;C-\&gt;&lt;C-n&gt;<br>    map &lt;Tab&gt; :wincmd w&lt;CR&gt;<br>    &quot; press &lt;esc&gt; to cancel.<br>    nmap f &lt;Plug&gt;(coc-smartf-forward)<br>    nmap F &lt;Plug&gt;(coc-smartf-backward)<br>    nmap ; &lt;Plug&gt;(coc-smartf-repeat)<br>    nmap , &lt;Plug&gt;(coc-smartf-repeat-opposite)<br>    augroup Smartf<br>      autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=pink<br>      autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945<br>    augroup end<br>    inoremap   &lt;silent&gt;   &lt;C-n&gt;     :FloatermNew&lt;CR&gt;<br>    nnoremap   &lt;silent&gt;   &lt;C-n&gt;    :FloatermNew&lt;CR&gt;<br>    tnoremap   &lt;silent&gt;   &lt;C-n&gt;    &lt;C-\&gt;&lt;C-n&gt;:FloatermNew&lt;CR&gt;<br>    inoremap   &lt;silent&gt;   &lt;C-h&gt;     :FloatermPrev&lt;CR&gt;<br>    nnoremap   &lt;silent&gt;   &lt;C-h&gt;    :FloatermPrev&lt;CR&gt;<br>    tnoremap   &lt;silent&gt;   &lt;C-h&gt;    &lt;C-\&gt;&lt;C-n&gt;:FloatermPrev&lt;CR&gt;<br>    inoremap   &lt;silent&gt;   &lt;C-l&gt;     :FloatermNext&lt;CR&gt;<br>    nnoremap   &lt;silent&gt;   &lt;C-l&gt;    :FloatermNext&lt;CR&gt;<br>    tnoremap   &lt;silent&gt;   &lt;C-l&gt;    &lt;C-\&gt;&lt;C-n&gt;:FloatermNext&lt;CR&gt;<br><br>    &quot; 保证在插入模式&lt;F5&gt;可以 toggle floaterm<br>    &quot; 来，提出一个自己的第一个 pull request !<br>    inoremap  &lt;silent&gt;   &lt;F5&gt;   :FloatermToggle!&lt;CR&gt;<br>    nnoremap  &lt;silent&gt;   &lt;F5&gt;   :FloatermToggle!&lt;CR&gt;<br>    tnoremap  &lt;silent&gt;   &lt;F5&gt;   &lt;C-\&gt;&lt;C-n&gt;:FloatermToggle!&lt;CR&gt;<br>    &quot; go highlight<br>    &quot; https://github.com/neoclide/coc.nvim/issues/472<br>    let g:go_list_type=&quot;quickfix&quot;<br>    let g:go_fmt_command=&quot;goimports&quot;<br>    let g:go_highlight_types=1<br>    let g:go_highlight_fields=1<br>    let g:go_highlight_functions=1<br>    let g:go_highlight_function_calls=1<br>    let g:go_fmt_fail_silently=1<br>endf<br></code></pre></td></tr></table></figure>
+<p>创建coc的默认配置文件，原本coc的配置文件应该是在~&#x2F;.SpaceVim下的，但是在autoload的配置文件中，设置了coc_config_home，修改为.SpaceVim.d下，方便控制。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs plain">&#123;<br>	&quot;languageserver&quot;: &#123;<br>		&quot;ccls&quot;: &#123;<br>			&quot;command&quot;: &quot;ccls&quot;,<br>			&quot;filetypes&quot;: [&quot;c&quot;, &quot;cpp&quot;],<br>			&quot;rootPatterns&quot;: [&quot;compile_commands.json&quot;, &quot;.git/&quot;],<br>			&quot;index&quot;: &#123;<br>				&quot;threads&quot;: 8<br>			&#125;,<br>			&quot;initializationOptions&quot;: &#123;<br>				&quot;cache&quot;: &#123;<br>					&quot;directory&quot;: &quot;build/.ccls-cache&quot;<br>				&#125;,<br>				&quot;highlight&quot;: &#123;<br>					&quot;lsRanges&quot;: true<br>				&#125;,<br>				&quot;compilationDatabaseDirectory&quot;: &quot;build&quot;<br>			&#125;,<br>			&quot;client&quot;: &#123;<br>				&quot;snippetSupport&quot;: true<br>			&#125;<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>启动nvim的时候，就会开始安装所有的插件，等带最终配置完成。</p>
+<p>现在进去一个C++的项目里，由于ccls需要知道项目都使用了哪些文件，所以需要我们为它创建配置文件，如果项目是CMake的，可以直接执行命令生成compile_commands.json文件，如果不是CMake的项目，则需要使用bear对Makefile进行编译，bear会拦截编译信息，最终生成compile_commands.json。</p>
+<p>CMake：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON<br></code></pre></td></tr></table></figure>
+<p>Makefile：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">bear -- make<br></code></pre></td></tr></table></figure>
+<p>等文件生成完毕后，使用ln命令将文件软链回项目根目录。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">ln -sf build/compile_commands.json compile_commands.json<br></code></pre></td></tr></table></figure>
+<p>此时已经配置完成一半了，我们还需要在根目录创建.ccls文件，并写入一下配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">%compile_commands.json<br></code></pre></td></tr></table></figure>
+<p>此时ccls就可以读取compile_commands.json的信息，为我们提供自动补全等功能了。</p>
+<img src="/2020/12/23/ccls/ccls.png" srcset="/img/loading.gif" lazyload class="" title="图片">
+
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="如果出现了找不到vimproc动态库"><a href="#如果出现了找不到vimproc动态库" class="headerlink" title="如果出现了找不到vimproc动态库"></a>如果出现了找不到vimproc动态库</h2><p>在nvim中执行 <code>:VimProcInstall</code>进行重新编译。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Linux/">#Linux</a>
+      
+        <a href="/tags/vim/">#vim</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ccls</div>
+      <div>https://blog.justforlxz.com/2020/12/23/ccls/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>小竹</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年12月23日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/02/26/2020review/" title="2020 Review">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2020 Review</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/17/qt-multi-thread/" title="Qt多线程">
+                        <span class="hidden-mobile">Qt多线程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"jwJxh95ly6NdjTRluyKYXm6G-gzGzoHsz","appKey":"lagqr7doy2slbm7oAMGoogpg","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      豫ICP备19045379号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

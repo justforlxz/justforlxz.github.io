@@ -1,0 +1,820 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="小竹">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="这个系列是我用来学习 Metal API 的笔记，我的最终目的是希望实现一个基于 Metal 的游戏引擎。 目前系列有: hello-metal.1 看到了绿色    hello-metal.2 第一个三角形    hello-metal.3 四边形    hello-metal.4 动画    hello-metal.5 材质贴图   Metal 是由苹果公司所开发的一个应用程序接口，兼顾图形与">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hello-metal.1 看到了绿色">
+<meta property="og:url" content="https://blog.justforlxz.com/2022/04/04/hello-metal-1/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="这个系列是我用来学习 Metal API 的笔记，我的最终目的是希望实现一个基于 Metal 的游戏引擎。 目前系列有: hello-metal.1 看到了绿色    hello-metal.2 第一个三角形    hello-metal.3 四边形    hello-metal.4 动画    hello-metal.5 材质贴图   Metal 是由苹果公司所开发的一个应用程序接口，兼顾图形与">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.justforlxz.com/2022/04/04/hello-metal-1/2022-04-04_09.07.40.png">
+<meta property="og:image" content="https://blog.justforlxz.com/2022/04/04/hello-metal-1/2022-04-04_09.54.37.png">
+<meta property="og:image" content="https://blog.justforlxz.com/2022/04/04/hello-metal-1/2022-04-04_09.55.44.png">
+<meta property="og:image" content="https://blog.justforlxz.com/2022/04/04/hello-metal-1/gfx-pipeline_2x.png">
+<meta property="og:image" content="https://blog.justforlxz.com/2022/04/04/hello-metal-1/2022-04-04_11.44.40.png">
+<meta property="article:published_time" content="2022-04-04T00:59:33.000Z">
+<meta property="article:modified_time" content="2023-02-01T06:35:51.165Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="Metal">
+<meta property="article:tag" content="GameEngine">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://blog.justforlxz.com/2022/04/04/hello-metal-1/2022-04-04_09.07.40.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>hello-metal.1 看到了绿色 - 小竹&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.google-analytics.com/analytics.js', function() {
+          window.ga = window.ga || function() { (ga.q = ga.q || []).push(arguments) };
+          ga.l = +new Date;
+          ga('create', 'UA-129024325-1', 'auto');
+          ga('send', 'pageview');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>小竹&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="hello-metal.1 看到了绿色"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-04-04 08:59" pubdate>
+          2022年4月4日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          32 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">hello-metal.1 看到了绿色</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>这个系列是我用来学习 Metal API 的笔记，我的最终目的是希望实现一个基于 Metal 的游戏引擎。</p>
+<p>目前系列有:</p>
+<a href="/2022/04/04/hello-metal-1/" title="hello-metal.1 看到了绿色">hello-metal.1 看到了绿色</a>
+
+<br>
+
+<a href="/2022/04/04/hello-metal-2/" title="hello-metal.2 第一个三角形">hello-metal.2 第一个三角形</a>
+
+<br>
+
+<a href="/2022/04/04/hello-metal-3/" title="hello-metal.3 四边形">hello-metal.3 四边形</a>
+
+<br>
+
+<a href="/2022/04/04/hello-metal-4/" title="hello-metal.4 动画">hello-metal.4 动画</a>
+
+<br>
+
+<a href="/2022/04/09/hello-metal-5/" title="hello-metal.5 材质贴图">hello-metal.5 材质贴图</a>
+
+<hr>
+<p>Metal 是由苹果公司所开发的一个应用程序接口，兼顾图形与计算功能，面向底层、低开销的硬件加速。其类似于将OpenGL 与 OpenCL 的功能集成到了同一个API上。Metal也通过引入计算着色器来进一步提高GPGPU编程的能力。Metal 使用一种基于C++11的新着色语言，其实现借助了 Clang 和 LLVM。</p>
+<p>从今天开始，我会开始写一个 Metal 的入门系列，作为我学习 Metal 的笔记和过程。我学习的平台以 <code>raywenderlich.com</code> 的视频为主，代码和流程也基本保持一致。</p>
+<p>现在就让我们开始吧！</p>
+<h2 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h2><p>首先打开 xcode，新建一个 iOS App，需要注意的是，interface 默认是 swiftui，需要修改成 Storyboard，应该使用 swiftui 也没有问题的，只是先按照教程一步步来吧。</p>
+<img src="/2022/04/04/hello-metal-1/2022-04-04_09.07.40.png" srcset="/img/loading.gif" lazyload class="">
+
+<h3 id="设置-MTKView"><a href="#设置-MTKView" class="headerlink" title="设置 MTKView"></a>设置 MTKView</h3><p>当项目新建完成后，打开左侧的 <code>Main.storyboard</code> 文件，在中间选择到 <code>view Controller Scene</code> -&gt; <code>View Controller</code> -&gt; <code>View</code>，展开到 <code>View</code> 节点，并单击它。</p>
+<p>右侧面板会显示该节点的详细信息，在最右侧选择 <code>Show the Identity inspector</code> 按钮，看起来像是名片按钮的，将 Class 修改为 <code>MTKView</code>，因为我们的界面不是普通的 View，而是使用 Metal 绘制的界面。</p>
+<img src="/2022/04/04/hello-metal-1/2022-04-04_09.54.37.png" srcset="/img/loading.gif" lazyload class="">
+
+<h2 id="开启-Metal-之旅"><a href="#开启-Metal-之旅" class="headerlink" title="开启 Metal 之旅"></a>开启 Metal 之旅</h2><h3 id="导入-MetalKit"><a href="#导入-MetalKit" class="headerlink" title="导入 MetalKit"></a>导入 MetalKit</h3><p>打开 <code>ViewController.swift</code> 文件，我们可以看到 xcode 已经自动生成了一部分代码，我们首先在 <code>import UIKit</code> 下一行写入 <code>import MetalKit</code>，用来导入 Metal API 相关的文件。</p>
+<p>首先我们需要获取到界面上的 View，在 ViewController 类中写一个变量，用来访问 View。</p>
+<p>增加代码:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">var</span> metalView: <span class="hljs-type">MTKView</span> &#123;<br>    <span class="hljs-keyword">return</span> view <span class="hljs-keyword">as!</span> <span class="hljs-type">MTKView</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>最终代码如下:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">import</span> UIKit<br><span class="hljs-keyword">import</span> MetalKit<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ViewController</span>: <span class="hljs-title class_">UIViewController</span> &#123;<br>    <span class="hljs-keyword">var</span> metalView: <span class="hljs-type">MTKView</span> &#123;<br>        <span class="hljs-keyword">return</span> view <span class="hljs-keyword">as!</span> <span class="hljs-type">MTKView</span><br>    &#125;<br>    <span class="hljs-keyword">override</span> <span class="hljs-keyword">func</span> <span class="hljs-title function_">viewDidLoad</span>() &#123;<br>        <span class="hljs-keyword">super</span>.viewDidLoad()<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>访问 metaView 就是访问界面上的 view。</p>
+<h3 id="创建-Device"><a href="#创建-Device" class="headerlink" title="创建 Device"></a>创建 Device</h3><p>接下来就开始我们的 Metal 之旅，首先我们需要创建一个默认设备，这个设备是抽象的硬件资源，有了这个硬件，我们才可以去将着色器代码等各种代码发送到真正的设备上去使用。</p>
+<p>在 metalView 中有个 device 成员，我们可以使用 <code>MTLCreateSystemDefaultDevice</code> 函数创建默认设备，我们就可以使用这个 <code>device</code> 了。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">import</span> UIKit<br><span class="hljs-keyword">import</span> MetalKit<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ViewController</span>: <span class="hljs-title class_">UIViewController</span> &#123;<br>    <span class="hljs-keyword">var</span> metalView: <span class="hljs-type">MTKView</span> &#123;<br>        <span class="hljs-keyword">return</span> view <span class="hljs-keyword">as!</span> <span class="hljs-type">MTKView</span><br>    &#125;<br>    <span class="hljs-keyword">override</span> <span class="hljs-keyword">func</span> <span class="hljs-title function_">viewDidLoad</span>() &#123;<br>        <span class="hljs-keyword">super</span>.viewDidLoad()<br>        metalView.device <span class="hljs-operator">=</span> <span class="hljs-type">MTLCreateSystemDefaultDevice</span>()<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="设置背景清除色"><a href="#设置背景清除色" class="headerlink" title="设置背景清除色"></a>设置背景清除色</h3><p>有了设备以后呢？</p>
+<p>我们可以先给屏幕来一个清除色，或者叫背景色。</p>
+<p>在 <code>ViewController.swift</code> 中新增一个枚举，使用 <code>MTLClearColor</code> 函数可以创建出所需的值。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Colors</span> &#123;<br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">let</span> wenderlichGreen <span class="hljs-operator">=</span> <span class="hljs-type">MTLClearColor</span>(red: <span class="hljs-number">0.0</span>,<br>                                               green: <span class="hljs-number">0.4</span>,<br>                                               blue: <span class="hljs-number">0.21</span>,<br>                                               alpha: <span class="hljs-number">1.0</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在 viewDidLoad 中我们为 metalView 设置 clear color。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs swift">metalView.clearColor <span class="hljs-operator">=</span> <span class="hljs-type">Colors</span>.wenderlichGreen<br></code></pre></td></tr></table></figure>
+
+<p>这时候运行一下例子，然后就会发现屏幕是黑的，这是为啥捏？不是设置了背景色了吗？</p>
+<img src="/2022/04/04/hello-metal-1/2022-04-04_09.55.44.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>哦吼吼，别忘了，和 OpenGL 一样，想要利用 GPU 去绘制画面，需要有顶点信息，由各种着色器处理过后，才能得到一幅画面，而我们还没有开始写着色器代码，也没有写绘制命令。</p>
+<h3 id="绘制"><a href="#绘制" class="headerlink" title="绘制"></a>绘制</h3><h4 id="命令队列"><a href="#命令队列" class="headerlink" title="命令队列"></a>命令队列</h4><p>我们需要新建一个命令队列 MTLCommandQueue，用来缓冲我们的操作命令。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">let</span> commandQueue: <span class="hljs-type">MTLCommandQueue</span><br></code></pre></td></tr></table></figure>
+
+<p>在 viewDidLoad 函数中使用 <code>metalView.device.makeCommandQueue()!</code> 初始化 commandQueue。</p>
+<p>还需要创建一个 MTLCommandBuffer 来缓冲命令，这里可能就有疑惑了，MTLCommandQueue 自己就是个队列，怎么还需要一个 buffer 呢？MTLCommandBuffer 是从 MTLCommandQueue 中创建出来的，用于本次绘制所需的全部状态，例如顶点信息、颜色、顶点连接顺序等等，当完成所有设置以后，就可以使用 commandBuffer.commit() 提交到队列中。</p>
+<h4 id="命令编码"><a href="#命令编码" class="headerlink" title="命令编码"></a>命令编码</h4><p>我们还需要一个 MTLRenderCommandEncoder，MTLRenderCommandEncoder 对象表示一个单独的图形渲染 command encoder。MTLParallelRenderCommandEncoder 对象使得一个单独的渲染 pass 被分成若干个独立的 MTLRenderCommandEncoder 对象，每一个都可以被分配到不同的线程。这些 command encoders 中的指令随后将串行起来，并以一致的可预测的顺序被执行。</p>
+<p>这里是一张 Metal 渲染管线图。</p>
+<img src="/2022/04/04/hello-metal-1/gfx-pipeline_2x.png" srcset="/img/loading.gif" lazyload class="">
+
+<h4 id="提交绘制"><a href="#提交绘制" class="headerlink" title="提交绘制"></a>提交绘制</h4><p>最终我们新增的代码是这样的:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs swift">commandQueue <span class="hljs-operator">=</span> metalView.device<span class="hljs-operator">?</span>.makeCommandQueue()<br><span class="hljs-keyword">let</span> commandBuffer <span class="hljs-operator">=</span> commandQueue.makeCommandBuffer()<br><span class="hljs-keyword">let</span> commandEncoder <span class="hljs-operator">=</span> commandBuffer<span class="hljs-operator">?</span>.makeRenderCommandEncoder(descriptor: metalView.currentRenderPassDescriptor<span class="hljs-operator">!</span>)<br><br>commandEncoder<span class="hljs-operator">?</span>.endEncoding()<br>commandBuffer<span class="hljs-operator">?</span>.present(metalView.currentDrawable<span class="hljs-operator">!</span>)<br>commandBuffer<span class="hljs-operator">?</span>.commit()<br></code></pre></td></tr></table></figure>
+
+<p>可以看到有些变量后面跟了一个!，它的意思是这里绝对不为空，是一种断言，同样还有?，它的意思是如果不为空就执行。</p>
+<h2 id="测试运行"><a href="#测试运行" class="headerlink" title="测试运行"></a>测试运行</h2><p>我们已经完成了最终的代码，整个 ViewController.swift 的代码如下:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">import</span> UIKit<br><span class="hljs-keyword">import</span> MetalKit<br><br><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Colors</span> &#123;<br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">let</span> wenderlichGreen <span class="hljs-operator">=</span> <span class="hljs-type">MTLClearColor</span>(red: <span class="hljs-number">0.0</span>,<br>                                               green: <span class="hljs-number">0.4</span>,<br>                                               blue: <span class="hljs-number">0.21</span>,<br>                                               alpha: <span class="hljs-number">1.0</span>)<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ViewController</span>: <span class="hljs-title class_">UIViewController</span> &#123;<br>    <span class="hljs-keyword">var</span> metalView: <span class="hljs-type">MTKView</span> &#123;<br>        <span class="hljs-keyword">return</span> view <span class="hljs-keyword">as!</span> <span class="hljs-type">MTKView</span><br>    &#125;<br>    <span class="hljs-keyword">var</span> commandQueue: <span class="hljs-type">MTLCommandQueue</span>!<br>    <span class="hljs-keyword">override</span> <span class="hljs-keyword">func</span> <span class="hljs-title function_">viewDidLoad</span>() &#123;<br>        <span class="hljs-keyword">super</span>.viewDidLoad()<br>        metalView.device <span class="hljs-operator">=</span> <span class="hljs-type">MTLCreateSystemDefaultDevice</span>()<br>        metalView.clearColor <span class="hljs-operator">=</span> <span class="hljs-type">Colors</span>.wenderlichGreen<br>        commandQueue <span class="hljs-operator">=</span> metalView.device<span class="hljs-operator">?</span>.makeCommandQueue()<br>        <span class="hljs-keyword">let</span> commandBuffer <span class="hljs-operator">=</span> commandQueue.makeCommandBuffer()<br>        <span class="hljs-keyword">let</span> commandEncoder <span class="hljs-operator">=</span> commandBuffer<span class="hljs-operator">?</span>.makeRenderCommandEncoder(descriptor: metalView.currentRenderPassDescriptor<span class="hljs-operator">!</span>)<br><br>        commandEncoder<span class="hljs-operator">?</span>.endEncoding()<br>        commandBuffer<span class="hljs-operator">?</span>.present(metalView.currentDrawable<span class="hljs-operator">!</span>)<br>        commandBuffer<span class="hljs-operator">?</span>.commit()<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<img src="/2022/04/04/hello-metal-1/2022-04-04_11.44.40.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>这时候就可以看到屏幕出现了绿色，这是我们设置的 clearColor。</p>
+<p>本篇先讲了一个基本的 Metal 项目的使用，下一篇会开始讲顶点和着色器的用法，完成我们的第一个三角形。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/HelloMetal%E7%B3%BB%E5%88%97/" class="category-chain-item">HelloMetal系列</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Metal/">#Metal</a>
+      
+        <a href="/tags/GameEngine/">#GameEngine</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>hello-metal.1 看到了绿色</div>
+      <div>https://blog.justforlxz.com/2022/04/04/hello-metal-1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>小竹</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年4月4日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/04/04/hello-metal-2/" title="hello-metal.2 第一个三角形">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">hello-metal.2 第一个三角形</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/" title="vim简单配置">
+                        <span class="hidden-mobile">vim简单配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"jwJxh95ly6NdjTRluyKYXm6G-gzGzoHsz","appKey":"lagqr7doy2slbm7oAMGoogpg","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      豫ICP备19045379号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

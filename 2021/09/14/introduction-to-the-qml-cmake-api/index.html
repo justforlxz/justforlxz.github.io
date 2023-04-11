@@ -1,0 +1,778 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="小竹">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="原文：  https:&#x2F;&#x2F;www.qt.io&#x2F;blog&#x2F;introduction-to-the-qml-cmake-api  当 Qt 6 迁移到 CMake 时，我们希望为 QML 项目提供更好的体验。在最初的Qt 6.0发布版中，我们只提供了一些技术预览API，这并没有比 qmake 自 Qt 5.15 以来提供的 API 做得更多。 现在，随着即将发布的 Qt 6.2，我们已经完成了 CMa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="introduction-to-the-qml-cmake-api（中文翻译）">
+<meta property="og:url" content="https://blog.justforlxz.com/2021/09/14/introduction-to-the-qml-cmake-api/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="原文：  https:&#x2F;&#x2F;www.qt.io&#x2F;blog&#x2F;introduction-to-the-qml-cmake-api  当 Qt 6 迁移到 CMake 时，我们希望为 QML 项目提供更好的体验。在最初的Qt 6.0发布版中，我们只提供了一些技术预览API，这并没有比 qmake 自 Qt 5.15 以来提供的 API 做得更多。 现在，随着即将发布的 Qt 6.2，我们已经完成了 CMa">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-14T00:35:33.000Z">
+<meta property="article:modified_time" content="2023-02-01T06:35:51.210Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="Qt">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>introduction-to-the-qml-cmake-api（中文翻译） - 小竹&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.google-analytics.com/analytics.js', function() {
+          window.ga = window.ga || function() { (ga.q = ga.q || []).push(arguments) };
+          ga.l = +new Date;
+          ga('create', 'UA-129024325-1', 'auto');
+          ga('send', 'pageview');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>小竹&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="introduction-to-the-qml-cmake-api（中文翻译）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-09-14 08:35" pubdate>
+          2021年9月14日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          5.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          43 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">introduction-to-the-qml-cmake-api（中文翻译）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>原文：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.qt.io/blog/introduction-to-the-qml-cmake-api">https://www.qt.io/blog/introduction-to-the-qml-cmake-api</a></p>
+</blockquote>
+<p>当 Qt 6 迁移到 CMake 时，我们希望为 QML 项目提供更好的体验。在最初的Qt 6.0发布版中，我们只提供了一些技术预览API，这并没有比 qmake 自 Qt 5.15 以来提供的 API 做得更多。</p>
+<p>现在，随着即将发布的 Qt 6.2，我们已经完成了 CMake API。在这篇博客文章中，我们将说明为什么需要为 QML 添加构建系统支持，并展示如何实现两个常用用例。</p>
+<h2 id="为什么我们需要CMake的支持"><a href="#为什么我们需要CMake的支持" class="headerlink" title="为什么我们需要CMake的支持?"></a>为什么我们需要CMake的支持?</h2><p>在讨论创建 QML 应用程序和库的新方法之前，我们首先应该了解到目前为止它们是如何完成的:</p>
+<ul>
+<li>只有自定义 c++ 被放到实际的QML名称空间中;无论是通过 5.15 以来的声明式类型注册，还是仍然使用手动 qml*Register 调用。</li>
+<li>QML 文件通常简单地放在单个文件夹中。如果它们相互引用，人们通常依赖于隐式导入( QML 文档可以在其他 QML 文档中使用类型，只要它们在同一个文件夹中)。大多数人都忽略了 qmldir 文件，除非他们有很强的理由使用它们(很可能是因为他们需要一个 QML 单例)。然后，应用程序只需通过 QQmlApplicationEngine 或 QQuickWindow 加载主 QML 文件。</li>
+<li>图像、着色器或字体等附加资源通常被放入资源系统中。然后，QML 文件将通过qrc 路径引用它们。因此，您不能再使用 QML(场景)中的 QML 文件或 QtCreator 中的 QML 设计器。</li>
+<li>要使用 qmlcachegen，需要创建一个包含所有 QML 文件的 QRC 文件，然后通过指定 <code>QT += qtquickcompiler.prf</code> 启用 qmlcachegen 这只会在您从资源文件系统加载相应文件时生效，但是，从物理文件系统加载文件时，它们仍将在运行时编译。</li>
+</ul>
+<p>上面已经列出了一些由迄今为止使用的相当特别的方法引起的问题。 通常，我们的工具很难对 QML 项目进行推理。 输入 CMake 和 qt6_add_qml_module。 有了这个新引入的函数，构建系统就知道 QML 项目的所有部分，并且可以根据需要将其传递给我们的工具。 让我们看几个例子！</p>
+<h2 id="一个基本的-QML-应用程序……"><a href="#一个基本的-QML-应用程序……" class="headerlink" title="一个基本的 QML 应用程序……"></a>一个基本的 QML 应用程序……</h2><p>我们从一个小小的“Hello, World!”开始 例子。 我们在同一目录中有一个 QML 文件 main.qml</p>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs qml"><span class="hljs-keyword">import</span> QtQuick<br><br><span class="hljs-title">Window</span> &#123;<br>    <span class="hljs-attribute">id:</span><span class="hljs-string"> root</span><br>    <span class="hljs-attribute">visible</span>: <span class="hljs-literal">true</span><br>    <span class="hljs-title">Text</span> &#123;<br>        <span class="hljs-attribute">text</span>: <span class="hljs-string">&quot;Hello, world!&quot;</span><br>        <span class="hljs-attribute">anchors.centerIn</span>: <span class="hljs-built_in">parent</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>和一个实例化它的 main.cpp 文件：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;QGuiApplication&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;QQmlApplicationEngine&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">QGuiApplication <span class="hljs-title">app</span><span class="hljs-params">(argc, argv)</span></span>;<br><br>    QQmlApplicationEngine engine;<br>    <span class="hljs-function"><span class="hljs-type">const</span> QUrl <span class="hljs-title">url</span><span class="hljs-params">(<span class="hljs-string">u&quot;qrc:/hello/main.qml&quot;</span>_qs)</span></span>;<br>    engine.<span class="hljs-built_in">load</span>(url);<br><br>    <span class="hljs-keyword">return</span> app.<span class="hljs-built_in">exec</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>除了 URL 中的“hello”外，大部分都很简单。我们一会儿再回到这个问题上。但首先，让我们看看构建项目所需的CMakeLists.txt文件:</p>
+<p>首先，我们做一些通用的设置。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">cmake_minimum_required</span>(VERSION <span class="hljs-number">3.18</span>)<br><br><span class="hljs-keyword">project</span>(hello VERSION <span class="hljs-number">1.0</span> LANGUAGES CXX)<br><br><span class="hljs-keyword">set</span>(CMAKE_AUTOMOC <span class="hljs-keyword">ON</span>)<br><span class="hljs-keyword">set</span>(CMAKE_CXX_STANDARD <span class="hljs-number">17</span>)<br><span class="hljs-keyword">set</span>(CMAKE_CXX_STANDARD_REQUIRED <span class="hljs-keyword">ON</span>)<br><br><span class="hljs-keyword">find_package</span>(Qt6 <span class="hljs-number">6.2</span> COMPONENTS Quick Gui REQUIRED)<br><br>qt_add_executable(myapp<br>    main.cpp<br>)<br><br><span class="hljs-keyword">target_link_libraries</span>(myapp PRIVATE Qt6::Gui Qt6::Quick)<br></code></pre></td></tr></table></figure>
+
+<p>我们添加了 Quick 模块，并告诉 CMake 为我们的可执行文件创建一个目标，接下来会发生有趣的部分：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cmake">qt_add_qml_module(myapp<br>    URI hello<br>    VERSION <span class="hljs-number">1.0</span><br>    QML_FILES main.qml)<br></code></pre></td></tr></table></figure>
+
+<p>在这里，我们终于看到了 <code>qt_add_qml_module</code> 的作用。 我们将可执行文件的目标、URI、模块版本和 QML 文件列表传递给它。 反过来，它确保 myapp 成为 QML 模块。 除此之外，这会将 QML 文件放入资源文件系统中的 qrc:&#x2F;${URI} 中。 这现在可能看起来很奇怪，实际上在这篇博文的结尾看起来仍然很奇怪：您必须等待即将发布的关于 QML 模块的博文，我们将详细解释为什么需要这样做。 在这一点上，您可能会想知道这种奇怪是否真的值得。 毕竟在 Qt 5 中使用 cmake 已经可以将文件放入资源系统，而无需太多仪式！</p>
+<p>请放心，我们已经获得了两件事：第一，<code>qt_add_qml_module</code> 确保 qmlcachegen 运行。 其次，它创建一个 myapp_qmllint 目标，该目标对 QML_FILES 中的文件运行 qmlint。 阅读我们<a target="_blank" rel="noopener" href="https://www.qt.io/blog/whats-new-in-qml-tooling-in-qt-6.2?hsLang=en">关于工具的博客</a>文章，了解为什么要运行 qmllint。</p>
+<h2 id="变得更加先进"><a href="#变得更加先进" class="headerlink" title="变得更加先进"></a>变得更加先进</h2><p>让我们扩展这个示例，使其更有趣。我们添加了一个新的 QML 文件，FramedImage.qml 和 img 子目录中的图像。</p>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs qml"><span class="hljs-keyword">import</span> QtQuick<br><br><span class="hljs-title">Rectangle</span> &#123;<br>    <span class="hljs-attribute">border.width</span>: <span class="hljs-number">2</span><br>    <span class="hljs-attribute">border.color</span>: <span class="hljs-string">&quot;black&quot;</span><br>    <span class="hljs-title">Image</span> &#123;<br>        <span class="hljs-attribute">source</span>: Qt.resolvedUrl(<span class="hljs-string">&quot;img/world.png&quot;</span>)<br>        <span class="hljs-attribute">anchors.centerIn</span>: <span class="hljs-built_in">parent</span><br>        <span class="hljs-attribute">sourceSize.width</span>: <span class="hljs-built_in">parent</span>.width<br>        <span class="hljs-attribute">sourceSize.height</span>: <span class="hljs-built_in">parent</span>.height<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在 main.qml 中使用:</p>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs qml"><span class="hljs-keyword">import</span> QtQuick<br><br><span class="hljs-title">Window</span> &#123;<br>    <span class="hljs-attribute">id:</span><span class="hljs-string"> root</span><br>    <span class="hljs-attribute">visible</span>: <span class="hljs-literal">true</span><br>    <span class="hljs-title">Text</span> &#123;<br>        <span class="hljs-attribute">text</span>: <span class="hljs-string">&quot;Hello, world!&quot;</span><br>        <span class="hljs-attribute">anchors.centerIn</span>: <span class="hljs-built_in">parent</span><br>        <span class="hljs-attribute">color</span>: <span class="hljs-string">&quot;white&quot;</span><br>        <span class="hljs-attribute">z</span>: <span class="hljs-number">2</span><br>    &#125;<br>    <span class="hljs-title">FramedImage</span> &#123; <span class="hljs-attribute">anchors.fill</span>: <span class="hljs-built_in">parent</span> &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>更新我们的 CMakeList.txt:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cmake">qt_add_qml_module(myapp<br>    URI hello<br>    VERSION <span class="hljs-number">1.0</span><br>    QML_FILES<br>        main.qml<br>        FramedImage.qml<br>    RESOURCES<br>        img/world.png<br>)<br></code></pre></td></tr></table></figure>
+
+<p>您可能已经预料到 QML_FILES 现在也会列出 FramedImage.qml。 更有趣的变化是 RESOURCES 条目。 通过在那里添加引用的资源，它们会自动添加到与 QML 文件相同的根路径下的应用程序 - 也在资源文件系统中。 无需重复 qt_add_resources 中的路径。 并且通过保持资源系统中的路径与 source 和 build 目录中的路径一致，我们确保始终找到图像： 由于它是相对于 FramedImage.qml 解析的，因此它指的是资源文件系统中的图像 如果我们从那里加载 main，或者如果我们使用 qml 工具检查它，则加载到实际文件系统中的那个。</p>
+<h2 id="创建一个-qml-库"><a href="#创建一个-qml-库" class="headerlink" title="创建一个 qml 库"></a>创建一个 qml 库</h2><p>现在，让我们开始第二个例子，我们创建了一个向 QML 公开 C++ 类型的库。 我们这个例子的目录结构看起来像：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">├── CMakeLists.txt<br>└── example<br>    └── mylib<br>        ├── CMakeLists.txt<br>        ├── mytype.cpp<br>        └── mytype.h<br></code></pre></td></tr></table></figure>
+
+<p>mytype.h 声明一个类并使用 Qt 5.15 中引入的声明性注册宏将其公开给引擎：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;QObject&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;QtQml/qqmlregistration.h&gt;</span></span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyType</span> : <span class="hljs-keyword">public</span> QObject<br>&#123;<br>    <span class="hljs-function">Q_OBJECT</span><br><span class="hljs-function">    QML_ELEMENT</span><br><span class="hljs-function">    <span class="hljs-title">Q_PROPERTY</span><span class="hljs-params">(<span class="hljs-type">int</span> answer READ answer CONSTANT)</span></span><br><span class="hljs-function"> <span class="hljs-keyword">public</span>:</span><br><span class="hljs-function">    int answer() const;</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>顶层 CMakeLists.txt 文件进行一些基本设置，然后使用 add_subdirectory 将其包含在 mylib 中。 我们使用与 QML 模块的 URI 相对应的子目录结构，但将点替换为斜杠 - 这与引擎在导入路径中搜索模块时使用的逻辑相同。 通过遵循该约定，我们有助于工具。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cmake">qt6_add_qml_module(mylib<br>    URI example.mylib<br>    VERSION <span class="hljs-number">1.0</span><br>    SOURCES<br>        mytype.h mytype.cpp<br>)<br></code></pre></td></tr></table></figure>
+
+<p>首先，这次我们要添加 C++ 类型。 为此，我们使用 SOURCES 参数指定它们。 此外，这次我们还没有为 mylib 创建任何目标。 如果 qt6_add_qml_module 的 target 参数不存在，它会自动创建一个库目标，这就是我们在这种情况下想要的。</p>
+<p>如果您构建项目，您会注意到我们不仅构建了库，还构建了一个 QML 插件——即使我们没有编写自定义 QQmlEngineExtensionPlugin。 那么插件有什么作用呢？ 就其本身而言，不是很多。 mylib 库本身已经包含向引擎注册类型的代码。 但是，这仅在我们可以链接库的情况下才有用。 为了使模块在 qml 工具加载的 QML 文件中可用，我们需要一些可以加载的插件。 然后插件负责实际链接库，并确保类型得到注册。 应该注意的是，自动插件生成只有在模块除了注册类型之外不做任何事情时才可能。 如果它需要做一些更高级的事情，比如在 initializeEngine 中注册一个图像提供者，你仍然需要手动编写插件。 qt6_add_qml_module 通过 NO_GENERATE_PLUGIN_SOURCE 对此提供支持。 我们将在稍后的博客文章中更详细地介绍这一点。</p>
+<p>另外，您还记得我们提到遵循目录布局约定有助于工具吗？ 该布局反映在我们的构建目录中，插件就位。 这意味着您可以将构建目录的路径传递给 qml 工具（通过 -I 标志），它会找到插件。 反过来，这可以帮助您测试纯 C++ 库模块上的更改，因为您不需要执行任何进一步的安装步骤。</p>
+<p>在结束之前，让我们向模块添加一个 QML 文件：在 lib 子文件夹中，我们添加一个 Mistake.qml 文件：</p>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs qml"><span class="hljs-keyword">import</span> example.mylib<br><br><span class="hljs-title">MyType</span>&#123;<br>    <span class="hljs-attribute">answer</span>: <span class="hljs-number">43</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>并调整 qt6_add_qml_module 调用：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cmake">qt6_add_qml_module(mylib<br>    URI example.mylib<br>    VERSION <span class="hljs-number">1.0</span><br>    SOURCES<br>        mytype.h mytype.cpp<br>    QML_FILES<br>        Mistake.qml<br>)<br></code></pre></td></tr></table></figure>
+
+<p>顾名思义（Mistake），我们在这里犯了一个错误： answer 实际上是一个只读属性。 我们为什么要这样做？ 当然，为了炫耀承诺的 qmllint 集成：CMake 将为我们创建一个 qmllint 目标，一旦我们运行它，qmllint 就会警告我们这个问题：</p>
+<p>(只有当您使用了dev分支最近的qmllint时)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$</span><span class="language-bash">&gt; cmake --build . --target mylib_qmllint</span><br>...<br>Warning: Mistake.qml:4:13: Cannot assign to read-only property answer<br>    answer: 43<br></code></pre></td></tr></table></figure>
+
+<h2 id="展望"><a href="#展望" class="headerlink" title="展望"></a>展望</h2><p>这是关于新 CMake API 的系列文章中的第一篇博文。 我们介绍了 qt6_add_qml_module，并展示了它如何处理一些基本用例。 我们已经看到 CMake 通过处理重复性任务来帮助你，比如手动编写 QML 插件，以及它如何帮助我们的工具故事。</p>
+<p>在本博客系列的下一部分中，我们将深入研究 QML 模块，并查看一些更高级的用例：包含多个 QML 库的应用程序和安装 QML 模块库。</p>
+<p>如果您想了解有关它提供的所有选项的更多信息，还可以查看 <a target="_blank" rel="noopener" href="https://doc-snapshots.qt.io/qt6-dev/qt-add-qml-module.html">qt6_add_qml_module 的参考文档</a>。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Qt/">#Qt</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>introduction-to-the-qml-cmake-api（中文翻译）</div>
+      <div>https://blog.justforlxz.com/2021/09/14/introduction-to-the-qml-cmake-api/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>小竹</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年9月14日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/12/25/Starting-sessions-with-systemd/" title="Starting sessions with systemd">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Starting sessions with systemd</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/10/Vuex%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" title="Vuex基本使用">
+                        <span class="hidden-mobile">Vuex基本使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"jwJxh95ly6NdjTRluyKYXm6G-gzGzoHsz","appKey":"lagqr7doy2slbm7oAMGoogpg","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      豫ICP备19045379号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

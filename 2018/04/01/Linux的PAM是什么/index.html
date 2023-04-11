@@ -1,0 +1,826 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="张丁元">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文会基础的介绍一下PAM是什么，让你能够回答PAM是什么、PAM有什么用、如何根据需求自己开发PAM模块。 PAM是什么PAM即可插拔认证模块。它提供了一个所有服务的中心验证机制，适用于普通登录、ssh登录等需要进行身份认证的系统中。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux的PAM是什么">
+<meta property="og:url" content="https://blog.justforlxz.com/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="本文会基础的介绍一下PAM是什么，让你能够回答PAM是什么、PAM有什么用、如何根据需求自己开发PAM模块。 PAM是什么PAM即可插拔认证模块。它提供了一个所有服务的中心验证机制，适用于普通登录、ssh登录等需要进行身份认证的系统中。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.justforlxz.com/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/PAM%E7%BB%93%E6%9E%84.png">
+<meta property="article:published_time" content="2018-04-01T04:16:08.000Z">
+<meta property="article:modified_time" content="2023-02-01T06:35:51.154Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://blog.justforlxz.com/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/PAM%E7%BB%93%E6%9E%84.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Linux的PAM是什么 - 小竹&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.google-analytics.com/analytics.js', function() {
+          window.ga = window.ga || function() { (ga.q = ga.q || []).push(arguments) };
+          ga.l = +new Date;
+          ga('create', 'UA-129024325-1', 'auto');
+          ga('send', 'pageview');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>小竹&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="我的linux日常"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2018-04-01 12:16" pubdate>
+          2018年4月1日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          37 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">我的linux日常</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文会基础的介绍一下PAM是什么，让你能够回答PAM是什么、PAM有什么用、如何根据需求自己开发PAM模块。</p>
+<h3 id="PAM是什么"><a href="#PAM是什么" class="headerlink" title="PAM是什么"></a>PAM是什么</h3><p>PAM即可插拔认证模块。它提供了一个所有服务的中心验证机制，适用于普通登录、ssh登录等需要进行身份认证的系统中。</p>
+<span id="more"></span>
+
+<h3 id="为什么使用PAM"><a href="#为什么使用PAM" class="headerlink" title="为什么使用PAM"></a>为什么使用PAM</h3><p>为了安全起见，计算机只能给通过授权的用户进行使用，在创建用户时，密码会被加密保存在&#x2F;etc&#x2F;passwd中,在用户登录时，重新计算密码，然后在&#x2F;etc&#x2F;passwd中进行对比。</p>
+<p>除了上面这种，还有其他方式的验证，比如现在经常使用的指纹认证，其核心思想都是检查内容是否匹配。但是这些方案都有一些通病，那就是需要随着应用程序一起编译来使用，如果认证系统有问题，或者更新了算法，就需要重新编译才能使用。</p>
+<blockquote>
+<p>鉴于以上原因，人们开始寻找一种更佳的替代方案：一方面，将鉴别功能从应用中独立出来，单独进行模块化设计，实现和维护；另一方面，为这些鉴别模块建立标准 API，以便各应用程序能方便的使用它们提供的各种功能；同时，鉴别机制对其上层用户（包括应用程序和最终用户）是透明的。</p>
+</blockquote>
+<h3 id="PAM是如何工作的"><a href="#PAM是如何工作的" class="headerlink" title="PAM是如何工作的"></a>PAM是如何工作的</h3><img src="/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/PAM%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>PAM采用了分层的模块式开发，提供了四种类型的模块:</p>
+<ul>
+<li>认证管理</li>
+<li>账号管理</li>
+<li>会话管理</li>
+<li>口令管理</li>
+</ul>
+<p>这四个接口就可以满足用户的认证和管理。一个模块可以同时属于多种类型，只需实现对应的函数就可以。</p>
+<p>目前PAM的实现有以下三种：</p>
+<blockquote>
+<ol>
+<li>Linux-PAM: Linux-PAM 涵盖了本文中讨论的所有 PAM。在任何一个 Linux 平台中的 PAM 的主要结构都类似于 Linux-PAM 版本。</li>
+<li>OpenPAM: OpenPAM 是由 NAI 实验室的 Dag-Erling Smorgrav 开发的另一个 PAM 实现，属于 DARPA-CHATS 研究项目。由于它是开源的，因此它主要由 FreeBSD、NetBSD 及应用程序（加上 Mac OS X）使用。</li>
+<li>Java™ PAM 或 JPam: PAM 主要是支持 Linux 和 UNIX 的标准验证模块。JPam 将 Java 部分与普通 PAM 联系了起来。JPam 允许基于 Java 的应用程序使用 PAM 模块或工具（如 auth、account、passwd、session 等）。它提供了 JAAS 和直接 API，并且支持大多数 Unix OS 和架构。</li>
+</ol>
+</blockquote>
+<p>虽然有不同的PAM实现，但是主要功能都是类似的，完成用户的验证。</p>
+<p>想要了解更多，可查看IBM的文档库。<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/l-cn-pam/index.html">深入 Linux PAM 体系结构</a></p>
+<h3 id="如何自己开发PAM模块"><a href="#如何自己开发PAM模块" class="headerlink" title="如何自己开发PAM模块"></a>如何自己开发PAM模块</h3><p>PAM模块使用一个pam_handle类型的结构当做句柄，也是唯一一个PAM和程序进行通信的结构。</p>
+<p>首先在编写的服务模块的源程序里要包含下列头文件：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;security/pam_modules.h&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>PAM模块是一个个的so动态库。PAM会通过dlopen来装载这些so。四个模块分别需要实现对应的方法，PAM会根据配置文件来调用这些方法。</p>
+<p>每个PAM模块的认证程序都以pam_start开始，以pam_end结束。PAM还提供了pam_get_item和pam_set_item共享有关认证会话的某些公共信息，例如用户名、服务名和密码。应用程序在调用了pam_start以后可以用这些APIs来改变状态信息。实际工作的函数有6个：</p>
+<table>
+<thead>
+<tr>
+<th>模块类型</th>
+<th>函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>认证管理</td>
+<td>PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)</td>
+<td>认证用户</td>
+</tr>
+<tr>
+<td>认证管理</td>
+<td>PAM_EXTERN int pam_sm_setcred(pam_handle_t *pamh, int flags, int argc, const char **argv)</td>
+<td>设置用户证书</td>
+</tr>
+<tr>
+<td>账号管理</td>
+<td>PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const char **argv)</td>
+<td>账号管理</td>
+</tr>
+<tr>
+<td>会话管理</td>
+<td>PAM_EXTERN int pam_sm_open_session(pam_handle_t *pamh, int flags, int argc, const char **argv)</td>
+<td>打开会话</td>
+</tr>
+<tr>
+<td>会话管理</td>
+<td>PAM_EXTERN int pam_sm_close_session(pam_handle_t *pamh, int flags, int argc, const char **argv)</td>
+<td>关闭会话</td>
+</tr>
+<tr>
+<td>口令管理</td>
+<td>PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh, int flags, int argc, const char **argv)</td>
+<td>设置口令</td>
+</tr>
+</tbody></table>
+<p>同一个模块可以同时支持不同的类型，可以一个模块全部实现这些方法，也可以实现部分。PAM自带的pam_unix.so就是支持四种类型。</p>
+<p>在函数内进行详细的操作，最后返回结果，即可完成整个验证流程。</p>
+<h3 id="配置PAM"><a href="#配置PAM" class="headerlink" title="配置PAM"></a>配置PAM</h3><p>PAM的配置通常在&#x2F;etc&#x2F;pam.d&#x2F;下。</p>
+<p>模块将按照在配置文件中列出的顺序被调用，这取决于每个条目允许的 Control_flag 的值。Control_flag 值包括：</p>
+<blockquote>
+<p>Required：堆栈中的所有 Required 模块必须看作一个成功的结果。如果一个或多个 Required 模块失败，则实现堆栈中的所有 Required 模块，但是将返回第一个错误。</p>
+<p>Sufficient：如果标记为 sufficient 的模块成功并且先前没有 Required 或 sufficient 模块失败，则忽略堆栈中的所有其余模块并返回成功。</p>
+<p>Optional：如果堆栈中没有一个模块是 required 并且没有任何一个 sufficient 模块成功，则服务&#x2F;应用程序至少要有一个 optional 模块成功。</p>
+</blockquote>
+<h3 id="在程序中使用PAM进行验证"><a href="#在程序中使用PAM进行验证" class="headerlink" title="在程序中使用PAM进行验证"></a>在程序中使用PAM进行验证</h3><ol>
+<li>开发PAM验证模块</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;security/pam_appl.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;security/pam_modules.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-comment">// 只实现账户认证</span><br><span class="hljs-function">PAM_EXTERN <span class="hljs-type">int</span> <span class="hljs-title">pam_sm_authenticate</span><span class="hljs-params">(<span class="hljs-type">pam_handle_t</span> *pamh, <span class="hljs-type">int</span> flags, <span class="hljs-type">int</span> argc,</span></span><br><span class="hljs-params"><span class="hljs-function">                                   <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv)</span> </span>&#123;<br>  <span class="hljs-type">char</span> *username;<br>  <span class="hljs-type">char</span> password[<span class="hljs-number">256</span>];<br><br>  <span class="hljs-comment">//得到用户名</span><br>  <span class="hljs-built_in">pam_get_user</span>(pamh, &amp;username, <span class="hljs-string">&quot;Username: &quot;</span>);<br><br>  <span class="hljs-comment">// 得到密码</span><br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Password: &quot;</span>);<br>  <span class="hljs-built_in">gets</span>(password);<br><br>  <span class="hljs-comment">// 测试判断，如果用户名和密码不相等，就认证失败</span><br>  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">strcmp</span>(username, password) != <span class="hljs-number">0</span>) &#123;<br>    <span class="hljs-keyword">return</span> PAM_AUTH_ERR;<br>  &#125;<br><br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Password is: %s\n&quot;</span>, password);<br>  <span class="hljs-keyword">return</span> PAM_SUCCESS;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>编译:</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs llvm">gcc -fPIC -fno-stack-protector -<span class="hljs-keyword">c</span> pam_test_mod.<span class="hljs-keyword">c</span><br>sudo ld -<span class="hljs-keyword">x</span> --shared -o /lib/security/pam_test_mod.so pam_test_mod.o<br></code></pre></td></tr></table></figure>
+
+<p>还需要修改pam的配置，来加载这个so。编辑&#x2F;etc&#x2F;pam.d&#x2F;common-auth</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">auth [<span class="hljs-attribute">success</span>=1 <span class="hljs-attribute">default</span>=ignore] pam_test_mod.so<br></code></pre></td></tr></table></figure>
+
+<p>这里的success的值需要根据实际情况来调整，必须是所有里面的最大值。</p>
+<ol start="2">
+<li>使用模块进行验证</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// PAM必须的两个头文件</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;security/pam_appl.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;security/pam_misc.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-keyword">extern</span> <span class="hljs-type">int</span> <span class="hljs-title">misc_conv</span><span class="hljs-params">(<span class="hljs-type">int</span> num_msg, <span class="hljs-type">const</span> <span class="hljs-keyword">struct</span> pam_message **msgm,</span></span><br><span class="hljs-params"><span class="hljs-function">                     <span class="hljs-keyword">struct</span> pam_response **response, <span class="hljs-type">void</span> *appdata_ptr)</span> </span>&#123;<br><br>  <span class="hljs-keyword">return</span> PAM_SUCCESS;<br>&#125;<br><br><span class="hljs-type">const</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">pam_conv</span> conv = &#123;misc_conv, <span class="hljs-literal">NULL</span>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span> </span>&#123;<br>  <span class="hljs-comment">// 初始化</span><br>  <span class="hljs-type">pam_handle_t</span> *pamh = <span class="hljs-literal">NULL</span>;<br>  <span class="hljs-type">int</span> retval;<br>  <span class="hljs-type">const</span> <span class="hljs-type">char</span> *username = argv[<span class="hljs-number">1</span>];<br><br>  <span class="hljs-comment">// 初始化PAM 设置common-auth为验证配置</span><br>  <span class="hljs-keyword">if</span> ((<span class="hljs-built_in">pam_start</span>(<span class="hljs-string">&quot;common-auth&quot;</span>, username, &amp;conv, &amp;pamh)) != PAM_SUCCESS) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>  &#125;<br><br>  <span class="hljs-comment">// //认证用户</span><br>  retval = <span class="hljs-built_in">pam_authenticate</span>(pamh, <span class="hljs-number">0</span>);<br><br>  cout &lt;&lt; (retval == PAM_SUCCESS ? <span class="hljs-string">&quot;SUCCESS\n&quot;</span> : <span class="hljs-string">&quot;Failed\n&quot;</span>) &lt;&lt; endl;<br><br>  <span class="hljs-comment">// // 结束PAM</span><br>  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">pam_end</span>(pamh, retval) != PAM_SUCCESS) &#123;<br>    cout &lt;&lt; <span class="hljs-string">&quot;check_user: failed to release authenticator\n&quot;</span> &lt;&lt; endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> retval == PAM_SUCCESS ? <span class="hljs-number">0</span> : <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>编译测试一下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">g++ -o pam_test pam_test.cc -lpam -lpam_misc<br>sudo ./pam_test <span class="hljs-variable">$USER</span><br></code></pre></td></tr></table></figure>
+
+<p>输出为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ ./pam_test <span class="hljs-built_in">test</span>       <br>Password: <span class="hljs-built_in">test</span><br>Password is: <span class="hljs-built_in">test</span><br>SUCCESS<br></code></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>基于PAM认证体系，我们可以根据自己的需求任意的扩展linux账户，linux下的pbis-open，就是基于PAM扩展出来的一个AD域登录模块，它提供了一个pam_lsass.so的文件，来进行账户的验证。我们也可以自己设计一套认证流程，只需要满足上面的接口要求就可以。</p>
+<blockquote>
+<p>提供机制，而非策略</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Linux/">#Linux</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Linux的PAM是什么</div>
+      <div>https://blog.justforlxz.com/2018/04/01/Linux的PAM是什么/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>张丁元</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2018年4月1日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/05/23/Dock%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" title="Dock插件开发&lt;等待填坑&gt;">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Dock插件开发&lt;等待填坑&gt;</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/03/11/%E9%87%8D%E6%9E%84dde-session-ui/" title="重构dde-session-ui">
+                        <span class="hidden-mobile">重构dde-session-ui</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"jwJxh95ly6NdjTRluyKYXm6G-gzGzoHsz","appKey":"lagqr7doy2slbm7oAMGoogpg","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      豫ICP备19045379号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

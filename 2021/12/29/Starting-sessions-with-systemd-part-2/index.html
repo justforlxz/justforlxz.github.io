@@ -1,0 +1,767 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="justforlxz">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="接着上一篇文章 Starting sessions with systemd，这篇文章主要讲解一下具体的实现。 https:&#x2F;&#x2F;github.com&#x2F;linuxdeepin&#x2F;dde-session 已经包含了所有的文件和提交。 上面文章说过，为了让 dde 使用 systemd –user 来关系服务，我提供了一组服务： 123456789101112dde-session-initialized">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Starting sessions with systemd part 2">
+<meta property="og:url" content="https://blog.justforlxz.com/2021/12/29/Starting-sessions-with-systemd-part-2/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="接着上一篇文章 Starting sessions with systemd，这篇文章主要讲解一下具体的实现。 https:&#x2F;&#x2F;github.com&#x2F;linuxdeepin&#x2F;dde-session 已经包含了所有的文件和提交。 上面文章说过，为了让 dde 使用 systemd –user 来关系服务，我提供了一组服务： 123456789101112dde-session-initialized">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-29T13:09:07.000Z">
+<meta property="article:modified_time" content="2023-02-01T06:35:51.155Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="systemd">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Starting sessions with systemd part 2 - 小竹&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.google-analytics.com/analytics.js', function() {
+          window.ga = window.ga || function() { (ga.q = ga.q || []).push(arguments) };
+          ga.l = +new Date;
+          ga('create', 'UA-129024325-1', 'auto');
+          ga('send', 'pageview');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>小竹&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Starting sessions with systemd part 2"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-12-29 21:09" pubdate>
+          2021年12月29日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          38 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Starting sessions with systemd part 2</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>接着上一篇文章 <a href="/2021/12/25/Starting-sessions-with-systemd/" title="Starting sessions with systemd">Starting sessions with systemd</a>，这篇文章主要讲解一下具体的实现。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/linuxdeepin/dde-session">https://github.com/linuxdeepin/dde-session</a> 已经包含了所有的文件和提交。</p>
+<p>上面文章说过，为了让 dde 使用 systemd –user 来关系服务，我提供了一组服务：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs stylus">dde-session-initialized<span class="hljs-selector-class">.target</span><br>dde-session-manager<span class="hljs-selector-class">.service</span><br>dde-session-manager<span class="hljs-selector-class">.target</span><br>dde-session-pre<span class="hljs-selector-class">.target</span><br>dde-session-restart-dbus<span class="hljs-selector-class">.service</span><br>dde-session-shutdown<span class="hljs-selector-class">.service</span><br>dde-session-shutdown<span class="hljs-selector-class">.target</span><br>dde-session<span class="hljs-selector-class">.target</span><br>dde-session-x11-services-ready<span class="hljs-selector-class">.target</span><br>dde-session-x11-services<span class="hljs-selector-class">.target</span><br>dde-session-x11<span class="hljs-selector-class">.target</span><br>org<span class="hljs-selector-class">.deepin</span><span class="hljs-selector-class">.Session</span>.service<br></code></pre></td></tr></table></figure>
+
+<p>lightdm 在认证通过以后，会启动 dde-session 进程，dde-session 会通过 systemd 的 dbus 启动 <code>org.deepin.Session.service</code>。</p>
+<p>在 <code>org.deepin.Session.service</code> 中会执行 <code>dde-session-ctl --systemd-service</code>，启动 <code>dde-session-x11.target</code>.</p>
+<p><code>dde-session-x11.target</code> 关联了所有初始化的服务，systemd 会帮助自动运行这些服务，并且最终会运行到 <code>dde-session-manager.service</code> 上。</p>
+<blockquote>
+<p>dde-session-manager.service</p>
+</blockquote>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Service]</span><br><span class="hljs-attr">Type</span>=simple<br><span class="hljs-attr">ExecStart</span>=/usr/bin/startdde<br><span class="hljs-attr">ExecStopPost</span>=/usr/lib/libexec/dde-session-ctl --logout<br></code></pre></td></tr></table></figure>
+
+<p>在 <code>org.deepin.Session.service</code> 中会启动一个特殊的服务，这个服务会监听 dde-session 的退出，因为总要有一个服务去监听 session 的状态，要确保 session 在服务在，session 退服务退，服务退 session 退，共存亡，这也是所有操作中最麻烦的一步。</p>
+<blockquote>
+<p>org.deepin.Session.service</p>
+</blockquote>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Service]</span><br><span class="hljs-attr">Type</span>=dbus<br><span class="hljs-attr">BusName</span>=org.deepin.Session<br><span class="hljs-attr">ExecStart</span>=/usr/bin/dde-session --systemd-service<br><span class="hljs-attr">ExecStop</span>=/usr/lib/libexec/dde-session-ctl --shutdown<br></code></pre></td></tr></table></figure>
+
+<p>在 dde-session-ctl 中是这么实现 shutdown 的:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">if</span> (isShutdown) &#123;<br>    <span class="hljs-comment">// kill startdde-session or call login1</span><br>    <span class="hljs-function">QDBusInterface <span class="hljs-title">systemd</span><span class="hljs-params">(<span class="hljs-string">&quot;org.freedesktop.systemd1&quot;</span>, <span class="hljs-string">&quot;/org/freedesktop/systemd1&quot;</span>, <span class="hljs-string">&quot;org.freedesktop.systemd1.Manager&quot;</span>)</span></span>;<br>    <span class="hljs-built_in">qInfo</span>() &lt;&lt; systemd.<span class="hljs-built_in">call</span>(<span class="hljs-string">&quot;StartUnit&quot;</span>, <span class="hljs-string">&quot;dde-session-shutdown.target&quot;</span>, <span class="hljs-string">&quot;replace-irreversibly&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在 dde-session-ctl 中是这么实现 logout 的:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">if</span> (parser.<span class="hljs-built_in">isSet</span>(logout)) &#123;<br>    org::<span class="hljs-function">deepin::Session <span class="hljs-title">session</span><span class="hljs-params">(<span class="hljs-string">&quot;org.deepin.Session&quot;</span>, <span class="hljs-string">&quot;/org/deepin/Session&quot;</span>, QDBusConnection::sessionBus())</span></span>;<br>    session.<span class="hljs-built_in">Logout</span>();<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>dde-session main.cpp</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 添加启动参数，表示这是通过 systemd 启动的。</span><br><span class="hljs-function">QCommandLineOption <span class="hljs-title">systemd</span><span class="hljs-params">(QStringList&#123;<span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;systemd-service&quot;</span>, <span class="hljs-string">&quot;wait for systemd services&quot;</span>&#125;)</span></span>;<br>parser.<span class="hljs-built_in">addOption</span>(systemd);<br>parser.<span class="hljs-built_in">process</span>(app);<br><br><span class="hljs-keyword">if</span> (parser.<span class="hljs-built_in">isSet</span>(systemd)) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>&#125;<br><br>QDBusServiceWatcher *watcher = <span class="hljs-keyword">new</span> <span class="hljs-built_in">QDBusServiceWatcher</span>(<span class="hljs-string">&quot;org.deepin.Session&quot;</span>, QDBusConnection::<span class="hljs-built_in">sessionBus</span>(), QDBusServiceWatcher::WatchForUnregistration);<br>    watcher-&gt;<span class="hljs-built_in">connect</span>(watcher, &amp;QDBusServiceWatcher::serviceUnregistered, [=] &#123;<br>        QDBusInterface <span class="hljs-built_in">systemdDBus</span>(<span class="hljs-string">&quot;org.freedesktop.systemd1&quot;</span>, <span class="hljs-string">&quot;/org/freedesktop/systemd1&quot;</span>, <span class="hljs-string">&quot;org.freedesktop.systemd1.Manager&quot;</span>);<br>        <span class="hljs-built_in">qInfo</span>() &lt;&lt; systemdDBus.<span class="hljs-built_in">call</span>(<span class="hljs-string">&quot;StartUnit&quot;</span>, <span class="hljs-string">&quot;dde-session-shutdown.service&quot;</span>, <span class="hljs-string">&quot;replace&quot;</span>);<br>        qApp-&gt;<span class="hljs-built_in">quit</span>();<br>    &#125;);<br>    <span class="hljs-built_in">qInfo</span>() &lt;&lt; systemdDBus.<span class="hljs-built_in">call</span>(<span class="hljs-string">&quot;StartUnit&quot;</span>, <span class="hljs-string">&quot;dde-session-x11.target&quot;</span>, <span class="hljs-string">&quot;replace&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>dde-session-shutdown.service</code> 只负责执行 <code>dde-session-ctl --shutdown</code>，用于启动 <code>dde-session-shutdown.target</code>。</p>
+<blockquote>
+<p>dde-session-shutdown.service</p>
+</blockquote>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Service]</span><br><span class="hljs-attr">Type</span>=<span class="hljs-literal">on</span>eshot<br><span class="hljs-attr">ExecStart</span>=/usr/lib/libexec/dde-session-ctl --logout<br></code></pre></td></tr></table></figure>
+
+<p>通过 systemd 的接口启动了 <code>dde-session-shutdown.target</code>，从而启动了清理流程。</p>
+<p><code>dde-session-shutdown.target</code> 没有执行任何内容，仅仅是关联了一组服务，但是是冲突这些服务，因为这是启动的时候</p>
+<p>在 <code>dde-session-shutdown.target</code> 中还关联了最重要的一个服务: <code>dde-session-restart-dbus.service</code>，这个服务是用来关闭 <code>dbus.service</code> 服务的，这样就可以保证 session 结束的时候，不会有 dbus 服务逃逸出去。</p>
+<blockquote>
+<p>dde-session-restart-dbus.service</p>
+</blockquote>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Service]</span><br><span class="hljs-attr">Type</span>=notify<br><span class="hljs-attr">ExecStart</span>=/usr/lib/libexec/dde-session-ctl --restart-dbus<br></code></pre></td></tr></table></figure>
+
+<p>在 dde-session-ctl 中是这么实现 restart-dbus 的:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">if</span> (isRestartDBus) &#123;<br>    <span class="hljs-function">QDBusInterface <span class="hljs-title">systemd</span><span class="hljs-params">(<span class="hljs-string">&quot;org.freedesktop.systemd1&quot;</span>, <span class="hljs-string">&quot;/org/freedesktop/systemd1&quot;</span>, <span class="hljs-string">&quot;org.freedesktop.systemd1.Manager&quot;</span>)</span></span>;<br>    <span class="hljs-built_in">qInfo</span>() &lt;&lt; systemd.<span class="hljs-built_in">call</span>(<span class="hljs-string">&quot;StopUnit&quot;</span>, <span class="hljs-string">&quot;dbus.service&quot;</span>, <span class="hljs-string">&quot;replace-irreversibly&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>复盘一下整个流程，在登录界面输入密码登录以后，lightdm 会启动 <code>dde-session</code> 作为 session 的入口，<code>dde-session</code> 会注册一个 <code>org.deepin.Session</code> 的 dbus 服务，并且会启动关联的 systemd 服务，启动一个 <code>dde-session --systemd-service</code>，在这个进程里，会启动 <code>dde-session-x11.target</code>，从而最终启动了 <code>dde-session-manager.service</code>，将原本的会话入口 startdde 启动了。</p>
+<p>在 <code>dde-session --systemd-service</code> 会监听 <code>org.deepin.Session</code> 服务的存活，当服务不存在时，就会开始执行退出流程，从而启动了 <code>dde-session-ctl --shutdown</code>，在 dde-session-ctl 的帮助下，启动了 <code>dde-session-shutdown.target</code>，将所有启动的 dde 核心服务都冲突掉，从而完成了服务关闭，在最后阶段再将 <code>dbus.service</code> 服务停止，完成最终的清理。</p>
+<p>还有一种退出模式，手动启动了 <code>dde-session-shutdown.service</code> 服务，也会触发完成的退出流程，<code>dde-session-shutdown.service</code> 会利用 <code>dde-session-ctl --logout</code> 将会话注销，从而触发上面的执行流程，完成会话与服务的关闭。</p>
+<p>目前还有一些问题没有解决，没有创建独立的 systemd.slice 和 systemd.scope，这可以帮助 dde 细致的划分和管理自己的子 services，退出 dbus.service 的手段非常黑，而且 dbus 服务的程序由于图形服务也已经结束了，导致成片的 X11 Error。这些都是要解决的。</p>
+<p>下一步准备写几个 service，用来代替 startdde 的组件启动，比如 kwin、dde-desktop、dde-dock 和 xdg-autostart 等。</p>
+<p>就目前的情况来看，任重而道远。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/systemd/">#systemd</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Starting sessions with systemd part 2</div>
+      <div>https://blog.justforlxz.com/2021/12/29/Starting-sessions-with-systemd-part-2/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>justforlxz</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年12月29日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/05/fix-h5py-build-failed-on-m1/" title="fix h5py build failed on m1">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">fix h5py build failed on m1</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/25/Starting-sessions-with-systemd/" title="Starting sessions with systemd">
+                        <span class="hidden-mobile">Starting sessions with systemd</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"jwJxh95ly6NdjTRluyKYXm6G-gzGzoHsz","appKey":"lagqr7doy2slbm7oAMGoogpg","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      豫ICP备19045379号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

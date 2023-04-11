@@ -1,0 +1,816 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="小竹">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="以前一直搞不懂动画是怎么做的，它怎么这么神奇，写了一点看不懂的代码，就实现了非常丰富的效果，现在做了三年Qt开发，接触到了Qt的动画类，明白了动画是怎么一会儿事，现在来看当初的css动画代码，也明白了它是如何工作的了。本文会介绍一下Vue提供的组件过渡动画模块——transitions。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="添加Vue动画">
+<meta property="og:url" content="https://blog.justforlxz.com/2019/12/08/vue-transitions/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="以前一直搞不懂动画是怎么做的，它怎么这么神奇，写了一点看不懂的代码，就实现了非常丰富的效果，现在做了三年Qt开发，接触到了Qt的动画类，明白了动画是怎么一会儿事，现在来看当初的css动画代码，也明白了它是如何工作的了。本文会介绍一下Vue提供的组件过渡动画模块——transitions。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cn.vuejs.org/images/transition.png">
+<meta property="article:published_time" content="2019-12-08T00:03:40.000Z">
+<meta property="article:modified_time" content="2023-02-01T06:35:51.296Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cn.vuejs.org/images/transition.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>添加Vue动画 - 小竹&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.google-analytics.com/analytics.js', function() {
+          window.ga = window.ga || function() { (ga.q = ga.q || []).push(arguments) };
+          ga.l = +new Date;
+          ga('create', 'UA-129024325-1', 'auto');
+          ga('send', 'pageview');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>小竹&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="添加Vue动画"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2019-12-08 08:03" pubdate>
+          2019年12月8日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">添加Vue动画</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>以前一直搞不懂动画是怎么做的，它怎么这么神奇，写了一点看不懂的代码，就实现了非常丰富的效果，现在做了三年Qt开发，接触到了Qt的动画类，明白了动画是怎么一会儿事，现在来看当初的css动画代码，也明白了它是如何工作的了。本文会介绍一下Vue提供的组件过渡动画模块——transitions。</p>
+<span id="more"></span>
+
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Vue在插入、更新和移除DOM元素时，提供了多种不同方式的应用过渡效果。包含以下工具：</p>
+<ul>
+<li>在css过渡和动画中自动应用class</li>
+<li>可以配合第三方动画css类，例如Animae.css</li>
+<li>提供钩子函数来使JS操作DOM元素</li>
+<li>可以配合使用第三方JavaScript动画库，例如Velocity.js</li>
+</ul>
+<h2 id="单元素-x2F-组件过渡"><a href="#单元素-x2F-组件过渡" class="headerlink" title="单元素&#x2F;组件过渡"></a>单元素&#x2F;组件过渡</h2><p>Vue提供了 <code>transitions</code> 的封装组件，在下面的情况中，可以给任意元素或组件添加进入和离开的过渡效果。</p>
+<ul>
+<li>条件渲染 (使用 <code>v-show</code>)</li>
+<li>按需渲染 (使用 <code>v-if</code>)</li>
+<li>动态节点</li>
+<li>组件根元素</li>
+</ul>
+<p>这是一个基本的例子：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">&quot;show = !show&quot;</span>&gt;</span><br>    Toggle<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">transitions</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;fade&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;show&quot;</span>&gt;</span> hello! <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">transitions</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-keyword">new</span> Vue(&#123;<br>    el: <span class="hljs-string">&quot;#app&quot;</span>,<br>    data: &#123;<br>        <span class="hljs-keyword">show</span>: <span class="hljs-keyword">false</span><br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>在head中添加style：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">.fade-enter-active</span>,<br><span class="hljs-string">.fade-leave-active</span> &#123;<br>  transition: opacity <span class="hljs-string">.5s</span>;<br>&#125;<br><br><span class="hljs-string">.fade-enter</span>,<br><span class="hljs-string">.fade-leave-to</span> &#123;<br>  opacity: 0;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里有三点需要注意一下，需要动画的元素需要使用transitions节包裹起来，transitions需要一个name，css中需要使用固定的拼写来应用动画，入场动画和离场动画的状态是一致的，所以写在了一组里。</p>
+<p>当插入和删除包含在 <code>transitions</code> 组件中的元素时，Vue会做以下的事情：</p>
+<ul>
+<li>自动嗅探组件是否应用了css的过渡或动画，如果有，则在恰当的实际添加&#x2F;删除css类名。</li>
+<li>如果 <code>transitions</code> 组件提供了钩子函数，Vue会在恰当的时机调用钩子函数。</li>
+<li>如果没有找到css过渡和动画，也没有找到钩子函数，则DOM的操作(插入和删除)在下一帧中立即执行。(注意是指浏览器的逐帧动画，而不是Vue的nextTick机制)</li>
+</ul>
+<h3 id="过渡的类名"><a href="#过渡的类名" class="headerlink" title="过渡的类名"></a>过渡的类名</h3><p>Vue的过渡动画一共有6个状态：</p>
+<ol>
+<li><code>v-enter</code>: 定义进入过渡的开始状态，在元素被插入之前生效，待元素插入以后被移除。</li>
+<li><code>v-enter-active</code>: 定义进入过渡生效时的状态，在整个进入过渡的阶段中应用，在元素插入之前生效，在过渡&#x2F;动画完成后被移除。这个类可以定义过渡时间、延迟和动画曲线。</li>
+<li><code>v-enter-to</code>: <strong>在2.1.8版本及以上</strong> 定义进入过渡的结束状态，在元素被插入的下一帧生效(与此同时 <code>v-enter</code> 被移除)，在过渡&#x2F;动画完成后移除。</li>
+<li><code>v-leave</code>: 定义离开过渡的开始状态，在离开过渡被触发时立即生效，下一帧被移除。</li>
+<li><code>v-leave-active</code>: 定义离开过渡生效时的状态，在整个离开过渡的阶段中应用，在离开过渡触发时立即生效，在过渡&#x2F;动画完成后立即被移除。这个类可以定义离开过渡的过程时间、延迟和动画曲线。</li>
+<li><code>v-leave-to</code>: <strong>在2.1。8版本及以上</strong> 定义离开过渡的结束状态，在离开过渡被触发之后的下一帧被移除(与此同时<code>v-leave</code>也被删除)<br>，在过渡&#x2F;动画完成之后移除。</li>
+</ol>
+<p><img src="https://cn.vuejs.org/images/transition.png" srcset="/img/loading.gif" lazyload alt="transitions"></p>
+<p>可以看出一共两组动画，进入和离开的active。并且分别有两个状态，enter和enter-to，这6个状态控制了入场动画和离场动画。(吐槽一下Qt的动画系统，定义一个QAnimation只能做半场动画，想做到Vue这样的要定义两组，或者反向播放)</p>
+<p>对于那些正在过渡中切换的类名来说，如果使用了没有<code>name</code>属性的<code>transition</code>，Vue会使用v-当做默认前缀。为了避免多组动画冲突，我个人建议每一个<code>transition</code>组件都提供name属性。</p>
+<h3 id="JavaScript钩子函数"><a href="#JavaScript钩子函数" class="headerlink" title="JavaScript钩子函数"></a>JavaScript钩子函数</h3><p><code>transition</code>也提供了钩子函数，使我们可以通过JavaScript来控制DOM元素，一共也包含了8个函数：</p>
+<ol>
+<li>beforeEnter</li>
+<li>enter</li>
+<li>afterEnter</li>
+<li>enterCancelled</li>
+<li>beforeLeave</li>
+<li>leave</li>
+<li>afterLeave</li>
+<li>leaveCancelled</li>
+</ol>
+<p>和css上要求的命名保持一致，只是增加了两个取消的接口，当动画被取消的时候被调用。</p>
+<p>这些钩子函数可以结合CSS <code>transition/animations</code> 使用，也可以单独使用。</p>
+<blockquote>
+<p>当只使用JavaScript过渡的时候，必须在 <strong>enter</strong> 和 <strong>leave</strong> 显式调用<code>done()</code>进行回调，否则他们将被同步调用，过渡会立即完成。</p>
+</blockquote>
+<blockquote>
+<p>推荐对于仅使用JavaScript过渡的元素添加<code>v-bind:css=&quot;false&quot;</code>，Vue会跳过CSS的检测，这也可以避免过渡过程中css的影响。</p>
+</blockquote>
+<h2 id="列表元素的过渡"><a href="#列表元素的过渡" class="headerlink" title="列表元素的过渡"></a>列表元素的过渡</h2><p>以上我分享的都是单元素&#x2F;组件的过渡，那么问题来了，列表这种通过v-for创建的元素该如何增加过渡效果呢？</p>
+<p>Vue提供了<code>&lt;transition-group&gt;</code>组件，在深入了解之前，需要先介绍一下这个组件的一些特点：</p>
+<ul>
+<li>不同于<code>&lt;transition&gt;</code>，<code>&lt;transition-group&gt;</code>会创建一个真实的DOM元素，默认是<span>，可以通过tag属性切换为其他元素。</li>
+<li>过渡模式不再可用，因为我们不再相互切换特有的元素</li>
+<li>内部元素总是需要提供唯一的key值来进行区分</li>
+<li>CSS过渡将会应用在内部的元素中，而不是这个组&#x2F;容器本身</li>
+</ul>
+<h3 id="列表的进入-x2F-离开过渡"><a href="#列表的进入-x2F-离开过渡" class="headerlink" title="列表的进入&#x2F;离开过渡"></a>列表的进入&#x2F;离开过渡</h3><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>add<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">&quot;remove&quot;</span>&gt;</span>remove<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">transition-group</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;group&quot;</span> <span class="hljs-attr">tag</span>=<span class="hljs-string">&quot;ul&quot;</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;item in items&quot;</span> <span class="hljs-attr">v-bind:key</span>=<span class="hljs-string">&quot;item&quot;</span>&gt;</span></span><br><span class="language-xml">  </span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">item</span> &#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">transition-group</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs stylus">new <span class="hljs-built_in">Vue</span>(&#123;<br>	el: <span class="hljs-string">&quot;#app&quot;</span>,<br>	data: &#123;<br>			items: <span class="hljs-selector-attr">[1,2,3]</span><br>	  &#125;,<br>	  methods: &#123;<br>	  	<span class="hljs-built_in">add</span>() &#123;<br>	  		this<span class="hljs-selector-class">.items</span><span class="hljs-selector-class">.push</span>(<span class="hljs-number">0</span>)<br>	  	&#125;<br>	  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-class">.group-enter</span>,<br><span class="hljs-selector-class">.group-leave-to</span> &#123;<br>  <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(<span class="hljs-number">10px</span>)<br>&#125;<br><br><span class="hljs-selector-class">.group-enter-active</span>,<br><span class="hljs-selector-class">.group-leave-active</span> &#123;<br>  <span class="hljs-attribute">transition</span>: all <span class="hljs-number">1s</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>代码在<a target="_blank" rel="noopener" href="https://jsfiddle.net/justforlxz/9denwmor/20/">这里，点击访问</a>，只实现了添加元素的过渡效果。</p>
+<p>希望本文可以帮助你理解Vue是如何处理过渡动画，本文是基于官网的知识和demo所编写的，本文只写了一部分我觉得需要掌握的基本功能，Vue的transition组件还有很多功能等待你的挖掘，<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/transitions.html">点击前往Vue官网文档</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Vue/" class="category-chain-item">Vue</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Vue/">#Vue</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>添加Vue动画</div>
+      <div>https://blog.justforlxz.com/2019/12/08/vue-transitions/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>小竹</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2019年12月8日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/12/08/vue-component-props/" title="Vue父子组件传值 —— props &amp; $emit">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Vue父子组件传值 —— props &amp; $emit</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/11/25/%E4%BD%BF%E7%94%A8webpack-dev-server%E6%9D%A5%E7%9B%91%E5%90%AC%E9%A1%B9%E7%9B%AE%E5%8F%98%E5%8C%96/" title="使用webpack-dev-server来监听项目变化">
+                        <span class="hidden-mobile">使用webpack-dev-server来监听项目变化</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"jwJxh95ly6NdjTRluyKYXm6G-gzGzoHsz","appKey":"lagqr7doy2slbm7oAMGoogpg","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      豫ICP备19045379号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

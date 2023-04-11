@@ -1,0 +1,861 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="小竹">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="最近在写 deepincn 的首页，看着 elementary os 的首页样式挺好看的，就打算山寨一下。 本来打算用 Angular 开发的，但是看到 Vue3 已经十分稳定了，就打算重拾 Vue3，用 Vue3 来写新的首页。 为了方便以后更新数据，需要使用集中的数据管理，Vue 下比较出名和好用的就是 Vuex 了，而 Vuex 也已经适配了 Vue3，可以放心使用了。 本篇文章会见简单介绍">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vuex基本使用">
+<meta property="og:url" content="https://blog.justforlxz.com/2021/08/10/Vuex%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="最近在写 deepincn 的首页，看着 elementary os 的首页样式挺好看的，就打算山寨一下。 本来打算用 Angular 开发的，但是看到 Vue3 已经十分稳定了，就打算重拾 Vue3，用 Vue3 来写新的首页。 为了方便以后更新数据，需要使用集中的数据管理，Vue 下比较出名和好用的就是 Vuex 了，而 Vuex 也已经适配了 Vue3，可以放心使用了。 本篇文章会见简单介绍">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-10T05:56:30.000Z">
+<meta property="article:modified_time" content="2023-02-01T06:35:51.157Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="Web">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Vuex基本使用 - 小竹&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.google-analytics.com/analytics.js', function() {
+          window.ga = window.ga || function() { (ga.q = ga.q || []).push(arguments) };
+          ga.l = +new Date;
+          ga('create', 'UA-129024325-1', 'auto');
+          ga('send', 'pageview');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>小竹&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Vuex基本使用"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-08-10 13:56" pubdate>
+          2021年8月10日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          8.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          70 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vuex基本使用</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>最近在写 deepincn 的首页，看着 elementary os 的首页样式挺好看的，就打算山寨一下。</p>
+<p>本来打算用 Angular 开发的，但是看到 Vue3 已经十分稳定了，就打算重拾 Vue3，用 Vue3 来写新的首页。</p>
+<p>为了方便以后更新数据，需要使用集中的数据管理，Vue 下比较出名和好用的就是 Vuex 了，而 Vuex 也已经适配了 Vue3，可以放心使用了。</p>
+<p>本篇文章会见简单介绍一下 Vuex，然后讲一下基本语法，我会再开( <del>水</del> )一篇文章来专门山寨一个 Vuex，通过实现一个简易的 Vuex 来深入了解核心。</p>
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>Vue 最重要的一个功能点就是 <strong>数据驱动</strong>。</p>
+<p>所谓数据驱动，是指视图是由数据驱动生成的，我们对视图的修改，不会直接操作 DOM，而是通过修改数据。它相比我们传统的前端开发，如使用 jQuery 等前端库直接修改 DOM，大大简化了代码量。</p>
+<p>特别是当交互复杂的时候，只关心数据的修改会让代码的逻辑变的非常清晰，因为 DOM 变成了数据的映射，我们所有的逻辑都是对数据的修改，而不用碰触 DOM，这样的代码非常利于维护。</p>
+<p>Vue 还有一个重要的功能点是 <strong>组件化</strong>，每个组件就是最小的功能单位，每个组件都有自己的 <code>data</code>，<code>template</code> 和 <code>methods</code>。我们通过修改 <code>data</code> 中的数据来更新 <code>template</code> 中视图。在单个组件中我们更新视图是非常方便的，但是实际开发中，我们的项目不止一个组件，非常多的组件整合在一起的时候，维护同一个状态就会非常困难，特别是嵌入非常深的时候，传递参数就会变得非常麻烦（这里我想起来了 Deepin 的控制中心，组件里面有非常深的嵌套，最里面的组件想要获取数据，需要沿着嵌套层层传递，非常麻烦）。</p>
+<p>为了解决这个问题，我们需要引入 Vuex 来进行状态管理，负责组件中的通信。</p>
+<blockquote>
+<p>Vuex 解决的问题</p>
+</blockquote>
+<ul>
+<li><p>多个视图依赖于同一状态。</p>
+</li>
+<li><p>来自不同视图的行为需要变更同一状态。</p>
+</li>
+</ul>
+<h2 id="2-基础使用"><a href="#2-基础使用" class="headerlink" title="2. 基础使用"></a>2. 基础使用</h2><p>首先先在项目中安装 Vuex，Vuex4 是为 Vue3 开发的版本，我们通过以下命令安装：</p>
+<p><strong>npm</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install vuex@next<br></code></pre></td></tr></table></figure>
+
+<p><strong>yarn</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yarn add vuex@next<br></code></pre></td></tr></table></figure>
+
+<p>每一个 Vuex 应用的核心就是 store（仓库）。“store”基本上就是一个容器，它包含着你的应用中大部分的状态 (state)。Vuex 和单纯的全局对象有以下两点不同：</p>
+<ol>
+<li><p>Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发生变化，那么相应的组件也会相应地得到高效更新。</p>
+</li>
+<li><p>你不能直接改变 store 中的状态。改变 store 中的状态的唯一途径就是显式地提交 (commit) mutation。这样使得我们可以方便地跟踪每一个状态的变化，从而让我们能够实现一些工具帮助我们更好地了解我们的应用。</p>
+</li>
+</ol>
+<p>现在已经安装好 Vuex 了，我们可以开始写一个简单的 store。创建一个 <code>store.ts</code> 文件。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> &#123; createStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><br><span class="hljs-keyword">const</span> store = <span class="hljs-title function_">createStore</span>(&#123;<br>    <span class="hljs-attr">state</span>: &#123;<br>        <span class="hljs-attr">count</span>: <span class="hljs-number">0</span><br>    &#125;,<br>    <span class="hljs-attr">mutations</span>: &#123;<br>        increment (state) &#123;<br>            state.<span class="hljs-property">count</span>++<br>        &#125;<br>    &#125;,<br>&#125;);<br><br><span class="hljs-keyword">export</span> &#123; store &#125;;<br></code></pre></td></tr></table></figure>
+
+<p>在 main.ts 中，将 store 注册到 Vue 的 app 实例中。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> &#123; store &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./store&#x27;</span><br><br>...<br><br>app.<span class="hljs-title function_">use</span>(store);<br><br>app.<span class="hljs-title function_">mount</span>(<span class="hljs-string">&#x27;#app&#x27;</span>); <span class="hljs-comment">// 添加在挂载之前</span><br></code></pre></td></tr></table></figure>
+
+<p>以上就是一个最简单的 store 的例子了，是不是有些摸不着头脑？</p>
+<p>store.ts 中我们导出了使用 createStore 函数返回的对象，在 store 中，我们定义了两个属性：<code>state</code> 和 <code>mutations</code>。</p>
+<p>我们在 state 中定义状态，在 mutations 中定义操作方法，在 mutations 中定义的方法，必须通过 <code>store.commit()</code> 方法调用，而不能直接访问。</p>
+<p>现在我们在组件中使用 store 吧。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs typescript">&lt;template&gt;<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;&#123; count &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&lt;/template&gt;<br><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;ts&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml"><span class="hljs-keyword">import</span> &#123; defineComponent &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span>;</span></span><br><span class="language-javascript"><span class="language-xml"></span></span><br><span class="language-javascript"><span class="language-xml"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineComponent</span>(&#123;</span></span><br><span class="language-javascript"><span class="language-xml"></span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-title function_">setup</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">count</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">$store</span>.<span class="hljs-property">state</span>.<span class="hljs-property">count</span> &#125;;</span></span><br><span class="language-javascript"><span class="language-xml">    &#125;,</span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-attr">methods</span>: &#123;</span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-title function_">increment</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-variable language_">this</span>.<span class="hljs-property">$store</span>.<span class="hljs-title function_">commit</span>(<span class="hljs-string">&#x27;increment&#x27;</span>)</span></span><br><span class="language-javascript"><span class="language-xml">        &#125;</span></span><br><span class="language-javascript"><span class="language-xml">    &#125;</span></span><br><span class="language-javascript"><span class="language-xml">&#125;);</span></span><br><span class="language-javascript"><span class="language-xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>在组件的例子中，setup 函数是 Vue3 引入的 组合式 API（composition API），这里不详细介绍 setup 的使用，setup 的出现，我们可以将相同功能的代码放在接近的位置，只需要在函数最后返回视图(template)所需的变量即可。</p>
+<p>在例子中，setup 向视图提供了 count 变量，这里使用了解构赋值，模板使用 count 变量时，实际上访问的还是 store 中的 count,为什么呢？</p>
+<p>这是因为 Vuex 的状态存储是响应式的，具体请看 <del><a href="/">《Vue 响应式原理》</a></del>。</p>
+<p>在例子中，组件提供了一个方法，用于修改 store 中的 count，更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。Vuex 中的 mutation 非常类似于事件：每个 mutation 都有一个字符串的事件类型 (type)和一个回调函数 (handler)。这个回调函数就是我们实际进行状态更改的地方，并且它会接受 state 作为第一个参数。</p>
+<p>你不能直接调用一个 mutation 处理函数。这个选项更像是事件注册：“当触发一个类型为 increment 的 mutation 时，调用此函数。”。</p>
+<h2 id="3-核心概念"><a href="#3-核心概念" class="headerlink" title="3. 核心概念"></a>3. 核心概念</h2><p>Vuex 一共有五个核心概念： State、Getter、Mutation、Action 和 Module。</p>
+<h3 id="State"><a href="#State" class="headerlink" title="State"></a>State</h3><p>Vuex 使用单一状态树，用一个对象就包含了全部的应用层级状态。至此它便作为一个“唯一数据源 (SSOT)”而存在。这也意味着，每个应用将仅仅包含一个 store 实例。单一状态树让我们能够直接地定位任一特定的状态片段，在调试的过程中也能轻易地取得整个当前应用状态的快照。</p>
+<p>在组件中，我们可以通过 <code>this.$store.state</code> 来获取注册到的 state。每当 store.state.count 变化的时候, 都会重新求取计算属性，并且触发更新相关联的 DOM。</p>
+<p>Vuex 通过 Vue 的插件系统将 store 实例从根组件中“注入”到所有的子组件里。且子组件能通过 this.$store 访问到。</p>
+<p>template 可以直接使用 this.$store.state.[属性] ，this 可以省略。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs typescript">&lt;template&gt;<br>  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span></span><br><span class="language-xml">    &#123;&#123; this.$store.state.name &#125;&#125;</span><br><span class="language-xml">    &#123;&#123; this.$store.state.age &#125;&#125;</span><br><span class="language-xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="Getter"><a href="#Getter" class="headerlink" title="Getter"></a>Getter</h3><p>有时候我们需要从 store 中的 state 中派生出一些状态，例如对列表进行过滤并计数：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs typescript">doneTodosCount () &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">$store</span>.<span class="hljs-property">state</span>.<span class="hljs-property">todos</span>.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">todo</span> =&gt;</span> todo.<span class="hljs-property">done</span>).<span class="hljs-property">length</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果有多个组件需要用到此属性，我们要么复制这个函数，或者抽取到一个共享函数然后在多处导入它——无论哪种方式都不是很理想。</p>
+<p>Vuex 允许我们在 store 中定义“getter”（可以认为是 store 的计算属性）。</p>
+<p>Getter 接受 state 作为其第一个参数：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">const</span> store = <span class="hljs-title function_">createStore</span>(&#123;<br>  <span class="hljs-attr">state</span>: &#123;<br>    <span class="hljs-attr">todos</span>: [<br>      &#123; <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;...&#x27;</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">true</span> &#125;,<br>      &#123; <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;...&#x27;</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span> &#125;<br>    ]<br>  &#125;,<br>  <span class="hljs-attr">getters</span>: &#123;<br>    doneTodos (state) =&gt; &#123;<br>      <span class="hljs-keyword">return</span> state.<span class="hljs-property">todos</span>.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">todo</span> =&gt;</span> todo.<span class="hljs-property">done</span>)<br>    &#125;<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>Getter 会暴露为 store.getters 对象，你可以以属性的形式访问这些值：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs typescript">store.<span class="hljs-property">getters</span>.<span class="hljs-property">doneTodos</span> <span class="hljs-comment">// -&gt; [&#123; id: 1, text: &#x27;...&#x27;, done: true &#125;]</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Mutation"><a href="#Mutation" class="headerlink" title="Mutation"></a>Mutation</h3><p>在上面已经说过了，更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">const</span> store = <span class="hljs-title function_">createStore</span>(&#123;<br>  <span class="hljs-attr">state</span>: &#123;<br>    <span class="hljs-attr">count</span>: <span class="hljs-number">1</span><br>  &#125;,<br>  <span class="hljs-attr">mutations</span>: &#123;<br>    increment (state) &#123;<br>      <span class="hljs-comment">// 变更状态</span><br>      state.<span class="hljs-property">count</span>++<br>    &#125;<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>需要使用 commit 方法来提交一个调用：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs typescript">store.<span class="hljs-title function_">commit</span>(<span class="hljs-string">&#x27;increment&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>也可以提交多个参数，commit 函数会展开所有参数：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// ...</span><br><span class="hljs-attr">mutations</span>: &#123;<br>  increment (state, n) &#123;<br>    state.<span class="hljs-property">count</span> += n<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs typescript">store.<span class="hljs-title function_">commit</span>(<span class="hljs-string">&#x27;increment&#x27;</span>, <span class="hljs-number">10</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h3><p>Action 类似于 mutation，不同在于：</p>
+<ol>
+<li>Action 提交的是 mutation，而不是直接变更状态。</li>
+<li>Action 可以包含任意异步操作。</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">const</span> store = <span class="hljs-title function_">createStore</span>(&#123;<br>  <span class="hljs-attr">state</span>: &#123;<br>    <span class="hljs-attr">count</span>: <span class="hljs-number">0</span><br>  &#125;,<br>  <span class="hljs-attr">mutations</span>: &#123;<br>    increment (state) &#123;<br>      state.<span class="hljs-property">count</span>++<br>    &#125;<br>  &#125;,<br>  <span class="hljs-attr">actions</span>: &#123;<br>    increment (context) &#123;<br>      context.<span class="hljs-title function_">commit</span>(<span class="hljs-string">&#x27;increment&#x27;</span>)<br>    &#125;<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>Action 函数接受一个与 store 实例具有相同方法和属性的 context 对象，因此你可以调用 context.commit 提交一个 mutation，或者通过 context.state 和 context.getters 来获取 state 和 getters。</p>
+<p>Action 通过 store.dispatch 方法触发：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs typescript">store.<span class="hljs-title function_">dispatch</span>(<span class="hljs-string">&#x27;increment&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>乍一眼看上去感觉多此一举，我们直接分发 mutation 岂不更方便？实际上并非如此，还记得 mutation 必须同步执行这个限制么？Action 就不受约束！我们可以在 action 内部执行异步操作：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-attr">actions</span>: &#123;<br>  incrementAsync (&#123; commit &#125;) &#123;<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-title function_">commit</span>(<span class="hljs-string">&#x27;increment&#x27;</span>)<br>    &#125;, <span class="hljs-number">1000</span>)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h3><p>由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。</p>
+<p>为了解决以上问题，Vuex 允许我们将 store 分割成模块（module）。每个模块拥有自己的 state、mutation、action、getter、甚至是嵌套子模块——从上至下进行同样方式的分割：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">const</span> moduleA = &#123;<br>  <span class="hljs-attr">state</span>: <span class="hljs-function">() =&gt;</span> (&#123; ... &#125;),<br>  <span class="hljs-attr">mutations</span>: &#123; ... &#125;,<br>  <span class="hljs-attr">actions</span>: &#123; ... &#125;,<br>  <span class="hljs-attr">getters</span>: &#123; ... &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> moduleB = &#123;<br>  <span class="hljs-attr">state</span>: <span class="hljs-function">() =&gt;</span> (&#123; ... &#125;),<br>  <span class="hljs-attr">mutations</span>: &#123; ... &#125;,<br>  <span class="hljs-attr">actions</span>: &#123; ... &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> store = <span class="hljs-title function_">createStore</span>(&#123;<br>  <span class="hljs-attr">modules</span>: &#123;<br>    <span class="hljs-attr">a</span>: moduleA,<br>    <span class="hljs-attr">b</span>: moduleB<br>  &#125;<br>&#125;)<br><br>store.<span class="hljs-property">state</span>.<span class="hljs-property">a</span> <span class="hljs-comment">// -&gt; moduleA 的状态</span><br>store.<span class="hljs-property">state</span>.<span class="hljs-property">b</span> <span class="hljs-comment">// -&gt; moduleB 的状态</span><br></code></pre></td></tr></table></figure>
+
+<p>对于模块内部的 mutation 和 getter，接收的第一个参数是模块的局部状态对象。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">const</span> moduleA = &#123;<br>  <span class="hljs-attr">state</span>: <span class="hljs-function">() =&gt;</span> (&#123;<br>    <span class="hljs-attr">count</span>: <span class="hljs-number">0</span><br>  &#125;),<br>  <span class="hljs-attr">mutations</span>: &#123;<br>    increment (state) &#123;<br>      <span class="hljs-comment">// 这里的 `state` 对象是模块的局部状态</span><br>      state.<span class="hljs-property">count</span>++<br>    &#125;<br>  &#125;,<br><br>  <span class="hljs-attr">getters</span>: &#123;<br>    doubleCount (state) &#123;<br>      <span class="hljs-keyword">return</span> state.<span class="hljs-property">count</span> * <span class="hljs-number">2</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>同样，对于模块内部的 action，局部状态通过 context.state 暴露出来，根节点状态则为 context.rootState：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">const</span> moduleA = &#123;<br>  <span class="hljs-comment">// ...</span><br>  <span class="hljs-attr">actions</span>: &#123;<br>    incrementIfOddOnRootSum (&#123; state, commit, rootState &#125;) &#123;<br>      <span class="hljs-keyword">if</span> ((state.<span class="hljs-property">count</span> + rootState.<span class="hljs-property">count</span>) % <span class="hljs-number">2</span> === <span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-title function_">commit</span>(<span class="hljs-string">&#x27;increment&#x27;</span>)<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>默认情况下，模块内部的 action 和 mutation 仍然是注册在全局命名空间的——这样使得多个模块能够对同一个 action 或 mutation 作出响应。Getter 同样也默认注册在全局命名空间，但是目前这并非出于功能上的目的（仅仅是维持现状来避免非兼容性变更）。必须注意，不要在不同的、无命名空间的模块中定义两个不同的 getter 从而导致错误。</p>
+<p>如果希望你的模块具有更高的封装度和复用性，你可以通过添加 namespaced: true 的方式使其成为带命名空间的模块。当模块被注册后，它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名。例如：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">const</span> store = <span class="hljs-title function_">createStore</span>(&#123;<br>  <span class="hljs-attr">modules</span>: &#123;<br>    <span class="hljs-attr">account</span>: &#123;<br>      <span class="hljs-attr">namespaced</span>: <span class="hljs-literal">true</span>,<br><br>      <span class="hljs-comment">// 模块内容（module assets）</span><br>      <span class="hljs-attr">state</span>: <span class="hljs-function">() =&gt;</span> (&#123; ... &#125;), <span class="hljs-comment">// 模块内的状态已经是嵌套的了，使用 `namespaced` 属性不会对其产生影响</span><br>      <span class="hljs-attr">getters</span>: &#123;<br>        isAdmin () &#123; ... &#125; <span class="hljs-comment">// -&gt; getters[&#x27;account/isAdmin&#x27;]</span><br>      &#125;,<br>      <span class="hljs-attr">actions</span>: &#123;<br>        login () &#123; ... &#125; <span class="hljs-comment">// -&gt; dispatch(&#x27;account/login&#x27;)</span><br>      &#125;,<br>      <span class="hljs-attr">mutations</span>: &#123;<br>        login () &#123; ... &#125; <span class="hljs-comment">// -&gt; commit(&#x27;account/login&#x27;)</span><br>      &#125;,<br><br>      <span class="hljs-comment">// 嵌套模块</span><br>      <span class="hljs-attr">modules</span>: &#123;<br>        <span class="hljs-comment">// 继承父模块的命名空间</span><br>        <span class="hljs-attr">myPage</span>: &#123;<br>          <span class="hljs-attr">state</span>: <span class="hljs-function">() =&gt;</span> (&#123; ... &#125;),<br>          <span class="hljs-attr">getters</span>: &#123;<br>            profile () &#123; ... &#125; <span class="hljs-comment">// -&gt; getters[&#x27;account/profile&#x27;]</span><br>          &#125;<br>        &#125;,<br><br>        <span class="hljs-comment">// 进一步嵌套命名空间</span><br>        <span class="hljs-attr">posts</span>: &#123;<br>          <span class="hljs-attr">namespaced</span>: <span class="hljs-literal">true</span>,<br><br>          <span class="hljs-attr">state</span>: <span class="hljs-function">() =&gt;</span> (&#123; ... &#125;),<br>          <span class="hljs-attr">getters</span>: &#123;<br>            popular () &#123; ... &#125; <span class="hljs-comment">// -&gt; getters[&#x27;account/posts/popular&#x27;]</span><br>          &#125;<br>        &#125;<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>启用了命名空间的 getter 和 action 会收到局部化的 getter，dispatch 和 commit。换言之，你在使用模块内容（module assets）时不需要在同一模块内额外添加空间名前缀。更改 namespaced 属性后不需要修改模块内的代码。</p>
+<h2 id="4-配合-TypeScript"><a href="#4-配合-TypeScript" class="headerlink" title="4. 配合 TypeScript"></a>4. 配合 TypeScript</h2><p>Vuex4 使用 TypeScript 还是有一定的麻烦，Vue 提供了一个 InjectionKey 接口，该接口是扩展 Symbol 的泛型类型。它可用于在提供者和消费者之间同步 inject 值的类型。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> &#123; createStore, <span class="hljs-title class_">Store</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">InjectionKey</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Menu</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./settings&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Menu</span> &#123;<br>    icon?: <span class="hljs-built_in">string</span>;<br>    <span class="hljs-attr">text</span>: <span class="hljs-built_in">string</span>;<br>    <span class="hljs-attr">url</span>: <span class="hljs-built_in">string</span>;<br>    <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;<br>&#125;<br><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">MenuState</span> &#123;<br>  <span class="hljs-attr">menus</span>: <span class="hljs-title class_">Menu</span>[];<br>&#125;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">MenuKey</span>: <span class="hljs-title class_">InjectionKey</span>&lt;<span class="hljs-title class_">Store</span>&lt;<span class="hljs-title class_">MenuState</span>&gt;&gt; = <span class="hljs-title class_">Symbol</span>()<br><br><span class="hljs-keyword">const</span> menuStore = createStore&lt;<span class="hljs-title class_">MenuState</span>&gt;(&#123;<br>  <span class="hljs-attr">state</span>: &#123;<br>    <span class="hljs-attr">menus</span>: []<br>  &#125;,<br>  <span class="hljs-attr">mutations</span>: &#123;<br>    <span class="hljs-title function_">add</span>(<span class="hljs-params">state: MenuState, menu: Menu</span>) &#123;<br>      state.<span class="hljs-property">menus</span>.<span class="hljs-title function_">push</span>(menu);<br>    &#125;<br>  &#125;,<br>  <span class="hljs-attr">actions</span>: &#123;<br>    <span class="hljs-title function_">add</span>(<span class="hljs-params">context, menu: Menu</span>) &#123;<br>      context.<span class="hljs-title function_">commit</span>(<span class="hljs-string">&#x27;add&#x27;</span>, menu);<br>    &#125;<br>  &#125;,<br>  <span class="hljs-attr">getters</span>: &#123;<br>    <span class="hljs-title function_">menus</span>(<span class="hljs-params">state</span>) &#123;<br>      <span class="hljs-keyword">return</span> state.<span class="hljs-property">menus</span>;<br>    &#125;<br>  &#125;<br>&#125;)<br><br><span class="hljs-keyword">export</span> &#123; <span class="hljs-title class_">Menu</span>, <span class="hljs-title class_">MenuKey</span>, menuStore &#125;;<br></code></pre></td></tr></table></figure>
+
+<p>在 main.ts 中注入依赖：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">MenuKey</span>, menuStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./store&#x27;</span><br><span class="hljs-comment">// ...</span><br><br>app.<span class="hljs-title function_">use</span>(menuStore, <span class="hljs-title class_">MenuKey</span>);<br><br><span class="hljs-comment">// ...</span><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Web/Vue/" class="category-chain-item">Vue</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Web/Vue/Vuex/" class="category-chain-item">Vuex</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Web/">#Web</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Vuex基本使用</div>
+      <div>https://blog.justforlxz.com/2021/08/10/Vuex基本使用/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>小竹</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年8月10日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/09/14/introduction-to-the-qml-cmake-api/" title="introduction-to-the-qml-cmake-api（中文翻译）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">introduction-to-the-qml-cmake-api（中文翻译）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/07/CSS%E6%B5%AE%E5%8A%A8%E7%AC%94%E8%AE%B0/" title="CSS浮动笔记">
+                        <span class="hidden-mobile">CSS浮动笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"jwJxh95ly6NdjTRluyKYXm6G-gzGzoHsz","appKey":"lagqr7doy2slbm7oAMGoogpg","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      豫ICP备19045379号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

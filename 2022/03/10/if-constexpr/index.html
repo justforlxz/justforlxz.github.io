@@ -1,0 +1,752 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="小竹">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="在项目开发中，我们通常会使用条件编译对代码进行裁剪，选择性地排除不需要的代码，比如在某个平台下完全不支持某个功能，那么这个功能就不应该被编译。 一般我们使用宏来判断代码，选择性的挑选需要编译的部分，并在构建系统中开启这样的条件。 12345#ifdef XXXXXXXXXX    std::cout &lt;&lt; &quot;hello world!&quot; &lt;&lt; std::e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 if constexpr 实现条件编译">
+<meta property="og:url" content="https://blog.justforlxz.com/2022/03/10/if-constexpr/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="在项目开发中，我们通常会使用条件编译对代码进行裁剪，选择性地排除不需要的代码，比如在某个平台下完全不支持某个功能，那么这个功能就不应该被编译。 一般我们使用宏来判断代码，选择性的挑选需要编译的部分，并在构建系统中开启这样的条件。 12345#ifdef XXXXXXXXXX    std::cout &lt;&lt; &quot;hello world!&quot; &lt;&lt; std::e">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-10T05:03:27.000Z">
+<meta property="article:modified_time" content="2023-02-01T06:35:51.210Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>使用 if constexpr 实现条件编译 - 小竹&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.google-analytics.com/analytics.js', function() {
+          window.ga = window.ga || function() { (ga.q = ga.q || []).push(arguments) };
+          ga.l = +new Date;
+          ga('create', 'UA-129024325-1', 'auto');
+          ga('send', 'pageview');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>小竹&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="使用 if constexpr 实现条件编译"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-03-10 13:03" pubdate>
+          2022年3月10日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          6.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          58 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">使用 if constexpr 实现条件编译</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>在项目开发中，我们通常会使用条件编译对代码进行裁剪，选择性地排除不需要的代码，比如在某个平台下完全不支持某个功能，那么这个功能就不应该被编译。</p>
+<p>一般我们使用宏来判断代码，选择性的挑选需要编译的部分，并在构建系统中开启这样的条件。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">ifdef</span> XXXXXXXXXX</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;hello world!&quot;</span> &lt;&lt; std::endl;<br><span class="hljs-meta">#<span class="hljs-keyword">else</span></span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;good bye!&quot;</span> &lt;&lt; std::endl;<br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
+
+<p>在 C 语言的项目中，这样的行为是很正常的，甚至在 C++ 项目中，我们也会选择使用宏进行条件判断。</p>
+<p>但是如果定义的宏多了，则很容易导致代码碎片化，并且无法直观地看到工作流程。</p>
+<p>例如这样的代码:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">define</span> KWIN_VERSION_CHECK(major, minor, patch, build) ((major&lt;&lt;24)|(minor&lt;&lt;16)|(patch&lt;&lt;8)|build)</span><br><span class="hljs-meta">#<span class="hljs-keyword">ifdef</span> KWIN_VERSION_STR</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> KWIN_VERSION KWIN_VERSION_CHECK(KWIN_VERSION_MAJ, KWIN_VERSION_MIN, KWIN_VERSION_PAT, KWIN_VERSION_BUI)</span><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">if</span> defined(KWIN_VERSION) &amp;&amp; KWIN_VERSION &lt; KWIN_VERSION_CHECK(5, 21, 3, 0)</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-type">int</span> TimeArgType;<br><span class="hljs-meta">#<span class="hljs-keyword">else</span></span><br><span class="hljs-keyword">typedef</span> std::chrono::milliseconds TimeArgType;<br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">if</span> defined(Q_OS_LINUX) &amp;&amp; !defined(QT_NO_DYNAMIC_LIBRARY) &amp;&amp; !defined(QT_NO_LIBRARY)</span><br><span class="hljs-function">QT_BEGIN_NAMESPACE</span><br><span class="hljs-function">QFunctionPointer <span class="hljs-title">qt_linux_find_symbol_sys</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *symbol)</span></span>;<br><span class="hljs-function">QT_END_NAMESPACE</span><br><span class="hljs-function">QFunctionPointer <span class="hljs-title">KWinUtils::resolve</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *symbol)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">QT_PREPEND_NAMESPACE</span>(qt_linux_find_symbol_sys)(symbol);<br><span class="hljs-meta">#<span class="hljs-keyword">else</span></span><br><span class="hljs-function">QFunctionPointer <span class="hljs-title">KWinUtils::resolve</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *symbol)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">static</span> QString lib_name = <span class="hljs-string">&quot;kwin.so.&quot;</span> + qApp-&gt;<span class="hljs-built_in">applicationVersion</span>();<br><br>    <span class="hljs-keyword">return</span> QLibrary::<span class="hljs-built_in">resolve</span>(lib_name, symbol);<br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>从上面的例子中可以看到，代码中一旦出现大量重复的判断条件，代码非常不直观，而且被宏分割成了很多部分。</p>
+<p>在一次偶然的机会，我看到了一篇介绍 C++ 17 中的 if constexpr 的用法，可以在编译期进行一些计算，虽然我很早就知道了 constexpr 的用法，但是大家举的例子基本上都是数值计算，让编译器在编译期间将数值进行计算，从而减轻运行时的消耗，我也从来想到其他用法，所以一直没有在项目中使用到。</p>
+<p>constexpr 的作用并不是编译期计算数值，而是编译期进行的代码分析，如果代码较小且非常直观，比如大家经常举的例子，在编译期间计算斐波那契数列，这种例子即使不使用 constexpr 显式要求，编译器也会帮助我们开启优化，直接给出结果。</p>
+<p>但是如果代码非常复杂，编译器就不一定会为我们做这样的优化，就需要我们手动标记可以计算的位置，要求编译器在编译期间进行求值和优化。</p>
+<p>我设想的是，使用 cmake 在构建时，先生成一份文件，将开关的值记录下来，在需要进行判断的地方，就可以直接使用 if constexpr 进行条件判断，在编译期间，编译器会发现有一个分支确定不会被执行（相当于  <code>if(false) &#123;&#125;</code>），那么这个分支就不会进行编译，直接剔除。</p>
+<p>CMakeLists.txt 中需要做一些工作，将编译参数加入构建系统。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">option</span> (ENABLE_MODULE <span class="hljs-string">&quot;Enable Module&quot;</span> <span class="hljs-keyword">ON</span>)<br><br><span class="hljs-keyword">if</span>(ENABLE_MODULE)<br>    <span class="hljs-keyword">set</span>(ENABLE_MODULE <span class="hljs-string">&quot;1&quot;</span>)<br><span class="hljs-keyword">else</span>()<br>    <span class="hljs-keyword">set</span>(ENABLE_MODULE <span class="hljs-string">&quot;0&quot;</span>)<br><span class="hljs-keyword">endif</span>(ENABLE_MODULE)<br><br><span class="hljs-keyword">configure_file</span> (<br>  <span class="hljs-string">&quot;$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/options/options.h.in&quot;</span><br>  <span class="hljs-string">&quot;$&#123;CMAKE_CURRENT_BINARY_DIR&#125;/options/options.h&quot;</span><br>)<br></code></pre></td></tr></table></figure>
+
+<p>在 options&#x2F;options.h.in 文件里，按照 cmake 的要求将变量导入进文件中，进行内容替换。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">pragma</span> once</span><br><br>#cmakedefine01 ENABLE_MODULE<br></code></pre></td></tr></table></figure>
+
+<p>这里我仍然使用的是宏定义，也可以直接写成如下形式:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">option</span> (ENABLE_MODULE <span class="hljs-string">&quot;Enable Module&quot;</span> <span class="hljs-keyword">ON</span>)<br><br><span class="hljs-keyword">if</span>(ENABLE_MODULE)<br>    <span class="hljs-keyword">set</span>(ENABLE_MODULE <span class="hljs-string">&quot;true&quot;</span>)<br><span class="hljs-keyword">else</span>()<br>    <span class="hljs-keyword">set</span>(ENABLE_MODULE <span class="hljs-string">&quot;false&quot;</span>)<br><span class="hljs-keyword">endif</span>(ENABLE_MODULE)<br><br><span class="hljs-keyword">configure_file</span> (<br>  <span class="hljs-string">&quot;$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/options/options.h.in&quot;</span><br>  <span class="hljs-string">&quot;$&#123;CMAKE_CURRENT_BINARY_DIR&#125;/options/options.h&quot;</span><br>)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">pragma</span> once</span><br><br><span class="hljs-type">const</span> <span class="hljs-type">bool</span> ENABLE_MODULE&#123;@ENABLE_MODULE@&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>在 main.cpp 中写一段测试代码:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;options/options.h&quot;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">if</span> <span class="hljs-title">constexpr</span> <span class="hljs-params">(ENABLE_MODULE)</span> </span>&#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Now Enable Module&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">if</span> <span class="hljs-title">constexpr</span> <span class="hljs-params">(!ENABLE_MODULE)</span> </span>&#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Now Disable Module&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>执行结果是符合预期的。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs txt"># lxz @ lxz-MacBook-Pro in ~/Develop/constexpr-demo/build on git:master o [13:28:39]<br>$ cmake ../ -G Ninja -DENABLE_MODULE=ON<br>-- The CXX compiler identification is AppleClang 13.0.0.13000029<br>-- Detecting CXX compiler ABI info<br>-- Detecting CXX compiler ABI info - done<br>-- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ - skipped<br>-- Detecting CXX compile features<br>-- Detecting CXX compile features - done<br>-- Configuring done<br>-- Generating done<br>-- Build files have been written to: /Users/lxz/Develop/constexpr-demo/build<br><br># lxz @ lxz-MacBook-Pro in ~/Develop/constexpr-demo/build on git:master o [13:28:45]<br>$ ninja<br>[2/2] Linking CXX executable src/constexpr<br><br># lxz @ lxz-MacBook-Pro in ~/Develop/constexpr-demo/build on git:master o [13:28:48]<br>$ ./src/constexpr<br>Now Enable Module<br><br># lxz @ lxz-MacBook-Pro in ~/Develop/constexpr-demo/build on git:master o [13:28:52]<br>$ cmake ../ -G Ninja -DENABLE_MODULE=OFF<br>-- Configuring done<br>-- Generating done<br>-- Build files have been written to: /Users/lxz/Develop/constexpr-demo/build<br><br># lxz @ lxz-MacBook-Pro in ~/Develop/constexpr-demo/build on git:master o [13:28:58]<br>$ ninja<br>[2/2] Linking CXX executable src/constexpr<br><br># lxz @ lxz-MacBook-Pro in ~/Develop/constexpr-demo/build on git:master o [13:29:00]<br>$ ./src/constexpr<br>Now Disable Module<br></code></pre></td></tr></table></figure>
+
+<p>虽然结果是符合的，但是我们其实不确定是否真的在编译期间就完成了代码剔除，所以使用命令进行汇编，查看汇编中是否包含了判断指令和两段输出的字符串。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">clang -S main.cpp -o main.s -I./<br></code></pre></td></tr></table></figure>
+
+<p>main.s</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><code class="hljs txt">	.text<br>	.file	&quot;main.cpp&quot;<br>	.globl	main                            // -- Begin function main<br>	.p2align	2<br>	.type	main,@function<br>main:                                   // @main<br>	.cfi_startproc<br>// %bb.0:<br>	stp	x29, x30, [sp, #-32]!           // 16-byte Folded Spill<br>	str	x19, [sp, #16]                  // 8-byte Folded Spill<br>	mov	x29, sp<br>	.cfi_def_cfa w29, 32<br>	.cfi_offset w19, -16<br>	.cfi_offset w30, -24<br>	.cfi_offset w29, -32<br>	adrp	x19, :got:_ZSt4cout<br>	ldr	x19, [x19, :got_lo12:_ZSt4cout]<br>	adrp	x1, .L.str<br>	add	x1, x1, :lo12:.L.str<br>	mov	w2, #18<br>	mov	x0, x19<br>	bl	_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l<br>	ldr	x8, [x19]<br>	ldur	x8, [x8, #-24]<br>	add	x8, x8, x19<br>	ldr	x19, [x8, #240]<br>	cbz	x19, .LBB0_5<br>// %bb.1:<br>	ldrb	w8, [x19, #56]<br>	cbz	w8, .LBB0_3<br>// %bb.2:<br>	ldrb	w1, [x19, #67]<br>	b	.LBB0_4<br>.LBB0_3:<br>	mov	x0, x19<br>	bl	_ZNKSt5ctypeIcE13_M_widen_initEv<br>	ldr	x8, [x19]<br>	mov	w1, #10<br>	mov	x0, x19<br>	ldr	x8, [x8, #48]<br>	blr	x8<br>	mov	w1, w0<br>.LBB0_4:<br>	adrp	x0, :got:_ZSt4cout<br>	ldr	x0, [x0, :got_lo12:_ZSt4cout]<br>	bl	_ZNSo3putEc<br>	bl	_ZNSo5flushEv<br>	ldr	x19, [sp, #16]                  // 8-byte Folded Reload<br>	mov	w0, wzr<br>	ldp	x29, x30, [sp], #32             // 16-byte Folded Reload<br>	ret<br>.LBB0_5:<br>	bl	_ZSt16__throw_bad_castv<br>.Lfunc_end0:<br>	.size	main, .Lfunc_end0-main<br>	.cfi_endproc<br>                                        // -- End function<br>	.section	.text.startup,&quot;ax&quot;,@progbits<br>	.p2align	2                               // -- Begin function _GLOBAL__sub_I_main.cpp<br>	.type	_GLOBAL__sub_I_main.cpp,@function<br>_GLOBAL__sub_I_main.cpp:                // @_GLOBAL__sub_I_main.cpp<br>	.cfi_startproc<br>// %bb.0:<br>	stp	x29, x30, [sp, #-32]!           // 16-byte Folded Spill<br>	str	x19, [sp, #16]                  // 8-byte Folded Spill<br>	mov	x29, sp<br>	.cfi_def_cfa w29, 32<br>	.cfi_offset w19, -16<br>	.cfi_offset w30, -24<br>	.cfi_offset w29, -32<br>	adrp	x19, _ZStL8__ioinit<br>	add	x19, x19, :lo12:_ZStL8__ioinit<br>	mov	x0, x19<br>	bl	_ZNSt8ios_base4InitC1Ev<br>	adrp	x0, :got:_ZNSt8ios_base4InitD1Ev<br>	ldr	x0, [x0, :got_lo12:_ZNSt8ios_base4InitD1Ev]<br>	mov	x1, x19<br>	ldr	x19, [sp, #16]                  // 8-byte Folded Reload<br>	adrp	x2, __dso_handle<br>	add	x2, x2, :lo12:__dso_handle<br>	ldp	x29, x30, [sp], #32             // 16-byte Folded Reload<br>	b	__cxa_atexit<br>.Lfunc_end1:<br>	.size	_GLOBAL__sub_I_main.cpp, .Lfunc_end1-_GLOBAL__sub_I_main.cpp<br>	.cfi_endproc<br>                                        // -- End function<br>	.type	_ZStL8__ioinit,@object          // @_ZStL8__ioinit<br>	.local	_ZStL8__ioinit<br>	.comm	_ZStL8__ioinit,1,1<br>	.hidden	__dso_handle<br>	.type	.L.str,@object                  // @.str<br>	.section	.rodata.str1.1,&quot;aMS&quot;,@progbits,1<br>.L.str:<br>	.asciz	&quot;Now Disable Module&quot; // 关键在这里<br>	.size	.L.str, 19<br><br>	.section	.init_array,&quot;aw&quot;,@init_array<br>	.p2align	3<br>	.xword	_GLOBAL__sub_I_main.cpp<br>	.ident	&quot;clang version 13.0.1&quot;<br>	.section	&quot;.note.GNU-stack&quot;,&quot;&quot;,@progbits<br>	.addrsig<br>	.addrsig_sym _GLOBAL__sub_I_main.cpp<br>	.addrsig_sym _ZStL8__ioinit<br>	.addrsig_sym __dso_handle<br>	.addrsig_sym _ZSt4cout<br></code></pre></td></tr></table></figure>
+
+<p>查看整个 main.s 汇编，发现只在 .L.str 段中有预期的文本字符串，可以得出结论，代码是在编译期间完成了剔除，符合我们的要求。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/">#C++</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>使用 if constexpr 实现条件编译</div>
+      <div>https://blog.justforlxz.com/2022/03/10/if-constexpr/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>小竹</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年3月10日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/16/css-mastering-margin-collapsing/" title="CSS 外边距折叠问题">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CSS 外边距折叠问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/08/latex-environment-config/" title="latex 环境配置">
+                        <span class="hidden-mobile">latex 环境配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"jwJxh95ly6NdjTRluyKYXm6G-gzGzoHsz","appKey":"lagqr7doy2slbm7oAMGoogpg","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      豫ICP备19045379号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

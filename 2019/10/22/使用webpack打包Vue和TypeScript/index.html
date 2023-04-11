@@ -1,0 +1,786 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="小竹">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文将会介绍如何通过Webpack将基于TypeScript的Vue项目进行打包。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用webpack打包Vue和TypeScript">
+<meta property="og:url" content="https://blog.justforlxz.com/2019/10/22/%E4%BD%BF%E7%94%A8webpack%E6%89%93%E5%8C%85Vue%E5%92%8CTypeScript/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="本文将会介绍如何通过Webpack将基于TypeScript的Vue项目进行打包。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-22T07:20:08.000Z">
+<meta property="article:modified_time" content="2023-02-01T06:35:51.299Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="Webpack">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>使用webpack打包Vue和TypeScript - 小竹&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.google-analytics.com/analytics.js', function() {
+          window.ga = window.ga || function() { (ga.q = ga.q || []).push(arguments) };
+          ga.l = +new Date;
+          ga('create', 'UA-129024325-1', 'auto');
+          ga('send', 'pageview');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>小竹&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="使用webpack打包Vue和TypeScript"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2019-10-22 15:20" pubdate>
+          2019年10月22日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          59 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">使用webpack打包Vue和TypeScript</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文将会介绍如何通过Webpack将基于TypeScript的Vue项目进行打包。</p>
+<span id="more"></span>
+
+<h2 id="webpack基础配置"><a href="#webpack基础配置" class="headerlink" title="webpack基础配置"></a>webpack基础配置</h2><p>首先创建一个基本的webpack.config.js文件:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs lua">const <span class="hljs-built_in">path</span> = <span class="hljs-built_in">require</span>( <span class="hljs-string">&#x27;path&#x27;</span> );<br><br><span class="hljs-built_in">module</span>.exports = &#123;<br>    entry: &#123;<br>        index: <span class="hljs-string">&quot;./src/index.ts&quot;</span>,<br>    &#125;,<br>    <span class="hljs-built_in">output</span>: &#123;<br>        <span class="hljs-built_in">path</span>: <span class="hljs-built_in">path</span>.resolve( __dirname, <span class="hljs-string">&#x27;dist&#x27;</span> ),<br>        publicPath: <span class="hljs-string">&#x27;/dist/&#x27;</span>,<br>        filename: <span class="hljs-string">&#x27;[name].js&#x27;</span><br>    &#125;,<br>    devtool: <span class="hljs-string">&#x27;inline-source-map&#x27;</span>,<br>    mode: <span class="hljs-string">&#x27;development&#x27;</span>,<br>    <span class="hljs-built_in">module</span>: &#123;<br>        rules: [<br>        ]<br>    &#125;,<br>    resolve: &#123;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>此时webpack只能将src&#x2F;index.ts文件直接输出为index.js，我们需要添加typescript的loader，进行typescript的转换。</p>
+<p>将以下代码加入rules节:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs gradle">&#123;<br>    test: <span class="hljs-regexp">/\.ts?$/</span>,<br>    loader: <span class="hljs-string">&#x27;ts-loader&#x27;</span>,<br>    <span class="hljs-keyword">exclude</span>: <span class="hljs-regexp">/node_modules/</span>,<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<p>通过ts-loader进行ts文件的转换，我们还需要创建typescript的一个配置文件。</p>
+<h2 id="添加typescript支持"><a href="#添加typescript支持" class="headerlink" title="添加typescript支持"></a>添加typescript支持</h2><p>创建tsconfig.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;compilerOptions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;outDir&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;./dist/&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;sourceMap&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;strict&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;module&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;commonjs&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;moduleResolution&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;node&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;target&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;es5&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;skipLibCheck&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;esModuleInterop&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;experimentalDecorators&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;include&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-string">&quot;./src/**/*&quot;</span><br>    <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>还需要在webpack的配置中添加ts文件，在resolve节中添加:</p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs prolog">extensions: [ <span class="hljs-string">&#x27;.ts&#x27;</span>, <span class="hljs-string">&#x27;.js&#x27;</span> ],<br></code></pre></td></tr></table></figure>
+
+<p>我们指定ts转换出的js代码是es5的。</p>
+<p>这个时候我们运行webpack，将会看到正常的转换输出。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Hash</span>: c3a0ae2c47032de12eec<br><span class="hljs-attribute">Version</span>: webpack <span class="hljs-number">4</span>.<span class="hljs-number">41</span>.<span class="hljs-number">0</span><br><span class="hljs-attribute">Time</span>: <span class="hljs-number">1880</span>ms<br><span class="hljs-attribute">Built</span> at: <span class="hljs-number">10</span>/<span class="hljs-number">22</span>/<span class="hljs-number">2019</span> <span class="hljs-number">3</span>:<span class="hljs-number">40</span>:<span class="hljs-number">59</span> PM<br>   <span class="hljs-attribute">Asset</span>      Size  Chunks             Chunk Names<br><span class="hljs-attribute">index</span>.js  <span class="hljs-number">11</span>.<span class="hljs-number">8</span> KiB   index <span class="hljs-meta"> [emitted]  index</span><br><span class="hljs-meta">Entrypoint index = index.js</span><br><span class="hljs-meta">[./src/index.ts] 269 bytes &#123;index&#125; [built]</span><br></code></pre></td></tr></table></figure>
+
+<p>入口文件就是index.ts了，之后我们就正常的在index.ts中写我们的代码，webpack就会查找所有的依赖，并打包输出到index.js中。</p>
+<h2 id="添加Vue单文件的支持"><a href="#添加Vue单文件的支持" class="headerlink" title="添加Vue单文件的支持"></a>添加Vue单文件的支持</h2><p>Vue单文件组件(SFC)规范是指在一个文件中，提供html、css和script代码，三者包含在顶级语言块 <code>&lt;template&gt;</code>、<code>&lt;script&gt;</code> 和 <code>&lt;style&gt;</code><br> 中，还允许添加可选的自定义块。</p>
+<p>这是一个简单的vue单文件例子:</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="language-xml">  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">msg</span> &#125;&#125;</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span></span><br><span class="language-javascript"><span class="language-xml">  data () &#123;</span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-keyword">return</span> &#123;</span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-attr">msg</span>: <span class="hljs-string">&#x27;Hello world!&#x27;</span></span></span><br><span class="language-javascript"><span class="language-xml">    &#125;</span></span><br><span class="language-javascript"><span class="language-xml">  &#125;</span></span><br><span class="language-javascript"><span class="language-xml">&#125;</span></span><br><span class="language-javascript"><span class="language-xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="language-css"><span class="language-xml"><span class="hljs-selector-class">.example</span> &#123;</span></span><br><span class="language-css"><span class="language-xml">  <span class="hljs-attribute">color</span>: red;</span></span><br><span class="language-css"><span class="language-xml">&#125;</span></span><br><span class="language-css"><span class="language-xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">custom1</span>&gt;</span></span><br><span class="language-xml">  This could be e.g. documentation for the component.</span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">custom1</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>我们通过vue-loader来解析该文件，提取每一个语言块，如有需要，会传递给其他loader进行处理，最后组装为一个ES Module。</p>
+<p>我们在webpack的rules节中添加vue-loader:</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">&#123;<br>  test: /\.vue$/,<br>  loader: <span class="hljs-string">&#x27;vue-loader&#x27;</span>,<br>  <span class="hljs-keyword">options</span>: &#123;<br>    loaders: &#123;<br>      // Since sass-loader (weirdly) has SCSS <span class="hljs-keyword">as</span> its <span class="hljs-keyword">default</span> parse mode, we map<br>      // the &quot;scss&quot; <span class="hljs-keyword">and</span> &quot;sass&quot; <span class="hljs-keyword">values</span> <span class="hljs-keyword">for</span> the lang <span class="hljs-keyword">attribute</span> <span class="hljs-keyword">to</span> the right configs here.<br>      // other preprocessors should <span class="hljs-keyword">work</span> <span class="hljs-keyword">out</span> <span class="hljs-keyword">of</span> the <span class="hljs-type">box</span>, <span class="hljs-keyword">no</span> loader config <span class="hljs-keyword">like</span> this necessary.<br>      <span class="hljs-string">&#x27;scss&#x27;</span>: <span class="hljs-string">&#x27;vue-style-loader!css-loader!sass-loader&#x27;</span>,<br>      <span class="hljs-string">&#x27;sass&#x27;</span>: <span class="hljs-string">&#x27;vue-style-loader!css-loader!sass-loader?indentedSyntax&#x27;</span>,<br>    &#125;<br>    // other vue-loader <span class="hljs-keyword">options</span> go here<br>  &#125;<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<h2 id="如果vue是typescript代码？"><a href="#如果vue是typescript代码？" class="headerlink" title="如果vue是typescript代码？"></a>如果vue是typescript代码？</h2><p>其实这很简单，ts-loader有一个appendTsSuffixTo的功能，可以给某个文件增加.ts的后缀，从而识别这个文件为ts文件。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs gradle">&#123;<br>  test: <span class="hljs-regexp">/\.tsx?$/</span>,<br>  loader: <span class="hljs-string">&#x27;ts-loader&#x27;</span>,<br>  <span class="hljs-keyword">exclude</span>: <span class="hljs-regexp">/node_modules/</span>,<br>  <span class="hljs-keyword">options</span>: &#123;<br>    appendTsSuffixTo: [<span class="hljs-regexp">/\.vue$/</span>],<br>  &#125;<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<p>我们还需要在项目中添加一个vue-shim.d.ts来让ts正确的识别vue。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;*.vue&#x27;</span> &#123;<br>  <span class="hljs-keyword">import</span> <span class="hljs-title class_">Vue</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br>  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Vue</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>还需要在webpack的resolve节追加vue的后缀:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">resolve: &#123;<br>  extensions: [ <span class="hljs-string">&#x27;.tsx&#x27;</span>, <span class="hljs-string">&#x27;.ts&#x27;</span>, <span class="hljs-string">&#x27;.js&#x27;</span> , <span class="hljs-string">&#x27;.vue&#x27;</span>],<br>  <span class="hljs-built_in">alias</span>: &#123;<br>    <span class="hljs-string">&#x27;vue&#x27;</span>: <span class="hljs-string">&#x27;vue/dist/vue.js&#x27;</span><br>  &#125;<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<p>vue-loader现在需要手动处理一下插件，在webpack.config.js的头部导入vue-loader，并在plugins节创建对象。</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs lasso">const &#123; VueLoaderPlugin &#125; = <span class="hljs-keyword">require</span>(<span class="hljs-string">&#x27;vue-loader&#x27;</span>)<br><br><span class="hljs-params">...</span><span class="hljs-params">...</span>.<br><br>plugins: <span class="hljs-meta">[</span><br>  <span class="hljs-literal">new</span> VueLoaderPlugin()<br><span class="hljs-meta">]</span>,<br></code></pre></td></tr></table></figure>
+
+<p>否则将不能正确工作。</p>
+<p>此时已经完成了webpack+vue+typescript的全部工作。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs gradle">Hash: <span class="hljs-number">320</span>d4ed3f55f52872694<br>Version: webpack <span class="hljs-number">4.41</span>.<span class="hljs-number">0</span><br>Time: <span class="hljs-number">2494</span>ms<br>Built at: <span class="hljs-number">10</span><span class="hljs-regexp">/22/</span><span class="hljs-number">2019</span> <span class="hljs-number">4</span>:<span class="hljs-number">00</span>:<span class="hljs-number">50</span> PM<br>      Asset       <span class="hljs-keyword">Size</span>    Chunks             Chunk Names<br>  bundle.js   <span class="hljs-number">1.12</span> MiB    bundle  [emitted]  bundle<br>electron.js   <span class="hljs-number">12.2</span> KiB  electron  [emitted]  electron<br> index.html  <span class="hljs-number">194</span> bytes            [emitted]<br>Entrypoint bundle = bundle.js<br>Entrypoint electron = electron.js<br>[.<span class="hljs-regexp">/node_modules/</span>css-loader<span class="hljs-regexp">/dist/</span>cjs.js!.<span class="hljs-regexp">/node_modules/</span>vue-loader<span class="hljs-regexp">/lib/</span>loaders<span class="hljs-regexp">/stylePostLoader.js!./</span>node_modules<span class="hljs-regexp">/sass-loader/</span>dist<span class="hljs-regexp">/cjs.js!./</span>node_modules<span class="hljs-regexp">/vue-loader/</span>lib<span class="hljs-regexp">/index.js?!./</span>src<span class="hljs-regexp">/app.vue?vue&amp;type=style&amp;index=0&amp;id=5ef48958&amp;rel=stylesheet%2Fscss&amp;lang=scss&amp;scoped=true&amp;] ./</span>node_modules<span class="hljs-regexp">/css-loader/</span>dist<span class="hljs-regexp">/cjs.js!./</span>node_modules<span class="hljs-regexp">/vue-loader/</span>lib<span class="hljs-regexp">/loaders/</span>stylePostLoader.js!.<span class="hljs-regexp">/node_modules/</span>sass-loader<span class="hljs-regexp">/dist/</span>cjs.js!.<span class="hljs-regexp">/node_modules/</span>vue-loader<span class="hljs-regexp">/lib??vue-loader-options!./</span>src/app.vue?vue&amp;type=style&amp;index=<span class="hljs-number">0</span>&amp;id=<span class="hljs-number">5</span>ef48958&amp;rel=stylesheet%<span class="hljs-number">2</span>Fscss&amp;lang=scss&amp;scoped=<span class="hljs-keyword">true</span>&amp; <span class="hljs-number">542</span> bytes &#123;bundle&#125; [built]<br>[.<span class="hljs-regexp">/node_modules/</span>ts-loader<span class="hljs-regexp">/index.js?!./</span>node_modules<span class="hljs-regexp">/vue-loader/</span>lib<span class="hljs-regexp">/index.js?!./</span>src<span class="hljs-regexp">/Components/</span>About.vue?vue&amp;type=script&amp;lang=ts&amp;] .<span class="hljs-regexp">/node_modules/</span>ts-loader??ref--<span class="hljs-number">1</span>!.<span class="hljs-regexp">/node_modules/</span>vue-loader<span class="hljs-regexp">/lib??vue-loader-options!./</span>src<span class="hljs-regexp">/Components/</span>About.vue?vue&amp;type=script&amp;lang=ts&amp; <span class="hljs-number">305</span> bytes &#123;bundle&#125; [built]<br>[.<span class="hljs-regexp">/node_modules/</span>vue-loader<span class="hljs-regexp">/lib/</span>loaders<span class="hljs-regexp">/templateLoader.js?!./</span>node_modules<span class="hljs-regexp">/vue-loader/</span>lib<span class="hljs-regexp">/index.js?!./</span>src<span class="hljs-regexp">/Components/</span>About.vue?vue&amp;type=template&amp;id=aa9c95a6&amp;] .<span class="hljs-regexp">/node_modules/</span>vue-loader<span class="hljs-regexp">/lib/</span>loaders<span class="hljs-regexp">/templateLoader.js??vue-loader-options!./</span>node_modules<span class="hljs-regexp">/vue-loader/</span>lib??vue-loader-<span class="hljs-keyword">options</span>!.<span class="hljs-regexp">/src/</span>Components/About.vue?vue&amp;type=template&amp;id=aa9c95a6&amp; <span class="hljs-number">235</span> bytes &#123;bundle&#125; [built]<br>[.<span class="hljs-regexp">/node_modules/</span>vue-loader<span class="hljs-regexp">/lib/</span>loaders<span class="hljs-regexp">/templateLoader.js?!./</span>node_modules<span class="hljs-regexp">/vue-loader/</span>lib<span class="hljs-regexp">/index.js?!./</span>src<span class="hljs-regexp">/app.vue?vue&amp;type=template&amp;id=5ef48958&amp;scoped=true&amp;] ./</span>node_modules<span class="hljs-regexp">/vue-loader/</span>lib<span class="hljs-regexp">/loaders/</span>templateLoader.js??vue-loader-<span class="hljs-keyword">options</span>!.<span class="hljs-regexp">/node_modules/</span>vue-loader<span class="hljs-regexp">/lib??vue-loader-options!./</span>src/app.vue?vue&amp;type=template&amp;id=<span class="hljs-number">5</span>ef48958&amp;scoped=<span class="hljs-keyword">true</span>&amp; <span class="hljs-number">589</span> bytes &#123;bundle&#125; [built]<br>[.<span class="hljs-regexp">/node_modules/</span>vue-style-loader<span class="hljs-regexp">/index.js!./</span>node_modules<span class="hljs-regexp">/css-loader/</span>dist<span class="hljs-regexp">/cjs.js!./</span>node_modules<span class="hljs-regexp">/vue-loader/</span>lib<span class="hljs-regexp">/loaders/</span>stylePostLoader.js!.<span class="hljs-regexp">/node_modules/</span>sass-loader<span class="hljs-regexp">/dist/</span>cjs.js!.<span class="hljs-regexp">/node_modules/</span>vue-loader<span class="hljs-regexp">/lib/i</span>ndex.js?!.<span class="hljs-regexp">/src/</span>app.vue?vue&amp;type=style&amp;index=<span class="hljs-number">0</span>&amp;id=<span class="hljs-number">5</span>ef48958&amp;rel=stylesheet%<span class="hljs-number">2</span>Fscss&amp;lang=scss&amp;scoped=<span class="hljs-keyword">true</span>&amp;] .<span class="hljs-regexp">/node_modules/</span>vue-style-loader!.<span class="hljs-regexp">/node_modules/</span>css-loader<span class="hljs-regexp">/dist/</span>cjs.js!.<span class="hljs-regexp">/node_modules/</span>vue-loader<span class="hljs-regexp">/lib/</span>loaders<span class="hljs-regexp">/stylePostLoader.js!./</span>node_modules<span class="hljs-regexp">/sass-loader/</span>dist<span class="hljs-regexp">/cjs.js!./</span>node_modules<span class="hljs-regexp">/vue-loader/</span>lib??vue-loader-<span class="hljs-keyword">options</span>!.<span class="hljs-regexp">/src/</span>app.vue?vue&amp;type=style&amp;index=<span class="hljs-number">0</span>&amp;id=<span class="hljs-number">5</span>ef48958&amp;rel=stylesheet%<span class="hljs-number">2</span>Fscss&amp;lang=scss&amp;scoped=<span class="hljs-keyword">true</span>&amp; <span class="hljs-number">1.64</span> KiB &#123;bundle&#125; [built]<br>[.<span class="hljs-regexp">/src/</span>Components/About.vue] <span class="hljs-number">1.06</span> KiB &#123;bundle&#125; [built]<br>[.<span class="hljs-regexp">/src/</span>Components/About.vue?vue&amp;type=script&amp;lang=ts&amp;] <span class="hljs-number">350</span> bytes &#123;bundle&#125; [built]<br>[.<span class="hljs-regexp">/src/</span>Components/About.vue?vue&amp;type=template&amp;id=aa9c95a6&amp;] <span class="hljs-number">203</span> bytes &#123;bundle&#125; [built]<br>[.<span class="hljs-regexp">/src/</span>app.vue] <span class="hljs-number">1.08</span> KiB &#123;bundle&#125; [built]<br>[.<span class="hljs-regexp">/src/</span>app.vue?vue&amp;type=style&amp;index=<span class="hljs-number">0</span>&amp;id=<span class="hljs-number">5</span>ef48958&amp;rel=stylesheet%<span class="hljs-number">2</span>Fscss&amp;lang=scss&amp;scoped=<span class="hljs-keyword">true</span>&amp;] <span class="hljs-number">716</span> bytes &#123;bundle&#125; [built]<br>[.<span class="hljs-regexp">/src/</span>app.vue?vue&amp;type=template&amp;id=<span class="hljs-number">5</span>ef48958&amp;scoped=<span class="hljs-keyword">true</span>&amp;] <span class="hljs-number">207</span> bytes &#123;bundle&#125; [built]<br>[.<span class="hljs-regexp">/src/</span>entry.ts] <span class="hljs-number">538</span> bytes &#123;bundle&#125; [built]<br>[.<span class="hljs-regexp">/src/m</span>ain.ts] <span class="hljs-number">1.11</span> KiB &#123;electron&#125; [built]<br>[.<span class="hljs-regexp">/src/</span>route.ts] <span class="hljs-number">1.35</span> KiB &#123;bundle&#125; [built]<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Vue/">#Vue</a>
+      
+        <a href="/tags/Webpack/">#Webpack</a>
+      
+        <a href="/tags/TypeScript/">#TypeScript</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>使用webpack打包Vue和TypeScript</div>
+      <div>https://blog.justforlxz.com/2019/10/22/使用webpack打包Vue和TypeScript/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>小竹</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2019年10月22日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/10/24/%E7%BB%99Archlinux%E5%BC%80%E5%90%AFBFQ%E5%92%8CMuQSS/" title="给Archlinux开启BFQ和MuQSS">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">给Archlinux开启BFQ和MuQSS</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/10/14/webpack%E5%85%A5%E9%97%A8/" title="webpack入门">
+                        <span class="hidden-mobile">webpack入门</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"jwJxh95ly6NdjTRluyKYXm6G-gzGzoHsz","appKey":"lagqr7doy2slbm7oAMGoogpg","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      豫ICP备19045379号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

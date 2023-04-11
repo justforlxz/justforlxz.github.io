@@ -1,0 +1,757 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="小竹">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="作为一个爱折腾的同学，折腾几个编辑器不过分吧。 我折腾编辑器的历史还算跟得上潮流，最开始用 sublime，后来 atom 出来了，吊打 sublime，我就去用 atom了。再后来宇宙第一编辑器 vscode 出来了，吊打了(我认为)所有的编辑器，我就又去用 vscode。 (怎么感觉我一直在追新?喵?) 工作以后，坐我左边的是一个 emacs 用户，右边是一个 vim 用户，然后他俩偶尔会拉我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim简单配置">
+<meta property="og:url" content="https://blog.justforlxz.com/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="作为一个爱折腾的同学，折腾几个编辑器不过分吧。 我折腾编辑器的历史还算跟得上潮流，最开始用 sublime，后来 atom 出来了，吊打 sublime，我就去用 atom了。再后来宇宙第一编辑器 vscode 出来了，吊打了(我认为)所有的编辑器，我就又去用 vscode。 (怎么感觉我一直在追新?喵?) 工作以后，坐我左边的是一个 emacs 用户，右边是一个 vim 用户，然后他俩偶尔会拉我">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.justforlxz.com/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/ts.png">
+<meta property="og:image" content="https://blog.justforlxz.com/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/ts-lsp.png">
+<meta property="og:image" content="https://blog.justforlxz.com/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/cpp.png">
+<meta property="og:image" content="https://blog.justforlxz.com/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/cpp-lsp.png">
+<meta property="article:published_time" content="2022-03-22T12:36:51.000Z">
+<meta property="article:modified_time" content="2023-02-01T06:35:51.281Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="vim">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://blog.justforlxz.com/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/ts.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>vim简单配置 - 小竹&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.google-analytics.com/analytics.js', function() {
+          window.ga = window.ga || function() { (ga.q = ga.q || []).push(arguments) };
+          ga.l = +new Date;
+          ga('create', 'UA-129024325-1', 'auto');
+          ga('send', 'pageview');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>小竹&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="vim简单配置"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-03-22 20:36" pubdate>
+          2022年3月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          6.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          53 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">vim简单配置</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>作为一个爱折腾的同学，折腾几个编辑器不过分吧。</p>
+<p>我折腾编辑器的历史还算跟得上潮流，最开始用 sublime，后来 atom 出来了，吊打 sublime，我就去用 atom了。<br>再后来宇宙第一编辑器 vscode 出来了，吊打了(我认为)所有的编辑器，我就又去用 vscode。 <del>(怎么感觉我一直在追新?喵?)</del></p>
+<p>工作以后，坐我左边的是一个 emacs 用户，右边是一个 vim 用户，然后他俩偶尔会拉我看他们搞的新插件，或者是他们互相在自己的编辑器上实现了对方的插件的功能。<br>说实话我也不是没用过 vim 或者 emacs，但是最大的问题其实是，对我来说学习成本非常大，遇到一点小问题，我就会不由自主的回想起 vscode 的好，然后就不想折腾了。<br>这对我其实是不好的，毕竟我是一个爱折腾的人。</p>
+<p>所以我又一次折腾起了 emacs，每一次折腾都会让我学习到新的内容，从最开始的懵逼，到现在已经会简单的用 lisp 写一些插件。每一次都有提升，不过就是无用功比较多。</p>
+<p>但是本篇先不折腾 emacs，这次我想先写一下我学习到的 vim 的配置。</p>
+<h2 id="neovim"><a href="#neovim" class="headerlink" title="neovim"></a>neovim</h2><p>vim 阵营其实可以简单的分为 vim 和 neovim，为什么会有两个阵营呢？简单来说就是 neovim 的作者受不了 vim 的作者，所以 fork 出来增加自己的功能，结果从原版那里拉来了很多的用户，<br>vim 作者一看阵势不对，赶紧又反向增加功能，现在两者的区别已经不是很大了。</p>
+<p>使用 neovim 作为我的主 vim 编辑器是因为它支持 lua 脚本作为配置文件，lua 脚本比较好上手一些。</p>
+<h2 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h2><p>neovim 的配置文件在 <code>~/.config/nvim/</code>。</p>
+<p>入口文件是 <code>init.vim</code>，里面写的内容很简单，就是加载 lua 脚本。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-string">&quot; 基础设置</span><br><span class="hljs-string">lua require(&#x27;basic&#x27;)</span><br></code></pre></td></tr></table></figure>
+
+<p>需要注意的是，lua 脚本必须都放在 init.vim 同级的 lua 目录里。</p>
+<p>我使用 packer 作为 vim 的插件管理系统，vim 有很多插件系统，我选择它没有啥理由，就是随手用了一个。</p>
+<p>安装 picker 需要手动下载，但是这样可能会在更换环境的时候忘记，所以我写在了脚本里，检测并自动下载。</p>
+<p>在 <code>~/.config/nvim/lua/basic.lua</code> 里就可以写 lua 脚本去执行更复杂的指令，比如加载插件。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- utf8</span><br><span class="hljs-comment">-- 高亮所在行</span><br>vim.wo.cursorline = <span class="hljs-literal">true</span><br><span class="hljs-comment">-- 右侧参考线，超过表示代码太长了，考虑换行</span><br>vim.wo.colorcolumn = <span class="hljs-string">&quot;80&quot;</span><br><span class="hljs-comment">-- 缩进2个空格等于一个Tab</span><br>vim.o.tabstop = <span class="hljs-number">2</span><br><br><span class="hljs-keyword">local</span> fn = vim.fn<br><span class="hljs-comment">-- 下载 packer</span><br><span class="hljs-keyword">local</span> install_path = fn.stdpath(<span class="hljs-string">&#x27;data&#x27;</span>)..<span class="hljs-string">&#x27;/site/pack/packer/start/packer.nvim&#x27;</span><br><span class="hljs-keyword">local</span> is_startup = <span class="hljs-literal">false</span><br><span class="hljs-keyword">if</span> fn.empty(fn.glob(install_path)) &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">then</span><br>  fn.system(&#123;<span class="hljs-string">&#x27;git&#x27;</span>, <span class="hljs-string">&#x27;clone&#x27;</span>, <span class="hljs-string">&#x27;--depth&#x27;</span>, <span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;https://github.com/wbthomason/packer.nvim&#x27;</span>, install_path&#125;)<br>  vim.cmd<span class="hljs-string">[[packadd packer.nvim]]</span><br>  is_startup = <span class="hljs-literal">true</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">-- 初始化 packer</span><br><span class="hljs-keyword">return</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;packer&#x27;</span>).startup(<br>  <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span><br>    <span class="hljs-keyword">local</span> use = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;packer&#x27;</span>).use<br>    <span class="hljs-keyword">local</span> home = <span class="hljs-built_in">os</span>.<span class="hljs-built_in">getenv</span>(<span class="hljs-string">&quot;HOME&quot;</span>)<br>    <span class="hljs-comment">-- 使用 ~/.config/nvim/lua/plugins-d 作为插件的目录</span><br>    <span class="hljs-keyword">local</span> plugins = <span class="hljs-built_in">io</span>.<span class="hljs-built_in">popen</span>(<span class="hljs-string">&#x27;find &quot;&#x27;</span>.. home .. <span class="hljs-string">&#x27;/.config/nvim/lua/plugins-d/&#x27;</span>..<span class="hljs-string">&#x27;&quot; -type f&#x27;</span>)<br>    <span class="hljs-keyword">for</span> plugin <span class="hljs-keyword">in</span> plugins:<span class="hljs-built_in">lines</span>() <span class="hljs-keyword">do</span><br>      <span class="hljs-comment">-- 插件的标准文件名是这种形式 _lsp.lua</span><br>      <span class="hljs-keyword">local</span> part1, part2 = <span class="hljs-built_in">string</span>.<span class="hljs-built_in">match</span>(plugin,home .. <span class="hljs-string">&quot;/[.]config/nvim/lua/(.*)_(.*)[.]lua&quot;</span>)<br>      <span class="hljs-keyword">if</span> part1 ~= <span class="hljs-literal">nil</span> <span class="hljs-keyword">and</span> part2 ~= <span class="hljs-literal">nil</span> <span class="hljs-keyword">then</span><br>        plugin = part1 .. <span class="hljs-string">&#x27;_&#x27;</span> .. part2<br>      <span class="hljs-keyword">else</span><br>        plugin = <span class="hljs-string">&#x27;&#x27;</span><br>      <span class="hljs-keyword">end</span><br>      <span class="hljs-keyword">if</span> plugin ~= <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">then</span><br>        use(<span class="hljs-built_in">require</span>(plugin))<br>      <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">if</span> is_startup <span class="hljs-keyword">then</span><br>      <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;packer&#x27;</span>).sync()<br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br>)<br></code></pre></td></tr></table></figure>
+
+<p>新建一个 plugins-d 目录，就可以写插件了，使用 vim 作为开发工具，第一件事肯定是先配置好语言服务器。</p>
+<p>新建 <code>~/.config/nvim/lua/plugins-d/_lsp.lua</code></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- https://github.com/neovim/nvim-lspconfig</span><br><br><span class="hljs-comment">-- Description:</span><br><span class="hljs-comment">-- lsp configs for neovim builtin lsp</span><br><br>Capabilities = vim.lsp.protocol.make_client_capabilities()<br><br><span class="hljs-comment">-- Use an on_attach function to only map the following keys</span><br><span class="hljs-comment">-- after the language server attaches to the current buffer</span><br>On_Attach_hooks = &#123;&#125;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">On_Attach</span> <span class="hljs-params">(client, bufnr)</span></span><br>  <span class="hljs-keyword">local</span> wk = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;which-key&quot;</span>)<br>  <span class="hljs-keyword">local</span> key_opts = &#123;<br>    <span class="hljs-comment">-- mode   Help        Affected                              Equivalent</span><br>    <span class="hljs-comment">-- &#x27;&#x27;     mapmode-nvo Normal/Visual/Select/Operator-pending :map</span><br>    <span class="hljs-comment">-- &#x27;n&#x27;    mapmode-n	  Normal                                :nmap</span><br>    <span class="hljs-comment">-- &#x27;v&#x27;    mapmode-v   Visual/Select                         :vmap</span><br>    <span class="hljs-comment">-- &#x27;s&#x27;    mapmode-s	  Select                                :smap</span><br>    <span class="hljs-comment">-- &#x27;x&#x27;    mapmode-x	  Visual                                :xmap</span><br>    <span class="hljs-comment">-- &#x27;o&#x27;    mapmode-o   Operator-pending                      :omap</span><br>    <span class="hljs-comment">-- &#x27;!&#x27;    mapmode-ic  Insert/Command-line                   :map!</span><br>    <span class="hljs-comment">-- &#x27;i&#x27;    mapmode-i   Insert                                :imap</span><br>    <span class="hljs-comment">-- &#x27;l&#x27;    mapmode-l   Insert/Command-line/Lang-Arg          :lmap</span><br>    <span class="hljs-comment">-- &#x27;c&#x27;    mapmode-c   Command-line                          :cmap</span><br>    <span class="hljs-comment">-- &#x27;t&#x27;    mapmode-t   Terminal                              :tmap</span><br>    mode    = <span class="hljs-string">&quot;n&quot;</span>,<br>    buffer  = <span class="hljs-number">0</span>, <span class="hljs-comment">-- local mappings</span><br>    silent  = <span class="hljs-literal">true</span>, <span class="hljs-comment">-- use `silent ` when creating keymaps</span><br>    noremap = <span class="hljs-literal">true</span>, <span class="hljs-comment">-- use `noremap` when creating keymaps</span><br>  &#125;<br><br>  wk.register(<br>    &#123;<br>      [<span class="hljs-string">&quot;K&quot;</span>] = &#123;<br>        <span class="hljs-string">&quot;&lt;cmd&gt;lua vim.lsp.buf.hover()&lt;CR&gt;&quot;</span>,<br>        <span class="hljs-string">&quot;LSP:: hover&quot;</span> &#125;,<br>      [<span class="hljs-string">&quot;&lt;C-k&gt;&quot;</span>] = &#123;<br>        <span class="hljs-string">&quot;&lt;cmd&gt;lua vim.lsp.buf.signature_help()&lt;CR&gt;&quot;</span>,<br>        <span class="hljs-string">&quot;LSP:: signature help&quot;</span> &#125;,<br>      [<span class="hljs-string">&quot;&lt;space&gt;rn&quot;</span>] = &#123;<br>        <span class="hljs-string">&quot;&lt;cmd&gt;lua vim.lsp.buf.rename()&lt;CR&gt;&quot;</span>,<br>        <span class="hljs-string">&quot;LSP:: rename&quot;</span> &#125;,<br>      [<span class="hljs-string">&quot;&lt;space&gt;f&quot;</span>] = &#123;<br>        <span class="hljs-string">&quot;&lt;cmd&gt;lua vim.lsp.buf.formatting()&lt;CR&gt;&quot;</span>,<br>        <span class="hljs-string">&quot;LSP:: format&quot;</span> &#125;,<br>      [<span class="hljs-string">&quot;&lt;space&gt;E&quot;</span>] = &#123;<br>        <span class="hljs-string">&quot;&lt;cmd&gt;lua vim.diagnostic.open_float()&lt;CR&gt;&quot;</span>,<br>        <span class="hljs-string">&quot;LSP:: float diagnostic&quot;</span> &#125;,<br>    &#125;,<br>    key_opts<br>  )<br><br>  key_opts = &#123;<br>    mode    = <span class="hljs-string">&quot;n&quot;</span>,<br>    buffer  = <span class="hljs-number">0</span>, <span class="hljs-comment">-- local mappings</span><br>    silent  = <span class="hljs-literal">true</span>, <span class="hljs-comment">-- use `silent ` when creating keymaps</span><br>    noremap = <span class="hljs-literal">false</span>, <span class="hljs-comment">-- not use `noremap` when creating keymaps</span><br>  &#125;<br><br>  wk.register(<br>    &#123;<br>      [<span class="hljs-string">&quot;gd&quot;</span>] = &#123;<br>        <span class="hljs-string">&quot;&lt;cmd&gt;lua vim.lsp.buf.definition()&lt;cr&gt;&quot;</span>,<br>        <span class="hljs-string">&quot;LSP:: definition&quot;</span> &#125;,<br>      [<span class="hljs-string">&quot;gr&quot;</span>] = &#123;<br>        <span class="hljs-string">&quot;&lt;cmd&gt;lua vim.lsp.buf.references()&lt;cr&gt;&quot;</span>,<br>        <span class="hljs-string">&quot;LSP:: reference&quot;</span> &#125;,<br>      [<span class="hljs-string">&quot;gi&quot;</span>] = &#123;<br>        <span class="hljs-string">&quot;&lt;cmd&gt;lua vim.lsp.buf.implementation()&lt;cr&gt;&quot;</span>,<br>        <span class="hljs-string">&quot;LSP:: implementation&quot;</span> &#125;,<br>      [<span class="hljs-string">&quot;gy&quot;</span>] = &#123;<br>        <span class="hljs-string">&quot;&lt;cmd&gt;lua vim.lsp.buf.type_definition()&lt;cr&gt;&quot;</span>,<br>        <span class="hljs-string">&quot;LSP:: type definition&quot;</span> &#125;,<br>    &#125;,<br>    key_opts<br>  )<br><br>  <span class="hljs-keyword">for</span> _, hook <span class="hljs-keyword">in</span> <span class="hljs-built_in">ipairs</span>(On_Attach_hooks) <span class="hljs-keyword">do</span><br>    <span class="hljs-keyword">if</span> hook ~= <span class="hljs-literal">nil</span> <span class="hljs-keyword">then</span><br>      hook(client, bufnr)<br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-keyword">local</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">config</span><span class="hljs-params">()</span></span><br>  <span class="hljs-keyword">local</span> nvim_lsp = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;lspconfig&#x27;</span>)<br><br>  <span class="hljs-comment">-- Use a loop to conveniently call &#x27;setup&#x27; on multiple servers and</span><br>  <span class="hljs-comment">-- map buffer local keybindings when the language server attaches</span><br>  <span class="hljs-keyword">local</span> servers =&#123;<br>    <span class="hljs-string">&#x27;ccls&#x27;</span>,<br>  &#125;<br><br>  <span class="hljs-keyword">for</span> _, lsp <span class="hljs-keyword">in</span> <span class="hljs-built_in">ipairs</span>(servers) <span class="hljs-keyword">do</span><br>    <span class="hljs-keyword">local</span> default = &#123;<br>      flags = &#123;<br>        debounce_text_changes = <span class="hljs-number">150</span>,<br>      &#125;,<br>      on_attach = On_Attach,<br>      capabilities = Capabilities<br>    &#125;<br><br>    <span class="hljs-keyword">local</span> cfg = vim.tbl_deep_extend(<span class="hljs-string">&#x27;force&#x27;</span>, default, <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;lsp-d/&#x27;</span>..lsp..<span class="hljs-string">&#x27;_&#x27;</span>))<br>    nvim_lsp[lsp].setup(cfg)<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-keyword">return</span> &#123;<br>  <span class="hljs-string">&#x27;neovim/nvim-lspconfig&#x27;</span>,<br>  <span class="hljs-built_in">config</span> = <span class="hljs-built_in">config</span>,<br>  after = &#123;<br>    <span class="hljs-string">&#x27;nvim-cmp&#x27;</span>,<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>不要看文件很长，其实大部分都是 nvim 的默认 lsp-config 配置，而且大部分配置一眼就能看得懂，最开始 On_Attach 函数是在处理快捷键相关的，即使不了解 vim 如何定义快捷键，也不影响看这个配置文件。</p>
+<p>在 config 函数中，有一个数组，包含了 ccls，这里的意思是去加载 ccls 语言服务器，nvim 给了一分列表，可以查找自己使用的<a target="_blank" rel="noopener" href="https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md">语言服务器</a>的名称。</p>
+<p>在 config 函数里，local cfg 这里是定义查找文件的，我这里是听从了 <a target="_blank" rel="noopener" href="https://github.com/black_desk">black_desk</a> 的建议，如果文件名是 _ 开头的，就屏蔽这个文件，可以快速进行调试。</p>
+<p>在 <code>~/.config/nvim/lua/lsp-d/ccls_.lua</code> 里写入配置内容，就可以启用 ccls 语言服务器了。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-keyword">local</span> home = <span class="hljs-built_in">os</span>.<span class="hljs-built_in">getenv</span>(<span class="hljs-string">&#x27;HOME&#x27;</span>)<br><span class="hljs-keyword">return</span> &#123;<br>  init_options = &#123;<br>    cache = &#123;<br>      directory = home .. <span class="hljs-string">&quot;/.ccls-cache&quot;</span>,<br>      retainInMemory = <span class="hljs-number">0</span>,<br>    &#125;,<br>    <span class="hljs-comment">-- highlight = &#123;</span><br>      <span class="hljs-comment">-- lsRanges = true,</span><br>    <span class="hljs-comment">-- &#125;</span><br>  &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>默认 nvim 是定义了很多值，并不是每一个语言服务器都需要定义，但是需要注意的是，即使没有使用配置文件，也需要创建相应的文件，并返回一个空对象。</p>
+<p>基本配置已经完成了，只差最后一步了，还记得一开始我说的使用了 packer 作为插件管理器了么，现在就需要编译一遍配置文件，让 packer 能加载我们的插件。</p>
+<p>执行命令 <code>nvim +PackerCompile</code>，然后退出 vim。如果改动了配置文件，都需要重新执行一次这样的命令，否则配置将不会生效。</p>
+<p>下面是我的使用截图。</p>
+<img src="/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/ts.png" srcset="/img/loading.gif" lazyload class="" title="ts">
+
+<img src="/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/ts-lsp.png" srcset="/img/loading.gif" lazyload class="" title="ts-lsp">
+
+<img src="/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/cpp.png" srcset="/img/loading.gif" lazyload class="" title="cpp">
+
+<img src="/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/cpp-lsp.png" srcset="/img/loading.gif" lazyload class="" title="cpp">
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/vim/">#vim</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>vim简单配置</div>
+      <div>https://blog.justforlxz.com/2022/03/22/vim简单配置/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>小竹</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年3月22日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/04/04/hello-metal-1/" title="hello-metal.1 看到了绿色">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">hello-metal.1 看到了绿色</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/16/css-mastering-margin-collapsing/" title="CSS 外边距折叠问题">
+                        <span class="hidden-mobile">CSS 外边距折叠问题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"jwJxh95ly6NdjTRluyKYXm6G-gzGzoHsz","appKey":"lagqr7doy2slbm7oAMGoogpg","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      豫ICP备19045379号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
