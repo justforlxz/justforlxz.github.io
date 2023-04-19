@@ -1,0 +1,782 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="小竹">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="I’ve been using Kitty for a couple of days. I use it because there is a plugin for nvim that can seamlessly switch focus with kitty, so I don’t need to repeat the settings, I like it very much. After">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kitty configuration for macOS">
+<meta property="og:url" content="https://blog.justforlxz.com/2023/04/17/Kitty-configuration-for-macOS/index.html">
+<meta property="og:site_name" content="小竹&#39;s blog">
+<meta property="og:description" content="I’ve been using Kitty for a couple of days. I use it because there is a plugin for nvim that can seamlessly switch focus with kitty, so I don’t need to repeat the settings, I like it very much. After">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.justforlxz.com/2023/04/17/Kitty-configuration-for-macOS/2023-04-17-17.52.14.png">
+<meta property="og:image" content="https://blog.justforlxz.com/2023/04/17/Kitty-configuration-for-macOS/2023-04-17-17.59.50.png">
+<meta property="og:image" content="https://blog.justforlxz.com/2023/04/17/Kitty-configuration-for-macOS/2023-04-17-17.57.06.png">
+<meta property="og:image" content="https://blog.justforlxz.com/2023/04/17/Kitty-configuration-for-macOS/nvim-integration.gif">
+<meta property="article:published_time" content="2023-04-17T08:39:51.000Z">
+<meta property="article:modified_time" content="2023-04-19T06:02:16.616Z">
+<meta property="article:author" content="小竹">
+<meta property="article:tag" content="Kitty">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://blog.justforlxz.com/2023/04/17/Kitty-configuration-for-macOS/2023-04-17-17.52.14.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Kitty configuration for macOS - 小竹&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.google-analytics.com/analytics.js', function() {
+          window.ga = window.ga || function() { (ga.q = ga.q || []).push(arguments) };
+          ga.l = +new Date;
+          ga('create', 'UA-129024325-1', 'auto');
+          ga('send', 'pageview');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>小竹&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Kitty configuration for macOS"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-17 16:39" pubdate>
+          2023年4月17日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          5.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          44 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Kitty configuration for macOS</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>I’ve been using Kitty for a couple of days. I use it because there is a plugin for nvim that can seamlessly switch focus with kitty, so I don’t need to repeat the settings, I like it very much.</p>
+<p>After a period of use. I have completed part of the configuration, and now I want to share it.</p>
+<p>I use different folders for related functions. Such as themes, tabs, windows, and shortcuts.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">lxz @ lxzMacBook-Pro <span class="hljs-keyword">in</span> ~/.dot/kitty/.config/kitty on git:master o [16:38:58]</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">tree</span><br>.<br>├── kitty.conf<br>├── kitty.d<br>│   ├── init<br>│   │   └── init.conf<br>│   ├── keybind<br>│   │   ├── init.conf<br>│   │   ├── nvim.conf<br>│   │   ├── tab.conf<br>│   │   └── window.conf<br>│   ├── session<br>│   │   └── init.conf<br>│   └── theme<br>│       ├── background.conf<br>│       ├── color.conf<br>│       ├── font.conf<br>│       ├── tabbar.conf<br>│       └── window.conf<br>└── session.conf<br><br>6 directories, 13 files<br></code></pre></td></tr></table></figure>
+
+<h2 id="Some-screenshot"><a href="#Some-screenshot" class="headerlink" title="Some screenshot"></a>Some screenshot</h2><h3 id="session-look-at-the-lower-left-corner"><a href="#session-look-at-the-lower-left-corner" class="headerlink" title="session (look at the lower left corner)"></a>session (look at the lower left corner)</h3><img src="/2023/04/17/Kitty-configuration-for-macOS/2023-04-17-17.52.14.png" srcset="/img/loading.gif" lazyload class="" title="2023-04-17-17.52.14.png">
+<img src="/2023/04/17/Kitty-configuration-for-macOS/2023-04-17-17.59.50.png" srcset="/img/loading.gif" lazyload class="" title="2023-04-17-17.59.50.png">
+
+<h3 id="multi-splits"><a href="#multi-splits" class="headerlink" title="multi splits"></a>multi splits</h3><img src="/2023/04/17/Kitty-configuration-for-macOS/2023-04-17-17.57.06.png" srcset="/img/loading.gif" lazyload class="" title="2023-04-17-17.57.06.png">
+
+<h2 id="Base-settings"><a href="#Base-settings" class="headerlink" title="Base settings"></a>Base settings</h2><p>In kitty.conf, I just set to load configuration files in other directories.</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">globinclude kitty.d/**/*.conf<br></code></pre></td></tr></table></figure>
+
+<p>I won’t show the configuration after splitting, just give a hint according to the function.</p>
+<h2 id="Init"><a href="#Init" class="headerlink" title="Init"></a>Init</h2><p>In init.conf, I set some default variables.</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">term xterm-256color<br>shell_integration enabled<br>allow_hyperlinks yes<br>editor nvim<br></code></pre></td></tr></table></figure>
+
+<h2 id="Theme-settings"><a href="#Theme-settings" class="headerlink" title="Theme settings"></a>Theme settings</h2><h3 id="Tabs-settings"><a href="#Tabs-settings" class="headerlink" title="Tabs settings"></a>Tabs settings</h3><p>In tabs settings, I like <code>powerline</code> style.</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">tab_bar_style powerline<br></code></pre></td></tr></table></figure>
+
+<h3 id="Windows-settings"><a href="#Windows-settings" class="headerlink" title="Windows settings"></a>Windows settings</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs text">window_border_width 0.5pt<br><br>window_resize_step_cells 2<br>window_resize_step_lines 2<br><br>initial_window_width  640<br>initial_window_height 400<br><br>draw_minimal_borders yes<br><br>inactive_text_alpha 0.7<br><br>hide_window_decorations no<br><br>macos_titlebar_color background<br>macos_thicken_font 0.75<br><br>active_border_color none<br><br># default layout is vertical splits only<br>enabled_layouts splits<br><br>enable_audio_bell no<br></code></pre></td></tr></table></figure>
+
+<h3 id="Fonts-settings"><a href="#Fonts-settings" class="headerlink" title="Fonts settings"></a>Fonts settings</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">font_family FiraCode Nerd Font Mono Retina<br>font_size 16.0<br></code></pre></td></tr></table></figure>
+
+<h3 id="Color-settings"><a href="#Color-settings" class="headerlink" title="Color settings"></a>Color settings</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs text"># Dark One Nuanced by ariasuni, https://store.kde.org/p/1225908<br># Imported from KDE .colorscheme format by thematdev, https://thematdev.org<br># For migrating your schemes from Konsole format see<br># https://git.thematdev.org/thematdev/konsole-scheme-migration<br><br><br># importing Background<br>background #282c34<br># importing BackgroundFaint<br># importing BackgroundIntense<br># importing Color0<br>color0 #3f4451<br># importing Color0Faint<br>color16 #282c34<br># importing Color0Intense<br>color8 #4f5666<br># importing Color1<br>color1 #e06c75<br># importing Color1Faint<br>color17 #c25d66<br># importing Color1Intense<br>color9 #ff7b86<br># importing Color2<br>color2 #98c379<br># importing Color2Faint<br>color18 #82a566<br># importing Color2Intense<br>color10 #b1e18b<br># importing Color3<br>color3 #d19a66<br># importing Color3Faint<br>color19 #b38257<br># importing Color3Intense<br>color11 #efb074<br># importing Color4<br>color4 #61afef<br># importing Color4Faint<br>color20 #5499d1<br># importing Color4Intense<br>color12 #67cdff<br># importing Color5<br>color5 #c678dd<br># importing Color5Faint<br>color21 #a966bd<br># importing Color5Intense<br>color13 #e48bff<br># importing Color6<br>color6 #56b6c2<br># importing Color6Faint<br>color22 #44919a<br># importing Color6Intense<br>color14 #63d4e0<br># importing Color7<br>color7 #e6e6e6<br># importing Color7Faint<br>color23 #c8c8c8<br># importing Color7Intense<br>color15 #ffffff<br># importing Foreground<br>foreground #abb2bf<br># importing ForegroundFaint<br># importing ForegroundIntense<br># importing General<br></code></pre></td></tr></table></figure>
+
+<h2 id="Shortcuts-settings"><a href="#Shortcuts-settings" class="headerlink" title="Shortcuts settings"></a>Shortcuts settings</h2><h3 id="Init-1"><a href="#Init-1" class="headerlink" title="Init"></a>Init</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs text"># clear the terminal screen<br>map cmd+k combine : clear_terminal scrollback active : send_text normal,application \x0c<br><br># jump to beginning and end of word<br>map alt+left send_text all \x1b\x62<br>map alt+right send_text all \x1b\x66<br><br># jump to beginning and end of line<br>map cmd+left send_text all \x01<br>map cmd+right send_text all \x05<br><br># Map cmd + &lt;num&gt; to corresponding tabs<br>map cmd+1 goto_tab 1<br>map cmd+2 goto_tab 2<br>map cmd+3 goto_tab 3<br>map cmd+4 goto_tab 4<br>map cmd+5 goto_tab 5<br>map cmd+6 goto_tab 6<br>map cmd+7 goto_tab 7<br>map cmd+8 goto_tab 8<br>map cmd+9 goto_tab 9<br><br># changing font sizes<br>map cmd+equal    change_font_size all +2.0<br>map cmd+minus    change_font_size all -2.0<br>map cmd+0        change_font_size all 0<br><br>map cmd+c        copy_to_clipboard<br>map cmd+v        paste_from_clipboard<br></code></pre></td></tr></table></figure>
+
+<h3 id="Tab"><a href="#Tab" class="headerlink" title="Tab"></a>Tab</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs text">map alt+1 goto_tab 1<br>map alt+2 goto_tab 2<br>map alt+3 goto_tab 3<br>map alt+4 goto_tab 4<br>map alt+5 goto_tab 5<br>map alt+6 goto_tab 6<br>map alt+7 goto_tab 7<br>map alt+8 goto_tab 8<br>map alt+9 goto_tab 9<br>map alt+0 goto_tab 0<br><br># open new tab with cmd+t<br>map cmd+t new_tab<br><br># switch between next and previous splits<br>map cmd+]        next_window<br>map cmd+[        previous_window<br></code></pre></td></tr></table></figure>
+
+<h3 id="Window"><a href="#Window" class="headerlink" title="Window"></a>Window</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text"># open new split (window) with cmd+d retaining the cwd<br>map cmd+w close_window<br>map cmd+shif+n new_os_window<br>map cmd+d launch --location=hsplit --cwd=current<br>map cmd+shift+d launch --location=vsplit --cwd=current<br></code></pre></td></tr></table></figure>
+
+<h3 id="Neovim"><a href="#Neovim" class="headerlink" title="Neovim"></a>Neovim</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs text">map ctrl+j kitten pass_keys.py neighboring_window bottom ctrl+j &quot;^.* - nvim$&quot;<br>map ctrl+k kitten pass_keys.py neighboring_window top    ctrl+k &quot;^.* - nvim$&quot;<br>map ctrl+h kitten pass_keys.py neighboring_window left   ctrl+h &quot;^.* - nvim$&quot;<br>map ctrl+l kitten pass_keys.py neighboring_window right  ctrl+l &quot;^.* - nvim$&quot;<br><br># the 3 here is the resize amount, adjust as needed<br>map alt+j kitten pass_keys.py relative_resize down  3 alt+j &quot;^.* - nvim$&quot;<br>map alt+k kitten pass_keys.py relative_resize up    3 alt+k &quot;^.* - nvim$&quot;<br>map alt+h kitten pass_keys.py relative_resize left  3 alt+h &quot;^.* - nvim$&quot;<br>map alt+l kitten pass_keys.py relative_resize right 3 alt+l &quot;^.* - nvim$&quot;<br></code></pre></td></tr></table></figure>
+
+<p>Moving in shell and nvim.</p>
+<img src="/2023/04/17/Kitty-configuration-for-macOS/nvim-integration.gif" srcset="/img/loading.gif" lazyload class="" title="nvim-integration.gif">
+
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>Kitty supports session management, I added some default sessions, and opened session sockets for nvim.</p>
+<p>The session.conf at the root is the location configuration of the session.</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs text">new_tab home<br>layout splits<br>cd ~<br>launch zsh<br>focus<br><br>new_tab work<br>cd ~/Develop/linuxdeepin/<br>launch zsh<br><br>new_tab nvim<br>cd ~/.config/nvim<br>launch zsh<br></code></pre></td></tr></table></figure>
+
+<h3 id="Init-2"><a href="#Init-2" class="headerlink" title="Init"></a>Init</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">startup_session session.conf<br><br># Other unix systems:<br>allow_remote_control yes<br>listen_on unix:/tmp/.kitty<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/development-tools/" class="category-chain-item">development tools</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Kitty/">#Kitty</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Kitty configuration for macOS</div>
+      <div>https://blog.justforlxz.com/2023/04/17/Kitty-configuration-for-macOS/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>小竹</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月17日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/04/19/How-to-Solve-the-Module-not-found-Cannot-resolve-fs-error-in-Next-js/" title="How to Solve the Module not found: Cannot resolve &#39;fs&#39; error in Next.js">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">How to Solve the Module not found: Cannot resolve &#39;fs&#39; error in Next.js</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/11/How-to-solve-parallels-desktop-linux-usb-problem/" title="How to solve parallels desktop linux usb problem">
+                        <span class="hidden-mobile">How to solve parallels desktop linux usb problem</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"jwJxh95ly6NdjTRluyKYXm6G-gzGzoHsz","appKey":"lagqr7doy2slbm7oAMGoogpg","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      豫ICP备19045379号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
