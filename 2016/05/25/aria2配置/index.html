@@ -24,7 +24,7 @@
 <meta property="og:description" content="安装好aria2，然后执行一下内容 $ sudo nano &#x2F;etc&#x2F;systemd&#x2F;user&#x2F;aria2.service    [Unit] Description&#x3D;Aria2 Service After&#x3D;network.target  [Service] ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;aria2c --enable-rpc --rpc-listen-all&#x3D;true   --rpc-s">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-05-25T15:56:00.000Z">
-<meta property="article:modified_time" content="2023-04-25T02:04:08.077Z">
+<meta property="article:modified_time" content="2023-05-06T03:33:19.354Z">
 <meta property="article:author" content="小竹">
 <meta property="article:tag" content="教程">
 <meta name="twitter:card" content="summary_large_image">
@@ -71,7 +71,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":"G-BBSEEJ4317","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -111,6 +111,18 @@
     </script>
   
 
+  
+    <!-- Google gtag.js -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.googletagmanager.com/gtag/js?id=G-BBSEEJ4317', function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-BBSEEJ4317');
+        });
+      }
+    </script>
   
 
   
