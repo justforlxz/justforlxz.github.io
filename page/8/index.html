@@ -62,7 +62,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":"G-BBSEEJ4317","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":"G-BBSEEJ4317","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -161,7 +161,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -173,7 +173,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>归档</span>
               </a>
             </li>
           
@@ -185,7 +185,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -197,7 +197,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -209,7 +209,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
@@ -221,7 +221,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/links/">
                 <i class="iconfont icon-link-fill"></i>
-                友链
+                <span>友链</span>
               </a>
             </li>
           
@@ -229,15 +229,16 @@
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
           
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -363,7 +364,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2021/07/24/wayland-preface/" target="_self">
         <div>
-          Kristian Høgsberg Intel Corporation &amp;#107;&amp;#x72;&amp;#104;&amp;#64;&amp;#x62;&amp;#x69;&amp;#116;&amp;#112;&amp;#108;&amp;#x61;&amp;#x6e;&amp;#101;&amp;#x74;&amp;#x2e;&amp;#x6e;&amp;#101;&amp;#x74;   版权所有 © 2012 Kristian Høgsberg，Intel 公司。 特此免费授予任何获得本软件及相关
+          Kristian Høgsberg Intel Corporation &#x6b;&#x72;&#104;&#64;&#98;&#x69;&#x74;&#x70;&#x6c;&#97;&#110;&#x65;&#x74;&#x2e;&#x6e;&#x65;&#116;   版权所有 © 2012 Kristian Høgsberg，Intel 公司。 特此免费授予任何获得本软件及相关文档
         </div>
       </a>
 
@@ -491,7 +492,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2021/07/06/two-sum/" target="_self">
         <div>
-          1. 两数之和给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。 你可以按任意顺序返回答案。 示例 1： 123输入：nums &#x3D; [2,7,11,15], target &#x3D; 9输出：[0,1]解释：因为 nums[0]
+          1. 两数之和给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。 你可以按任意顺序返回答案。 示例 1： 123输入：nums = [2,7,11,15], target = 9输出：[0,1]解释：因为 nums[0]
         </div>
       </a>
 
@@ -556,7 +557,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2021/07/06/binary-search/" target="_self">
         <div>
-          704. 二分查找给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。 示例 1: 123输入: nums &#x3D; [-1,0,3,5,9,12], target &#x3D; 9输出: 4解释: 9 出现在 nums 中并且下标为 4  示例 2: 123输入: nums &#x3D; [-1,0,3
+          704. 二分查找给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。 示例 1: 123输入: nums = [-1,0,3,5,9,12], target = 9输出: 4解释: 9 出现在 nums 中并且下标为 4  示例 2: 123输入: nums = [-1,0,3
         </div>
       </a>
 

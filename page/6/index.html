@@ -62,7 +62,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":"G-BBSEEJ4317","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":"G-BBSEEJ4317","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -161,7 +161,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -173,7 +173,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>归档</span>
               </a>
             </li>
           
@@ -185,7 +185,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -197,7 +197,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -209,7 +209,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
@@ -221,7 +221,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/links/">
                 <i class="iconfont icon-link-fill"></i>
-                友链
+                <span>友链</span>
               </a>
             </li>
           
@@ -229,15 +229,16 @@
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
           
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -361,7 +362,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/01/05/fix-h5py-build-failed-on-m1/" target="_self">
         <div>
-          今天在 m1 mbp 上安装 tensorflow-metal 遇到了依赖无法安装的问题，错误的原因是 h5py 这个包无法编译。 在 h5py 的项目里看到了已经解决了，但是仍然需要从源码构建。  https:&#x2F;&#x2F;github.com&#x2F;h5py&#x2F;h5py&#x2F;issues&#x2F;1810  123$ brew install hdf5$ export HDF5_DIR&#x3D;&#x2F;opt&#x2F;homebrew&#x2F;Cell
+          今天在 m1 mbp 上安装 tensorflow-metal 遇到了依赖无法安装的问题，错误的原因是 h5py 这个包无法编译。 在 h5py 的项目里看到了已经解决了，但是仍然需要从源码构建。  https://github.com/h5py/h5py/issues/1810  123$ brew install hdf5$ export HDF5_DIR=/opt/homebrew/Cell
         </div>
       </a>
 
@@ -394,7 +395,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2021/12/29/Starting-sessions-with-systemd-part-2/" target="_self">
         <div>
-          接着上一篇文章 Starting sessions with systemd，这篇文章主要讲解一下具体的实现。 https:&#x2F;&#x2F;github.com&#x2F;linuxdeepin&#x2F;dde-session 已经包含了所有的文件和提交。 上面文章说过，为了让 dde 使用 systemd –user 来关系服务，我提供了一组服务： 123456789101112dde-session-initialized
+          接着上一篇文章 Starting sessions with systemd，这篇文章主要讲解一下具体的实现。 https://github.com/linuxdeepin/dde-session 已经包含了所有的文件和提交。 上面文章说过，为了让 dde 使用 systemd –user 来关系服务，我提供了一组服务： 123456789101112dde-session-initialized
         </div>
       </a>
 
@@ -434,7 +435,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2021/12/25/Starting-sessions-with-systemd/" target="_self">
         <div>
-          DDE 现在正在做 Wayland 的支持，所以我们需要对目前的桌面环境结构进行调整，考虑到 GNOME 和 KDE 都已经使用 systemd 来管理 session，我认为 deepin 团队也可以考虑这一步了。 为什么需要 systemd？目前 systemd 作为事实上胜利的 init 进程，它现在负责的功能已经越来越多了，支持但不限于：udev、sleep&#x2F;hibernate&#x2F;suspe
+          DDE 现在正在做 Wayland 的支持，所以我们需要对目前的桌面环境结构进行调整，考虑到 GNOME 和 KDE 都已经使用 systemd 来管理 session，我认为 deepin 团队也可以考虑这一步了。 为什么需要 systemd？目前 systemd 作为事实上胜利的 init 进程，它现在负责的功能已经越来越多了，支持但不限于：udev、sleep/hibernate/suspe
         </div>
       </a>
 
@@ -474,7 +475,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2021/09/14/introduction-to-the-qml-cmake-api/" target="_self">
         <div>
-          原文：  https:&#x2F;&#x2F;www.qt.io&#x2F;blog&#x2F;introduction-to-the-qml-cmake-api  当 Qt 6 迁移到 CMake 时，我们希望为 QML 项目提供更好的体验。在最初的Qt 6.0发布版中，我们只提供了一些技术预览API，这并没有比 qmake 自 Qt 5.15 以来提供的 API 做得更多。 现在，随着即将发布的 Qt 6.2，我们已经完成了 CMa
+          原文：  https://www.qt.io/blog/introduction-to-the-qml-cmake-api  当 Qt 6 迁移到 CMake 时，我们希望为 QML 项目提供更好的体验。在最初的Qt 6.0发布版中，我们只提供了一些技术预览API，这并没有比 qmake 自 Qt 5.15 以来提供的 API 做得更多。 现在，随着即将发布的 Qt 6.2，我们已经完成了 CMa
         </div>
       </a>
 
