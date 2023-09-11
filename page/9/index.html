@@ -292,6 +292,46 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/03/04/package-manager-for-arch/" target="_self">
+          如何给Arch打一个包
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/03/04/package-manager-for-arch/" target="_self">
+        <div>
+          Arch 使用的是 pacman 包管理器，包格式是 tar.zst。Arch 提供了一些工具用于创建 tar.zst 包，首先需要安装 base-devel 包和 devtools 包。 1pacman -S base-devel devtools  Arch 的打包流程是这样的，要先写一个 PKGBUILD 文件，这个文件描述了构建一个包所需的全部信息，如从哪里下载源码，依赖有哪些，构建的版本
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-04 11:23" pubdate>
+              2021-03-04
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Linux/">#Linux</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/02/27/timemachine/" target="_self">
           timemachine
         </a>
@@ -448,46 +488,6 @@
               <a href="/tags/Linux/">#Linux</a>
             
               <a href="/tags/vim/">#vim</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/11/17/qt-multi-thread/" target="_self">
-          Qt多线程
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/11/17/qt-multi-thread/" target="_self">
-        <div>
-          类型注册 Qt 有三种多线程的方式，分别是继承 QThread、使用 QObject 的 moveToThread 函数和 Qtconcurrent 协程。 在很多文章中，大家都推荐继承 QThread 类，并重写 run 方法，在 run 中使用耗时操作代码。这种方式让我们觉得 QThread 是线程的实体。创建一个 QThread 对象就认为是开辟了一个新的线程。这种讨巧的方法似乎能帮助我们快
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-11-17 15:53" pubdate>
-              2020-11-17
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Qt/">#Qt</a>
             
           </div>
         
