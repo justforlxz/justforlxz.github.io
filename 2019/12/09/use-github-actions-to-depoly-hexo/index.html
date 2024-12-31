@@ -1,339 +1,185 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>使用github actions自动部署hexo文章到html仓库 | 小竹's blog</title><noscript>开启JavaScript才能访问本站哦~</noscript><link rel="icon" href="/img/pwa/favicon.ico"><!-- index.css--><link rel="stylesheet" href="/css/index.css?v=2.1.15"><!-- inject head--><meta name="google-site-verification" content="UA-129024325-1"><meta name="baidu-site-verification" content="49e5979358cb9ca19e5e56fc4adc4a98"><link rel="canonical" href="https://blog.justforlxz.com/2019/12/09/use-github-actions-to-depoly-hexo/"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><!-- aplayer--><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"><!-- swiper--><!-- fancybox ui--><!-- katex--><!-- Open Graph--><meta name="description" content="请先允许我大喊一声：微软牛逼！ 本文没有啥含金量，就是简单的说一下如何部署github-actions来自动生成hexo的public，并且再推送到html仓库的。 我的博客仓库一共分为两个，blog仓库是私有的，需要通过我的私钥才能访问，html仓库是公开的，hexo生成的静态内容会被上传到这里。"><!-- pwa--><meta name="apple-mobile-web-app-capable" content="小竹's blog"><meta name="theme-color" content="var(--efu-main)"><meta name="apple-mobile-web-app-status-bar-style" content="var(--efu-main)"><link rel="bookmark" href="/img/pwa/favicon.ico"><link rel="apple-touch-icon" href="/img/pwa/favicon.ico" sizes="180x180"><script>console.log(' %c Solitude %c ' + '2.1.15' + ' %c https://github.com/everfu/hexo-theme-solitude',
+    'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+    'background:#ff9a9a ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
+    'background:unset ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff')
+</script><script>(()=>{
+        const saveToLocal = {
+            set: function setWithExpiry(key, value, ttl) {
+                if (ttl === 0)
+                    return
+                const now = new Date()
+                const expiryDay = ttl * 86400000
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + expiryDay
+                }
+                localStorage.setItem(key, JSON.stringify(item))
+            },
+            get: function getWithExpiry(key) {
+                const itemStr = localStorage.getItem(key)
 
+                if (!itemStr) {
+                    return undefined
+                }
+                const item = JSON.parse(itemStr)
+                const now = new Date()
 
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
+                if (now.getTime() > item.expiry) {
+                    localStorage.removeItem(key)
+                    return undefined
+                }
+                return item.value
+            }
+        };
+        window.utils = {
+            saveToLocal: saveToLocal,
+            getCSS: (url, id = false) => new Promise((resolve, reject) => {
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = url
+              if (id) link.id = id
+              link.onerror = reject
+              link.onload = link.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                link.onload = link.onreadystatechange = null
+                resolve()
+              }
+              document.head.appendChild(link)
+            }),
+            getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+              const script = document.createElement('script')
+              script.src = url
+              script.async = true
+              script.onerror = reject
+              script.onload = script.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                script.onload = script.onreadystatechange = null
+                resolve()
+              }
 
+              Object.keys(attr).forEach(key => {
+                script.setAttribute(key, attr[key])
+              })
 
+              document.head.appendChild(script)
+            }),
+            addGlobalFn: (key, fn, name = false, parent = window) => {
+                const globalFn = parent.globalFn || {}
+                const keyObj = globalFn[key] || {}
 
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="小竹">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="请先允许我大喊一声：微软牛逼！ 本文没有啥含金量，就是简单的说一下如何部署github-actions来自动生成hexo的public，并且再推送到html仓库的。 我的博客仓库一共分为两个，blog仓库是私有的，需要通过我的私钥才能访问，html仓库是公开的，hexo生成的静态内容会被上传到这里。 首先在package.json中添加一些命令，方便我们一键编译和提交: 12345&quot;sc">
-<meta property="og:type" content="article">
-<meta property="og:title" content="使用github actions自动部署hexo文章到html仓库">
-<meta property="og:url" content="https://blog.justforlxz.com/2019/12/09/use-github-actions-to-depoly-hexo/index.html">
-<meta property="og:site_name" content="小竹&#39;s blog">
-<meta property="og:description" content="请先允许我大喊一声：微软牛逼！ 本文没有啥含金量，就是简单的说一下如何部署github-actions来自动生成hexo的public，并且再推送到html仓库的。 我的博客仓库一共分为两个，blog仓库是私有的，需要通过我的私钥才能访问，html仓库是公开的，hexo生成的静态内容会被上传到这里。 首先在package.json中添加一些命令，方便我们一键编译和提交: 12345&quot;sc">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-12-09T05:19:11.000Z">
-<meta property="article:modified_time" content="2023-02-01T06:35:51.237Z">
-<meta property="article:author" content="小竹">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-    <meta name="referrer" content="no-referrer-when-downgrade">
-  
-  
-  <title>使用github actions自动部署hexo文章到html仓库 - 小竹&#39;s blog</title>
+                if (name && keyObj[name]) return
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"blog.justforlxz.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"49e5979358cb9ca19e5e56fc4adc4a98","google":"UA-129024325-1","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+                name = name || Object.keys(keyObj).length
+                keyObj[name] = fn
+                globalFn[key] = keyObj
+                parent.globalFn = globalFn
+            },
+            addEventListenerPjax: (ele, event, fn, option = false) => {
+              ele.addEventListener(event, fn, option)
+              utils.addGlobalFn('pjax', () => {
+                  ele.removeEventListener(event, fn, option)
+              })
+          },
+        }
+    })()</script><!-- theme--><script>initTheme = () => {
+    let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const cachedMode = utils.saveToLocal.get('theme');
+    if (cachedMode === undefined) {
+        const nowMode =
+            isDarkMode ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', nowMode);
+    } else {
+        document.documentElement.setAttribute('data-theme', cachedMode);
     }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
+    typeof rm === 'object' && rm.mode(cachedMode === 'dark' && isDarkMode)
+}
+initTheme()</script><!-- global head--><script>const GLOBAL_CONFIG = {
+    root: '/',
+    algolia: undefined,
+    localsearch: {"preload":false,"path":"/search.xml"},
+    runtime: '2016-03-24 00:00:00',
+    lazyload: {
+        enable: true,
+        error: '/img/error_load.avif'
+    },
+    copyright: false,
+    highlight: {"limit":200,"expand":true,"copy":true,"syntax":"highlight.js"},
+    randomlink: false,
+    lang: {"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"day":"天前","hour":"小时前","just":"刚刚","min":"分钟前","month":"个月前"},"day":" 天","f12":"开发者模式已打开，请遵循GPL协议。","totalk":"无需删除空行，直接输入评论即可","search":{"empty":"找不到你查询的内容：${query}","hit":"找到 ${hits} 条结果，用时 ${time} 毫秒","placeholder":"输入关键词快速查找","count":"共 <b>${count}</b> 条结果。","loading":"搜索中..."}},
+    aside: {
+        sayhello: {
+            morning: "✨ 早上好，新的一天开始了",
+            noon: "🍲 午餐时间",
+            afternoon: "🌞 下午好",
+            night: "早点休息",
+            goodnight: "晚安 😴",
+        },
+        sayhello2: ["你可以的","你一定可以的","祝你好运，陌生人"],
+        sayhello3: {
+            prefix: '好久不见，',
+            back: '欢迎再次回来，',
+        },
+    },
+    covercolor: {
+        enable: true
+    },
+    comment: false,
+    lightbox: 'mediumZoom',
+    post_ai: false,
+    right_menu: {"mode":{"dark":"深色模式","light":"浅色模式"},"img_error":"此图片无法复制与下载","translate":false,"ctrlOriginalMenu":"按住Ctrl+右键可打开浏览器右键菜单"},
+    translate: {"translateDelay":0,"defaultEncoding":2},
+    lure: {"jump":"404 Not Found","back":"ヾ(≧∇≦*)ゝHey, hey, you fell for it."},
+    expire: {"time":30,"position":"top","text_prev":"This article expired ","text_next":" day ago, if the content does not match, please contact the webmaster to update it."},
+};</script><!-- page-config head--><script id="config-diff">var PAGE_CONFIG = {
+    is_post: true,
+    is_page: false,
+    is_home: false,
+    page: '',
+    toc: false,
+    comment: true,
+    ai_text: false,
+    color: false,
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
+</head><body id="body"><!-- universe--><canvas id="universe"></canvas><!-- background img--><div id="global_bg"></div><!-- loading--><div id="loading-box" onclick="preloader.endLoading();" style="zoom:1"><div class="loading-bg"><img class="loading-img nolazyload" src="/img/favicon.png" alt="loading image"></div></div><script>const preloader = {
+    isLoaded: false,
+    endLoading: () => {
+        if (!preloader.isLoaded) {
+            document.getElementById('loading-box').classList.add('loaded');
+            preloader.isLoaded = true;
+            preloader.togglePaceDone();
+        }
+    },
+    initLoading: () => {
+        document.getElementById('loading-box').classList.remove('loaded');
+        preloader.isLoaded = false;
+        preloader.togglePaceDone();
+    },
+    togglePaceDone: () => {
+        document.getElementById('body').className = preloader.isLoaded ? 'pace-done' : '';
+    }
+}
 
-  
-    <!-- Baidu Analytics -->
-    <script async>
-      if (!Fluid.ctx.dnt) {
-        var _hmt = _hmt || [];
-        (function() {
-          var hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?49e5979358cb9ca19e5e56fc4adc4a98";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-        })();
-      }
-    </script>
-  
+window.addEventListener('load', () => {
+    preloader.endLoading();
+});
 
-  
-    <!-- Google Analytics -->
-    <script async>
-      if (!Fluid.ctx.dnt) {
-        Fluid.utils.createScript('https://www.google-analytics.com/analytics.js', function() {
-          window.ga = window.ga || function() { (ga.q = ga.q || []).push(arguments) };
-          ga.l = +new Date;
-          ga('create', 'UA-129024325-1', 'auto');
-          ga('send', 'pageview');
-        });
-      }
-    </script>
-  
+window.addEventListener('pjax:send', () => {
+    preloader.initLoading();
+});
 
-  
+document.addEventListener('pjax:complete', () => {
+    preloader.endLoading();
+});
 
-  
-
-  
-
-  
-
-  
-
-
-
-  
-<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="小竹's blog" type="application/atom+xml">
-</head>
-
-
-<body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>小竹&#39;s blog</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.webp') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="使用github actions自动部署hexo文章到html仓库"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2019-12-09 13:19" pubdate>
-          2019年12月9日 下午
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          <!-- compatible with older versions-->
-          1k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          <!-- compatible with older versions-->
-          9 分钟
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">使用github actions自动部署hexo文章到html仓库</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <p>请先允许我大喊一声：微软牛逼！</p>
+setTimeout(() => {
+    preloader.endLoading();
+}, 5000);</script><!-- console--><!-- sidebar--><div id="sidebar" style="zoom: 1;"><div id="menu-mask" style="display: none;"></div><div id="sidebar-menus"><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">117</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a></div></div></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><span class="darkmode_switchbutton menu-child" onclick="sco.switchDarkMode()"><i class="solitude fa-solid fa-circle-half-stroke"></i><span>显示模式</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>文库</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>全部分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>全部标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>友链</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/moments/"><i class="solitude  fas fa-wifi"></i><span>朋友圈</span></a></li><li><a class="site-page child" href="/friends/"><i class="solitude  fas fa-user-group"></i><span>友情链接</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>关于</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐馆</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-widget card-tags card-archives card-webinfo card-allinfo"><div class="card-tag-cloud"><a href="/tags/2019/">2019<sup>1</sup></a><a href="/tags/C/">C++<sup>7</sup></a><a href="/tags/%E5%AE%9E%E9%AA%8C%E5%AE%A4/">实验室<sup>3</sup></a><a href="/tags/CSS/">CSS<sup>3</sup></a><a href="/tags/k8s/">k8s<sup>3</sup></a><a href="/tags/Qt/">Qt<sup>4</sup></a><a href="/tags/CMake/">CMake<sup>1</sup></a><a href="/tags/GTest/">GTest<sup>1</sup></a><a href="/tags/CTest/">CTest<sup>1</sup></a><a href="/tags/CMake-Linux/">CMake Linux<sup>1</sup></a><a href="/tags/Linux/">Linux<sup>29</sup></a><a href="/tags/JavaScript/">JavaScript<sup>3</sup></a><a href="/tags/Next-js/">Next.js<sup>1</sup></a><a href="/tags/Web/">Web<sup>7</sup></a><a href="/tags/deepin/">deepin<sup>1</sup></a><a href="/tags/kwin/">kwin<sup>1</sup></a><a href="/tags/parallels-desktop/">parallels desktop<sup>1</sup></a><a href="/tags/Kitty/">Kitty<sup>1</sup></a><a href="/tags/Bash/">Bash<sup>1</sup></a><a href="/tags/systemd/">systemd<sup>2</sup></a><a href="/tags/linux/">linux<sup>5</sup></a><a href="/tags/kubernetes/">kubernetes<sup>1</sup></a><a href="/tags/Github-Action/">Github Action<sup>1</sup></a><a href="/tags/evil/">evil<sup>1</sup></a><a href="/tags/Hexo/">Hexo<sup>1</sup></a><a href="/tags/%E6%95%B0%E7%BB%84/">数组<sup>3</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/">算法<sup>3</sup></a><a href="/tags/%E7%AE%80%E5%8D%95/">简单<sup>3</sup></a><a href="/tags/vim/">vim<sup>2</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/">教程<sup>3</sup></a><a href="/tags/dde/">dde<sup>1</sup></a><a href="/tags/go/">go<sup>1</sup></a><a href="/tags/docker/">docker<sup>1</sup></a><a href="/tags/Linux-%E5%A1%AB%E5%9D%91/">Linux 填坑<sup>1</sup></a><a href="/tags/Metal/">Metal<sup>5</sup></a><a href="/tags/GameEngine/">GameEngine<sup>5</sup></a><a href="/tags/LNMP/">LNMP<sup>1</sup></a><a href="/tags/Deepin/">Deepin<sup>1</sup></a><a href="/tags/neovim/">neovim<sup>1</sup></a><a href="/tags/dap/">dap<sup>1</sup></a><a href="/tags/javascript/">javascript<sup>1</sup></a><a href="/tags/jsx/">jsx<sup>1</sup></a><a href="/tags/latex/">latex<sup>1</sup></a><a href="/tags/Game/">Game<sup>1</sup></a><a href="/tags/Unity/">Unity<sup>1</sup></a><a href="/tags/Shader/">Shader<sup>1</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8/">日常<sup>1</sup></a><a href="/tags/%E6%A8%A1%E6%9D%BF/">模板<sup>1</sup></a><a href="/tags/typescript/">typescript<sup>2</sup></a><a href="/tags/react/">react<sup>1</sup></a><a href="/tags/react-native/">react native<sup>1</sup></a><a href="/tags/Program/">Program<sup>1</sup></a><a href="/tags/vuex/">vuex<sup>1</sup></a><a href="/tags/reactnative/">reactnative<sup>1</sup></a><a href="/tags/ios/">ios<sup>1</sup></a><a href="/tags/Vue/">Vue<sup>4</sup></a><a href="/tags/VS-Code/">VS Code<sup>1</sup></a><a href="/tags/Windows/">Windows<sup>2</sup></a><a href="/tags/Wayland/">Wayland<sup>4</sup></a><a href="/tags/Linux-DTK/">Linux DTK<sup>1</sup></a><a href="/tags/Webpack/">Webpack<sup>1</sup></a><a href="/tags/TypeScript/">TypeScript<sup>1</sup></a><a href="/tags/Deep-Learning/">Deep Learning<sup>1</sup></a><a href="/tags/nVidia-Cuda/">nVidia Cuda<sup>1</sup></a><a href="/tags/Deepin-Learning/">Deepin Learning<sup>1</sup></a></div></div><span class="sidebar-menu-item-title">网站信息</span><div class="webinfo"><div class="webinfo-item"><div class="webinfo-item-title"><i class="item-icon solitude fa-solid fa-file-word"></i><div class="item-name">全站字数 :</div></div><div class="item-count">107.4k</div></div></div></div></div><!-- keyboard--><!-- righhtside--><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav class="show" id="nav"><div id="nav-group"><div id="blog_name"><a id="site-name" href="/" title="返回博客主页"><span class="title">竹子的碎碎念</span><i class="solitude fa-solid fa-home"></i></a></div><div id="page-name-mask"><div id="page-name"><a id="page-name-text" onclick="sco.toTop()">使用github actions自动部署hexo文章到html仓库</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>文库</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>全部分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>全部标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>友链</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/moments/"><i class="solitude  fas fa-wifi"></i><span>朋友圈</span></a></li><li><a class="site-page child" href="/friends/"><i class="solitude  fas fa-user-group"></i><span>友情链接</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>关于</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐馆</span></a></li></ul></div></div></div><div id="nav-left"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机一篇文章" href="javascript:void(0);"><i class="solitude fa-solid fa-dice-d6"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索"><i class="solitude fa-solid fa-magnifying-glass"></i></a></div><div class="nav-button" id="nav-totop" onclick="sco.toTop()"><a class="totopbtn"><i class="solitude fa-solid fa-arrow-up"></i><span id="percent">0</span></a></div><div id="toggle-menu"><a class="site-page"><i class="solitude fa-solid fa-bars"></i></a></div></div></div></nav><div class="coverdiv" id="coverdiv"><img class="nolazyload" id="post-cover" src="https://file.mkacg.com/misskey/files/d78b4a0e-8dfe-493d-aa49-1f0741f115ec.png" alt="使用github actions自动部署hexo文章到html仓库"></div><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original" title="该文章为原创文章，注意版权协议">原创</a><div class="tag_share"><div class="post-meta__tag-list"></div></div></div></div><h1 class="post-title">使用github actions自动部署hexo文章到html仓库</h1><div id="post-meta"><div class="meta-secondline"><span class="post-meta-date" title="发布于 2019-12-09 13:19:11"><i class="post-meta-icon solitude fas fa-calendar-days"></i><time datetime="2019-12-09T05:19:11.000Z">2019-12-09T05:19:11.000Z</time></span><span class="post-meta-date" title="最后更新于 2024-04-15 13:09:55"><i class="post-meta-icon solitude fa-solid fa-arrows-rotate"></i><time datetime="2024-04-15T05:09:55.039Z">2024-04-15T05:09:55.039Z</time></span><span class="post-meta-wordcount"><i class="post-meta-icon solitude fa-solid fa-file-word" title="文章字数"></i><span class="word-count">408</span><span class="post-meta-separator"></span><i class="post-meta-icon solitude fa-solid fa-clock" title="阅读耗时"></i><span>1 min</span></span><span class="post-meta-position" title="作者IP归属地为China"><i class="post-meta-icon solitude fas fa-location-dot"></i><span>China</span></span><a class="post-meta-pv" href="/2019/12/09/use-github-actions-to-depoly-hexo/" title="文章热度"><i class="post-meta-icon solitude fa-solid fa-fire-flame-curved"></i></a><span class="post-meta-commentcount" title="评论数" onclick="sco.scrollTo('post-comment')"><i class="solitude fa-solid fa-comment"></i><a href="/2019/12/09/use-github-actions-to-depoly-hexo/#post-comment"></a></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content article-container"><p>请先允许我大喊一声：微软牛逼！</p>
 <p>本文没有啥含金量，就是简单的说一下如何部署github-actions来自动生成hexo的public，并且再推送到html仓库的。</p>
 <p>我的博客仓库一共分为两个，blog仓库是私有的，需要通过我的私钥才能访问，html仓库是公开的，hexo生成的静态内容会被上传到这里。</p>
 <p>首先在package.json中添加一些命令，方便我们一键编译和提交:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;scripts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;build&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hexo clean &amp;&amp; hexo g&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;deploy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;yarn run build &amp;&amp; hexo d&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;backup&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hexo b&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;build&quot;: &quot;hexo clean &amp;&amp; hexo g&quot;,</span><br><span class="line">  &quot;deploy&quot;: &quot;yarn run build &amp;&amp; hexo d&quot;,</span><br><span class="line">  &quot;backup&quot;: &quot;hexo b&quot;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>因为CI环境需要提交代码到仓库，所以申请一个个人用的token，访问<a target="_blank" rel="noopener" href="https://github.com/settings/tokens">https://github.com/settings/tokens</a>创建一个新的，勾选上<code>repo</code>，生成完token以后，修改一下<code>_config.yml</code>中对deploy仓库的url，格式固定为<code>https://x-access-token:你的token@github.com/你的名字/仓库名.git</code>,例如我这里是<code>https://x-access-token:xxxxxxxxxx@github.com/justforlxz/html.git</code>。</p>
 <p>然后新家一个github actions，选择nodejs环境，我们只需要修改最后一个步骤，执行我们自己的命令即可。</p>
@@ -343,381 +189,120 @@
 <li>yarn run deploy</li>
 </ul>
 <p>如果你还有一些其他步骤，可以自行扩展，比如我就有主题相关的操作，具体的内容如下:</p>
-<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">- name: npm install, build, and <span class="hljs-keyword">deploy</span><br>  run: |<br>    git config <span class="hljs-params">--global</span> user.email <span class="hljs-string">&quot;justforlxz@gmail.com&quot;</span><br>    git config <span class="hljs-params">--global</span> user.name <span class="hljs-string">&quot;justforlxz&quot;</span><br>    git submodule update <span class="hljs-params">--init</span><br>    <span class="hljs-keyword">cd</span> themes/next<br>    git checkout dev<br>    <span class="hljs-keyword">cd</span> <span class="hljs-string">../../</span><br>    npm install -g yarn<br>    yarn<br>    yarn run <span class="hljs-keyword">deploy</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- name: npm install, build, and deploy</span><br><span class="line">  run: |</span><br><span class="line">    git config --global user.email &quot;justforlxz@gmail.com&quot;</span><br><span class="line">    git config --global user.name &quot;justforlxz&quot;</span><br><span class="line">    git submodule update --init</span><br><span class="line">    cd themes/next</span><br><span class="line">    git checkout dev</span><br><span class="line">    cd ../../</span><br><span class="line">    npm install -g yarn</span><br><span class="line">    yarn</span><br><span class="line">    yarn run deploy</span><br></pre></td></tr></table></figure>
 
 <p>然后就可以愉快的自动部署了。</p>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>使用github actions自动部署hexo文章到html仓库</div>
-      <div>https://blog.justforlxz.com/2019/12/09/use-github-actions-to-depoly-hexo/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>小竹</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2019年12月9日</div>
-        </div>
-      
-      
-      <div class="license-meta-item">
-        <div>许可协议</div>
-        <div>
-          
-            
-            
-              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-              <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                <i class="iconfont icon-by"></i>
-              </span>
-              </a>
-            
-          
-        </div>
-      </div>
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2019/12/09/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E5%9D%91%E7%88%B9%E7%9A%84usb%E7%BD%91%E5%8D%A1/" title="记录一个坑爹的usb网卡">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">记录一个坑爹的usb网卡</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2019/12/08/vue-component-props/" title="Vue父子组件传值 —— props &amp; $emit">
-                        <span class="hidden-mobile">Vue父子组件传值 —— props &amp; $emit</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  <article id="comments" lazyload>
-    
-  <div id="valine"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
-        var options = Object.assign(
-          {"appId":"jwJxh95ly6NdjTRluyKYXm6G-gzGzoHsz","appKey":"lagqr7doy2slbm7oAMGoogpg","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
-          {
-            el: "#valine",
-            path: window.location.pathname
-          }
-        )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          var imgSelector = '#valine .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
+</article><div class="post-copyright"><div class="post-copyright__author_group"><a class="post-copyright__author_img" href="/about/"><img class="post-copyright__author_img_front" src= "" data-lazy-src="/img/pwa/favicon.ico"></a><div class="post-copyright__author_name">小竹's blog</div><div class="post-copyright__author_desc">永远不要停止思考</div></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div id="quit-box" onclick="RemoveRewardMask()"></div></div></div><div class="social-share"><a class="social-share-ico icon-twitter" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fblog.justforlxz.com%2F2019%2F12%2F09%2Fuse-github-actions-to-depoly-hexo%2F&amp;text=%E4%BD%BF%E7%94%A8github%20actions%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2hexo%E6%96%87%E7%AB%A0%E5%88%B0html%E4%BB%93%E5%BA%93" title="分享到Twitter"><i class="solitude fab fa-twitter"></i></a><div class="social-share-ico icon-qrcode" title="使用手机扫码阅读这篇文章"><i class="solitude fas fa-qrcode"></i><div class="share-main"><div class="share-main-all"><div id="qrcode"></div><div class="reward-dec">使用手机扫码阅读这篇文章</div></div></div><script pjax>typeof QRCode === 'function' && new QRCode(document.getElementById("qrcode"), {
+    text: 'https://blog.justforlxz.com/2019/12/09/use-github-actions-to-depoly-hexo/',
+    correctLevel : QRCode.CorrectLevel.L
+});
+window.addEventListener('DOMContentLoaded', () => {
+    new QRCode(document.getElementById("qrcode"), {
+        text: 'https://blog.justforlxz.com/2019/12/09/use-github-actions-to-depoly-hexo/',
+        correctLevel : QRCode.CorrectLevel.L
     });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
+});
+</script></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本文是原创文章，采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">CC BY-NC-SA 4.0</a>协议，完整转载请注明来自<a href="/">小竹's blog</a></span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__tag-list"></div></div></div><nav class="needEndHide pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/12/09/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E5%9D%91%E7%88%B9%E7%9A%84usb%E7%BD%91%E5%8D%A1/"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">记录一个坑爹的usb网卡</div></div></a></div><div class="next-post pull-right"><a href="/2019/12/08/vue-component-props/"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Vue父子组件传值 —— props &amp; $emit</div></div></a></div></nav><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="solitude fa-solid fa-comment"></i><span> 评论</span><span class="count"> (<span class="giscus-count"></span>)</span></div></div><div class="comment-wrap"><div id="giscus-wrap"></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><div class="author-info__top-group"><div class="author-info__sayhi" id="author-info__sayhi" onclick="sco.changeSayHelloText()">sayhello.morning</div></div></div><div class="avatar-img-group"><img class="avatar-img" alt="头像" src="/img/avatar.png"></div><div class="author-info__description_group"><div class="author-info__description">欲买桂花同载酒，终不似，少年游。</div><div class="author-info__description2">欢迎大家来到我的博客，我偶尔会写一些正经的技术文章。</div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/about/"><div class="author-info__name">小竹</div><div class="author-info__desc">永远不要停止思考</div></a><div class="card-info-social-icons is-center"><a class="social-icon" target="_blank" rel="noopener" href="https://github.com/justforlxz" title="Github"><i class="solitude  fab fa-github"></i></a><a class="social-icon" target="_blank" rel="noopener" href="https://space.bilibili.com/693131" title="Bilibili"><i class="solitude  fab fa-bilibili"></i></a><a class="social-icon" target="_blank" rel="noopener" href="https://www.zhihu.com/people/justforlxz" title="Zhihu"><i class="solitude  fab fa-zhihu"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="solitude fa-solid fa-map"></i><span>最近发布</span></div><div class="aside-list"><a class="aside-list-item" href="/2024/04/15/Add-macvlan-net/" title="Add macvlan net"><div class="thumbnail"><img alt="Add macvlan net" src="/img/default.webp"></div><div class="content"><span class="title" href="/2024/04/15/Add-macvlan-net/" title="Add macvlan net">Add macvlan net</span></div></a><a class="aside-list-item" href="/2024/03/01/solved-run-k8s-in-wsl2/" title="solved run k8s in wsl2"><div class="thumbnail"><img alt="solved run k8s in wsl2" src="https://file.mkacg.com/misskey/files/d78b4a0e-8dfe-493d-aa49-1f0741f115ec.png"></div><div class="content"><span class="title" href="/2024/03/01/solved-run-k8s-in-wsl2/" title="solved run k8s in wsl2">solved run k8s in wsl2</span></div></a><a class="aside-list-item" href="/2023/09/11/solved-Could-not-find-a-declaration-file-for-module-vuex/" title="solved Could not find a declaration file for module 'vuex'."><div class="thumbnail"><img alt="solved Could not find a declaration file for module 'vuex'." src="https://file.mkacg.com/misskey/files/240f9f4e-a24d-41bc-84b9-e054092c7a60.jpg"></div><div class="content"><span class="title" href="/2023/09/11/solved-Could-not-find-a-declaration-file-for-module-vuex/" title="solved Could not find a declaration file for module 'vuex'.">solved Could not find a declaration file for module 'vuex'.</span><span class="article-recent_post_categories" href="/2023/09/11/solved-Could-not-find-a-declaration-file-for-module-vuex/">Vue</span></div></a><a class="aside-list-item" href="/2023/06/29/solved-react-native-error-SDK-iphoneos-cannot-be-located/" title="solved react-native error: SDK iphoneos cannot be located"><div class="thumbnail"><img alt="solved react-native error: SDK iphoneos cannot be located" src="https://file.mkacg.com/misskey/files/55e6b0c1-18b9-47da-9953-e75a56ee90f1.jpg"></div><div class="content"><span class="title" href="/2023/06/29/solved-react-native-error-SDK-iphoneos-cannot-be-located/" title="solved react-native error: SDK iphoneos cannot be located">solved react-native error: SDK iphoneos cannot be located</span><span class="article-recent_post_categories" href="/2023/06/29/solved-react-native-error-SDK-iphoneos-cannot-be-located/">ReactNative</span></div></a><a class="aside-list-item" href="/2023/06/25/How-to-develop-a-kwin-special-effects-plugin/" title="开发一个 KWin 特效插件"><div class="thumbnail"><img alt="开发一个 KWin 特效插件" src="https://file.mkacg.com/misskey/files/240f9f4e-a24d-41bc-84b9-e054092c7a60.jpg"></div><div class="content"><span class="title" href="/2023/06/25/How-to-develop-a-kwin-special-effects-plugin/" title="开发一个 KWin 特效插件">开发一个 KWin 特效插件</span><span class="article-recent_post_categories" href="/2023/06/25/How-to-develop-a-kwin-special-effects-plugin/">deepin</span></div></a></div></div></div></div></main><footer id="footer"><div id="st-footer-bar"><div class="footer-logo"><span>竹子的碎碎念</span></div><div class="footer-bar-description"></div><a class="footer-bar-link" href="/about/"></a></div><div id="footer_deal"><a class="deal_link" target="_blank" rel="noopener" href="https://github.com/justforlxz" title="Github"><i class="solitude  fab fa-github"></i></a><div class="nolazyload footer_mini_logo" id="footer_mini_logo" title="返回顶部" onclick="sco.toTop()"><img src alt="返回顶部"></div><a class="deal_link" target="_blank" rel="noopener" href="https://space.bilibili.com/693131" title="Bilibili"><i class="solitude  fab fa-bilibili"></i></a></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div class="copyright">© 2016 - 2024 By&nbsp;<a class="footer-bar-link" href="/"><img class="author-avatar" src= "" data-lazy-src="/img/pwa/favicon.ico">小竹</a></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/everfu/hexo-theme-solitude" alt="Theme">Theme</a></div></div></div></footer></div><!-- right_menu--><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="solitude fa-solid fa-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="solitude fa-solid fa-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="solitude fa-solid fa-arrows-rotate"></i></div><div class="rightMenu-item" id="menu-top"><i class="solitude fa-solid fa-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="solitude fa-solid fa-clone"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="solitude fa-solid fa-clipboard"></i><span>粘贴文本</span></div><div class="rightMenu-item" id="menu-commenttext"><i class="solitude fa-solid fa-comment-medical"></i><span>引用到评论</span></div><div class="rightMenu-item" id="menu-newwindow"><i class="solitude fa-regular fa-window-maximize"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="solitude fa-solid fa-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="solitude fa-solid fa-clone"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="solitude fa-solid fa-cloud-arrow-down"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-search"><i class="solitude fa-solid fa-magnifying-glass"></i><span>站内搜索</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><div class="rightMenu-item" id="menu-darkmode" onclick="sco.switchDarkMode()"><i class="solitude fa-solid fa-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></div></div></div><div id="rightmenu-mask"></div><!-- inject body--><div><script src="/js/utils.js?v=2.1.15"></script><script src="/js/main.js?v=2.1.15"></script><script src="/js/third_party/waterfall.min.js?v=2.1.15"></script><script src="https://fastly.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="https://fastly.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script><script src="/js/third_party/universe.min.js?v=2.1.15"></script><script>dark()
+</script><script src="/js/tw_cn.js?v=2.1.15"></script><script src="https://fastly.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://fastly.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script src="https://fastly.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script><script>var meting_api = 'https://meting.qjqq.cn/?server=:server&type=:type&id=:id&auth=:auth&r=:r';</script><script src="https://fastly.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://fastly.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script><script src="https://fastly.jsdelivr.net/npm/colorthief@2.6.0/dist/color-thief.min.js"></script><script src="/js/covercolor/local.js?v=2.1.15"></script><script>window.paceOptions = {
+  restartOnPushState: false
+}
 
+utils.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+</script><script src="https://fastly.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><script src="/js/right_menu.js?v=2.1.15"></script><div class="js-pjax"><script>(()=>{
+    const getGiscusTheme = theme => {
+        return theme === 'dark' ? 'dark' : 'light'
+    }
 
-  </article>
+    const loadGiscus = () => {
+        const config = Object.assign({
+            src: 'https://giscus.app/client.js',
+            'data-repo': 'justforlxz/blog-comment',
+            'data-repo-id': 'R_kgDONG_Evg',
+            'data-category-id': 'DIC_kwDONG_Evs4Cjwkl',
+            'data-mapping': 'pathname',
+            'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+            'data-reactions-enabled': '1',
+            crossorigin: 'anonymous',
+            async: true
+        },null)
 
+        const ele = document.createElement('script')
+        for (let key in config) {
+            ele.setAttribute(key, config[key])
+        }
+        document.getElementById('giscus-wrap').appendChild(ele)
+    }
 
-          </article>
-        </div>
-      </div>
-    </div>
+    const changeGiscusTheme = theme => {
+        const sendMessage = message => {
+            const iframe = document.querySelector('iframe.giscus-frame')
+            if (!iframe) return
+            iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app')
+        }
 
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
+        sendMessage({
+            setConfig: {
+                theme: getGiscusTheme(theme)
+            }
+        });
+    }
 
+    utils.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
 
+    if ('Giscus' === 'Giscus' || !true) {
+        if (true) {
+            const giscusWrap = document.getElementById('giscus-wrap')
+            if (giscusWrap) {
+                utils.loadComment(giscusWrap, loadGiscus)
+            }
+        } else {
+            loadGiscus()
+        }
+    } else {
+        window.loadTwoComment = loadGiscus
+    }
+})()</script></div></div><!-- pjax--><script>const pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: ["title","#body-wrap","#site-config","meta[name=\"description\"]",".js-pjax","meta[property^=\"og:\"]","#config-diff",".rs_show",".rs_hide"],
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+})
 
-  </aside>
+document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+})
 
+document.addEventListener('pjax:complete', () => {
+    window.refreshFn()
 
-    </div>
-  </div>
-</div>
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-    <div class="statistics">
-  
-  
-
-  
-    
-      <span id="busuanzi_container_site_pv" style="display: none">
-        总访问量 
-        <span id="busuanzi_value_site_pv"></span>
-         次
-      </span>
-    
-    
-      <span id="busuanzi_container_site_uv" style="display: none">
-        总访客数 
-        <span id="busuanzi_value_site_uv"></span>
-         人
-      </span>
-    
-    
-  
-</div>
-
-  
-  
-    <!-- 备案信息 ICP for China -->
-    <div class="beian">
-  <span>
-    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
-      豫ICP备19045379号-1
-    </a>
-  </span>
-  
-</div>
-
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+        const newScript = document.createElement('script')
+        const content = item.text || item.textContent || item.innerHTML || ""
+        Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+        newScript.appendChild(document.createTextNode(content))
+        item.parentNode.replaceChild(newScript, item)
     })
-  </script>
 
+    GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
 
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
+})
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      collapseDepth   : CONFIG.toc.collapseDepth || 0,
-      scrollSmooth    : true,
-      headingsOffset  : -boardTop
-    });
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
+document.addEventListener('pjax:error', (e) => {
+    if (e.request.status === 404) {
+        pjax.loadUrl('/404.html')
     }
-  });
-</script>
-
-
-  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  <script  src="/js/local-search.js" ></script>
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
-</body>
-</html>
+})</script><!-- google adsense--><!-- search--><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="solitude fa-solid fa-xmark"></i></button></nav><div class="search-wrap"><div class="search-box"><input class="search-box-input" id="search-input" type="text" autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off" placeholder="输入关键词快速查找"></div><div id="search-results"><div id="search-hits"></div></div><div id="search-pagination"></div><div id="search-tips"></div></div></div><div id="search-mask"></div></div><script src="/js/search/local.js?v=2.1.15"></script><!-- Tianli-Talk--><!-- music--></body></html>
+        <script>
+            const posts = ["2024/04/15/Add-macvlan-net/","2024/03/01/solved-run-k8s-in-wsl2/","2023/09/11/solved-Could-not-find-a-declaration-file-for-module-vuex/","2023/06/29/solved-react-native-error-SDK-iphoneos-cannot-be-located/","2023/06/25/How-to-develop-a-kwin-special-effects-plugin/","2023/05/24/How-to-count-the-cpu-usage-of-a-process/","2023/04/19/How-to-Solve-the-Module-not-found-Cannot-resolve-fs-error-in-Next-js/","2023/04/17/Kitty-configuration-for-macOS/","2023/04/11/How-to-solve-parallels-desktop-linux-usb-problem/","2023/03/15/How-to-remove-all-Terminating-pods/","2023/02/01/solved-duplicate-hostname-or-contents/","2022/12/08/how-to-use-nvim-dap-to-debug-cpp/","2022/11/07/photo-1-init-project/","2022/08/25/docker-buildx-multi-arch-images/","2022/07/21/meet-unity-shader/","2022/07/02/jsx/","2022/06/24/stack-problem/","2022/04/26/an-evil-idea/","2022/04/09/hello-metal-5/","2022/04/04/hello-metal-4/","2022/04/04/hello-metal-3/","2022/04/04/hello-metal-2/","2022/04/04/hello-metal-1/","2022/03/22/vim简单配置/","2022/03/16/css-mastering-margin-collapsing/","2022/03/10/if-constexpr/","2022/03/08/latex-environment-config/","2022/03/04/qdir-stdfilesystem/","2022/02/25/How-to-use-cuda-with-deepin/","2022/01/05/fix-h5py-build-failed-on-m1/","2021/12/29/Starting-sessions-with-systemd-part-2/","2021/12/25/Starting-sessions-with-systemd/","2021/09/14/introduction-to-the-qml-cmake-api/","2021/08/10/Vuex基本使用/","2021/08/07/CSS浮动笔记/","2021/08/07/JavaScript任务执行笔记/","2021/07/24/wayland-architecture/","2021/07/24/wayland-types/","2021/07/24/wayland-introduction/","2021/07/24/wayland-preface/","2021/07/06/container-with-most-water/","2021/07/06/two-sum/","2021/07/06/binary-search/","2021/03/04/package-manager-for-arch/","2021/02/27/timemachine/","2021/02/27/samba/","2021/02/26/2020review/","2020/12/23/ccls/","2020/11/17/qt-multi-thread/","2020/09/17/deepin-wine-chinese-problem/","2020/09/08/use-refind-to-boot-system/","2020/09/06/deepin-git-version/","2020/09/03/use-vscode-to-remotely-develop-dde/","2020/08/06/develop-startdde-on-archlinux/","2020/07/27/use-github-action-to-check-dde-launcher/","2020/07/21/use-perf-to-analytics-program/","2020/06/16/CTest & QTEST/","2020/06/15/CPP项目的一些坑/","2020/06/15/使用inquirer提供交互式git-commit/","2020/06/01/vue-router路由复用后页面没有刷新/","2020/05/31/vue3-upgrade/","2020/02/01/JavaScript建造者模式/","2020/01/31/浅谈Javascript构造器模式/","2020/01/01/2019review/","2020/01/01/使用伪元素创建一个圆点/","2019/12/26/use-serial-port-debug-deepin-on-archlinux/","2019/12/26/cpp-sort/","2019/12/09/记录一个坑爹的usb网卡/","2019/12/09/use-github-actions-to-depoly-hexo/","2019/12/08/vue-component-props/","2019/12/08/vue-transitions/","2019/11/25/使用webpack-dev-server来监听项目变化/","2019/10/24/给Archlinux开启BFQ和MuQSS/","2019/10/22/使用webpack打包Vue和TypeScript/","2019/10/14/webpack入门/","2019/06/16/wsl2的使用体验/","2019/06/15/入坑typescript了/","2019/05/23/CMake-CTests-for-dde-control-center/","2019/02/21/how-to-use-LNMP-on-deepin/","2019/01/23/fuck-taobao/","2018/12/12/hibernate-for-swapfile/","2018/11/11/quick-sort-for-cpp/","2018/11/09/use-google-calendar-to-finishe-work/","2018/11/09/hexo page move to coding/","2018/08/29/cpp-smart-pointer/","2018/07/14/卷积神经网络简述/","2018/07/14/深度学习笔记/","2018/07/09/C-plus-plus-Iterator-笔记/","2018/06/28/在DeepinLinux下使用nVidia-CUDA/","2018/06/25/deepin待机后键盘和触摸板无法使用的解决方法/","2018/06/05/dreamscene插件开发/","2018/05/23/Dock插件开发/","2018/04/01/Linux的PAM是什么/","2018/03/11/重构dde-session-ui/","2018/01/12/使用DTK开发/","2017/12/25/解决IntelliJ-IDEA界面瞎眼/","2017/12/18/修复Archlinux的Grub/","2017/09/01/解决NVIDIA重新启动以后系统冻结/","2017/08/31/我的代理折腾方案/","2017/08/23/开发topbar中的技术问题/","2017/08/20/TKL主题优化-转/","2017/08/16/debug了两天，只删了一行代码/","2017/08/15/正常的流程在界面上却是bug/","2017/08/11/在deepin上使用dnsmasq来解决dns解析缓慢/","2017/07/24/PPA/","2017/07/20/topbar-PPA/","2017/07/14/webhook/","2017/07/04/SAOUTILS/","2017/06/26/Topbar/","2016/07/15/ArchLinux运行steam出现缺少LibGL-steam-libGL-error-failed-to-load-driver-swrast/","2016/07/15/docker-hexo/","2016/05/31/docker-aria2c/","2016/05/25/aria2配置/","2016/04/10/linux下安装vmware及archlinux的安装和配置/","2016/04/08/font-config/","2016/03/25/my-life/","2016/03/25/page/"];
+            function toRandomPost() {
+                const randomPost = posts[Math.floor(Math.random() * posts.length)];
+                pjax.loadUrl(GLOBAL_CONFIG.root + randomPost);
+            }
+        </script>
