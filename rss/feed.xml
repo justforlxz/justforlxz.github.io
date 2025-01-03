@@ -1,0 +1,2849 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>小竹&#39;s blog</title>
+  <icon>https://blog.justforlxz.com/icon.png</icon>
+  <subtitle>永远不要停止思考</subtitle>
+  <link href="https://blog.justforlxz.com/rss/feed.xml" rel="self"/>
+  
+  <link href="https://blog.justforlxz.com/"/>
+  <updated>2025-01-02T08:32:45.387Z</updated>
+  <id>https://blog.justforlxz.com/</id>
+  
+  <author>
+    <name>小竹</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 distrobox 和 nix 加速 UOS 开发</title>
+    <link href="https://blog.justforlxz.com/2025/01/02/use-docker-and-distrobx-and-nix-to-develop-uos/"/>
+    <id>https://blog.justforlxz.com/2025/01/02/use-docker-and-distrobx-and-nix-to-develop-uos/</id>
+    <published>2025-01-02T08:18:00.000Z</published>
+    <updated>2025-01-02T08:32:45.387Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;UOS 这仓库有多鬼畜，就不用我多说了，开发的时候每次都要重装一个不同版本的系统也挺麻烦，比如 1060、1063、1070、1070u1。。。&lt;/p&gt;
+&lt;p&gt;所以我就想到，我可以用构建用的 rootfs 加上仓库，整出来一个基础环境，然后通过 distrobox</summary>
+        
+      
+    
+    
+    
+    <category term="技术分享" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+    <category term="uos" scheme="https://blog.justforlxz.com/tags/uos/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 VK-GL-CTS 对 wayland 执行一致性测试</title>
+    <link href="https://blog.justforlxz.com/2024/12/27/vk-gl-cts-test-wayland/"/>
+    <id>https://blog.justforlxz.com/2024/12/27/vk-gl-cts-test-wayland/</id>
+    <published>2024-12-27T04:00:00.000Z</published>
+    <updated>2024-12-31T08:44:41.609Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;aside&gt;
+😭 华为那边使用 deqp-vk 作为测试项，结果 kwin_wayland 有个测试没通过，沟通了一星期才知道是公开的测试套件，但是在 uos 1070 上构建遇到了点问题，我把坑记录一下。
+
+&lt;/aside&gt;
+
+&lt;p&gt;uos 1070 里的 gcc</summary>
+        
+      
+    
+    
+    
+    <category term="技术分享" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+    <category term="UOS, Vulkan, 图形学, 开发" scheme="https://blog.justforlxz.com/tags/UOS-Vulkan-%E5%9B%BE%E5%BD%A2%E5%AD%A6-%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nix home-manager 使用笔记</title>
+    <link href="https://blog.justforlxz.com/2024/12/25/nix-home-manager/"/>
+    <id>https://blog.justforlxz.com/2024/12/25/nix-home-manager/</id>
+    <published>2024-12-25T04:00:00.000Z</published>
+    <updated>2024-12-31T08:44:38.277Z</updated>
+    
+    
+    <summary type="html">每次都忘了要运行啥，记下来</summary>
+    
+    
+    
+    <category term="技术分享" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+    <category term="dotfile" scheme="https://blog.justforlxz.com/tags/dotfile/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>异世相遇，尽享美味</title>
+    <link href="https://blog.justforlxz.com/2024/11/23/have-a-nice-day/"/>
+    <id>https://blog.justforlxz.com/2024/11/23/have-a-nice-day/</id>
+    <published>2024-11-23T04:00:00.000Z</published>
+    <updated>2024-12-31T08:44:54.341Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天周五，下班去接老婆下班回家，快到家的时候突然有点嘴馋，想吃烧烤。&lt;/p&gt;
+&lt;p&gt;我：以前去的那家韩国烤肉店花了多少钱？&lt;/p&gt;
+&lt;p&gt;老婆：三百多。&lt;/p&gt;
+&lt;p&gt;我：三百多太贵了，不去！（拍大腿）&lt;/p&gt;
+&lt;p&gt;我：三百块都够买多少肉了。&lt;/p&gt;
+&lt;p&gt;老婆：那在家自</summary>
+        
+      
+    
+    
+    
+    <category term="心情随笔" scheme="https://blog.justforlxz.com/categories/%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="健康, 思考" scheme="https://blog.justforlxz.com/tags/%E5%81%A5%E5%BA%B7-%E6%80%9D%E8%80%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Treeland Part.1 如何实现一个基于 wlroots 的合成器</title>
+    <link href="https://blog.justforlxz.com/2024/11/09/treeland-part1-how-to-implement-a-wlroots-based-compositor/"/>
+    <id>https://blog.justforlxz.com/2024/11/09/treeland-part1-how-to-implement-a-wlroots-based-compositor/</id>
+    <published>2024-11-09T04:00:00.000Z</published>
+    <updated>2024-12-31T08:44:45.357Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;aside&gt;
+😀 Treeland 是一个基于 wlroots 和 Qt 的 Wayland 合成器
+并且支持多用户共用合成器。
+
+&lt;/aside&gt;
+
+&lt;h2 id=&quot;名词概念&quot;&gt;&lt;a href=&quot;#名词概念&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="技术分享" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+    <category term="C++, Wayland, 图形学" scheme="https://blog.justforlxz.com/tags/C-Wayland-%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Treeland：DDE 进步的阶梯</title>
+    <link href="https://blog.justforlxz.com/2024/11/01/treeland-go-go-go/"/>
+    <id>https://blog.justforlxz.com/2024/11/01/treeland-go-go-go/</id>
+    <published>2024-11-01T04:00:00.000Z</published>
+    <updated>2024-12-31T08:44:49.079Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;回顾&quot;&gt;&lt;a href=&quot;#回顾&quot; class=&quot;headerlink&quot; title=&quot;回顾&quot;&gt;&lt;/a&gt;回顾&lt;/h1&gt;&lt;p&gt;DDE 在 v15 时期，使用 Mutter 作为带合成器的窗管，以及 Metacity</summary>
+        
+      
+    
+    
+    
+    <category term="技术分享" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Add macvlan net</title>
+    <link href="https://blog.justforlxz.com/2024/04/15/Add-macvlan-net/"/>
+    <id>https://blog.justforlxz.com/2024/04/15/Add-macvlan-net/</id>
+    <published>2024-04-15T05:10:41.000Z</published>
+    <updated>2024-04-15T05:11:47.503Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[Unit]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Description=Script</summary>
+        
+      
+    
+    
+    
+    
+    <category term="k8s" scheme="https://blog.justforlxz.com/tags/k8s/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>solved run k8s in wsl2</title>
+    <link href="https://blog.justforlxz.com/2024/03/01/solved-run-k8s-in-wsl2/"/>
+    <id>https://blog.justforlxz.com/2024/03/01/solved-run-k8s-in-wsl2/</id>
+    <published>2024-03-01T03:30:11.000Z</published>
+    <updated>2024-04-15T05:09:55.032Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;When I use wsl2 join my k8s cluster, I have some problem. It can be start, but pod is not runing.&lt;/p&gt;
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    
+    <category term="k8s" scheme="https://blog.justforlxz.com/tags/k8s/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>solved Could not find a declaration file for module &#39;vuex&#39;.</title>
+    <link href="https://blog.justforlxz.com/2023/09/11/solved-Could-not-find-a-declaration-file-for-module-vuex/"/>
+    <id>https://blog.justforlxz.com/2023/09/11/solved-Could-not-find-a-declaration-file-for-module-vuex/</id>
+    <published>2023-09-11T02:14:56.000Z</published>
+    <updated>2024-04-15T05:09:55.028Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Recently I was rewriting the email client using Vue and encountered an error when using Vuex to process data.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Could not</summary>
+        
+      
+    
+    
+    
+    <category term="Vue" scheme="https://blog.justforlxz.com/categories/Vue/"/>
+    
+    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Vue/Solution/"/>
+    
+    
+    <category term="vuex" scheme="https://blog.justforlxz.com/tags/vuex/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>solved react-native error: SDK iphoneos cannot be located</title>
+    <link href="https://blog.justforlxz.com/2023/06/29/solved-react-native-error-SDK-iphoneos-cannot-be-located/"/>
+    <id>https://blog.justforlxz.com/2023/06/29/solved-react-native-error-SDK-iphoneos-cannot-be-located/</id>
+    <published>2023-06-29T01:40:13.000Z</published>
+    <updated>2024-04-15T05:09:55.032Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;While initializing the project, react native has the following error.&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="ReactNative" scheme="https://blog.justforlxz.com/categories/ReactNative/"/>
+    
+    <category term="Solution" scheme="https://blog.justforlxz.com/categories/ReactNative/Solution/"/>
+    
+    
+    <category term="reactnative" scheme="https://blog.justforlxz.com/tags/reactnative/"/>
+    
+    <category term="ios" scheme="https://blog.justforlxz.com/tags/ios/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>开发一个 KWin 特效插件</title>
+    <link href="https://blog.justforlxz.com/2023/06/25/How-to-develop-a-kwin-special-effects-plugin/"/>
+    <id>https://blog.justforlxz.com/2023/06/25/How-to-develop-a-kwin-special-effects-plugin/</id>
+    <published>2023-06-25T05:25:55.000Z</published>
+    <updated>2024-04-15T05:09:54.914Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;KWin 是 KDE 开发的窗口管理器，提供了非常丰富的插件，可以对功能进行大量的定制。&lt;/p&gt;
+&lt;p&gt;本篇文章是对窗口特效插件的开发介绍。&lt;/p&gt;
+&lt;h2 id=&quot;插件开发&quot;&gt;&lt;a href=&quot;#插件开发&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="deepin" scheme="https://blog.justforlxz.com/categories/deepin/"/>
+    
+    
+    <category term="deepin" scheme="https://blog.justforlxz.com/tags/deepin/"/>
+    
+    <category term="kwin" scheme="https://blog.justforlxz.com/tags/kwin/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>How to count the cpu usage of a process</title>
+    <link href="https://blog.justforlxz.com/2023/05/24/How-to-count-the-cpu-usage-of-a-process/"/>
+    <id>https://blog.justforlxz.com/2023/05/24/How-to-count-the-cpu-usage-of-a-process/</id>
+    <published>2023-05-24T02:43:04.000Z</published>
+    <updated>2024-04-15T05:09:54.913Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Sometimes we want to collect the cpu usage of the process, and usually use a script to make simple statistics.&lt;/p&gt;
+&lt;p&gt;Under Linux, the</summary>
+        
+      
+    
+    
+    
+    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Solution/"/>
+    
+    
+    <category term="Bash" scheme="https://blog.justforlxz.com/tags/Bash/"/>
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>How to Solve the Module not found: Cannot resolve &#39;fs&#39; error in Next.js</title>
+    <link href="https://blog.justforlxz.com/2023/04/19/How-to-Solve-the-Module-not-found-Cannot-resolve-fs-error-in-Next-js/"/>
+    <id>https://blog.justforlxz.com/2023/04/19/How-to-Solve-the-Module-not-found-Cannot-resolve-fs-error-in-Next-js/</id>
+    <published>2023-04-19T05:58:21.000Z</published>
+    <updated>2024-04-15T05:09:54.913Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;Webpack-4-version&quot;&gt;&lt;a href=&quot;#Webpack-4-version&quot; class=&quot;headerlink&quot; title=&quot;Webpack 4 version&quot;&gt;&lt;/a&gt;Webpack 4 version&lt;/h2&gt;&lt;p&gt;To</summary>
+        
+      
+    
+    
+    
+    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Solution/"/>
+    
+    
+    <category term="Next.js" scheme="https://blog.justforlxz.com/tags/Next-js/"/>
+    
+    <category term="Web" scheme="https://blog.justforlxz.com/tags/Web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kitty configuration for macOS</title>
+    <link href="https://blog.justforlxz.com/2023/04/17/Kitty-configuration-for-macOS/"/>
+    <id>https://blog.justforlxz.com/2023/04/17/Kitty-configuration-for-macOS/</id>
+    <published>2023-04-17T08:39:51.000Z</published>
+    <updated>2024-04-15T05:09:54.915Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;I’ve been using Kitty for a couple of days. I use it because there is a plugin for nvim that can seamlessly switch focus with kitty, so</summary>
+        
+      
+    
+    
+    
+    <category term="development tools" scheme="https://blog.justforlxz.com/categories/development-tools/"/>
+    
+    
+    <category term="Kitty" scheme="https://blog.justforlxz.com/tags/Kitty/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>How to solve parallels desktop linux usb problem</title>
+    <link href="https://blog.justforlxz.com/2023/04/11/How-to-solve-parallels-desktop-linux-usb-problem/"/>
+    <id>https://blog.justforlxz.com/2023/04/11/How-to-solve-parallels-desktop-linux-usb-problem/</id>
+    <published>2023-04-11T04:59:39.000Z</published>
+    <updated>2024-04-15T05:09:54.914Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;I am runing a linux virtual machine macos using parallels desktop. One day when I booted normally, I got a usb error and couldn’t use</summary>
+        
+      
+    
+    
+    
+    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Solution/"/>
+    
+    
+    <category term="parallels desktop" scheme="https://blog.justforlxz.com/tags/parallels-desktop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>How to remove all Terminating pods</title>
+    <link href="https://blog.justforlxz.com/2023/03/15/How-to-remove-all-Terminating-pods/"/>
+    <id>https://blog.justforlxz.com/2023/03/15/How-to-remove-all-Terminating-pods/</id>
+    <published>2023-03-15T06:47:59.000Z</published>
+    <updated>2024-04-15T05:09:54.914Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Sometimes all pods of k8s will be in Terminating state, use this command to clean up all pods.&lt;/p&gt;
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Solution/"/>
+    
+    
+    <category term="k8s" scheme="https://blog.justforlxz.com/tags/k8s/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>solved duplicate hostname or contents</title>
+    <link href="https://blog.justforlxz.com/2023/02/01/solved-duplicate-hostname-or-contents/"/>
+    <id>https://blog.justforlxz.com/2023/02/01/solved-duplicate-hostname-or-contents/</id>
+    <published>2023-02-01T06:48:21.000Z</published>
+    <updated>2024-04-15T05:09:55.028Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;img src=&quot;/2023/02/01/solved-duplicate-hostname-or-contents/tg_image_1176326230.jpeg&quot; class=&quot;&quot;&gt;
+
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Solution/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>how to use nvim dap to debug cpp</title>
+    <link href="https://blog.justforlxz.com/2022/12/08/how-to-use-nvim-dap-to-debug-cpp/"/>
+    <id>https://blog.justforlxz.com/2022/12/08/how-to-use-nvim-dap-to-debug-cpp/</id>
+    <published>2022-12-08T02:16:45.000Z</published>
+    <updated>2024-04-15T05:09:54.994Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在之前我已经分享过了一份简单的 nvim 配置，它已经实现了编程所需的智能提示，语法高亮，代码跳转等功能，今天我打算整一下 nvim 的调试框架 dap。&lt;/p&gt;
+&lt;p&gt;dap 是一个框架，客户端负责在 nvim</summary>
+        
+      
+    
+    
+    
+    <category term="neovim" scheme="https://blog.justforlxz.com/categories/neovim/"/>
+    
+    
+    <category term="neovim" scheme="https://blog.justforlxz.com/tags/neovim/"/>
+    
+    <category term="dap" scheme="https://blog.justforlxz.com/tags/dap/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>1. init project</title>
+    <link href="https://blog.justforlxz.com/2022/11/07/photo-1-init-project/"/>
+    <id>https://blog.justforlxz.com/2022/11/07/photo-1-init-project/</id>
+    <published>2022-11-07T08:38:31.000Z</published>
+    <updated>2024-04-15T05:09:55.027Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这是一个系列的文章，用来记录我的相册应用的开发过程，内容可能会比较枯燥，还请读者见谅。&lt;/p&gt;
+&lt;p&gt;我使用  NextCloud</summary>
+        
+      
+    
+    
+    
+    <category term="photos 开发笔记" scheme="https://blog.justforlxz.com/categories/photos-%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="typescript" scheme="https://blog.justforlxz.com/tags/typescript/"/>
+    
+    <category term="react" scheme="https://blog.justforlxz.com/tags/react/"/>
+    
+    <category term="react native" scheme="https://blog.justforlxz.com/tags/react-native/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>docker-buildx-multi-arch-images</title>
+    <link href="https://blog.justforlxz.com/2022/08/25/docker-buildx-multi-arch-images/"/>
+    <id>https://blog.justforlxz.com/2022/08/25/docker-buildx-multi-arch-images/</id>
+    <published>2022-08-25T05:32:03.000Z</published>
+    <updated>2024-04-15T05:09:54.959Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近一直在搞 github 的 ci，为了方便公司的开发快速修复其他发行版上的构建问题，我研究了一下 distrobox 启动容器来作为本地验证环境的可行性，结果发现还不错，就顺手做了几个镜像。&lt;/p&gt;
+&lt;p&gt;v23 的仓库是支持多个架构的，想着顺手做一份 v23</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    
+    
+    <category term="docker" scheme="https://blog.justforlxz.com/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>meet unity shader</title>
+    <link href="https://blog.justforlxz.com/2022/07/21/meet-unity-shader/"/>
+    <id>https://blog.justforlxz.com/2022/07/21/meet-unity-shader/</id>
+    <published>2022-07-21T13:44:25.000Z</published>
+    <updated>2024-04-15T05:09:54.896Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在我还在上高中的时候，我就开始学了一些 Unity，也尝试制作了一些简单的游戏，那时候更多是出于好玩，后来沉迷 Linux，就逐渐淡忘了游戏开发。&lt;/p&gt;
+&lt;p&gt;机缘巧合，我现在入手了一台 M1 mbp，接触到了 Apple 家的 Metal，又快速过了一下</summary>
+        
+      
+    
+    
+    
+    <category term="Game" scheme="https://blog.justforlxz.com/categories/Game/"/>
+    
+    
+    <category term="Game" scheme="https://blog.justforlxz.com/tags/Game/"/>
+    
+    <category term="Unity" scheme="https://blog.justforlxz.com/tags/Unity/"/>
+    
+    <category term="Shader" scheme="https://blog.justforlxz.com/tags/Shader/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 React 的 JSX</title>
+    <link href="https://blog.justforlxz.com/2022/07/02/jsx/"/>
+    <id>https://blog.justforlxz.com/2022/07/02/jsx/</id>
+    <published>2022-07-01T16:11:59.000Z</published>
+    <updated>2024-04-15T05:09:55.010Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;jsx&quot;&gt;&lt;a href=&quot;#jsx&quot; class=&quot;headerlink&quot; title=&quot;jsx&quot;&gt;&lt;/a&gt;jsx&lt;/h1&gt;&lt;p&gt;JSX 是 javascript XML 的缩写，可以在 javascript 代码中书写 HTML</summary>
+        
+      
+    
+    
+    
+    <category term="Web" scheme="https://blog.justforlxz.com/categories/Web/"/>
+    
+    
+    <category term="javascript" scheme="https://blog.justforlxz.com/tags/javascript/"/>
+    
+    <category term="jsx" scheme="https://blog.justforlxz.com/tags/jsx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>栈分配问题</title>
+    <link href="https://blog.justforlxz.com/2022/06/24/stack-problem/"/>
+    <id>https://blog.justforlxz.com/2022/06/24/stack-problem/</id>
+    <published>2022-06-24T08:44:30.000Z</published>
+    <updated>2024-04-15T05:09:55.033Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;前阵子在写一个新的项目，为了提升一些速度，所以没有使用 Qt 之类的大型库，在做进程管理的时候，遇到了奇怪的崩溃问题。&lt;/p&gt;
+&lt;p&gt;因为平时很少写这样的代码，所以觉得出问题很正常，但是排查了很久，都没有找到问题所在。&lt;/p&gt;
+&lt;p&gt;在 @black-desk</summary>
+        
+      
+    
+    
+    
+    <category term="技术" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一个邪恶的想法</title>
+    <link href="https://blog.justforlxz.com/2022/04/26/an-evil-idea/"/>
+    <id>https://blog.justforlxz.com/2022/04/26/an-evil-idea/</id>
+    <published>2022-04-26T07:39:49.000Z</published>
+    <updated>2024-04-15T05:09:54.955Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;哪个男孩子可以抵御服务器集群的诱惑呢？&lt;/p&gt;
+&lt;p&gt;我有几台性能偏弱的机器，并且分散在不同的地方，我就想着如何利用起来这些废旧设备。&lt;/p&gt;
+&lt;p&gt;我学习了一下 docker swarm 和 kubernetes，并半成功的使用 docker swarm</summary>
+        
+      
+    
+    
+    
+    
+    <category term="kubernetes" scheme="https://blog.justforlxz.com/tags/kubernetes/"/>
+    
+    <category term="Github Action" scheme="https://blog.justforlxz.com/tags/Github-Action/"/>
+    
+    <category term="evil" scheme="https://blog.justforlxz.com/tags/evil/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hello-metal.5 材质贴图</title>
+    <link href="https://blog.justforlxz.com/2022/04/09/hello-metal-5/"/>
+    <id>https://blog.justforlxz.com/2022/04/09/hello-metal-5/</id>
+    <published>2022-04-09T03:01:52.000Z</published>
+    <updated>2024-04-15T05:09:54.984Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这个系列是我用来学习 Metal API 的笔记，我的最终目的是希望实现一个基于 Metal 的游戏引擎。&lt;/p&gt;
+&lt;p&gt;目前系列有:&lt;/p&gt;
+&lt;a href=&quot;/2022/04/04/hello-metal-1/&quot; title=&quot;hello-metal.1</summary>
+        
+      
+    
+    
+    
+    <category term="HelloMetal系列" scheme="https://blog.justforlxz.com/categories/HelloMetal%E7%B3%BB%E5%88%97/"/>
+    
+    
+    <category term="Metal" scheme="https://blog.justforlxz.com/tags/Metal/"/>
+    
+    <category term="GameEngine" scheme="https://blog.justforlxz.com/tags/GameEngine/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hello-metal.4 动画</title>
+    <link href="https://blog.justforlxz.com/2022/04/04/hello-metal-4/"/>
+    <id>https://blog.justforlxz.com/2022/04/04/hello-metal-4/</id>
+    <published>2022-04-04T08:20:24.000Z</published>
+    <updated>2024-04-15T05:09:54.984Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这个系列是我用来学习 Metal API 的笔记，我的最终目的是希望实现一个基于 Metal 的游戏引擎。&lt;/p&gt;
+&lt;p&gt;目前系列有:&lt;/p&gt;
+&lt;a href=&quot;/2022/04/04/hello-metal-1/&quot; title=&quot;hello-metal.1</summary>
+        
+      
+    
+    
+    
+    <category term="HelloMetal系列" scheme="https://blog.justforlxz.com/categories/HelloMetal%E7%B3%BB%E5%88%97/"/>
+    
+    
+    <category term="Metal" scheme="https://blog.justforlxz.com/tags/Metal/"/>
+    
+    <category term="GameEngine" scheme="https://blog.justforlxz.com/tags/GameEngine/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hello-metal.3 四边形</title>
+    <link href="https://blog.justforlxz.com/2022/04/04/hello-metal-3/"/>
+    <id>https://blog.justforlxz.com/2022/04/04/hello-metal-3/</id>
+    <published>2022-04-04T05:05:40.000Z</published>
+    <updated>2024-04-15T05:09:54.982Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这个系列是我用来学习 Metal API 的笔记，我的最终目的是希望实现一个基于 Metal 的游戏引擎。&lt;/p&gt;
+&lt;p&gt;目前系列有:&lt;/p&gt;
+&lt;a href=&quot;/2022/04/04/hello-metal-1/&quot; title=&quot;hello-metal.1</summary>
+        
+      
+    
+    
+    
+    <category term="HelloMetal系列" scheme="https://blog.justforlxz.com/categories/HelloMetal%E7%B3%BB%E5%88%97/"/>
+    
+    
+    <category term="Metal" scheme="https://blog.justforlxz.com/tags/Metal/"/>
+    
+    <category term="GameEngine" scheme="https://blog.justforlxz.com/tags/GameEngine/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hello-metal.2 第一个三角形</title>
+    <link href="https://blog.justforlxz.com/2022/04/04/hello-metal-2/"/>
+    <id>https://blog.justforlxz.com/2022/04/04/hello-metal-2/</id>
+    <published>2022-04-04T02:05:43.000Z</published>
+    <updated>2024-04-15T05:09:54.976Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这个系列是我用来学习 Metal API 的笔记，我的最终目的是希望实现一个基于 Metal 的游戏引擎。&lt;/p&gt;
+&lt;p&gt;目前系列有:&lt;/p&gt;
+&lt;a href=&quot;/2022/04/04/hello-metal-1/&quot; title=&quot;hello-metal.1</summary>
+        
+      
+    
+    
+    
+    <category term="HelloMetal系列" scheme="https://blog.justforlxz.com/categories/HelloMetal%E7%B3%BB%E5%88%97/"/>
+    
+    
+    <category term="Metal" scheme="https://blog.justforlxz.com/tags/Metal/"/>
+    
+    <category term="GameEngine" scheme="https://blog.justforlxz.com/tags/GameEngine/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hello-metal.1 看到了绿色</title>
+    <link href="https://blog.justforlxz.com/2022/04/04/hello-metal-1/"/>
+    <id>https://blog.justforlxz.com/2022/04/04/hello-metal-1/</id>
+    <published>2022-04-04T00:59:33.000Z</published>
+    <updated>2024-04-15T05:09:54.966Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这个系列是我用来学习 Metal API 的笔记，我的最终目的是希望实现一个基于 Metal 的游戏引擎。&lt;/p&gt;
+&lt;p&gt;目前系列有:&lt;/p&gt;
+&lt;a href=&quot;/2022/04/04/hello-metal-1/&quot; title=&quot;hello-metal.1</summary>
+        
+      
+    
+    
+    
+    <category term="HelloMetal系列" scheme="https://blog.justforlxz.com/categories/HelloMetal%E7%B3%BB%E5%88%97/"/>
+    
+    
+    <category term="Metal" scheme="https://blog.justforlxz.com/tags/Metal/"/>
+    
+    <category term="GameEngine" scheme="https://blog.justforlxz.com/tags/GameEngine/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vim简单配置</title>
+    <link href="https://blog.justforlxz.com/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/"/>
+    <id>https://blog.justforlxz.com/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/</id>
+    <published>2022-03-22T12:36:51.000Z</published>
+    <updated>2024-04-15T05:09:55.080Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;作为一个爱折腾的同学，折腾几个编辑器不过分吧。&lt;/p&gt;
+&lt;p&gt;我折腾编辑器的历史还算跟得上潮流，最开始用 sublime，后来 atom 出来了，吊打 sublime，我就去用 atom了。&lt;br&gt;再后来宇宙第一编辑器 vscode</summary>
+        
+      
+    
+    
+    
+    
+    <category term="vim" scheme="https://blog.justforlxz.com/tags/vim/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CSS 外边距折叠问题</title>
+    <link href="https://blog.justforlxz.com/2022/03/16/css-mastering-margin-collapsing/"/>
+    <id>https://blog.justforlxz.com/2022/03/16/css-mastering-margin-collapsing/</id>
+    <published>2022-03-16T07:35:56.000Z</published>
+    <updated>2024-04-15T05:09:54.958Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在学习 CSS 练习元素浮动的时候，我发现了一个奇怪的现象，就是上下两个块元素似乎距离太近了，无论我怎么增加上下 margins，始终都不会按照我预期的那样显示。&lt;/p&gt;
+&lt;p&gt;查阅了一些资料发现这是一个 CSS 的特定，叫</summary>
+        
+      
+    
+    
+    
+    
+    <category term="CSS" scheme="https://blog.justforlxz.com/tags/CSS/"/>
+    
+    <category term="Web" scheme="https://blog.justforlxz.com/tags/Web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 if constexpr 实现条件编译</title>
+    <link href="https://blog.justforlxz.com/2022/03/10/if-constexpr/"/>
+    <id>https://blog.justforlxz.com/2022/03/10/if-constexpr/</id>
+    <published>2022-03-10T05:03:27.000Z</published>
+    <updated>2024-04-15T05:09:55.009Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在项目开发中，我们通常会使用条件编译对代码进行裁剪，选择性地排除不需要的代码，比如在某个平台下完全不支持某个功能，那么这个功能就不应该被编译。&lt;/p&gt;
+&lt;p&gt;一般我们使用宏来判断代码，选择性的挑选需要编译的部分，并在构建系统中开启这样的条件。&lt;/p&gt;
+&lt;figure</summary>
+        
+      
+    
+    
+    
+    
+    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>latex 环境配置</title>
+    <link href="https://blog.justforlxz.com/2022/03/08/latex-environment-config/"/>
+    <id>https://blog.justforlxz.com/2022/03/08/latex-environment-config/</id>
+    <published>2022-03-08T09:55:49.000Z</published>
+    <updated>2024-04-15T05:09:55.010Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在我刚开始学习使用 Linux 的时候，经常能看到一些人在鼓吹 tex、markdown、org-mode 之类的文档编写方式的好处，甚至分化出不同的阵营，互相拉拢（&lt;del&gt;忽悠&lt;/del&gt;）其他刚入门的人。&lt;/p&gt;
+&lt;p&gt;后来我渐渐喜欢上了</summary>
+        
+      
+    
+    
+    
+    
+    <category term="latex" scheme="https://blog.justforlxz.com/tags/latex/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>QDir 和 std::filesystem 的简单对比</title>
+    <link href="https://blog.justforlxz.com/2022/03/04/qdir-stdfilesystem/"/>
+    <id>https://blog.justforlxz.com/2022/03/04/qdir-stdfilesystem/</id>
+    <published>2022-03-04T02:11:45.000Z</published>
+    <updated>2024-04-15T05:09:55.027Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;作为一名使用 Qt 的开发人员，Qt 为我提供了大量好用的基础设施，例如广受好评的 QString、QNetwork之类的，这是 Qt 平台为我提供的帮助，我只需要在这个平台上开发就足够了。&lt;/p&gt;
+&lt;p&gt;同样作为一名 C++ 开发人员，C++</summary>
+        
+      
+    
+    
+    
+    
+    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    
+    <category term="Qt" scheme="https://blog.justforlxz.com/tags/Qt/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>How to use cuda with deepin</title>
+    <link href="https://blog.justforlxz.com/2022/02/25/How-to-use-cuda-with-deepin/"/>
+    <id>https://blog.justforlxz.com/2022/02/25/How-to-use-cuda-with-deepin/</id>
+    <published>2022-02-25T02:06:05.000Z</published>
+    <updated>2024-04-15T05:09:54.915Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;CUDA（Compute Unified Device Architecture，统一计算架构）是由NVIDIA所推出的一种集成技术，是该公司对于GPGPU的正式名称。通过这个技术，用户可利用NVIDIA的GeForce 8以后的GPU和较新的Quadro</summary>
+        
+      
+    
+    
+    
+    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Solution/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>fix h5py build failed on m1</title>
+    <link href="https://blog.justforlxz.com/2022/01/05/fix-h5py-build-failed-on-m1/"/>
+    <id>https://blog.justforlxz.com/2022/01/05/fix-h5py-build-failed-on-m1/</id>
+    <published>2022-01-05T03:12:36.000Z</published>
+    <updated>2024-04-15T05:09:54.966Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天在 m1 mbp 上安装 tensorflow-metal 遇到了依赖无法安装的问题，错误的原因是 h5py 这个包无法编译。&lt;/p&gt;
+&lt;p&gt;在 h5py 的项目里看到了已经解决了，但是仍然需要从源码构建。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Starting sessions with systemd part 2</title>
+    <link href="https://blog.justforlxz.com/2021/12/29/Starting-sessions-with-systemd-part-2/"/>
+    <id>https://blog.justforlxz.com/2021/12/29/Starting-sessions-with-systemd-part-2/</id>
+    <published>2021-12-29T13:09:07.000Z</published>
+    <updated>2024-04-15T05:09:54.952Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;接着上一篇文章 &lt;a href=&quot;/2021/12/25/Starting-sessions-with-systemd/&quot; title=&quot;Starting sessions with systemd&quot;&gt;Starting sessions with</summary>
+        
+      
+    
+    
+    
+    
+    <category term="systemd" scheme="https://blog.justforlxz.com/tags/systemd/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Starting sessions with systemd</title>
+    <link href="https://blog.justforlxz.com/2021/12/25/Starting-sessions-with-systemd/"/>
+    <id>https://blog.justforlxz.com/2021/12/25/Starting-sessions-with-systemd/</id>
+    <published>2021-12-25T14:00:53.000Z</published>
+    <updated>2024-04-15T05:09:54.953Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;DDE 现在正在做 Wayland 的支持，所以我们需要对目前的桌面环境结构进行调整，&lt;br&gt;考虑到 GNOME 和 KDE 都已经使用 &lt;code&gt;systemd&lt;/code&gt; 来管理 session，我认为 deepin 团队也可以考虑这一步了。&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="systemd" scheme="https://blog.justforlxz.com/tags/systemd/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>introduction-to-the-qml-cmake-api（中文翻译）</title>
+    <link href="https://blog.justforlxz.com/2021/09/14/introduction-to-the-qml-cmake-api/"/>
+    <id>https://blog.justforlxz.com/2021/09/14/introduction-to-the-qml-cmake-api/</id>
+    <published>2021-09-14T00:35:33.000Z</published>
+    <updated>2024-04-15T05:09:55.010Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;原文：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Qt" scheme="https://blog.justforlxz.com/tags/Qt/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vuex基本使用</title>
+    <link href="https://blog.justforlxz.com/2021/08/10/Vuex%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
+    <id>https://blog.justforlxz.com/2021/08/10/Vuex%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</id>
+    <published>2021-08-10T05:56:30.000Z</published>
+    <updated>2024-04-15T05:09:54.954Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近在写 deepincn 的首页，看着 elementary os 的首页样式挺好看的，就打算山寨一下。&lt;/p&gt;
+&lt;p&gt;本来打算用 Angular 开发的，但是看到 Vue3 已经十分稳定了，就打算重拾 Vue3，用 Vue3</summary>
+        
+      
+    
+    
+    
+    <category term="Web" scheme="https://blog.justforlxz.com/categories/Web/"/>
+    
+    <category term="Vue" scheme="https://blog.justforlxz.com/categories/Web/Vue/"/>
+    
+    <category term="Vuex" scheme="https://blog.justforlxz.com/categories/Web/Vue/Vuex/"/>
+    
+    
+    <category term="Web" scheme="https://blog.justforlxz.com/tags/Web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CSS浮动笔记</title>
+    <link href="https://blog.justforlxz.com/2021/08/07/CSS%E6%B5%AE%E5%8A%A8%E7%AC%94%E8%AE%B0/"/>
+    <id>https://blog.justforlxz.com/2021/08/07/CSS%E6%B5%AE%E5%8A%A8%E7%AC%94%E8%AE%B0/</id>
+    <published>2021-08-07T03:02:20.000Z</published>
+    <updated>2024-04-15T05:09:54.912Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;DOM文档排版的特点&quot;&gt;&lt;a href=&quot;#DOM文档排版的特点&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Web" scheme="https://blog.justforlxz.com/categories/Web/"/>
+    
+    
+    <category term="CSS" scheme="https://blog.justforlxz.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript任务执行笔记</title>
+    <link href="https://blog.justforlxz.com/2021/08/07/JavaScript%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E7%AC%94%E8%AE%B0/"/>
+    <id>https://blog.justforlxz.com/2021/08/07/JavaScript%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E7%AC%94%E8%AE%B0/</id>
+    <published>2021-08-07T02:37:18.000Z</published>
+    <updated>2024-04-15T05:09:54.915Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;浏览器中的 JavaScript 的执行流程和 Node.js 中的执行流程都是基于 &lt;strong&gt;事件循环&lt;/strong&gt; 的&lt;/p&gt;
+&lt;h2 id=&quot;事件循环&quot;&gt;&lt;a href=&quot;#事件循环&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Web" scheme="https://blog.justforlxz.com/categories/Web/"/>
+    
+    
+    <category term="JavaScript" scheme="https://blog.justforlxz.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Wayland 协议（中文）—— 第三章. Wayland的架构</title>
+    <link href="https://blog.justforlxz.com/2021/07/24/wayland-architecture/"/>
+    <id>https://blog.justforlxz.com/2021/07/24/wayland-architecture/</id>
+    <published>2021-07-24T04:08:20.000Z</published>
+    <updated>2024-04-15T05:09:55.092Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;第三章-Wayland-体系结构&quot;&gt;&lt;a href=&quot;#第三章-Wayland-体系结构&quot; class=&quot;headerlink&quot; title=&quot;第三章. Wayland 体系结构&quot;&gt;&lt;/a&gt;第三章. Wayland 体系结构&lt;/h2&gt;&lt;h3</summary>
+        
+      
+    
+    
+    
+    <category term="Wayland" scheme="https://blog.justforlxz.com/categories/Wayland/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+    <category term="Wayland" scheme="https://blog.justforlxz.com/tags/Wayland/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Wayland 协议（中文）—— 第二章. 合成器的类型</title>
+    <link href="https://blog.justforlxz.com/2021/07/24/wayland-types/"/>
+    <id>https://blog.justforlxz.com/2021/07/24/wayland-types/</id>
+    <published>2021-07-24T04:03:21.000Z</published>
+    <updated>2024-04-15T05:09:55.093Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;第二章-合成的类型&quot;&gt;&lt;a href=&quot;#第二章-合成的类型&quot; class=&quot;headerlink&quot; title=&quot;第二章. 合成的类型&quot;&gt;&lt;/a&gt;第二章.</summary>
+        
+      
+    
+    
+    
+    <category term="Wayland" scheme="https://blog.justforlxz.com/categories/Wayland/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+    <category term="Wayland" scheme="https://blog.justforlxz.com/tags/Wayland/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Wayland 协议（中文）—— 第一章. 介绍</title>
+    <link href="https://blog.justforlxz.com/2021/07/24/wayland-introduction/"/>
+    <id>https://blog.justforlxz.com/2021/07/24/wayland-introduction/</id>
+    <published>2021-07-24T03:54:49.000Z</published>
+    <updated>2024-04-15T05:09:55.092Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;第一章-介绍&quot;&gt;&lt;a href=&quot;#第一章-介绍&quot; class=&quot;headerlink&quot; title=&quot;第一章. 介绍&quot;&gt;&lt;/a&gt;第一章. 介绍&lt;/h2&gt;&lt;h3 id=&quot;动机&quot;&gt;&lt;a href=&quot;#动机&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Wayland" scheme="https://blog.justforlxz.com/categories/Wayland/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+    <category term="Wayland" scheme="https://blog.justforlxz.com/tags/Wayland/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Wayland 协议（中文）—— 序言</title>
+    <link href="https://blog.justforlxz.com/2021/07/24/wayland-preface/"/>
+    <id>https://blog.justforlxz.com/2021/07/24/wayland-preface/</id>
+    <published>2021-07-24T03:28:10.000Z</published>
+    <updated>2024-04-15T05:09:55.093Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;center&gt;
+
+&lt;img src=&quot;/2021/07/24/wayland-preface/logo.png&quot; class=&quot;&quot; width=&quot;&quot;&gt;
+
+&lt;p&gt;Kristian Høgsberg&lt;/p&gt;
+&lt;p&gt;Intel Corporation&lt;/p&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Wayland" scheme="https://blog.justforlxz.com/categories/Wayland/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+    <category term="Wayland" scheme="https://blog.justforlxz.com/tags/Wayland/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode 11. 盛最多水的容器</title>
+    <link href="https://blog.justforlxz.com/2021/07/06/container-with-most-water/"/>
+    <id>https://blog.justforlxz.com/2021/07/06/container-with-most-water/</id>
+    <published>2021-07-06T09:40:18.000Z</published>
+    <updated>2024-04-15T05:09:54.958Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;盛最多水的容器&quot;&gt;&lt;a href=&quot;#盛最多水的容器&quot; class=&quot;headerlink&quot; title=&quot;盛最多水的容器&quot;&gt;&lt;/a&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="leetcode算法" scheme="https://blog.justforlxz.com/categories/leetcode%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="数组" scheme="https://blog.justforlxz.com/tags/%E6%95%B0%E7%BB%84/"/>
+    
+    <category term="算法" scheme="https://blog.justforlxz.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="简单" scheme="https://blog.justforlxz.com/tags/%E7%AE%80%E5%8D%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode 1. 两数之和</title>
+    <link href="https://blog.justforlxz.com/2021/07/06/two-sum/"/>
+    <id>https://blog.justforlxz.com/2021/07/06/two-sum/</id>
+    <published>2021-07-06T08:50:11.000Z</published>
+    <updated>2024-04-15T05:09:55.039Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1-两数之和&quot;&gt;&lt;a href=&quot;#1-两数之和&quot; class=&quot;headerlink&quot; title=&quot;1. 两数之和&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/two-sum/&quot;&gt;1.</summary>
+        
+      
+    
+    
+    
+    <category term="leetcode算法" scheme="https://blog.justforlxz.com/categories/leetcode%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="数组" scheme="https://blog.justforlxz.com/tags/%E6%95%B0%E7%BB%84/"/>
+    
+    <category term="算法" scheme="https://blog.justforlxz.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="简单" scheme="https://blog.justforlxz.com/tags/%E7%AE%80%E5%8D%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode 704. 二分查找</title>
+    <link href="https://blog.justforlxz.com/2021/07/06/binary-search/"/>
+    <id>https://blog.justforlxz.com/2021/07/06/binary-search/</id>
+    <published>2021-07-06T08:35:19.000Z</published>
+    <updated>2024-04-15T05:09:54.955Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;704-二分查找&quot;&gt;&lt;a href=&quot;#704-二分查找&quot; class=&quot;headerlink&quot; title=&quot;704. 二分查找&quot;&gt;&lt;/a&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="leetcode算法" scheme="https://blog.justforlxz.com/categories/leetcode%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="数组" scheme="https://blog.justforlxz.com/tags/%E6%95%B0%E7%BB%84/"/>
+    
+    <category term="算法" scheme="https://blog.justforlxz.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="简单" scheme="https://blog.justforlxz.com/tags/%E7%AE%80%E5%8D%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何给Arch打一个包</title>
+    <link href="https://blog.justforlxz.com/2021/03/04/package-manager-for-arch/"/>
+    <id>https://blog.justforlxz.com/2021/03/04/package-manager-for-arch/</id>
+    <published>2021-03-04T03:23:42.000Z</published>
+    <updated>2024-04-15T05:09:55.027Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Arch 使用的是 pacman 包管理器，包格式是 tar.zst。Arch 提供了一些工具用于创建 tar.zst 包，首先需要安装 base-devel 包和 devtools 包。&lt;/p&gt;
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>timemachine</title>
+    <link href="https://blog.justforlxz.com/2021/02/27/timemachine/"/>
+    <id>https://blog.justforlxz.com/2021/02/27/timemachine/</id>
+    <published>2021-02-27T03:35:29.000Z</published>
+    <updated>2024-04-15T05:09:55.033Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;接着上篇的 &lt;a href=&quot;/samba&quot;&gt;samba&lt;/a&gt;，我给家里配置了 samba 服务器，为家里提供共享存储服务。&lt;/p&gt;
+&lt;p&gt;我在我笔记本上安装了黑苹果，所以也想顺便试试传说中的 &lt;code&gt;Time Machine&lt;/code&gt;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>samba</title>
+    <link href="https://blog.justforlxz.com/2021/02/27/samba/"/>
+    <id>https://blog.justforlxz.com/2021/02/27/samba/</id>
+    <published>2021-02-27T02:42:53.000Z</published>
+    <updated>2024-04-15T05:09:55.028Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;samba 是一个linux下开源的SMB&amp;#x2F;CIFS协议的免费软件，最初 SMB 协议是 Microsoft 开发的网络通讯协议，后来微软又把 SMB 改名为 CIFS（Common Internet File System），即公共 Internet</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2020 Review</title>
+    <link href="https://blog.justforlxz.com/2021/02/26/2020review/"/>
+    <id>https://blog.justforlxz.com/2021/02/26/2020review/</id>
+    <published>2021-02-26T14:51:45.000Z</published>
+    <updated>2024-04-15T05:09:54.905Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;2020&quot;&gt;&lt;a href=&quot;#2020&quot; class=&quot;headerlink&quot; title=&quot;2020&quot;&gt;&lt;/a&gt;2020&lt;/h1&gt;&lt;p&gt;拖了这么久才更新博客，想必大家都在 2020</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ccls</title>
+    <link href="https://blog.justforlxz.com/2020/12/23/ccls/"/>
+    <id>https://blog.justforlxz.com/2020/12/23/ccls/</id>
+    <published>2020-12-23T08:27:39.000Z</published>
+    <updated>2024-04-15T05:09:54.955Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;LSP(Language Server Protocol)</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+    <category term="vim" scheme="https://blog.justforlxz.com/tags/vim/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Qt多线程</title>
+    <link href="https://blog.justforlxz.com/2020/11/17/qt-multi-thread/"/>
+    <id>https://blog.justforlxz.com/2020/11/17/qt-multi-thread/</id>
+    <published>2020-11-17T07:53:37.000Z</published>
+    <updated>2024-04-15T05:09:55.027Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;类型注册 Qt 有三种多线程的方式，分别是继承 QThread、使用 QObject 的 moveToThread 函数和 Qtconcurrent 协程。&lt;/p&gt;
+&lt;p&gt;在很多文章中，大家都推荐继承 QThread 类，并重写 run 方法，在 run 中使用耗时操作代码。这种方式让我们觉得 QThread 是线程的实体。创建一个 QThread 对象就认为是开辟了一个新的线程。这种讨巧的方法似乎能帮助我们快速入门，但是只要深度了解多线程编程就会发现，这样子做会使代码脱离我们的控制，代码越写越复杂。最典型的问题就是明明将代码放入了新线程，但是仍然在旧线程中运行。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Qt" scheme="https://blog.justforlxz.com/tags/Qt/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>deepin-wine中文乱码</title>
+    <link href="https://blog.justforlxz.com/2020/09/17/deepin-wine-chinese-problem/"/>
+    <id>https://blog.justforlxz.com/2020/09/17/deepin-wine-chinese-problem/</id>
+    <published>2020-09-17T08:32:12.000Z</published>
+    <updated>2024-04-15T05:09:54.959Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;众所周知，使用wine来运行windows下的一些软件是linux用户的常用操作，deepin为社区贡献了好几款中国用户必备的软件，例如QQ、微信、企业微信，以此来让更多的人无痛的切换到linux来。近年来value也一直在linux上布局，先后推出了steam主机和pro</summary>
+        
+      
+    
+    
+    
+    <category term="技术" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用rEFInd来安全启动系统</title>
+    <link href="https://blog.justforlxz.com/2020/09/08/use-refind-to-boot-system/"/>
+    <id>https://blog.justforlxz.com/2020/09/08/use-refind-to-boot-system/</id>
+    <published>2020-09-08T11:54:26.000Z</published>
+    <updated>2024-04-15T05:09:55.047Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;今年的七夕，我老婆给我买了一台surface laptop 2代，8G内存 + 256G存储版本，我也成功的用上了田牌的机器。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="技术" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>deepin git version</title>
+    <link href="https://blog.justforlxz.com/2020/09/06/deepin-git-version/"/>
+    <id>https://blog.justforlxz.com/2020/09/06/deepin-git-version/</id>
+    <published>2020-09-06T04:51:08.000Z</published>
+    <updated>2024-04-15T05:09:54.958Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;This repository only provides the git version of deepin. You can replace the deepin group in the community by installing the deepin-git group.&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="技术" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用VSCode远程开发DDE</title>
+    <link href="https://blog.justforlxz.com/2020/09/03/use-vscode-to-remotely-develop-dde/"/>
+    <id>https://blog.justforlxz.com/2020/09/03/use-vscode-to-remotely-develop-dde/</id>
+    <published>2020-09-03T03:14:38.000Z</published>
+    <updated>2024-04-15T05:09:55.058Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文将介绍如何使用VSCode的远程开发套件连接到Deepin主机，进行DDE和其他软件的开发与调试.&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    
+    <category term="技术" scheme="https://blog.justforlxz.com/categories/Linux/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+    <category term="VS Code" scheme="https://blog.justforlxz.com/tags/VS-Code/"/>
+    
+    <category term="Windows" scheme="https://blog.justforlxz.com/tags/Windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在ArchLinux上开发startdde</title>
+    <link href="https://blog.justforlxz.com/2020/08/06/develop-startdde-on-archlinux/"/>
+    <id>https://blog.justforlxz.com/2020/08/06/develop-startdde-on-archlinux/</id>
+    <published>2020-08-06T08:14:26.000Z</published>
+    <updated>2024-04-15T05:09:54.959Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;dde 后端使用 go 作为主要的开发语言，使用 dbus 提供接口，主要使用 gsettings 来保存配置。 所以在进行后端开发前需要对以上内容有基本的了解，这里假定本文档的阅读者熟悉 dbus 和 gsettings，并有一定的开发经验。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    
+    
+    <category term="dde" scheme="https://blog.justforlxz.com/tags/dde/"/>
+    
+    <category term="go" scheme="https://blog.justforlxz.com/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>use github action to check dde-launcher</title>
+    <link href="https://blog.justforlxz.com/2020/07/27/use-github-action-to-check-dde-launcher/"/>
+    <id>https://blog.justforlxz.com/2020/07/27/use-github-action-to-check-dde-launcher/</id>
+    <published>2020-07-27T10:14:21.000Z</published>
+    <updated>2024-04-15T05:09:55.039Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本来打算7月份给dde添加github action验证，但是被各种事情耽误了，然后发现麒麟居然抢在我前面部署了全套的github action，这不能忍，赶紧把dde的github action也提上日程。并且打算听&lt;a href=&quot;https://github.com/felixonmars&quot;&gt;肥肥猫&lt;/a&gt;大佬的话，在aur给dde弄一套commit构建包，这样就可以在arch上使用比testing仓库更testing的dde了！&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="技术" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用perf工具分析程序性能</title>
+    <link href="https://blog.justforlxz.com/2020/07/21/use-perf-to-analytics-program/"/>
+    <id>https://blog.justforlxz.com/2020/07/21/use-perf-to-analytics-program/</id>
+    <published>2020-07-21T01:15:11.000Z</published>
+    <updated>2024-04-15T05:09:55.043Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;最近在对DDE进行性能优化，所以补习了一下linux下的各种分析工具的使用方法。&lt;/p&gt;
+&lt;img src=&quot;/2020/07/21/use-perf-to-analytics-program/bpf_performance_tools_book.png&quot; class=&quot;&quot; title=&quot;bpf_performance_tools_book.png&quot;&gt;
+
+&lt;p&gt;这张图是来自Brendan Gregg大佬提供的linux分析工具的应用场景，可以看出几乎包含了系统每个地方应该用什么工具去分析。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="优化" scheme="https://blog.justforlxz.com/categories/%E4%BC%98%E5%8C%96/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CTest &amp; QTest/GTest</title>
+    <link href="https://blog.justforlxz.com/2020/06/16/CTest%20&amp;%20QTEST/"/>
+    <id>https://blog.justforlxz.com/2020/06/16/CTest%20&amp;%20QTEST/</id>
+    <published>2020-06-16T07:11:40.000Z</published>
+    <updated>2024-04-15T05:09:54.913Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文会介绍一下QTest和GTest的一些功能和区别。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="unit test" scheme="https://blog.justforlxz.com/categories/unit-test/"/>
+    
+    
+    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    
+    <category term="Qt" scheme="https://blog.justforlxz.com/tags/Qt/"/>
+    
+    <category term="CMake" scheme="https://blog.justforlxz.com/tags/CMake/"/>
+    
+    <category term="GTest" scheme="https://blog.justforlxz.com/tags/GTest/"/>
+    
+    <category term="CTest" scheme="https://blog.justforlxz.com/tags/CTest/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CPP项目的一些坑</title>
+    <link href="https://blog.justforlxz.com/2020/06/15/CPP%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/"/>
+    <id>https://blog.justforlxz.com/2020/06/15/CPP%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</id>
+    <published>2020-06-15T03:11:40.000Z</published>
+    <updated>2024-04-15T05:09:54.912Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本篇文章记录这几年项目中C++的一些问题和优化方法。需要注意的是，代码优化没有一本万利的方法，只能见招拆招，而且还要避免过早优化等问题，代码优化一定是要中后期才可以，而且不要为了优化而优化。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用inquirer提供交互式git commit</title>
+    <link href="https://blog.justforlxz.com/2020/06/15/%E4%BD%BF%E7%94%A8inquirer%E6%8F%90%E4%BE%9B%E4%BA%A4%E4%BA%92%E5%BC%8Fgit-commit/"/>
+    <id>https://blog.justforlxz.com/2020/06/15/%E4%BD%BF%E7%94%A8inquirer%E6%8F%90%E4%BE%9B%E4%BA%A4%E4%BA%92%E5%BC%8Fgit-commit/</id>
+    <published>2020-06-15T02:36:19.000Z</published>
+    <updated>2024-04-15T05:09:55.095Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;公司计划规范所有commit提交，开发部门综合出来了一份模板。&lt;/p&gt;
+&lt;figure class=&quot;highlight text&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;title（应当使用陈述句，简短的描述这个提交所做的事情）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Description（详细说明代码的改动，包含代码的实现思路，以及为什么这么做，可能会影响哪些功能。对于代码的审核者，需要从这段描述中能完全理解代码中所有改动的内容）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Log: 写一段面向于产品的总结性内容，用于自动生成crp上的changlog，需要注意的事，这段描述必须从产品的角度考虑。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bug: https://xxxxxxxxxxx 对应pms bug的链接&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Issue: fix #xx 所修复的bug对于的github issue，其中 &amp;quot;fix #xx&amp;quot;是github关闭issue的规则，此处内容只需要满足github的要求即可，详情请参考 https://help.github.com/en/enterprise/2.16/user/github/managing-your-work-on-github/closing-issues-using-keywords&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Task: http://xxxxxxxxxxxx 对应pms任务的链接&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vue-router路由复用后页面没有刷新</title>
+    <link href="https://blog.justforlxz.com/2020/06/01/vue-router%E8%B7%AF%E7%94%B1%E5%A4%8D%E7%94%A8%E5%90%8E%E9%A1%B5%E9%9D%A2%E6%B2%A1%E6%9C%89%E5%88%B7%E6%96%B0/"/>
+    <id>https://blog.justforlxz.com/2020/06/01/vue-router%E8%B7%AF%E7%94%B1%E5%A4%8D%E7%94%A8%E5%90%8E%E9%A1%B5%E9%9D%A2%E6%B2%A1%E6%9C%89%E5%88%B7%E6%96%B0/</id>
+    <published>2020-06-01T02:35:41.000Z</published>
+    <updated>2024-04-15T05:09:55.091Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;vue-router提供了页面路由功能，可以用来构建单页面应用，在使用vue-router的动态路由匹配的时候，遇到了url变化了，但是页面却没有任何动静的问题，记录一下。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Web" scheme="https://blog.justforlxz.com/tags/Web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vue3升级遇到的坑</title>
+    <link href="https://blog.justforlxz.com/2020/05/31/vue3-upgrade/"/>
+    <id>https://blog.justforlxz.com/2020/05/31/vue3-upgrade/</id>
+    <published>2020-05-31T13:11:43.000Z</published>
+    <updated>2024-04-15T05:09:55.092Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;最近一直忙工作上的事，对提高自身能力的事有点落下了，趁着今天把之前思考的一些问题都给解决了，也顺手给自己的VueBlog把vue和webpack都升级到最新的beta版本，然后遇到了很多坑，今天就把坑都记录一下，免的以后忘了。&lt;/p&gt;
+&lt;p&gt;VueBlog目前使用的是webpack5 + vue3 + vue-router-next + typescript构建，目的在于替换当前的hexo站点，同样也是一个静态博客生成器，不过和hexo的定位不同，我使用的是单页面设计，而不是给每个页面生成对应的html文件，所以对SEO不友好，以后再想办法吧。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Web" scheme="https://blog.justforlxz.com/tags/Web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript建造者模式</title>
+    <link href="https://blog.justforlxz.com/2020/02/01/JavaScript%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://blog.justforlxz.com/2020/02/01/JavaScript%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/</id>
+    <published>2020-02-01T12:52:58.000Z</published>
+    <updated>2024-04-15T05:09:54.915Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;建造者模式就是指将类的构造和其表示分离开来，调用者可以通过不同的构建过程创造出不同表示的对象。主要解决在软件系统中，有时候面临着”一个复杂对象”的创建工作，由于需求的变化，这个复杂对象的某些部分经常面临着剧烈的变化，一些基本部件不会变。所以需要将变与不变分离。与抽象工厂的区别：在建造者模式里，有个指导者(Director)，由指导者来管理建造者，用户是与指导者联系的，指导者联系建造者最后得到产品。即建造者模式可以强制实行一种分步骤进行的建造过程。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="设计模式" scheme="https://blog.justforlxz.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="JavaScript" scheme="https://blog.justforlxz.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>浅谈Javascript构造器模式</title>
+    <link href="https://blog.justforlxz.com/2020/01/31/%E6%B5%85%E8%B0%88Javascript%E6%9E%84%E9%80%A0%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://blog.justforlxz.com/2020/01/31/%E6%B5%85%E8%B0%88Javascript%E6%9E%84%E9%80%A0%E5%99%A8%E6%A8%A1%E5%BC%8F/</id>
+    <published>2020-01-31T15:15:23.000Z</published>
+    <updated>2024-04-15T05:09:55.100Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;为了简化操作，JavaScript提供了new关键字。new关键字用于创建一个用户定义类型的实例，或者具有构造函数的内置对象的实例。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="设计模式" scheme="https://blog.justforlxz.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="JavaScript" scheme="https://blog.justforlxz.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2019 Review</title>
+    <link href="https://blog.justforlxz.com/2020/01/01/2019review/"/>
+    <id>https://blog.justforlxz.com/2020/01/01/2019review/</id>
+    <published>2020-01-01T13:25:54.000Z</published>
+    <updated>2024-04-15T05:09:54.905Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;上一次写年终总结还是18年回家的动车上，可惜写了一半没发表，觉得一年了没有什么能够回想起来的，就又删除了。今年不同了，今年有好多想说的。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="年度总结" scheme="https://blog.justforlxz.com/categories/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/"/>
+    
+    
+    <category term="2019" scheme="https://blog.justforlxz.com/tags/2019/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用伪元素创建一个圆点</title>
+    <link href="https://blog.justforlxz.com/2020/01/01/%E4%BD%BF%E7%94%A8%E4%BC%AA%E5%85%83%E7%B4%A0%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%9C%86%E7%82%B9/"/>
+    <id>https://blog.justforlxz.com/2020/01/01/%E4%BD%BF%E7%94%A8%E4%BC%AA%E5%85%83%E7%B4%A0%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%9C%86%E7%82%B9/</id>
+    <published>2020-01-01T03:11:12.000Z</published>
+    <updated>2024-04-15T05:09:55.095Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我最早接触到CSS中的伪元素是在一次写背景模糊的时候，CSS中的blur会模糊下面所有的元素，但是可以通过伪元素在before中先模糊，这样下层是没有任何元素的，自然也不会有元素被模糊。&lt;/p&gt;
+&lt;p&gt;伪元素就如同它的名字一样，是假的元素，只是CSS引擎在排版的时候创建出来</summary>
+        
+      
+    
+    
+    
+    <category term="Web" scheme="https://blog.justforlxz.com/categories/Web/"/>
+    
+    
+    <category term="CSS" scheme="https://blog.justforlxz.com/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在ArchLinux通过串口调试VMware虚拟机中的deepin</title>
+    <link href="https://blog.justforlxz.com/2019/12/26/use-serial-port-debug-deepin-on-archlinux/"/>
+    <id>https://blog.justforlxz.com/2019/12/26/use-serial-port-debug-deepin-on-archlinux/</id>
+    <published>2019-12-26T09:26:13.000Z</published>
+    <updated>2024-04-15T05:09:55.058Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;电脑主板上的接口：进行串行传输的接口，它一次只能传输1Bit。串行端口可以用于连接外置调制解调器、绘图仪或串行打印机。它也可以控制台连接的方式连接网络设备，例如路由器和交换机，主要用来配置它们。消费性电子已经由USB取代串列接口；但在非消费性用途，如网络设备等，串列接口仍是主要的传输控制方式。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用标准库std::sort函数进行排序</title>
+    <link href="https://blog.justforlxz.com/2019/12/26/cpp-sort/"/>
+    <id>https://blog.justforlxz.com/2019/12/26/cpp-sort/</id>
+    <published>2019-12-26T09:24:23.000Z</published>
+    <updated>2024-04-15T05:09:54.958Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;std的sort方法接受两个迭代器begin和end。通过迭代器来抽象元素的访问，隐藏内部实现。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>记录一个坑爹的usb网卡</title>
+    <link href="https://blog.justforlxz.com/2019/12/09/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E5%9D%91%E7%88%B9%E7%9A%84usb%E7%BD%91%E5%8D%A1/"/>
+    <id>https://blog.justforlxz.com/2019/12/09/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E5%9D%91%E7%88%B9%E7%9A%84usb%E7%BD%91%E5%8D%A1/</id>
+    <published>2019-12-09T11:31:04.000Z</published>
+    <updated>2024-04-15T05:09:55.100Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;网卡型号是Realtek RTL8811CU&amp;#x2F;RTL8821CU USB Wi-Fi</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用github actions自动部署hexo文章到html仓库</title>
+    <link href="https://blog.justforlxz.com/2019/12/09/use-github-actions-to-depoly-hexo/"/>
+    <id>https://blog.justforlxz.com/2019/12/09/use-github-actions-to-depoly-hexo/</id>
+    <published>2019-12-09T05:19:11.000Z</published>
+    <updated>2024-04-15T05:09:55.039Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;请先允许我大喊一声：微软牛逼！&lt;/p&gt;
+&lt;p&gt;本文没有啥含金量，就是简单的说一下如何部署github-actions来自动生成hexo的public，并且再推送到html仓库的。&lt;/p&gt;
+&lt;p&gt;我的博客仓库一共分为两个，blog仓库是私有的，需要通过我的私钥才能访问，htm</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Vue父子组件传值 —— props &amp; $emit</title>
+    <link href="https://blog.justforlxz.com/2019/12/08/vue-component-props/"/>
+    <id>https://blog.justforlxz.com/2019/12/08/vue-component-props/</id>
+    <published>2019-12-08T13:08:00.000Z</published>
+    <updated>2024-04-15T05:09:55.091Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Vue的父子组件传值比较有意思，父组件通过属性绑定，把自身的值和子组件的一个属性绑定起来，子组件通过props属性接收，该属性类型为数组，是Vue对象中比较少有的类型，data、computer、methods等方法都是对象的形式，props则是数组的形式。父组件通过v-on来监听子组件发出的事件来接收子组件的调用。在这里我是理解成子组件发送信号来通知上层，毕竟调用的是this.$emit来做到的。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Vue" scheme="https://blog.justforlxz.com/categories/Vue/"/>
+    
+    
+    <category term="Vue" scheme="https://blog.justforlxz.com/tags/Vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>添加Vue动画</title>
+    <link href="https://blog.justforlxz.com/2019/12/08/vue-transitions/"/>
+    <id>https://blog.justforlxz.com/2019/12/08/vue-transitions/</id>
+    <published>2019-12-08T00:03:40.000Z</published>
+    <updated>2024-04-15T05:09:55.091Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;以前一直搞不懂动画是怎么做的，它怎么这么神奇，写了一点看不懂的代码，就实现了非常丰富的效果，现在做了三年Qt开发，接触到了Qt的动画类，明白了动画是怎么一会儿事，现在来看当初的css动画代码，也明白了它是如何工作的了。本文会介绍一下Vue提供的组件过渡动画模块——transitions。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Vue" scheme="https://blog.justforlxz.com/categories/Vue/"/>
+    
+    
+    <category term="Vue" scheme="https://blog.justforlxz.com/tags/Vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用webpack-dev-server来监听项目变化</title>
+    <link href="https://blog.justforlxz.com/2019/11/25/%E4%BD%BF%E7%94%A8webpack-dev-server%E6%9D%A5%E7%9B%91%E5%90%AC%E9%A1%B9%E7%9B%AE%E5%8F%98%E5%8C%96/"/>
+    <id>https://blog.justforlxz.com/2019/11/25/%E4%BD%BF%E7%94%A8webpack-dev-server%E6%9D%A5%E7%9B%91%E5%90%AC%E9%A1%B9%E7%9B%AE%E5%8F%98%E5%8C%96/</id>
+    <published>2019-11-25T09:54:36.000Z</published>
+    <updated>2024-04-15T05:09:55.095Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;webpack的出现方便了前端开发者，使开发和部署分成了两部分，开发者可以正常根据工程化的要求进行开发，部署时通过webpack实现代码的裁剪和优化。&lt;/p&gt;
+&lt;p&gt;本次就介绍一个webpack的功能 &lt;code&gt;webpack-dev-server&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;将webpack与提供实时重载的开发服务器一起使用。这仅应用于开发。&lt;br&gt;它在后台使用了webpack-dev-middleware，它提供了对Webpack资产的快速内存访问。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Vue" scheme="https://blog.justforlxz.com/categories/Vue/"/>
+    
+    
+    <category term="Vue" scheme="https://blog.justforlxz.com/tags/Vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>给Archlinux开启BFQ和MuQSS</title>
+    <link href="https://blog.justforlxz.com/2019/10/24/%E7%BB%99Archlinux%E5%BC%80%E5%90%AFBFQ%E5%92%8CMuQSS/"/>
+    <id>https://blog.justforlxz.com/2019/10/24/%E7%BB%99Archlinux%E5%BC%80%E5%90%AFBFQ%E5%92%8CMuQSS/</id>
+    <published>2019-10-24T05:19:21.000Z</published>
+    <updated>2024-04-15T05:09:55.100Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;最近在Arch上更新系统的时候，总是遇到图形完全卡住的情况，今天上午突然想起来自己曾经设置了使用noop的IO调度，猜测是因为这个。然后本着不折腾不舒服的原则，打算使用ck内核上MuQSS的进程调度和BFQ的IO调度。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用webpack打包Vue和TypeScript</title>
+    <link href="https://blog.justforlxz.com/2019/10/22/%E4%BD%BF%E7%94%A8webpack%E6%89%93%E5%8C%85Vue%E5%92%8CTypeScript/"/>
+    <id>https://blog.justforlxz.com/2019/10/22/%E4%BD%BF%E7%94%A8webpack%E6%89%93%E5%8C%85Vue%E5%92%8CTypeScript/</id>
+    <published>2019-10-22T07:20:08.000Z</published>
+    <updated>2024-04-15T05:09:55.095Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文将会介绍如何通过Webpack将基于TypeScript的Vue项目进行打包。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Web" scheme="https://blog.justforlxz.com/categories/Web/"/>
+    
+    
+    <category term="Vue" scheme="https://blog.justforlxz.com/tags/Vue/"/>
+    
+    <category term="Webpack" scheme="https://blog.justforlxz.com/tags/Webpack/"/>
+    
+    <category term="TypeScript" scheme="https://blog.justforlxz.com/tags/TypeScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>webpack入门</title>
+    <link href="https://blog.justforlxz.com/2019/10/14/webpack%E5%85%A5%E9%97%A8/"/>
+    <id>https://blog.justforlxz.com/2019/10/14/webpack%E5%85%A5%E9%97%A8/</id>
+    <published>2019-10-14T07:34:52.000Z</published>
+    <updated>2024-04-15T05:09:55.093Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;现在前端开发不像以前一样，只需要写html、css和javascript文件就可以了。现代前端开发讲究工程化。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;什么是工程化？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;工程化即系统化、模块化、规范化的一个过程。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;为什么要工程化？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;工程化是让开发、测试和维护都变得更加可靠和提高效率的方式。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;制定规范&lt;/li&gt;
+&lt;li&gt;版本管理&lt;/li&gt;
+&lt;li&gt;单元测试&lt;/li&gt;
+&lt;li&gt;自动化&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;通过制定流程的方式，规范了开发和测试的流程，让工作有章可循，方便团队协作。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Web" scheme="https://blog.justforlxz.com/categories/Web/"/>
+    
+    <category term="webpack" scheme="https://blog.justforlxz.com/categories/Web/webpack/"/>
+    
+    
+    <category term="Web" scheme="https://blog.justforlxz.com/tags/Web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>wsl2的使用体验</title>
+    <link href="https://blog.justforlxz.com/2019/06/16/wsl2%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/"/>
+    <id>https://blog.justforlxz.com/2019/06/16/wsl2%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</id>
+    <published>2019-06-16T04:59:59.000Z</published>
+    <updated>2024-04-15T05:09:55.093Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;wsl2已经是虚拟机平台了。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Windows" scheme="https://blog.justforlxz.com/tags/Windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>入坑typescript了</title>
+    <link href="https://blog.justforlxz.com/2019/06/15/%E5%85%A5%E5%9D%91typescript%E4%BA%86/"/>
+    <id>https://blog.justforlxz.com/2019/06/15/%E5%85%A5%E5%9D%91typescript%E4%BA%86/</id>
+    <published>2019-06-15T15:41:49.000Z</published>
+    <updated>2024-04-15T05:09:55.095Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;今天算是正式入坑 typescript 了，基于 vue 写了第一个函数，用来做一个文字效果。&lt;/p&gt;
+&lt;p&gt;演示效果：&lt;/p&gt;
+&lt;img src=&quot;/2019/06/15/%E5%85%A5%E5%9D%91typescript%E4%BA%86/%E6%B7%B1%E5%BA%A6%E5%BD%95%E5%B1%8F_%E9%80%89%E6%8B%A9%E5%8C%BA%E5%9F%9F_20190615202044.gif&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="typescript" scheme="https://blog.justforlxz.com/tags/typescript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CMake CTests for dde-control-center</title>
+    <link href="https://blog.justforlxz.com/2019/05/23/CMake-CTests-for-dde-control-center/"/>
+    <id>https://blog.justforlxz.com/2019/05/23/CMake-CTests-for-dde-control-center/</id>
+    <published>2019-05-23T09:16:15.000Z</published>
+    <updated>2024-04-15T05:09:54.912Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;什么是单元测试?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在计算机编程中，单元测试又称为模块测试，是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;单元测试存在的意义在于，如果程序发生了异常情况，比如接收了错误的值，从而导致结果不正确，当修正程序中的错误后，为了避免再次遇到这个问题，需要对出问题的值和函数&amp;#x2F;功能进行一次测试，确保结果符合预期。&lt;/p&gt;
+&lt;p&gt;单元测试很重要，如果是新项目，请一定要刚开始就规划好单元测试。&lt;/p&gt;
+&lt;p&gt;为什么说单元测试很重要呢？因为单元测试的目的是隔离其他单元，并证明当前单元是正确的。这需要开发者在设计程序的时候就要考虑很多，合理的设计和规划项目。当未来重构项目的时候，可以局部重构来优化项目，而不是从零重写。&lt;/p&gt;
+&lt;p&gt;本文没有详细说明Qt的单元测试是如何编写的，编写Qt的单元测试放在以后再写(&lt;del&gt;咕咕咕&lt;/del&gt;)。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    
+    
+    <category term="CMake Linux" scheme="https://blog.justforlxz.com/tags/CMake-Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何在Deepin上使用LNMP</title>
+    <link href="https://blog.justforlxz.com/2019/02/21/how-to-use-LNMP-on-deepin/"/>
+    <id>https://blog.justforlxz.com/2019/02/21/how-to-use-LNMP-on-deepin/</id>
+    <published>2019-02-21T02:11:15.000Z</published>
+    <updated>2024-04-15T05:09:54.994Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;为了节省读者的时间，我先简述一下阅读这篇文章需要了解的知识。&lt;/p&gt;
+&lt;p&gt;这篇文章将基于Docker来构建nginx、php和mysql来搭建LNMP环境，和其他教程有所不同的是，需要有一定的Docker基础。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Solution/"/>
+    
+    
+    <category term="Web" scheme="https://blog.justforlxz.com/tags/Web/"/>
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+    <category term="LNMP" scheme="https://blog.justforlxz.com/tags/LNMP/"/>
+    
+    <category term="Deepin" scheme="https://blog.justforlxz.com/tags/Deepin/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>解决用了xposed后淘宝闪退</title>
+    <link href="https://blog.justforlxz.com/2019/01/23/fuck-taobao/"/>
+    <id>https://blog.justforlxz.com/2019/01/23/fuck-taobao/</id>
+    <published>2019-01-23T02:27:52.000Z</published>
+    <updated>2024-04-15T05:09:54.966Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;反正都用xposed了，肯定也有root权限。&lt;br&gt;删除&amp;#x2F;data&amp;#x2F;data&amp;#x2F;com.taobao.taobao&amp;#x2F;files&amp;#x2F;bundleBaseline&amp;#x2F;里的文件，然后设置该目录为500。&lt;/p&gt;
+</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>使用swapfile来休眠</title>
+    <link href="https://blog.justforlxz.com/2018/12/12/hibernate-for-swapfile/"/>
+    <id>https://blog.justforlxz.com/2018/12/12/hibernate-for-swapfile/</id>
+    <published>2018-12-12T03:01:55.000Z</published>
+    <updated>2024-04-15T05:09:54.994Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;最近deepin要添加休眠功能，但是之前测试的通过swapfile来休眠失败了，所以对正在使用swap分区的用户提供休眠功能。但是昨天我在askubuntu上看到有人发了在ubuntu下通过swapfile休眠的方案，今天试了一下，效果良好，觉得可以考虑给deepin也加上这样的功能。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C++快速排序</title>
+    <link href="https://blog.justforlxz.com/2018/11/11/quick-sort-for-cpp/"/>
+    <id>https://blog.justforlxz.com/2018/11/11/quick-sort-for-cpp/</id>
+    <published>2018-11-11T08:57:44.000Z</published>
+    <updated>2024-04-15T05:09:55.027Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;快速排序是基于分治思想的排序算法，通过这种策略把列表分为两个子列，重复该过程。是由东尼·霍尔提出，在平均状况下，排序N个数据要O(nlogn)次比较，在最坏情况下则需要O(n^2)，但退化成冒泡的情况比较少见，快速排序比其他排序算法通常情况是最佳的，因为内部使用的循环在很多平台都有优化。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    
+    <category term="Program" scheme="https://blog.justforlxz.com/tags/Program/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Google日历安排工作任务</title>
+    <link href="https://blog.justforlxz.com/2018/11/09/use-google-calendar-to-finishe-work/"/>
+    <id>https://blog.justforlxz.com/2018/11/09/use-google-calendar-to-finishe-work/</id>
+    <published>2018-11-09T13:15:45.000Z</published>
+    <updated>2024-04-15T05:09:55.039Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;目前我们正在尝试把工作的分配和讨论放在github上进行，这样可以使我们的用户和开发者更容易接触到我们，可以提bug和对需求进行讨。&lt;/p&gt;
+&lt;p&gt;但是使用起来还是有些不便，比如使用tower进行任务分配的时候，可以方便的移动一个任务到某个分类，或者指派一个时间。但是github上是基于issue的，并不是为了做这种事来设计的，所以需求上有一些出入。但是&lt;a href=&quot;https://github.com/hualet&quot;&gt;@hualet&lt;/a&gt;大佬根据github的api写了一个bot来做一点微小的事，当一个issue的assignees只剩QA的同事时，issue会被bot移动到测试栏中，只剩一个开发同事时(基本上是负责该任务的开发者)，会被移动到开发栏中。&lt;/p&gt;
+&lt;p&gt;但是因为不能做到比如今天、明天、下周等时间的显示，所以任务只能通过每天开会来口头告知时间，但是这并不妨碍我进行自己的任务时间安排。请出世界第一的神器(日历)。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>把博客转移到coding</title>
+    <link href="https://blog.justforlxz.com/2018/11/09/hexo%20page%20move%20to%20coding/"/>
+    <id>https://blog.justforlxz.com/2018/11/09/hexo%20page%20move%20to%20coding/</id>
+    <published>2018-11-09T12:17:32.000Z</published>
+    <updated>2024-04-15T05:09:54.994Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;上周末折腾黑果子的时候，不小心被果子坑爹的磁盘管理坑了，整个home被直接改成HFS+了，本来是打算分配一个空闲分区出来的，当我新建分区以后，从空间分区开始到home，分区全部都变成HFS+了，但是… 空闲分区新建失败，提示我磁盘空间不足，我就重启进deepin打算直接新建一个算了，然后就GG几率了。在windows下看到home已经成果子的文件系统了，然后我用arch的安装盘看了一下，已经无法重新挂载了(成功GG)，然后数据就都没了。&lt;/p&gt;
+&lt;p&gt;还好我的数据在公司还有一份，私钥也都在，经过一星期的努力复制，大部分数据都恢复了，不过topbar的新功能代码是彻底没了，周五晚上太自信了，没有提交到gayhub上(猛叹气)。&lt;/p&gt;
+&lt;p&gt;我们现在正在尝试把日常工作转向github的project和看板，每天早上开一下晨会，简单分配一下任务，开完会以后我会把自己的任务写在谷歌日历和task上，然后安排一下任务的先后顺序，我准备把自己的一些做法写到博客上，但是home已经不在了，所以我要先恢复我的博客，刚好国内有人说我博客访问的很慢，我打算国内解析到coding，国外解析到github。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>智能指针</title>
+    <link href="https://blog.justforlxz.com/2018/08/29/cpp-smart-pointer/"/>
+    <id>https://blog.justforlxz.com/2018/08/29/cpp-smart-pointer/</id>
+    <published>2018-08-29T01:43:17.000Z</published>
+    <updated>2024-04-15T05:09:54.958Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;其实一直都对智能指针的应用场景不清楚，项目中也很少用到，今天在 &lt;a href=&quot;https://zccrs.com/&quot;&gt;@zccrs&lt;/a&gt; 大佬的帮助下，大概理解了智能指针的作用和应用场景。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="C++" scheme="https://blog.justforlxz.com/categories/C/"/>
+    
+    
+    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>卷积神经网络简述</title>
+    <link href="https://blog.justforlxz.com/2018/07/14/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E8%BF%B0/"/>
+    <id>https://blog.justforlxz.com/2018/07/14/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E8%BF%B0/</id>
+    <published>2018-07-14T08:00:32.000Z</published>
+    <updated>2024-04-15T05:09:55.096Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;前言： 我太菜了… 本来想着写个小例子，结果写到一半发现自己其实根本不会，我还是撸C++去吧。&lt;/p&gt;
+&lt;p&gt;卷积神经网络(Convolutional Neural Network)是一种前馈神经网络。它的人工神经元可以响应一部分覆盖范围内的周围单元，对于大型图像处理有出色的表现。&lt;/p&gt;
+&lt;p&gt;卷积神经网络由一个或多个卷积层和顶端的全连通层组成，同时也包含关联权重和池化层。这一结构可以使得卷积神经网络能够利用输入数据的二维结构。与其他深度学习结构相比，卷积神经网络在图像和声音上能够给出更好的结果，这一模型也可以用反向传播算法进行训练。相比较于其他神经网络、前馈神经网络，卷积神经网络需要考虑的参数更少，使之成为一种颇具吸引力的深度学习结构。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Deep Learning" scheme="https://blog.justforlxz.com/categories/Deep-Learning/"/>
+    
+    
+    <category term="Deep Learning" scheme="https://blog.justforlxz.com/tags/Deep-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深度学习笔记</title>
+    <link href="https://blog.justforlxz.com/2018/07/14/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>https://blog.justforlxz.com/2018/07/14/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
+    <published>2018-07-14T02:01:01.000Z</published>
+    <updated>2024-04-15T05:09:55.100Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;机器学习，顾名思义当然是用机器来学习。本文完。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Deepin Learning" scheme="https://blog.justforlxz.com/categories/Deepin-Learning/"/>
+    
+    
+    <category term="Deepin Learning" scheme="https://blog.justforlxz.com/tags/Deepin-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C plus plus Iterator 笔记</title>
+    <link href="https://blog.justforlxz.com/2018/07/09/C-plus-plus-Iterator-%E7%AC%94%E8%AE%B0/"/>
+    <id>https://blog.justforlxz.com/2018/07/09/C-plus-plus-Iterator-%E7%AC%94%E8%AE%B0/</id>
+    <published>2018-07-09T05:05:12.000Z</published>
+    <updated>2024-04-15T05:09:54.911Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文记录了咱对迭代器的一些理解&lt;/p&gt;
+&lt;p&gt;C++ 标准库提供了三种类型组件:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;容器&lt;/li&gt;
+&lt;li&gt;迭代器&lt;/li&gt;
+&lt;li&gt;算法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;容器是指存储某种类型的结构，容器有两种:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;顺序容器 (vector、list和string等，是元素的有序集合。)&lt;/li&gt;
+&lt;li&gt;关联容器 (set、map等，是包含查找元素的键值。 )&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;遍历容器的方式之一就是迭代器，迭代器是一种泛型指针，普通指针指向一块内存，迭代器指向容器中的一个位置。STL的每个模板容器中，都定义了一组对应的迭代器类，使用迭代器和算法，就可以访问容器中特定位置的元素，而无需关心元素的类型。&lt;/p&gt;
+&lt;p&gt;每种容器都定义了一对begin和end的函数，用于返回迭代器。如果容器中有元素的话，begin返回的迭代器指向第一个元素。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="C++" scheme="https://blog.justforlxz.com/categories/C/"/>
+    
+    
+    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在DeepinLinux下使用nVidia CUDA</title>
+    <link href="https://blog.justforlxz.com/2018/06/28/%E5%9C%A8DeepinLinux%E4%B8%8B%E4%BD%BF%E7%94%A8nVidia-CUDA/"/>
+    <id>https://blog.justforlxz.com/2018/06/28/%E5%9C%A8DeepinLinux%E4%B8%8B%E4%BD%BF%E7%94%A8nVidia-CUDA/</id>
+    <published>2018-06-27T19:21:50.000Z</published>
+    <updated>2024-04-15T05:09:55.097Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;CUDA（Compute Unified Device Architecture，统一计算架构）是由NVIDIA所推出的一种集成技术，是该公司对于GPGPU的正式名称。通过这个技术，用户可利用NVIDIA的GeForce 8以后的GPU和较新的Quadro GPU进行计算。亦是首次可以利用GPU作为C-编译器的开发环境。NVIDIA营销的时候，往往将编译器与架构混合推广，造成混乱。实际上，CUDA可以兼容OpenCL或者自家的C-编译器。无论是CUDA C-语言或是OpenCL，指令最终都会被驱动程序转换成PTX代码，交由显示核心计算。&lt;/p&gt;
+&lt;p&gt;在论坛上看到有些用户希望在deepin下使用CUDA，但是他们采取的做法往往是手动下载nvidia的二进制文件，直接进行安装。&lt;/p&gt;
+&lt;p&gt;但是这样会破坏一部分的glx链接，导致卸载的时候无法彻底恢复，结果就是系统因为卸载nvidia驱动而废掉，所以我推荐使用包管理器的方式安装nvidia驱动和cuda相关的东西，尽量不要手动修改。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+    <category term="nVidia Cuda" scheme="https://blog.justforlxz.com/tags/nVidia-Cuda/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>deepin待机后键盘和触摸板无法使用的解决方法</title>
+    <link href="https://blog.justforlxz.com/2018/06/25/deepin%E5%BE%85%E6%9C%BA%E5%90%8E%E9%94%AE%E7%9B%98%E5%92%8C%E8%A7%A6%E6%91%B8%E6%9D%BF%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
+    <id>https://blog.justforlxz.com/2018/06/25/deepin%E5%BE%85%E6%9C%BA%E5%90%8E%E9%94%AE%E7%9B%98%E5%92%8C%E8%A7%A6%E6%91%B8%E6%9D%BF%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</id>
+    <published>2018-06-24T22:01:22.000Z</published>
+    <updated>2024-04-15T05:09:54.959Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;笔记本一直使用的bumblebee来省电，毕竟我也不想笔记本的电只够从一张桌子移动到另一张桌子，但是今天在调待机唤醒后dde-dock崩溃的问题，我需要切换到私有驱动下，因为笔记本使用bumblebee需要使用acpi的参数，否则会见图形就死。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>dreamscene插件开发&lt;等待填坑&gt;</title>
+    <link href="https://blog.justforlxz.com/2018/06/05/dreamscene%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
+    <id>https://blog.justforlxz.com/2018/06/05/dreamscene%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</id>
+    <published>2018-06-04T21:25:40.000Z</published>
+    <updated>2024-04-15T05:09:54.966Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本篇会介绍一下deepin-dreamscene的插件机制。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Linux 填坑" scheme="https://blog.justforlxz.com/tags/Linux-%E5%A1%AB%E5%9D%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Dock插件开发&lt;等待填坑&gt;</title>
+    <link href="https://blog.justforlxz.com/2018/05/23/Dock%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
+    <id>https://blog.justforlxz.com/2018/05/23/Dock%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</id>
+    <published>2018-05-22T21:22:12.000Z</published>
+    <updated>2024-04-15T05:09:54.913Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;从零构建 dde-dock 的插件&lt;br&gt;本教程将展示一个简单的 dde-dock 插件的开发过程，插件开发者可跟随此步骤为 dde-dock 创造出更多具有丰富功能的插件。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux的PAM是什么</title>
+    <link href="https://blog.justforlxz.com/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/"/>
+    <id>https://blog.justforlxz.com/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/</id>
+    <published>2018-04-01T04:16:08.000Z</published>
+    <updated>2024-04-15T05:09:54.952Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文会基础的介绍一下PAM是什么，让你能够回答PAM是什么、PAM有什么用、如何根据需求自己开发PAM模块。&lt;/p&gt;
+&lt;h3 id=&quot;PAM是什么&quot;&gt;&lt;a href=&quot;#PAM是什么&quot; class=&quot;headerlink&quot; title=&quot;PAM是什么&quot;&gt;&lt;/a&gt;PAM是什么&lt;/h3&gt;&lt;p&gt;PAM即可插拔认证模块。它提供了一个所有服务的中心验证机制，适用于普通登录、ssh登录等需要进行身份认证的系统中。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>重构dde-session-ui</title>
+    <link href="https://blog.justforlxz.com/2018/03/11/%E9%87%8D%E6%9E%84dde-session-ui/"/>
+    <id>https://blog.justforlxz.com/2018/03/11/%E9%87%8D%E6%9E%84dde-session-ui/</id>
+    <published>2018-03-11T03:48:01.000Z</published>
+    <updated>2024-04-15T05:09:55.101Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;dde-session-ui里面包含了很多项目，是一个集合，但是其中的代码缺少合理的维护，以至于已经到了必须重构才能继续开发和维护，在支持AD域登录的时候，如果强制加上功能，代码会变得更加糟糕，所以和石博文一块重构了其中非常重要的UserWidget。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用DTK开发</title>
+    <link href="https://blog.justforlxz.com/2018/01/12/%E4%BD%BF%E7%94%A8DTK%E5%BC%80%E5%8F%91/"/>
+    <id>https://blog.justforlxz.com/2018/01/12/%E4%BD%BF%E7%94%A8DTK%E5%BC%80%E5%8F%91/</id>
+    <published>2018-01-12T03:05:26.000Z</published>
+    <updated>2024-04-15T05:09:55.095Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;strong&gt;在阅读本篇文章之前，你需要掌握基本的Qt&amp;#x2F;C++开发知识。&lt;/strong&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Linux DTK" scheme="https://blog.justforlxz.com/tags/Linux-DTK/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>解决IntelliJ IDEA界面瞎眼</title>
+    <link href="https://blog.justforlxz.com/2017/12/25/%E8%A7%A3%E5%86%B3IntelliJ-IDEA%E7%95%8C%E9%9D%A2%E7%9E%8E%E7%9C%BC/"/>
+    <id>https://blog.justforlxz.com/2017/12/25/%E8%A7%A3%E5%86%B3IntelliJ-IDEA%E7%95%8C%E9%9D%A2%E7%9E%8E%E7%9C%BC/</id>
+    <published>2017-12-25T06:22:25.000Z</published>
+    <updated>2024-04-15T05:09:55.100Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;今天在逛深度论坛的时候，无意间看到了有个回复，是处理IEDA字体很挫的，试了一下，效果非常棒。&lt;/p&gt;
+&lt;p&gt;我之前也试了些网上的办法，都没有解决，字体挫的根本看不了，被逼无奈跑到windows下写MOD了。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>修复Archlinux的Grub</title>
+    <link href="https://blog.justforlxz.com/2017/12/18/%E4%BF%AE%E5%A4%8DArchlinux%E7%9A%84Grub/"/>
+    <id>https://blog.justforlxz.com/2017/12/18/%E4%BF%AE%E5%A4%8DArchlinux%E7%9A%84Grub/</id>
+    <published>2017-12-18T01:44:55.000Z</published>
+    <updated>2024-04-15T05:09:55.095Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;又双叒叕不知道怎么搞的，就把arch的grub给弄坏了，但是在重新安装grub的时候，提示了这么一个错误:&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>解决NVIDIA重新启动以后系统冻结</title>
+    <link href="https://blog.justforlxz.com/2017/09/01/%E8%A7%A3%E5%86%B3NVIDIA%E9%87%8D%E6%96%B0%E5%90%AF%E5%8A%A8%E4%BB%A5%E5%90%8E%E7%B3%BB%E7%BB%9F%E5%86%BB%E7%BB%93/"/>
+    <id>https://blog.justforlxz.com/2017/09/01/%E8%A7%A3%E5%86%B3NVIDIA%E9%87%8D%E6%96%B0%E5%90%AF%E5%8A%A8%E4%BB%A5%E5%90%8E%E7%B3%BB%E7%BB%9F%E5%86%BB%E7%BB%93/</id>
+    <published>2017-09-01T09:01:47.000Z</published>
+    <updated>2024-04-15T05:09:55.100Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;分期买了一台神舟 Z6-kp5s1，配置还不错，够用三年了，但是在linux下使用bumblebee的时候，发生了问题，折腾了好久，现在把解决方法写出来。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="linux" scheme="https://blog.justforlxz.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>我的代理折腾方案</title>
+    <link href="https://blog.justforlxz.com/2017/08/31/%E6%88%91%E7%9A%84%E4%BB%A3%E7%90%86%E6%8A%98%E8%85%BE%E6%96%B9%E6%A1%88/"/>
+    <id>https://blog.justforlxz.com/2017/08/31/%E6%88%91%E7%9A%84%E4%BB%A3%E7%90%86%E6%8A%98%E8%85%BE%E6%96%B9%E6%A1%88/</id>
+    <published>2017-08-31T12:43:48.000Z</published>
+    <updated>2024-04-15T05:09:55.100Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;最近在准备做新的代理设置界面，然后想到自己也改改代理的配置，好方便的用在新的设置上。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="linux" scheme="https://blog.justforlxz.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>开发topbar中的技术问题</title>
+    <link href="https://blog.justforlxz.com/2017/08/23/%E5%BC%80%E5%8F%91topbar%E4%B8%AD%E7%9A%84%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/"/>
+    <id>https://blog.justforlxz.com/2017/08/23/%E5%BC%80%E5%8F%91topbar%E4%B8%AD%E7%9A%84%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/</id>
+    <published>2017-08-23T00:54:56.000Z</published>
+    <updated>2024-04-15T05:09:55.097Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;这里记录了开发topbar中遇到的坑和一些问题。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>TKL主题优化 -&lt;转&gt;</title>
+    <link href="https://blog.justforlxz.com/2017/08/20/TKL%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96-%E8%BD%AC/"/>
+    <id>https://blog.justforlxz.com/2017/08/20/TKL%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96-%E8%BD%AC/</id>
+    <published>2017-08-19T21:05:54.000Z</published>
+    <updated>2024-04-15T05:09:54.954Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Hexo" scheme="https://blog.justforlxz.com/tags/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>debug了两天，只删了一行代码</title>
+    <link href="https://blog.justforlxz.com/2017/08/16/debug%E4%BA%86%E4%B8%A4%E5%A4%A9%EF%BC%8C%E5%8F%AA%E5%88%A0%E4%BA%86%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81/"/>
+    <id>https://blog.justforlxz.com/2017/08/16/debug%E4%BA%86%E4%B8%A4%E5%A4%A9%EF%BC%8C%E5%8F%AA%E5%88%A0%E4%BA%86%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81/</id>
+    <published>2017-08-16T10:25:39.000Z</published>
+    <updated>2024-04-15T05:09:54.958Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;前言： 项目一定要留一些文档！！ 修bug前一定要知道所有的流程！！！&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>正常的流程在界面上却是bug</title>
+    <link href="https://blog.justforlxz.com/2017/08/15/%E6%AD%A3%E5%B8%B8%E7%9A%84%E6%B5%81%E7%A8%8B%E5%9C%A8%E7%95%8C%E9%9D%A2%E4%B8%8A%E5%8D%B4%E6%98%AFbug/"/>
+    <id>https://blog.justforlxz.com/2017/08/15/%E6%AD%A3%E5%B8%B8%E7%9A%84%E6%B5%81%E7%A8%8B%E5%9C%A8%E7%95%8C%E9%9D%A2%E4%B8%8A%E5%8D%B4%E6%98%AFbug/</id>
+    <published>2017-08-14T23:43:43.000Z</published>
+    <updated>2024-04-15T05:09:55.100Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;排查了一天，最后终于确认了流程，知道了问题所在，不得不说，dde-session-ui这个项目太需要一个文档了，要把工作流程写的非常详细才可以。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>在deepin上使用dnsmasq来解决dns解析缓慢</title>
+    <link href="https://blog.justforlxz.com/2017/08/11/%E5%9C%A8deepin%E4%B8%8A%E4%BD%BF%E7%94%A8dnsmasq%E6%9D%A5%E8%A7%A3%E5%86%B3dns%E8%A7%A3%E6%9E%90%E7%BC%93%E6%85%A2/"/>
+    <id>https://blog.justforlxz.com/2017/08/11/%E5%9C%A8deepin%E4%B8%8A%E4%BD%BF%E7%94%A8dnsmasq%E6%9D%A5%E8%A7%A3%E5%86%B3dns%E8%A7%A3%E6%9E%90%E7%BC%93%E6%85%A2/</id>
+    <published>2017-08-11T06:07:26.000Z</published>
+    <updated>2024-04-15T05:09:55.097Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;其实这个问题影响并不是很大，只是稍微的增加一点点访问速度，缓存这东西有利有弊。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>PPA</title>
+    <link href="https://blog.justforlxz.com/2017/07/24/PPA/"/>
+    <id>https://blog.justforlxz.com/2017/07/24/PPA/</id>
+    <published>2017-07-24T08:07:50.000Z</published>
+    <updated>2024-04-15T05:09:54.952Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;也许需要安装dirmngr&lt;/p&gt;
+&lt;p&gt;maybe you need install dirmngr&lt;/p&gt;
+&lt;p&gt;追加内容到&amp;#x2F;etc&amp;#x2F;apt&amp;#x2F;sources.list&lt;/p&gt;
+&lt;p&gt;Append content to</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>topbar PPA</title>
+    <link href="https://blog.justforlxz.com/2017/07/20/topbar-PPA/"/>
+    <id>https://blog.justforlxz.com/2017/07/20/topbar-PPA/</id>
+    <published>2017-07-20T05:37:51.000Z</published>
+    <updated>2024-04-15T05:09:55.038Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;自己搭了一个仓库，提供deepin-topbar及相关依赖的包。&lt;/p&gt;
+&lt;p&gt;I created a repository,provide deepin-topbar and dependencies.&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>webhook</title>
+    <link href="https://blog.justforlxz.com/2017/07/14/webhook/"/>
+    <id>https://blog.justforlxz.com/2017/07/14/webhook/</id>
+    <published>2017-07-13T18:52:20.000Z</published>
+    <updated>2024-04-15T05:09:55.093Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;blog现在是用hexo，放在自己的&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="linux" scheme="https://blog.justforlxz.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SAOUTILS</title>
+    <link href="https://blog.justforlxz.com/2017/07/04/SAOUTILS/"/>
+    <id>https://blog.justforlxz.com/2017/07/04/SAOUTILS/</id>
+    <published>2017-07-03T22:20:00.000Z</published>
+    <updated>2024-04-15T05:09:54.952Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;鼠标手势还没想好要怎么实现，流程无法完全确认，这项稍后再做。&lt;/p&gt;
+&lt;p&gt;主界面有两层构成，半透明全屏黑色背景和菜单。&lt;/p&gt;
+&lt;p&gt;菜单较为复杂，除了左边是一个大面板，其他部分全部都可以使用一种方式实现。使用Qt的QAbstractItemDelegate、QListV</summary>
+        
+      
+    
+    
+    
+    
+    <category term="linux" scheme="https://blog.justforlxz.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Topbar</title>
+    <link href="https://blog.justforlxz.com/2017/06/26/Topbar/"/>
+    <id>https://blog.justforlxz.com/2017/06/26/Topbar/</id>
+    <published>2017-06-25T18:32:35.000Z</published>
+    <updated>2024-04-15T05:09:54.954Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;　　topbar的架构参考的是dde-dock，就是一个精简的dock，只有一个方向，一个位置，没有右键菜单，只有插件类型。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="linux" scheme="https://blog.justforlxz.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ArchLinux运行steam出现缺少LibGL--steam libGL error: failed to load driver: swrast</title>
+    <link href="https://blog.justforlxz.com/2016/07/15/ArchLinux%E8%BF%90%E8%A1%8Csteam%E5%87%BA%E7%8E%B0%E7%BC%BA%E5%B0%91LibGL-steam-libGL-error-failed-to-load-driver-swrast/"/>
+    <id>https://blog.justforlxz.com/2016/07/15/ArchLinux%E8%BF%90%E8%A1%8Csteam%E5%87%BA%E7%8E%B0%E7%BC%BA%E5%B0%91LibGL-steam-libGL-error-failed-to-load-driver-swrast/</id>
+    <published>2016-07-14T23:18:53.000Z</published>
+    <updated>2024-12-31T05:44:23.270Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;其实arch的wiki已经提到了，而且这个问题是比较常见的，只需要删除steam的库就行。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://wiki.archlinux.org/index.php/Steam/Troubleshooting#Deleting_the_runtime_libraries&quot;&gt;wiki原文链接&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="实验室" scheme="https://blog.justforlxz.com/tags/%E5%AE%9E%E9%AA%8C%E5%AE%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>docker-hexo</title>
+    <link href="https://blog.justforlxz.com/2016/07/15/docker-hexo/"/>
+    <id>https://blog.justforlxz.com/2016/07/15/docker-hexo/</id>
+    <published>2016-07-14T20:53:24.000Z</published>
+    <updated>2024-12-31T05:44:23.271Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;引用一下基友的话&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;最开始接触 Hexo 的时候是在 Windows 下, 安装过程还算顺利, 因此在初期还整理了6篇关于 Hexo 博客的搭建教程.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;后来转投 Linux 大法, 期间重装电脑无数次, 每一次安装 Hexo 所需要的 nodejs, 和各种插件的时候都是闹心的过程, 玩的多了自然就熟了, Linux 下的安装基本没问题了.&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    
+    <category term="实验室" scheme="https://blog.justforlxz.com/tags/%E5%AE%9E%E9%AA%8C%E5%AE%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>docker-aria2c</title>
+    <link href="https://blog.justforlxz.com/2016/05/31/docker-aria2c/"/>
+    <id>https://blog.justforlxz.com/2016/05/31/docker-aria2c/</id>
+    <published>2016-05-31T14:43:54.000Z</published>
+    <updated>2024-12-31T05:44:23.271Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;该项目是将aria2c封装进docker并提供服务。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker pull kirigayakazushin/docker-aria2c
+&lt;/code&gt;&lt;/pre&gt;</summary>
+    
+    
+    
+    
+    <category term="实验室" scheme="https://blog.justforlxz.com/tags/%E5%AE%9E%E9%AA%8C%E5%AE%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>aria2配置</title>
+    <link href="https://blog.justforlxz.com/2016/05/25/aria2%E9%85%8D%E7%BD%AE/"/>
+    <id>https://blog.justforlxz.com/2016/05/25/aria2%E9%85%8D%E7%BD%AE/</id>
+    <published>2016-05-25T15:56:00.000Z</published>
+    <updated>2024-12-31T05:44:23.270Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;安装好aria2，然后执行一下内容&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo nano /etc/systemd/user/aria2.service  
+
+[Unit]
+Description=Aria2 Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/aria2c --enable-rpc --rpc-listen-all=true   --rpc-secret=secret  --rpc-allow-origin-all  --conf-path=/home/用户名字/.config/aria2/aria2.conf  --input-file /home/用户名字/.config/aria2/session.lock --disk-cache=100M --max-overall-download-limit=0  --split=10 --max-connection-per-server=10 --max-concurrent-downloads=4   --dir=/home/用户名字/Downloads/
+[Install]
+WantedBy=default.target
+&lt;/code&gt;&lt;/pre&gt;</summary>
+    
+    
+    
+    
+    <category term="教程" scheme="https://blog.justforlxz.com/tags/%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux下安装vmware及archlinux的安装和配置</title>
+    <link href="https://blog.justforlxz.com/2016/04/10/linux%E4%B8%8B%E5%AE%89%E8%A3%85vmware%E5%8F%8Aarchlinux%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/"/>
+    <id>https://blog.justforlxz.com/2016/04/10/linux%E4%B8%8B%E5%AE%89%E8%A3%85vmware%E5%8F%8Aarchlinux%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</id>
+    <published>2016-04-10T09:02:51.000Z</published>
+    <updated>2024-12-31T05:44:23.271Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;视频中给出了vmware的下载地址和安装过程，系统的下载我也会演示一遍。&lt;br&gt;这篇教程会一篇完成，从安装到配置和美化，顺便也总结一下我的成果。&lt;br&gt;由于我已经安装过一次vmware了，所以有个脚本的地方没有出现，输入界面上的提示信息即可。&lt;br&gt;宿舍太乱，所以就没有录麦</summary>
+        
+      
+    
+    
+    
+    
+    <category term="教程" scheme="https://blog.justforlxz.com/tags/%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Archlinux 添加漂亮的字体</title>
+    <link href="https://blog.justforlxz.com/2016/04/08/font-config/"/>
+    <id>https://blog.justforlxz.com/2016/04/08/font-config/</id>
+    <published>2016-04-08T08:54:26.000Z</published>
+    <updated>2024-12-31T05:44:23.271Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;该教程不能保证适用于所有人的情况。&lt;br&gt;字体也不是配置，而是补充了字体。使用的是第三方的源。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="教程" scheme="https://blog.justforlxz.com/tags/%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>My Life</title>
+    <link href="https://blog.justforlxz.com/2016/03/25/my-life/"/>
+    <id>https://blog.justforlxz.com/2016/03/25/my-life/</id>
+    <published>2016-03-25T03:56:08.000Z</published>
+    <updated>2024-12-31T05:44:23.272Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;这是我用markdown写的第一篇文章(水文)，先来个自我介绍吧，我是小竹，对没错，是小竹，不是竹子，不是竹酱，更不是竹基。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="日常" scheme="https://blog.justforlxz.com/tags/%E6%97%A5%E5%B8%B8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>标题</title>
+    <link href="https://blog.justforlxz.com/2016/03/25/page/"/>
+    <id>https://blog.justforlxz.com/2016/03/25/page/</id>
+    <published>2016-03-24T16:00:00.000Z</published>
+    <updated>2024-12-31T05:44:23.271Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;span</summary>
+        
+      
+    
+    
+    
+    
+    <category term="模板" scheme="https://blog.justforlxz.com/tags/%E6%A8%A1%E6%9D%BF/"/>
+    
+  </entry>
+  
+</feed>
