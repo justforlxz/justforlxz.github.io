@@ -1,0 +1,462 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>CTest and QTest/GTest | 小竹's blog</title><noscript>开启JavaScript才能访问本站哦~</noscript><link rel="icon" href="/favicon.ico"><!-- index.css--><link rel="stylesheet" href="/css/index.css?v=2.1.16"><!-- inject head--><meta name="google-site-verification" content="G-BBSEEJ4317"><meta name="baidu-site-verification" content="49e5979358cb9ca19e5e56fc4adc4a98"><link rel="canonical" href="https://blog.mkacg.com/2020/06/16/CTest-and-QTEST/index.html"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><!-- aplayer--><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"><!-- swiper--><!-- fancybox ui--><!-- katex--><!-- Open Graph--><meta name="description" content="本文会介绍一下QTest和GTest的一些功能和区别。 单元测试ctestctest是CMake提供的运行单元测试的工具，在使用CMakeLists.txt文件编译工程的时候，CTest会自动configure、build、test和展现测试结果。 ctest有两个模式： 模式一：使用CMak"><!-- pwa--><meta name="apple-mobile-web-app-capable" content="小竹's blog"><meta name="theme-color" content="var(--efu-main)"><meta name="apple-mobile-web-app-status-bar-style" content="var(--efu-main)"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/favicon.ico" sizes="180x180"><script>console.log(' %c Solitude %c ' + '2.1.16' + ' %c https://github.com/everfu/hexo-theme-solitude',
+    'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+    'background:#ff9a9a ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
+    'background:unset ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff')
+</script><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BBSEEJ4317"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BBSEEJ4317');
+</script>
+<script defer src="https://analytics.mkacg.com/script.js" data-website-id="5e0a2be8-f7c9-495f-bcdd-94aa1aa6c07b"></script><script defer src="https://analytics.mkacg.com/script.js" data-website-id="33e3f39a-49e6-4109-b09c-d8adbd0f68f3"></script><script>(()=>{
+        const saveToLocal = {
+            set: function setWithExpiry(key, value, ttl) {
+                if (ttl === 0)
+                    return
+                const now = new Date()
+                const expiryDay = ttl * 86400000
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + expiryDay
+                }
+                localStorage.setItem(key, JSON.stringify(item))
+            },
+            get: function getWithExpiry(key) {
+                const itemStr = localStorage.getItem(key)
+
+                if (!itemStr) {
+                    return undefined
+                }
+                const item = JSON.parse(itemStr)
+                const now = new Date()
+
+                if (now.getTime() > item.expiry) {
+                    localStorage.removeItem(key)
+                    return undefined
+                }
+                return item.value
+            }
+        };
+        window.utils = {
+            saveToLocal: saveToLocal,
+            getCSS: (url, id = false) => new Promise((resolve, reject) => {
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = url
+              if (id) link.id = id
+              link.onerror = reject
+              link.onload = link.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                link.onload = link.onreadystatechange = null
+                resolve()
+              }
+              document.head.appendChild(link)
+            }),
+            getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+              const script = document.createElement('script')
+              script.src = url
+              script.async = true
+              script.onerror = reject
+              script.onload = script.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                script.onload = script.onreadystatechange = null
+                resolve()
+              }
+
+              Object.keys(attr).forEach(key => {
+                script.setAttribute(key, attr[key])
+              })
+
+              document.head.appendChild(script)
+            }),
+            addGlobalFn: (key, fn, name = false, parent = window) => {
+                const globalFn = parent.globalFn || {}
+                const keyObj = globalFn[key] || {}
+
+                if (name && keyObj[name]) return
+
+                name = name || Object.keys(keyObj).length
+                keyObj[name] = fn
+                globalFn[key] = keyObj
+                parent.globalFn = globalFn
+            },
+            addEventListenerPjax: (ele, event, fn, option = false) => {
+              ele.addEventListener(event, fn, option)
+              utils.addGlobalFn('pjax', () => {
+                  ele.removeEventListener(event, fn, option)
+              })
+          },
+        }
+    })()</script><!-- theme--><script>initTheme = () => {
+    let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const cachedMode = utils.saveToLocal.get('theme');
+    if (cachedMode === undefined) {
+        const nowMode =
+            isDarkMode ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', nowMode);
+    } else {
+        document.documentElement.setAttribute('data-theme', cachedMode);
+    }
+    typeof rm === 'object' && rm.mode(cachedMode === 'dark' && isDarkMode)
+}
+initTheme()</script><!-- global head--><script>const GLOBAL_CONFIG = {
+    root: '/',
+    algolia: undefined,
+    localsearch: {"preload":false,"path":"/search.xml"},
+    runtime: '2016-03-24 00:00:00',
+    lazyload: {
+        enable: true,
+        error: '/img/error_load.avif'
+    },
+    copyright: false,
+    highlight: {"limit":200,"expand":true,"copy":true,"syntax":"highlight.js"},
+    randomlink: false,
+    lang: {"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"day":"天前","hour":"小时前","just":"刚刚","min":"分钟前","month":"个月前"},"day":" 天","f12":"开发者模式已打开，请遵循GPL协议。","totalk":"无需删除空行，直接输入评论即可","search":{"empty":"找不到你查询的内容：${query}","hit":"找到 ${hits} 条结果，用时 ${time} 毫秒","placeholder":"输入关键词快速查找","count":"共 <b>${count}</b> 条结果。","loading":"搜索中..."}},
+    aside: {
+        sayhello: {
+            morning: "✨ 早上好，新的一天开始了",
+            noon: "🍲 午餐时间",
+            afternoon: "🌞 下午好",
+            night: "早点休息",
+            goodnight: "晚安 😴",
+        },
+        sayhello2: ["你可以的","你一定可以的","祝你好运，陌生人"],
+        sayhello3: {
+            prefix: '好久不见，',
+            back: '欢迎再次回来，',
+        },
+    },
+    covercolor: {
+        enable: true
+    },
+    comment: false,
+    lightbox: 'mediumZoom',
+    post_ai: false,
+    right_menu: {"mode":{"dark":"深色模式","light":"浅色模式"},"img_error":"此图片无法复制与下载","translate":false,"ctrlOriginalMenu":"按住Ctrl+右键可打开浏览器右键菜单"},
+    translate: {"translateDelay":0,"defaultEncoding":2},
+    lure: {"jump":"404 Not Found","back":"ヾ(≧∇≦*)ゝHey, hey, you fell for it."},
+    expire: {"time":30,"position":"top","text_prev":"This article expired ","text_next":" day ago, if the content does not match, please contact the webmaster to update it."},
+};</script><!-- page-config head--><script id="config-diff">var PAGE_CONFIG = {
+    is_post: true,
+    is_page: false,
+    is_home: false,
+    page: '',
+    toc: true,
+    comment: true,
+    ai_text: false,
+    color: false,
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/rss/feed.xml" title="小竹's blog" type="application/atom+xml">
+</head><body id="body"><!-- universe--><canvas id="universe"></canvas><!-- background img--><div id="global_bg"></div><!-- loading--><!-- console--><!-- sidebar--><div id="sidebar" style="zoom: 1;"><div id="menu-mask" style="display: none;"></div><div id="sidebar-menus"><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">130</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">78</div></a></div></div></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><span class="darkmode_switchbutton menu-child" onclick="sco.switchDarkMode()"><i class="solitude fa-solid fa-circle-half-stroke"></i><span>显示模式</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>文库</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>全部文章</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>全部分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>全部标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>友链</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/moments/"><i class="solitude  fas fa-wifi"></i><span>朋友圈</span></a></li><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>友情链接</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>关于</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/equipment/"><i class="solitude  fas fa-laptop"></i><span>我的装备</span></a></li><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐馆</span></a></li><li><a class="site-page child" href="/about/"><i class="solitude  fas fa-user"></i><span>作者</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-widget card-tags card-archives card-webinfo card-allinfo"><div class="card-tag-cloud"><a href="/tags/2019/">2019<sup>1</sup></a><a href="/tags/%E5%AE%9E%E9%AA%8C%E5%AE%A4/">实验室<sup>3</sup></a><a href="/tags/k8s/">k8s<sup>4</sup></a><a href="/tags/CMake-Linux/">CMake Linux<sup>1</sup></a><a href="/tags/C/">C++<sup>8</sup></a><a href="/tags/Qt/">Qt<sup>4</sup></a><a href="/tags/CMake/">CMake<sup>1</sup></a><a href="/tags/GTest/">GTest<sup>1</sup></a><a href="/tags/CTest/">CTest<sup>1</sup></a><a href="/tags/Linux/">Linux<sup>29</sup></a><a href="/tags/CSS/">CSS<sup>3</sup></a><a href="/tags/Next-js/">Next.js<sup>1</sup></a><a href="/tags/Web/">Web<sup>7</sup></a><a href="/tags/Bash/">Bash<sup>1</sup></a><a href="/tags/deepin/">deepin<sup>4</sup></a><a href="/tags/kwin/">kwin<sup>1</sup></a><a href="/tags/parallels-desktop/">parallels desktop<sup>1</sup></a><a href="/tags/JavaScript/">JavaScript<sup>3</sup></a><a href="/tags/Kitty/">Kitty<sup>1</sup></a><a href="/tags/systemd/">systemd<sup>4</sup></a><a href="/tags/linux/">linux<sup>6</sup></a><a href="/tags/Hexo/">Hexo<sup>1</sup></a><a href="/tags/kubernetes/">kubernetes<sup>1</sup></a><a href="/tags/Github-Action/">Github Action<sup>1</sup></a><a href="/tags/evil/">evil<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/">教程<sup>3</sup></a><a href="/tags/pve/">pve<sup>4</sup></a><a href="/tags/zfs/">zfs<sup>1</sup></a><a href="/tags/%E6%95%B0%E7%BB%84/">数组<sup>3</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/">算法<sup>3</sup></a><a href="/tags/%E7%AE%80%E5%8D%95/">简单<sup>3</sup></a><a href="/tags/vim/">vim<sup>2</sup></a><a href="/tags/docker/">docker<sup>2</sup></a><a href="/tags/dde/">dde<sup>1</sup></a><a href="/tags/go/">go<sup>1</sup></a><a href="/tags/Linux-%E5%A1%AB%E5%9D%91/">Linux 填坑<sup>1</sup></a><a href="/tags/nas/">nas<sup>1</sup></a><a href="/tags/mergerfs/">mergerfs<sup>1</sup></a><a href="/tags/Metal/">Metal<sup>5</sup></a><a href="/tags/GameEngine/">GameEngine<sup>5</sup></a><a href="/tags/%E5%81%A5%E5%BA%B7-%E6%80%9D%E8%80%83/">健康, 思考<sup>1</sup></a><a href="/tags/neovim/">neovim<sup>1</sup></a><a href="/tags/dap/">dap<sup>1</sup></a><a href="/tags/LNMP/">LNMP<sup>1</sup></a><a href="/tags/javascript/">javascript<sup>1</sup></a><a href="/tags/jsx/">jsx<sup>1</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8/">日常<sup>1</sup></a><a href="/tags/latex/">latex<sup>1</sup></a><a href="/tags/Game/">Game<sup>1</sup></a><a href="/tags/Unity/">Unity<sup>1</sup></a><a href="/tags/Shader/">Shader<sup>1</sup></a><a href="/tags/dotfile/">dotfile<sup>1</sup></a><a href="/tags/lxc/">lxc<sup>2</sup></a><a href="/tags/nvidia/">nvidia<sup>1</sup></a><a href="/tags/%E6%A8%A1%E6%9D%BF/">模板<sup>1</sup></a><a href="/tags/typescript/">typescript<sup>2</sup></a><a href="/tags/react/">react<sup>1</sup></a><a href="/tags/react-native/">react native<sup>1</sup></a><a href="/tags/sriov/">sriov<sup>1</sup></a><a href="/tags/Program/">Program<sup>1</sup></a><a href="/tags/vuex/">vuex<sup>1</sup></a><a href="/tags/reactnative/">reactnative<sup>1</sup></a><a href="/tags/ios/">ios<sup>1</sup></a><a href="/tags/c/">c++<sup>1</sup></a><a href="/tags/wayland/">wayland<sup>1</sup></a><a href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/">图形学<sup>1</sup></a><a href="/tags/uos/">uos<sup>1</sup></a><a href="/tags/VS-Code/">VS Code<sup>1</sup></a><a href="/tags/Windows/">Windows<sup>2</sup></a><a href="/tags/UOS-Vulkan-%E5%9B%BE%E5%BD%A2%E5%AD%A6-%E5%BC%80%E5%8F%91/">UOS, Vulkan, 图形学, 开发<sup>1</sup></a><a href="/tags/Vue/">Vue<sup>4</sup></a><a href="/tags/Wayland/">Wayland<sup>4</sup></a><a href="/tags/Linux-DTK/">Linux DTK<sup>1</sup></a><a href="/tags/Webpack/">Webpack<sup>1</sup></a><a href="/tags/TypeScript/">TypeScript<sup>1</sup></a><a href="/tags/Deep-Learning/">Deep Learning<sup>1</sup></a><a href="/tags/nVidia-Cuda/">nVidia Cuda<sup>1</sup></a><a href="/tags/Deepin-Learning/">Deepin Learning<sup>1</sup></a></div></div><span class="sidebar-menu-item-title">网站信息</span><div class="webinfo"><div class="webinfo-item"><div class="webinfo-item-title"><i class="item-icon solitude fa-solid fa-file-word"></i><div class="item-name">全站字数 :</div></div><div class="item-count">123k</div></div></div></div></div><!-- keyboard--><!-- righhtside--><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav class="show" id="nav"><div id="nav-group"><div id="blog_name"><a id="site-name" href="/" title="返回博客主页"><span class="title">竹子的碎碎念</span><i class="solitude fa-solid fa-home"></i></a></div><div id="page-name-mask"><div id="page-name"><a id="page-name-text" onclick="sco.toTop()">CTest and QTest/GTest</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>文库</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>全部文章</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>全部分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>全部标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>友链</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/moments/"><i class="solitude  fas fa-wifi"></i><span>朋友圈</span></a></li><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>友情链接</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>关于</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/equipment/"><i class="solitude  fas fa-laptop"></i><span>我的装备</span></a></li><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐馆</span></a></li><li><a class="site-page child" href="/about/"><i class="solitude  fas fa-user"></i><span>作者</span></a></li></ul></div></div></div><div id="nav-left"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机一篇文章" href="javascript:void(0);"><i class="solitude fa-solid fa-dice-d6"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索"><i class="solitude fa-solid fa-magnifying-glass"></i></a></div><div class="nav-button" id="nav-totop" onclick="sco.toTop()"><a class="totopbtn"><i class="solitude fa-solid fa-arrow-up"></i><span id="percent">0</span></a></div><div id="toggle-menu"><a class="site-page"><i class="solitude fa-solid fa-bars"></i></a></div></div></div></nav><div class="coverdiv" id="coverdiv"><img class="nolazyload" id="post-cover" src="/img/wallpapers/2fb31b3670f3732a60b23ac5a281612f.jpg" alt="CTest and QTest/GTest"></div><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original" title="该文章为原创文章，注意版权协议">原创</a><span class="post-meta-categories"><a class="post-meta-categories" href="/categories/unit-test/">unit test</a></span><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/"><span class="tags-name tags-punctuation"><i class="solitude fa-solid fa-hashtag"></i>C++</span></a><a class="post-meta__tags" href="/tags/Qt/"><span class="tags-name tags-punctuation"><i class="solitude fa-solid fa-hashtag"></i>Qt</span></a><a class="post-meta__tags" href="/tags/CMake/"><span class="tags-name tags-punctuation"><i class="solitude fa-solid fa-hashtag"></i>CMake</span></a><a class="post-meta__tags" href="/tags/GTest/"><span class="tags-name tags-punctuation"><i class="solitude fa-solid fa-hashtag"></i>GTest</span></a><a class="post-meta__tags" href="/tags/CTest/"><span class="tags-name tags-punctuation"><i class="solitude fa-solid fa-hashtag"></i>CTest</span></a></div></div></div></div><h1 class="post-title">CTest and QTest/GTest</h1><div id="post-meta"><div class="meta-secondline"><span class="post-meta-date" title="发布于 2020-06-16 15:11:40"><i class="post-meta-icon solitude fas fa-calendar-days"></i><time datetime="2020-06-16T07:11:40.000Z">2020-06-16T07:11:40.000Z</time></span><span class="post-meta-date" title="最后更新于 2025-01-13 14:19:38"><i class="post-meta-icon solitude fa-solid fa-arrows-rotate"></i><time datetime="2025-01-13T06:19:38.718Z">2025-01-13T06:19:38.718Z</time></span><span class="post-meta-wordcount"><i class="post-meta-icon solitude fa-solid fa-file-word" title="文章字数"></i><span class="word-count">2.5k</span><span class="post-meta-separator"></span><i class="post-meta-icon solitude fa-solid fa-clock" title="阅读耗时"></i><span>9 min</span></span><span class="post-meta-position" title="作者IP归属地为China"><i class="post-meta-icon solitude fas fa-location-dot"></i><span>China</span></span><a class="post-meta-pv" href="/2020/06/16/CTest-and-QTEST/" title="文章热度"><i class="post-meta-icon solitude fa-solid fa-fire-flame-curved"></i></a><span class="post-meta-commentcount" title="评论数" onclick="sco.scrollTo('post-comment')"><i class="solitude fa-solid fa-comment"></i><a href="/2020/06/16/CTest-and-QTEST/#post-comment"></a></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content article-container"><p>本文会介绍一下QTest和GTest的一些功能和区别。</p>
+<span id="more"></span>
+
+<h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><h2 id="ctest"><a href="#ctest" class="headerlink" title="ctest"></a>ctest</h2><p>ctest是CMake提供的运行单元测试的工具，在使用CMakeLists.txt文件编译工程的时候，CTest会自动configure、build、test和展现测试结果。</p>
+<p>ctest有两个模式：</p>
+<ul>
+<li>模式一：使用CMake configure和build工程，在CMakeLists.txt，使用特殊的命令创建tests。使用CTest来执行那些测试。</li>
+<li>模式二：使用CTest来执行一个script，这个script的语法必须和CMakeLists.txt相同。</li>
+</ul>
+<p>使用方法：</p>
+<p>在CMakeLists.txt使用include(CTest)和include(Dart)来导入CTest模块和开启ctest。使用add_test()来添加一个测试程序，测试程序是一个普通的二进制，只不过内部运行的是qtest或者gtest编写的测试用例。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">include(CTest)</span><br><span class="line">include(Dart)</span><br><span class="line">add_executable(tests tests/test.cpp)</span><br><span class="line">add(NAME tests COMMAND $&lt;TARGET_FILE:tests&gt;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="qt-qtest"><a href="#qt-qtest" class="headerlink" title="qt qtest"></a>qt qtest</h2><p>qtest是Qt提供的单元测试框架，Qt Test是用于对基于Qt的应用程序和库进行单元测试的框架。Qt Test提供了单元测试框架中常见的所有功能以及用于测试图形用户界面的扩展。</p>
+<p>Qt测试旨在简化基于Qt的应用程序和库的单元测试的编写：</p>
+<table>
+<thead>
+<tr>
+<th align="left">特征</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">轻量</td>
+<td align="left">Qt Test大约有6000行代码和60个导出符号组成</td>
+</tr>
+<tr>
+<td align="left">自成体系</td>
+<td align="left">Qt Test仅需要Qt Core模块中的几个符号即可进行非GUI测试</td>
+</tr>
+<tr>
+<td align="left">快速测试</td>
+<td align="left">Qt Test不需要特殊的测试运行程序，没有特殊的测试注册</td>
+</tr>
+<tr>
+<td align="left">数据驱动测试</td>
+<td align="left">可以使用不同的数据进行多次的测试</td>
+</tr>
+<tr>
+<td align="left">基本的GUI测试</td>
+<td align="left">Qt Test提供了用于鼠标和键盘的模拟功能</td>
+</tr>
+<tr>
+<td align="left">标杆管理</td>
+<td align="left">Qt Test支持基准测试，并提供多个测量后端</td>
+</tr>
+<tr>
+<td align="left">IDE友好</td>
+<td align="left">Qt Test输出可以由Qt Creator、Visual Studio等IDE解释的消息</td>
+</tr>
+<tr>
+<td align="left">线程安全</td>
+<td align="left">错误报告是线程安全和原子的</td>
+</tr>
+<tr>
+<td align="left">类型安全</td>
+<td align="left">模板的广泛使用可以防止隐式类型转换引起的错误</td>
+</tr>
+<tr>
+<td align="left">易于扩展</td>
+<td align="left">可以将自定义类型轻松添加到测试数据和测试输出中</td>
+</tr>
+</tbody></table>
+<h3 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h3><p>QVERIFY() 用于验证数据是否正确。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">QVERIFY</span>(<span class="number">1</span> == <span class="number">1</span>);</span><br><span class="line"><span class="built_in">QVERIFY2</span>(<span class="number">1</span> != <span class="number">1</span>, <span class="string">&quot;1不等于1&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><p>QFETCH_GLOBAL() 该宏从全局数据表中的一行中获取类型类型为name的变量。 名称和类型必须与全局数据表中的列匹配。 这是断言，如果断言失败，则测试将中止。</p>
+<p>QFETCH() 宏会在堆栈上创建一个类型为name的本地变量。 名称和类型必须与测试数据表中的列匹配。 这是断言，如果断言失败，则测试将中止。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">QFETCH</span>(QString, aString);</span><br><span class="line"><span class="built_in">QFETCH_GLOBAL</span>(QLocale, locale);</span><br></pre></td></tr></table></figure>
+
+<h3 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h3><p>QCOMPARE宏用于判断两个值是否相等，如果实际值和预期值匹配，将会继续运行，否则将失败记录在测试日至中，并且测试将被终止，不会尝试任何后续操作。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">QCOMPARE</span>(<span class="built_in">QString</span>(<span class="string">&quot;hello&quot;</span>).<span class="built_in">toUpper</span>(), <span class="built_in">QString</span>(<span class="string">&quot;HELLO&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加数据"><a href="#添加数据" class="headerlink" title="添加数据"></a>添加数据</h3><p>通过在包含_data()的函数中调用QTest::addColumn和QTest::newRow向测试用例增加数据，并通过QFETCH宏在测试用例中访问数据。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">TestQString::toInt_data</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    QTest::<span class="built_in">addColumn</span>&lt;QString&gt;(<span class="string">&quot;aString&quot;</span>);</span><br><span class="line">    QTest::<span class="built_in">addColumn</span>&lt;<span class="type">int</span>&gt;(<span class="string">&quot;expected&quot;</span>);</span><br><span class="line">    QTest::<span class="built_in">newRow</span>(<span class="string">&quot;positive value&quot;</span>) &lt;&lt; <span class="string">&quot;42&quot;</span> &lt;&lt; <span class="number">42</span>;</span><br><span class="line">    QTest::<span class="built_in">newRow</span>(<span class="string">&quot;negative value&quot;</span>) &lt;&lt; <span class="string">&quot;-42&quot;</span> &lt;&lt; <span class="number">-42</span>;</span><br><span class="line">    QTest::<span class="built_in">newRow</span>(<span class="string">&quot;zero&quot;</span>) &lt;&lt; <span class="string">&quot;0&quot;</span> &lt;&lt; <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">TestQString::toInt</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="built_in">QFETCH</span>(QString, aString);</span><br><span class="line">     <span class="built_in">QFETCH</span>(<span class="type">int</span>, expected);</span><br><span class="line">     <span class="built_in">QCOMPARE</span>(aString.<span class="built_in">toInt</span>(), expected);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建测试"><a href="#创建测试" class="headerlink" title="创建测试"></a>创建测试</h3><p>要创建测试，需要派生自QObject，并添加一个或多个专用槽函数。每个专用槽函数都是测试中的一个测试功能且必须为private。函数命名方法以casen_函数名或者以test结尾的方式。</p>
+<p>使用QTest::qExec()可用于执行测试对象中的所有测试功能。</p>
+<p>此外，还可以定义不用于测试功能的专用槽函数。如果存在，它们将由测试框架执行，并用于初始化和清除整个测试或当前的测试功能。</p>
+<ul>
+<li><strong>initTestCase()</strong> 将在第一个测试功能执行之前被调用</li>
+<li><strong>initTestCase_data()</strong> 将被调用以创建全局测试数据表</li>
+<li><strong>cleanupTestCase()</strong> 在最后一个测试函数执行后被调用</li>
+<li><strong>init()</strong> 将在每个测试功能执行之前被调用</li>
+<li><strong>cleanup()</strong> 将在每个测试函数之后调用</li>
+</ul>
+<p>使用initTestCase()准备测试。每次测试都应使系统处于可用状态，因此可以重复运行。清理操作应在cleanupTestCase()中处理，因此即使测试失败也可以运行清理操作。</p>
+<p>使用init()创建测试功能。每个测试功能都应使系统保持可用状态，以便可以重复运行。清理操作应在cleanup()中，即使测试功能失败并提前退出，清理动作也可以运行。</p>
+<p>另外，可以使用RAII,并在析构函数中调用清除操作，以确保他们在测试函数返回且对象移出作用域时发生。</p>
+<p>如果initTestCase()失败，将不执行任何测试功能。如果init()失败，则不执行以下测试功能，测试将继续进行下一个测试功能。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span> : <span class="keyword">public</span> QObject &#123;</span><br><span class="line">  Q_OBJECT</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="function"><span class="type">bool</span> <span class="title">verify</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">private</span> slots:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">initTestCase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;init test case&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">firstTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">QVERIFY</span>(<span class="literal">true</span>);</span><br><span class="line">    <span class="built_in">QCOMPARE</span>(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">secondTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">QVERIFY</span>(<span class="built_in">verify</span>());</span><br><span class="line">    <span class="built_in">QVERIFY</span>(<span class="number">1</span> != <span class="number">2</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">cleanupTestCase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;clean test case&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>最后，如果测试类具有静态且公共的void initMain()方法，则在实例化QApplication对象之前，由QTEST_MAIN宏调用该方法。例如，这允许设置应用程序的属性，例如Qt::AA_DisableHighDpiScaling。这是在Qt5.14添加的。</p>
+<h3 id="使用CMake和CTest构建测试项目"><a href="#使用CMake和CTest构建测试项目" class="headerlink" title="使用CMake和CTest构建测试项目"></a>使用CMake和CTest构建测试项目</h3><p>CMake还有其他优点。例如，几乎可以毫不费力地使用CDash将测试运行的结果发布到Web服务器上。</p>
+<p>CTest可以扩展到非常不同的单元测试框架，并且可以与QTest一起使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">project(mytest LANGUAGES CXX)</span><br><span class="line">include(CTest)</span><br><span class="line">include(Dart)</span><br><span class="line">find_package(Qt5 COMPONENTS Test REQUIRED)</span><br><span class="line">set(CMAKE_INCLUDE_CURRENT_DIR ON)</span><br><span class="line">set(CMAKE_AUTOMOC ON)</span><br><span class="line">add_executable(mytest tst_mytest.cpp)</span><br><span class="line">add_test(NAME mytest COMMAND mytest)</span><br><span class="line">target_link_libraries(mytest PRIVATE Qt5::Test)</span><br></pre></td></tr></table></figure>
+
+<h2 id="google-test"><a href="#google-test" class="headerlink" title="google test"></a>google test</h2><p>google test(gtest)是google公司推出的c++单元测试框架，基于xUnit架构，并且支持Linux、Windows和mac，并且支持任何类型的测试和模拟，而不仅仅是单元测试。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>当使用gtest时，通过编写断言来检查条件是否为真。断言的结果可能是成功、非致命失败或者致命失败。如果发生致命故障，将终止当前功能，否则将继续运行。</p>
+<p>一个测试套件包含一个或者多个测试。当测试套件中的多个测试需要共享通用对象和子例程时，可以将他们放入一个测试桶中。</p>
+<p>一个测试程序可以包含多个测试套件。</p>
+<h3 id="断言-1"><a href="#断言-1" class="headerlink" title="断言"></a>断言</h3><p>gtest断言类似于函数调用的宏，可以通过断言其行为来测试类或者函数。断言失败时，gtest会输出断言的源文件和行号位置以及失败消息。还可以提供自定义失败消息，该消息将会附加到gtest的消息之后。</p>
+<p>断言成对出现，测试相同的事物，但是对当前函数有不同的影响。ASSERT_*版本失败时会产生致命错误，并终止当前功能。EXPECT_*会产生非致命错误，不会导致当前测试失败。通常EXPECT_*是首选，因为他们允许在测试中报告多个鼓掌，但是如果在断言失败时继续运行将没有意义时应当使用ASSERT_*。</p>
+<p>由于ASSERT_*失败会从当前函数立即返回，可能会跳过其后的清理代码，导致内存泄漏。</p>
+<h3 id="基本断言"><a href="#基本断言" class="headerlink" title="基本断言"></a>基本断言</h3><p>基本断言可以进行基本的真&#x2F;假条件测试</p>
+<table>
+<thead>
+<tr>
+<th align="left">致命断言</th>
+<th align="left">非致命断言</th>
+<th align="left">验证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ASSERT_TRUE(condition);</td>
+<td align="left">EXPECT_TRUE(condition);</td>
+<td align="left">condition是真的</td>
+</tr>
+<tr>
+<td align="left">ASSERT_FALSE(condition);</td>
+<td align="left">EXPECT_FLASE(condition);</td>
+<td align="left">condition是假的</td>
+</tr>
+</tbody></table>
+<p>请记住，当它们失败时，将导致ASSERT_*致命故障并从当前函数返回，而当它们发生EXPECT_*非致命故障时，将允许该函数继续运行。无论哪种情况，断言失败都意味着其包含测试失败。</p>
+<h3 id="字符串比较"><a href="#字符串比较" class="headerlink" title="字符串比较"></a>字符串比较</h3><p>该组中的断言比较两个C字符串。如果要比较两个string对象，请改用EXPECT_EQ，EXPECT_NE等。</p>
+<table>
+<thead>
+<tr>
+<th align="center">致命断言</th>
+<th align="center">非致命断言</th>
+<th align="center">验证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ASSERT_STREQ(str1,str2);</td>
+<td align="center">EXPECT_STREQ(str1,str2);</td>
+<td align="center">这两个C字符串的内容相同</td>
+</tr>
+<tr>
+<td align="center">ASSERT_STRNE(str1,str2);</td>
+<td align="center">EXPECT_STRNE(str1,str2);</td>
+<td align="center">两个C字符串的内容不同</td>
+</tr>
+<tr>
+<td align="center">ASSERT_STRCASEEQ(str1,str2);</td>
+<td align="center">EXPECT_STRCASEEQ(str1,str2);</td>
+<td align="center">两个C字符串的内容相同，忽略大小写</td>
+</tr>
+<tr>
+<td align="center">ASSERT_STRCASENE(str1,str2);</td>
+<td align="center">EXPECT_STRCASENE(str1,str2);</td>
+<td align="center">两个C字符串的内容不同，忽略大小写</td>
+</tr>
+</tbody></table>
+<p>注意，断言名称中的“ CASE”表示忽略大小写。一个NULL 指针和一个空字符串被认为是不同的。</p>
+<p><em>STREQ</em>并<em>STRNE</em>接受宽C字符串（wchar_t*）。如果两个宽字符串的比较失败，则它们的值将打印为UTF-8窄字符串。</p>
+<h3 id="简单测试"><a href="#简单测试" class="headerlink" title="简单测试"></a>简单测试</h3><p>创建测试：</p>
+<ol>
+<li>使用TEST()宏定义和命名测试功能。这些是没有返回值的普通C++函数。</li>
+<li>在此函数，要与包含的所有有效C++语句一起使用各种gtest断言来检查。</li>
+<li>测试结果由断言确定，如果测试中的任何声明失败（致命或非致命），或者测试崩溃，整个测试都会失败，否则测试应当成功。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TEST(TestSuiteName, TestName) &#123;</span><br><span class="line">  ...测试代码...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>TEST()函数第一个参数是测试套件的名称，第二个参数是测试套件内的测试名称。这两个名称都必须是有效的C++标识符，并且不应包含任何下划线。来自不同测试套件的测试可以具有相同的名称。</p>
+<h1 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h1><h2 id="qtest"><a href="#qtest" class="headerlink" title="qtest"></a>qtest</h2><p><a target="_blank" rel="noopener" href="https://doc.qt.io/qt-5/qtest.html">https://doc.qt.io/qt-5/qtest.html</a></p>
+<h2 id="gtest"><a href="#gtest" class="headerlink" title="gtest"></a>gtest</h2><p><a target="_blank" rel="noopener" href="https://github.com/google/googletest/blob/master/googletest/docs/primer.md">https://github.com/google/googletest/blob/master/googletest/docs/primer.md</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author_group"><a class="post-copyright__author_img" href="/about/"><img class="post-copyright__author_img_front" src= "" data-lazy-src="/favicon.ico"></a><div class="post-copyright__author_name">小竹's blog</div><div class="post-copyright__author_desc">永远不要停止思考</div></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div id="quit-box" onclick="RemoveRewardMask()"></div><div class="reward-link mode"><a class="reward-link-button" href="/rss/feed.xml"><i class="solitude fa-solid fa-seedling"></i>订阅</a></div></div></div><div class="social-share"><a class="social-share-ico icon-twitter" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fblog.mkacg.com%2F2020%2F06%2F16%2FCTest-and-QTEST%2F&amp;text=CTest%20and%20QTest%2FGTest" title="分享到Twitter"><i class="solitude fab fa-twitter"></i></a><div class="social-share-ico icon-qrcode" title="使用手机扫码阅读这篇文章"><i class="solitude fas fa-qrcode"></i><div class="share-main"><div class="share-main-all"><div id="qrcode"></div><div class="reward-dec">使用手机扫码阅读这篇文章</div></div></div><script pjax>typeof QRCode === 'function' && new QRCode(document.getElementById("qrcode"), {
+    text: 'https://blog.mkacg.com/2020/06/16/CTest-and-QTEST/',
+    correctLevel : QRCode.CorrectLevel.L
+});
+window.addEventListener('DOMContentLoaded', () => {
+    new QRCode(document.getElementById("qrcode"), {
+        text: 'https://blog.mkacg.com/2020/06/16/CTest-and-QTEST/',
+        correctLevel : QRCode.CorrectLevel.L
+    });
+});
+</script></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本文是原创文章，采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">CC BY-NC-SA 4.0</a>协议，完整转载请注明来自<a href="/">小竹's blog</a></span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/"><span class="tags-punctuation"><i class="solitude fa-solid fa-hashtag"></i>C++<span class="tagsPageCount">8</span></span></a><a class="post-meta__tags" href="/tags/Qt/"><span class="tags-punctuation"><i class="solitude fa-solid fa-hashtag"></i>Qt<span class="tagsPageCount">4</span></span></a><a class="post-meta__tags" href="/tags/CMake/"><span class="tags-punctuation"><i class="solitude fa-solid fa-hashtag"></i>CMake<span class="tagsPageCount">1</span></span></a><a class="post-meta__tags" href="/tags/GTest/"><span class="tags-punctuation"><i class="solitude fa-solid fa-hashtag"></i>GTest<span class="tagsPageCount">1</span></span></a><a class="post-meta__tags" href="/tags/CTest/"><span class="tags-punctuation"><i class="solitude fa-solid fa-hashtag"></i>CTest<span class="tagsPageCount">1</span></span></a></div></div></div><nav class="needEndHide pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/07/21/use-perf-to-analytics-program/"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">使用perf工具分析程序性能</div></div></a></div><div class="next-post pull-right"><a href="/2020/06/15/CPP%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CPP项目的一些坑</div></div></a></div></nav>
+        <div class="relatedPosts">
+            <div class="headline">
+                <i class="solitude fa-solid fa-star"></i>
+                <span>喜欢这篇的人也看了</span>
+                <div class="relatedPosts-link">
+                    <a onclick="event.preventDefault(); toRandomPost();" href="javascript:void(0);" rel="external nofollow" data-pjax-state="">随便逛逛</a>
+                </div>
+            </div>
+            <div class="relatedPosts-list">
+            <div>
+                <a href="/2022/03/04/qdir-stdfilesystem/" title="QDir 和 std::filesystem 的简单对比">
+                    <img class="cover" src= "" data-lazy-src="/img/wallpapers/f74197f33948a775e757749b37d44d0a.jpg" alt="cover">
+                    <div class="content is-center">
+                        <div class="title">QDir 和 std::filesystem 的简单对比</div>
+                    </div>
+                </a>
+            </div>
+            <div>
+                <a href="/2024/11/01/treeland-go-go-go/" title="Treeland：DDE 进步的阶梯">
+                    <img class="cover" src= "" data-lazy-src="/img/wallpapers/84169715_p0.jpg" alt="cover">
+                    <div class="content is-center">
+                        <div class="title">Treeland：DDE 进步的阶梯</div>
+                    </div>
+                </a>
+            </div>
+            </div>
+        </div><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="solitude fa-solid fa-comment"></i><span> 评论</span><span class="count"> (<span class="giscus-count"></span>)</span></div></div><div class="comment-wrap"><div id="giscus-wrap"></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><div class="author-info__top-group"><div class="author-info__sayhi" id="author-info__sayhi" onclick="sco.changeSayHelloText()">sayhello.morning</div></div></div><div class="avatar-img-group"><img class="avatar-img" alt="头像" src="/img/avatar.png"></div><div class="author-info__description_group"><div class="author-info__description">欲买桂花同载酒，终不似，少年游。</div><div class="author-info__description2">欢迎大家来到我的博客，我偶尔会写一些正经的技术文章。</div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/about/"><div class="author-info__name">小竹</div><div class="author-info__desc">永远不要停止思考</div></a><div class="card-info-social-icons is-center"><a class="social-icon" target="_blank" rel="noopener" href="https://github.com/justforlxz" title="Github"><i class="solitude  fab fa-github"></i></a><a class="social-icon" target="_blank" rel="noopener" href="https://space.bilibili.com/693131" title="Bilibili"><i class="solitude  fab fa-bilibili"></i></a><a class="social-icon" target="_blank" rel="noopener" href="https://www.zhihu.com/people/justforlxz" title="Zhihu"><i class="solitude  fab fa-zhihu"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="solitude fa-solid fa-bars"></i><span>文章目录</span></div><div class="toc-content" id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="toc-text">单元测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ctest"><span class="toc-text">ctest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#qt-qtest"><span class="toc-text">qt qtest</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%AD%E8%A8%80"><span class="toc-text">断言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF"><span class="toc-text">循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E8%BE%83"><span class="toc-text">比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE"><span class="toc-text">添加数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%B5%8B%E8%AF%95"><span class="toc-text">创建测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8CMake%E5%92%8CCTest%E6%9E%84%E5%BB%BA%E6%B5%8B%E8%AF%95%E9%A1%B9%E7%9B%AE"><span class="toc-text">使用CMake和CTest构建测试项目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#google-test"><span class="toc-text">google test</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%AD%E8%A8%80-1"><span class="toc-text">断言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%96%AD%E8%A8%80"><span class="toc-text">基本断言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%94%E8%BE%83"><span class="toc-text">字符串比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95"><span class="toc-text">简单测试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="toc-text">参考资料：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#qtest"><span class="toc-text">qtest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gtest"><span class="toc-text">gtest</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="solitude fa-solid fa-map"></i><span>最近发布</span></div><div class="aside-list"><a class="aside-list-item" href="/2025/02/08/automatic-backup-of-zfs-volumes/" title="automatic backup of zfs volumes"><div class="thumbnail"><img alt="automatic backup of zfs volumes" src="/img/wallpapers/f74197f33948a775e757749b37d44d0a.jpg"></div><div class="content"><span class="title" href="/2025/02/08/automatic-backup-of-zfs-volumes/" title="automatic backup of zfs volumes">automatic backup of zfs volumes</span><span class="article-recent_post_categories" href="/2025/02/08/automatic-backup-of-zfs-volumes/">技术分享</span></div></a><a class="aside-list-item" href="/2025/01/11/expanding-storage-using-mergefs/" title="使用 Mergerfs 扩展存储"><div class="thumbnail"><img alt="使用 Mergerfs 扩展存储" src="/img/wallpapers/E-oKw44UcAAPpT5.jpg"></div><div class="content"><span class="title" href="/2025/01/11/expanding-storage-using-mergefs/" title="使用 Mergerfs 扩展存储">使用 Mergerfs 扩展存储</span><span class="article-recent_post_categories" href="/2025/01/11/expanding-storage-using-mergefs/">技术分享</span></div></a><a class="aside-list-item" href="/2025/01/08/fstab-x-systemd-after/" title="在 fstab 中使用 x-systemd.after"><div class="thumbnail"><img alt="在 fstab 中使用 x-systemd.after" src="/img/wallpapers/cf606c10c55e11e7812f23dee0a57fde.jpg"></div><div class="content"><span class="title" href="/2025/01/08/fstab-x-systemd-after/" title="在 fstab 中使用 x-systemd.after">在 fstab 中使用 x-systemd.after</span><span class="article-recent_post_categories" href="/2025/01/08/fstab-x-systemd-after/">技术分享</span></div></a><a class="aside-list-item" href="/2025/01/06/pve-vm-use-virtiofsd/" title="在 pve 下使用 virtiofs 加速虚拟机和宿主机的文件夹共享"><div class="thumbnail"><img alt="在 pve 下使用 virtiofs 加速虚拟机和宿主机的文件夹共享" src="/img/wallpapers/cf606c10c55e11e7812f23dee0a57fde.jpg"></div><div class="content"><span class="title" href="/2025/01/06/pve-vm-use-virtiofsd/" title="在 pve 下使用 virtiofs 加速虚拟机和宿主机的文件夹共享">在 pve 下使用 virtiofs 加速虚拟机和宿主机的文件夹共享</span><span class="article-recent_post_categories" href="/2025/01/06/pve-vm-use-virtiofsd/">技术分享</span></div></a><a class="aside-list-item" href="/2025/01/05/nvidia-gpu-in-pve-lxc/" title="在 PVE lxc 里使用 nvidia"><div class="thumbnail"><img alt="在 PVE lxc 里使用 nvidia" src="/img/wallpapers/83635798_p0.png"></div><div class="content"><span class="title" href="/2025/01/05/nvidia-gpu-in-pve-lxc/" title="在 PVE lxc 里使用 nvidia">在 PVE lxc 里使用 nvidia</span><span class="article-recent_post_categories" href="/2025/01/05/nvidia-gpu-in-pve-lxc/">技术分享</span></div></a></div></div></div></div></main><footer id="footer"><div id="st-footer-bar"><div class="footer-logo"><span>竹子的碎碎念</span></div><div class="footer-bar-description"></div><a class="footer-bar-link" href="/about/"></a></div><div id="footer_deal"><a class="deal_link" target="_blank" rel="noopener" href="https://github.com/justforlxz" title="Github"><i class="solitude  fab fa-github"></i></a><div class="nolazyload footer_mini_logo" id="footer_mini_logo" title="返回顶部" onclick="sco.toTop()"><img src alt="返回顶部"></div><a class="deal_link" target="_blank" rel="noopener" href="https://space.bilibili.com/693131" title="Bilibili"><i class="solitude  fab fa-bilibili"></i></a></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div class="copyright">© 2016 - 2025 By&nbsp;<a class="footer-bar-link" href="/"><img class="author-avatar" src= "" data-lazy-src="/favicon.ico">小竹</a></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/everfu/hexo-theme-solitude" alt="Theme">Theme</a><a class="footer-bar-link" href="/rss/feed.xml" alt="RSS">RSS</a></div></div></div></footer></div><!-- right_menu--><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="solitude fa-solid fa-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="solitude fa-solid fa-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="solitude fa-solid fa-arrows-rotate"></i></div><div class="rightMenu-item" id="menu-top"><i class="solitude fa-solid fa-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="solitude fa-solid fa-clone"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="solitude fa-solid fa-clipboard"></i><span>粘贴文本</span></div><div class="rightMenu-item" id="menu-commenttext"><i class="solitude fa-solid fa-comment-medical"></i><span>引用到评论</span></div><div class="rightMenu-item" id="menu-newwindow"><i class="solitude fa-regular fa-window-maximize"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="solitude fa-solid fa-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="solitude fa-solid fa-clone"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="solitude fa-solid fa-cloud-arrow-down"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-search"><i class="solitude fa-solid fa-magnifying-glass"></i><span>站内搜索</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><div class="rightMenu-item" id="menu-darkmode" onclick="sco.switchDarkMode()"><i class="solitude fa-solid fa-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></div></div></div><div id="rightmenu-mask"></div><!-- inject body--><div><script src="/js/utils.js?v=2.1.16"></script><script src="/js/main.js?v=2.1.16"></script><script src="/js/third_party/waterfall.min.js?v=2.1.16"></script><script src="https://fastly.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="https://fastly.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script><script src="/js/third_party/universe.min.js?v=2.1.16"></script><script>dark()
+</script><script src="/js/tw_cn.js?v=2.1.16"></script><script src="https://fastly.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://fastly.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script src="https://fastly.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script><script>var meting_api = 'https://meting.qjqq.cn/?server=:server&type=:type&id=:id&auth=:auth&r=:r';</script><script src="https://fastly.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://fastly.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script><script src="https://fastly.jsdelivr.net/npm/colorthief@2.6.0/dist/color-thief.min.js"></script><script src="/js/covercolor/local.js?v=2.1.16"></script><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+utils.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+</script><script src="https://fastly.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><script src="/js/right_menu.js?v=2.1.16"></script><div class="js-pjax"><script>(()=>{
+    const getGiscusTheme = theme => {
+        return theme === 'dark' ? 'dark' : 'light'
+    }
+
+    const loadGiscus = () => {
+        const config = Object.assign({
+            src: 'https://giscus.app/client.js',
+            'data-repo': 'justforlxz/blog-comment',
+            'data-repo-id': 'R_kgDONG_Evg',
+            'data-category-id': 'DIC_kwDONG_Evs4Cjwkl',
+            'data-mapping': 'pathname',
+            'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+            'data-reactions-enabled': '1',
+            crossorigin: 'anonymous',
+            async: true
+        },null)
+
+        const ele = document.createElement('script')
+        for (let key in config) {
+            ele.setAttribute(key, config[key])
+        }
+        document.getElementById('giscus-wrap').appendChild(ele)
+    }
+
+    const changeGiscusTheme = theme => {
+        const sendMessage = message => {
+            const iframe = document.querySelector('iframe.giscus-frame')
+            if (!iframe) return
+            iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app')
+        }
+
+        sendMessage({
+            setConfig: {
+                theme: getGiscusTheme(theme)
+            }
+        });
+    }
+
+    utils.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+    if ('Giscus' === 'Giscus' || !true) {
+        if (true) {
+            const giscusWrap = document.getElementById('giscus-wrap')
+            if (giscusWrap) {
+                utils.loadComment(giscusWrap, loadGiscus)
+            }
+        } else {
+            loadGiscus()
+        }
+    } else {
+        window.loadTwoComment = loadGiscus
+    }
+})()</script></div></div><!-- pjax--><script>const pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: ["title","#body-wrap","#site-config","meta[name=\"description\"]",".js-pjax","meta[property^=\"og:\"]","#config-diff",".rs_show",".rs_hide"],
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+})
+
+document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+})
+
+document.addEventListener('pjax:complete', () => {
+    window.refreshFn()
+
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+        const newScript = document.createElement('script')
+        const content = item.text || item.textContent || item.innerHTML || ""
+        Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+        newScript.appendChild(document.createTextNode(content))
+        item.parentNode.replaceChild(newScript, item)
+    })
+
+    GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+    if (e.request.status === 404) {
+        pjax.loadUrl('/404.html')
+    }
+})</script><!-- google adsense--><!-- search--><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="solitude fa-solid fa-xmark"></i></button></nav><div class="search-wrap"><div class="search-box"><input class="search-box-input" id="search-input" type="text" autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off" placeholder="输入关键词快速查找"></div><div id="search-results"><div id="search-hits"></div></div><div id="search-pagination"></div><div id="search-tips"></div></div></div><div id="search-mask"></div></div><script src="/js/search/local.js?v=2.1.16"></script><!-- Tianli-Talk--><!-- music--></body></html>
+        <script>
+            const posts = ["2025/02/08/automatic-backup-of-zfs-volumes/","2025/01/11/expanding-storage-using-mergefs/","2025/01/08/fstab-x-systemd-after/","2025/01/06/pve-vm-use-virtiofsd/","2025/01/05/nvidia-gpu-in-pve-lxc/","2025/01/05/run-k8s-in-lxc/","2025/01/05/lxc-use-sriov-in-pve/","2025/01/02/use-docker-and-distrobx-and-nix-to-develop-uos/","2024/12/27/vk-gl-cts-test-wayland/","2024/12/25/nix-home-manager/","2024/11/23/have-a-nice-day/","2024/11/09/treeland-part1-how-to-implement-a-wlroots-based-compositor/","2024/11/01/treeland-go-go-go/","2024/04/15/Add-macvlan-net/","2024/03/01/solved-run-k8s-in-wsl2/","2023/09/11/solved-Could-not-find-a-declaration-file-for-module-vuex/","2023/06/29/solved-react-native-error-SDK-iphoneos-cannot-be-located/","2023/06/25/How-to-develop-a-kwin-special-effects-plugin/","2023/05/24/How-to-count-the-cpu-usage-of-a-process/","2023/04/19/How-to-Solve-the-Module-not-found-Cannot-resolve-fs-error-in-Next-js/","2023/04/17/Kitty-configuration-for-macOS/","2023/04/11/How-to-solve-parallels-desktop-linux-usb-problem/","2023/03/15/How-to-remove-all-Terminating-pods/","2023/02/01/solved-duplicate-hostname-or-contents/","2022/12/08/how-to-use-nvim-dap-to-debug-cpp/","2022/11/07/photo-1-init-project/","2022/08/25/docker-buildx-multi-arch-images/","2022/07/21/meet-unity-shader/","2022/07/02/jsx/","2022/06/24/stack-problem/","2022/04/26/an-evil-idea/","2022/04/09/hello-metal-5/","2022/04/04/hello-metal-4/","2022/04/04/hello-metal-3/","2022/04/04/hello-metal-2/","2022/04/04/hello-metal-1/","2022/03/22/vim简单配置/","2022/03/16/css-mastering-margin-collapsing/","2022/03/10/if-constexpr/","2022/03/08/latex-environment-config/","2022/03/04/qdir-stdfilesystem/","2022/02/25/How-to-use-cuda-with-deepin/","2022/01/05/fix-h5py-build-failed-on-m1/","2021/12/29/Starting-sessions-with-systemd-part-2/","2021/12/25/Starting-sessions-with-systemd/","2021/09/14/introduction-to-the-qml-cmake-api/","2021/08/10/Vuex基本使用/","2021/08/07/CSS浮动笔记/","2021/08/07/JavaScript任务执行笔记/","2021/07/24/wayland-architecture/","2021/07/24/wayland-types/","2021/07/24/wayland-introduction/","2021/07/24/wayland-preface/","2021/07/06/container-with-most-water/","2021/07/06/two-sum/","2021/07/06/binary-search/","2021/03/04/package-manager-for-arch/","2021/02/27/timemachine/","2021/02/27/samba/","2021/02/26/2020review/","2020/12/23/ccls/","2020/11/17/qt-multi-thread/","2020/09/17/deepin-wine-chinese-problem/","2020/09/08/use-refind-to-boot-system/","2020/09/06/deepin-git-version/","2020/09/03/use-vscode-to-remotely-develop-dde/","2020/08/06/develop-startdde-on-archlinux/","2020/07/27/use-github-action-to-check-dde-launcher/","2020/07/21/use-perf-to-analytics-program/","2020/06/16/CTest-and-QTEST/","2020/06/15/CPP项目的一些坑/","2020/06/15/使用inquirer提供交互式git-commit/","2020/06/01/vue-router路由复用后页面没有刷新/","2020/05/31/vue3-upgrade/","2020/02/01/JavaScript建造者模式/","2020/01/31/浅谈Javascript构造器模式/","2020/01/01/2019review/","2020/01/01/使用伪元素创建一个圆点/","2019/12/26/use-serial-port-debug-deepin-on-archlinux/","2019/12/26/cpp-sort/","2019/12/09/记录一个坑爹的usb网卡/","2019/12/09/use-github-actions-to-depoly-hexo/","2019/12/08/vue-component-props/","2019/12/08/vue-transitions/","2019/11/25/使用webpack-dev-server来监听项目变化/","2019/10/24/给Archlinux开启BFQ和MuQSS/","2019/10/22/使用webpack打包Vue和TypeScript/","2019/10/14/webpack入门/","2019/06/16/wsl2的使用体验/","2019/06/15/入坑typescript了/","2019/05/23/CMake-CTests-for-dde-control-center/","2019/02/21/how-to-use-LNMP-on-deepin/","2019/01/23/fuck-taobao/","2018/12/12/hibernate-for-swapfile/","2018/11/11/quick-sort-for-cpp/","2018/11/09/use-google-calendar-to-finishe-work/","2018/11/09/hexo page move to coding/","2018/08/29/cpp-smart-pointer/","2018/07/14/卷积神经网络简述/","2018/07/14/深度学习笔记/","2018/07/09/C-plus-plus-Iterator-笔记/","2018/06/28/在DeepinLinux下使用nVidia-CUDA/","2018/06/25/deepin待机后键盘和触摸板无法使用的解决方法/","2018/06/05/dreamscene插件开发/","2018/05/23/Dock插件开发/","2018/04/01/Linux的PAM是什么/","2018/03/11/重构dde-session-ui/","2018/01/12/使用DTK开发/","2017/12/25/解决IntelliJ-IDEA界面瞎眼/","2017/12/18/修复Archlinux的Grub/","2017/09/01/解决NVIDIA重新启动以后系统冻结/","2017/08/31/我的代理折腾方案/","2017/08/23/开发topbar中的技术问题/","2017/08/20/TKL主题优化-转/","2017/08/16/debug了两天，只删了一行代码/","2017/08/15/正常的流程在界面上却是bug/","2017/08/11/在deepin上使用dnsmasq来解决dns解析缓慢/","2017/07/24/PPA/","2017/07/20/topbar-PPA/","2017/07/14/webhook/","2017/07/04/SAOUTILS/","2017/06/26/Topbar/","2016/07/15/ArchLinux运行steam出现缺少LibGL-steam-libGL-error-failed-to-load-driver-swrast/","2016/07/15/docker-hexo/","2016/05/31/docker-aria2c/","2016/05/25/aria2配置/","2016/04/10/linux下安装vmware及archlinux的安装和配置/","2016/04/08/font-config/","2016/03/25/my-life/","2016/03/25/page/"];
+            function toRandomPost() {
+                const randomPost = posts[Math.floor(Math.random() * posts.length)];
+                pjax.loadUrl(GLOBAL_CONFIG.root + randomPost);
+            }
+        </script>

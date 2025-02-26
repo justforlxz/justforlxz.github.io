@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>小竹&#39;s blog</title>
-  <icon>https://blog.justforlxz.com/icon.png</icon>
+  <icon>https://blog.mkacg.com/img/avatar.png</icon>
   <subtitle>永远不要停止思考</subtitle>
-  <link href="https://blog.justforlxz.com/rss/feed.xml" rel="self"/>
+  <link href="https://blog.mkacg.com/rss/feed.xml" rel="self"/>
   
-  <link href="https://blog.justforlxz.com/"/>
-  <updated>2025-01-02T08:32:45.387Z</updated>
-  <id>https://blog.justforlxz.com/</id>
+  <link href="https://blog.mkacg.com/"/>
+  <updated>2025-02-22T01:08:23.648Z</updated>
+  <id>https://blog.mkacg.com/</id>
   
   <author>
     <name>小竹</name>
@@ -17,9 +17,205 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>automatic backup of zfs volumes</title>
+    <link href="https://blog.mkacg.com/2025/02/08/automatic-backup-of-zfs-volumes/"/>
+    <id>https://blog.mkacg.com/2025/02/08/automatic-backup-of-zfs-volumes/</id>
+    <published>2025-02-08T01:39:13.000Z</published>
+    <updated>2025-02-22T01:08:23.648Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;创建备份脚本&quot;&gt;&lt;a href=&quot;#创建备份脚本&quot; class=&quot;headerlink&quot; title=&quot;创建备份脚本&quot;&gt;&lt;/a&gt;创建备份脚本&lt;/h2&gt;&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="技术分享" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+    <category term="systemd" scheme="https://blog.mkacg.com/tags/systemd/"/>
+    
+    <category term="pve" scheme="https://blog.mkacg.com/tags/pve/"/>
+    
+    <category term="zfs" scheme="https://blog.mkacg.com/tags/zfs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Mergerfs 扩展存储</title>
+    <link href="https://blog.mkacg.com/2025/01/11/expanding-storage-using-mergefs/"/>
+    <id>https://blog.mkacg.com/2025/01/11/expanding-storage-using-mergefs/</id>
+    <published>2025-01-11T05:20:37.000Z</published>
+    <updated>2025-01-11T06:19:08.219Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;通常情况下，NAS 用户都会使用 RAID 来扩展硬盘，但 RAID 的扩展和使用都略有不便，不同 Level 的 RAID 的选择，扩展时需要同时扩展足够的硬盘，以及更换硬盘的重建等等。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意：RAID 不是备份，RAID</summary>
+        
+      
+    
+    
+    
+    <category term="技术分享" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+    <category term="nas" scheme="https://blog.mkacg.com/tags/nas/"/>
+    
+    <category term="mergerfs" scheme="https://blog.mkacg.com/tags/mergerfs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 fstab 中使用 x-systemd.after</title>
+    <link href="https://blog.mkacg.com/2025/01/08/fstab-x-systemd-after/"/>
+    <id>https://blog.mkacg.com/2025/01/08/fstab-x-systemd-after/</id>
+    <published>2025-01-08T09:25:19.000Z</published>
+    <updated>2025-01-08T09:36:20.628Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;通常在 &lt;code&gt;/etc/fstab&lt;/code&gt; 中挂载时，不需要考虑先后顺序，不过最近这不是在用飞牛么，还用了 &lt;code&gt;virtiofs&lt;/code&gt; 共享了路径，我想在飞牛的文件管理里看到我的文件，但是又不想添加硬盘给飞牛，所以使用 &lt;code&gt;mount</summary>
+        
+      
+    
+    
+    
+    <category term="技术分享" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+    <category term="systemd" scheme="https://blog.mkacg.com/tags/systemd/"/>
+    
+    <category term="linux" scheme="https://blog.mkacg.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 pve 下使用 virtiofs 加速虚拟机和宿主机的文件夹共享</title>
+    <link href="https://blog.mkacg.com/2025/01/06/pve-vm-use-virtiofsd/"/>
+    <id>https://blog.mkacg.com/2025/01/06/pve-vm-use-virtiofsd/</id>
+    <published>2025-01-06T11:31:00.000Z</published>
+    <updated>2025-01-08T06:46:33.556Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;想用飞牛影视，但是我的显卡不支持 vGPU，所以我打算把 docker 也挪到飞牛里，刚好飞牛也有一个不错的 docker dashboard，就刚好试试吧。&lt;/p&gt;
+&lt;p&gt;第一个问题就是，怎么解决存储问题。我的服务器没有多余的 SATA</summary>
+        
+      
+    
+    
+    
+    <category term="技术分享" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+    <category term="pve" scheme="https://blog.mkacg.com/tags/pve/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 PVE lxc 里使用 nvidia</title>
+    <link href="https://blog.mkacg.com/2025/01/05/nvidia-gpu-in-pve-lxc/"/>
+    <id>https://blog.mkacg.com/2025/01/05/nvidia-gpu-in-pve-lxc/</id>
+    <published>2025-01-05T04:41:23.000Z</published>
+    <updated>2025-01-05T04:50:31.195Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我采用的步骤是手动安装 bin 文件，毕竟服务器我基本上不升级维护，秉持着只要开始瞎搞，就一定会崩的原则，我已经放弃瞎搞了（（&lt;/p&gt;
+&lt;p&gt;下载 bin 文件的过程就不说了，网上一大堆，就在 nv 官网。&lt;/p&gt;
+&lt;p&gt;在 pve 宿主机安装 bin</summary>
+        
+      
+    
+    
+    
+    <category term="技术分享" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+    <category term="k8s" scheme="https://blog.mkacg.com/tags/k8s/"/>
+    
+    <category term="pve" scheme="https://blog.mkacg.com/tags/pve/"/>
+    
+    <category term="docker" scheme="https://blog.mkacg.com/tags/docker/"/>
+    
+    <category term="lxc" scheme="https://blog.mkacg.com/tags/lxc/"/>
+    
+    <category term="nvidia" scheme="https://blog.mkacg.com/tags/nvidia/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>run k8s in lxc</title>
+    <link href="https://blog.mkacg.com/2025/01/05/run-k8s-in-lxc/"/>
+    <id>https://blog.mkacg.com/2025/01/05/run-k8s-in-lxc/</id>
+    <published>2025-01-05T04:26:58.000Z</published>
+    <updated>2025-02-05T06:28:48.805Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;arch: amd64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cores:</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>在 PVE 给 LXC 使用 sriov</title>
+    <link href="https://blog.mkacg.com/2025/01/05/lxc-use-sriov-in-pve/"/>
+    <id>https://blog.mkacg.com/2025/01/05/lxc-use-sriov-in-pve/</id>
+    <published>2025-01-05T03:13:45.000Z</published>
+    <updated>2025-01-05T03:35:09.104Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;23 年买了一台华为 RH2288 V3 在家里当电老虎，服务器上带一个万兆光，支持 SRIOV，这样我可以分出来多个虚拟网卡来加速网络访问，创建一个给 docker，一个给 windows 虚拟机，一个给 linux</summary>
+        
+      
+    
+    
+    
+    <category term="技术分享" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+    <category term="pve" scheme="https://blog.mkacg.com/tags/pve/"/>
+    
+    <category term="lxc" scheme="https://blog.mkacg.com/tags/lxc/"/>
+    
+    <category term="sriov" scheme="https://blog.mkacg.com/tags/sriov/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用 distrobox 和 nix 加速 UOS 开发</title>
-    <link href="https://blog.justforlxz.com/2025/01/02/use-docker-and-distrobx-and-nix-to-develop-uos/"/>
-    <id>https://blog.justforlxz.com/2025/01/02/use-docker-and-distrobx-and-nix-to-develop-uos/</id>
+    <link href="https://blog.mkacg.com/2025/01/02/use-docker-and-distrobx-and-nix-to-develop-uos/"/>
+    <id>https://blog.mkacg.com/2025/01/02/use-docker-and-distrobx-and-nix-to-develop-uos/</id>
     <published>2025-01-02T08:18:00.000Z</published>
     <updated>2025-01-02T08:32:45.387Z</updated>
     
@@ -35,17 +231,17 @@
     
     
     
-    <category term="技术分享" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="技术分享" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
     
-    <category term="uos" scheme="https://blog.justforlxz.com/tags/uos/"/>
+    <category term="uos" scheme="https://blog.mkacg.com/tags/uos/"/>
     
   </entry>
   
   <entry>
     <title>使用 VK-GL-CTS 对 wayland 执行一致性测试</title>
-    <link href="https://blog.justforlxz.com/2024/12/27/vk-gl-cts-test-wayland/"/>
-    <id>https://blog.justforlxz.com/2024/12/27/vk-gl-cts-test-wayland/</id>
+    <link href="https://blog.mkacg.com/2024/12/27/vk-gl-cts-test-wayland/"/>
+    <id>https://blog.mkacg.com/2024/12/27/vk-gl-cts-test-wayland/</id>
     <published>2024-12-27T04:00:00.000Z</published>
     <updated>2024-12-31T08:44:41.609Z</updated>
     
@@ -65,17 +261,17 @@
     
     
     
-    <category term="技术分享" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="技术分享" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
     
-    <category term="UOS, Vulkan, 图形学, 开发" scheme="https://blog.justforlxz.com/tags/UOS-Vulkan-%E5%9B%BE%E5%BD%A2%E5%AD%A6-%E5%BC%80%E5%8F%91/"/>
+    <category term="UOS, Vulkan, 图形学, 开发" scheme="https://blog.mkacg.com/tags/UOS-Vulkan-%E5%9B%BE%E5%BD%A2%E5%AD%A6-%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
   <entry>
     <title>Nix home-manager 使用笔记</title>
-    <link href="https://blog.justforlxz.com/2024/12/25/nix-home-manager/"/>
-    <id>https://blog.justforlxz.com/2024/12/25/nix-home-manager/</id>
+    <link href="https://blog.mkacg.com/2024/12/25/nix-home-manager/"/>
+    <id>https://blog.mkacg.com/2024/12/25/nix-home-manager/</id>
     <published>2024-12-25T04:00:00.000Z</published>
     <updated>2024-12-31T08:44:38.277Z</updated>
     
@@ -84,17 +280,17 @@
     
     
     
-    <category term="技术分享" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="技术分享" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
     
-    <category term="dotfile" scheme="https://blog.justforlxz.com/tags/dotfile/"/>
+    <category term="dotfile" scheme="https://blog.mkacg.com/tags/dotfile/"/>
     
   </entry>
   
   <entry>
     <title>异世相遇，尽享美味</title>
-    <link href="https://blog.justforlxz.com/2024/11/23/have-a-nice-day/"/>
-    <id>https://blog.justforlxz.com/2024/11/23/have-a-nice-day/</id>
+    <link href="https://blog.mkacg.com/2024/11/23/have-a-nice-day/"/>
+    <id>https://blog.mkacg.com/2024/11/23/have-a-nice-day/</id>
     <published>2024-11-23T04:00:00.000Z</published>
     <updated>2024-12-31T08:44:54.341Z</updated>
     
@@ -114,19 +310,19 @@
     
     
     
-    <category term="心情随笔" scheme="https://blog.justforlxz.com/categories/%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/"/>
+    <category term="心情随笔" scheme="https://blog.mkacg.com/categories/%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/"/>
     
     
-    <category term="健康, 思考" scheme="https://blog.justforlxz.com/tags/%E5%81%A5%E5%BA%B7-%E6%80%9D%E8%80%83/"/>
+    <category term="健康, 思考" scheme="https://blog.mkacg.com/tags/%E5%81%A5%E5%BA%B7-%E6%80%9D%E8%80%83/"/>
     
   </entry>
   
   <entry>
     <title>Treeland Part.1 如何实现一个基于 wlroots 的合成器</title>
-    <link href="https://blog.justforlxz.com/2024/11/09/treeland-part1-how-to-implement-a-wlroots-based-compositor/"/>
-    <id>https://blog.justforlxz.com/2024/11/09/treeland-part1-how-to-implement-a-wlroots-based-compositor/</id>
+    <link href="https://blog.mkacg.com/2024/11/09/treeland-part1-how-to-implement-a-wlroots-based-compositor/"/>
+    <id>https://blog.mkacg.com/2024/11/09/treeland-part1-how-to-implement-a-wlroots-based-compositor/</id>
     <published>2024-11-09T04:00:00.000Z</published>
-    <updated>2024-12-31T08:44:45.357Z</updated>
+    <updated>2025-01-08T06:47:34.265Z</updated>
     
     
       
@@ -145,19 +341,25 @@
     
     
     
-    <category term="技术分享" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="技术分享" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
     
-    <category term="C++, Wayland, 图形学" scheme="https://blog.justforlxz.com/tags/C-Wayland-%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    <category term="deepin" scheme="https://blog.mkacg.com/tags/deepin/"/>
+    
+    <category term="c++" scheme="https://blog.mkacg.com/tags/c/"/>
+    
+    <category term="wayland" scheme="https://blog.mkacg.com/tags/wayland/"/>
+    
+    <category term="图形学" scheme="https://blog.mkacg.com/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
     
   </entry>
   
   <entry>
     <title>Treeland：DDE 进步的阶梯</title>
-    <link href="https://blog.justforlxz.com/2024/11/01/treeland-go-go-go/"/>
-    <id>https://blog.justforlxz.com/2024/11/01/treeland-go-go-go/</id>
+    <link href="https://blog.mkacg.com/2024/11/01/treeland-go-go-go/"/>
+    <id>https://blog.mkacg.com/2024/11/01/treeland-go-go-go/</id>
     <published>2024-11-01T04:00:00.000Z</published>
-    <updated>2024-12-31T08:44:49.079Z</updated>
+    <updated>2025-01-08T06:46:57.150Z</updated>
     
     
       
@@ -170,17 +372,19 @@
     
     
     
-    <category term="技术分享" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="技术分享" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
     
-    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    <category term="C++" scheme="https://blog.mkacg.com/tags/C/"/>
+    
+    <category term="deepin" scheme="https://blog.mkacg.com/tags/deepin/"/>
     
   </entry>
   
   <entry>
     <title>Add macvlan net</title>
-    <link href="https://blog.justforlxz.com/2024/04/15/Add-macvlan-net/"/>
-    <id>https://blog.justforlxz.com/2024/04/15/Add-macvlan-net/</id>
+    <link href="https://blog.mkacg.com/2024/04/15/Add-macvlan-net/"/>
+    <id>https://blog.mkacg.com/2024/04/15/Add-macvlan-net/</id>
     <published>2024-04-15T05:10:41.000Z</published>
     <updated>2024-04-15T05:11:47.503Z</updated>
     
@@ -196,16 +400,16 @@
     
     
     
-    <category term="k8s" scheme="https://blog.justforlxz.com/tags/k8s/"/>
+    <category term="k8s" scheme="https://blog.mkacg.com/tags/k8s/"/>
     
   </entry>
   
   <entry>
     <title>solved run k8s in wsl2</title>
-    <link href="https://blog.justforlxz.com/2024/03/01/solved-run-k8s-in-wsl2/"/>
-    <id>https://blog.justforlxz.com/2024/03/01/solved-run-k8s-in-wsl2/</id>
+    <link href="https://blog.mkacg.com/2024/03/01/solved-run-k8s-in-wsl2/"/>
+    <id>https://blog.mkacg.com/2024/03/01/solved-run-k8s-in-wsl2/</id>
     <published>2024-03-01T03:30:11.000Z</published>
-    <updated>2024-04-15T05:09:55.032Z</updated>
+    <updated>2025-02-10T02:21:57.239Z</updated>
     
     
       
@@ -220,14 +424,14 @@
     
     
     
-    <category term="k8s" scheme="https://blog.justforlxz.com/tags/k8s/"/>
+    <category term="k8s" scheme="https://blog.mkacg.com/tags/k8s/"/>
     
   </entry>
   
   <entry>
     <title>solved Could not find a declaration file for module &#39;vuex&#39;.</title>
-    <link href="https://blog.justforlxz.com/2023/09/11/solved-Could-not-find-a-declaration-file-for-module-vuex/"/>
-    <id>https://blog.justforlxz.com/2023/09/11/solved-Could-not-find-a-declaration-file-for-module-vuex/</id>
+    <link href="https://blog.mkacg.com/2023/09/11/solved-Could-not-find-a-declaration-file-for-module-vuex/"/>
+    <id>https://blog.mkacg.com/2023/09/11/solved-Could-not-find-a-declaration-file-for-module-vuex/</id>
     <published>2023-09-11T02:14:56.000Z</published>
     <updated>2024-04-15T05:09:55.028Z</updated>
     
@@ -243,19 +447,19 @@
     
     
     
-    <category term="Vue" scheme="https://blog.justforlxz.com/categories/Vue/"/>
+    <category term="Vue" scheme="https://blog.mkacg.com/categories/Vue/"/>
     
-    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Vue/Solution/"/>
+    <category term="Solution" scheme="https://blog.mkacg.com/categories/Vue/Solution/"/>
     
     
-    <category term="vuex" scheme="https://blog.justforlxz.com/tags/vuex/"/>
+    <category term="vuex" scheme="https://blog.mkacg.com/tags/vuex/"/>
     
   </entry>
   
   <entry>
     <title>solved react-native error: SDK iphoneos cannot be located</title>
-    <link href="https://blog.justforlxz.com/2023/06/29/solved-react-native-error-SDK-iphoneos-cannot-be-located/"/>
-    <id>https://blog.justforlxz.com/2023/06/29/solved-react-native-error-SDK-iphoneos-cannot-be-located/</id>
+    <link href="https://blog.mkacg.com/2023/06/29/solved-react-native-error-SDK-iphoneos-cannot-be-located/"/>
+    <id>https://blog.mkacg.com/2023/06/29/solved-react-native-error-SDK-iphoneos-cannot-be-located/</id>
     <published>2023-06-29T01:40:13.000Z</published>
     <updated>2024-04-15T05:09:55.032Z</updated>
     
@@ -271,21 +475,21 @@
     
     
     
-    <category term="ReactNative" scheme="https://blog.justforlxz.com/categories/ReactNative/"/>
+    <category term="ReactNative" scheme="https://blog.mkacg.com/categories/ReactNative/"/>
     
-    <category term="Solution" scheme="https://blog.justforlxz.com/categories/ReactNative/Solution/"/>
+    <category term="Solution" scheme="https://blog.mkacg.com/categories/ReactNative/Solution/"/>
     
     
-    <category term="reactnative" scheme="https://blog.justforlxz.com/tags/reactnative/"/>
+    <category term="reactnative" scheme="https://blog.mkacg.com/tags/reactnative/"/>
     
-    <category term="ios" scheme="https://blog.justforlxz.com/tags/ios/"/>
+    <category term="ios" scheme="https://blog.mkacg.com/tags/ios/"/>
     
   </entry>
   
   <entry>
     <title>开发一个 KWin 特效插件</title>
-    <link href="https://blog.justforlxz.com/2023/06/25/How-to-develop-a-kwin-special-effects-plugin/"/>
-    <id>https://blog.justforlxz.com/2023/06/25/How-to-develop-a-kwin-special-effects-plugin/</id>
+    <link href="https://blog.mkacg.com/2023/06/25/How-to-develop-a-kwin-special-effects-plugin/"/>
+    <id>https://blog.mkacg.com/2023/06/25/How-to-develop-a-kwin-special-effects-plugin/</id>
     <published>2023-06-25T05:25:55.000Z</published>
     <updated>2024-04-15T05:09:54.914Z</updated>
     
@@ -302,19 +506,19 @@
     
     
     
-    <category term="deepin" scheme="https://blog.justforlxz.com/categories/deepin/"/>
+    <category term="deepin" scheme="https://blog.mkacg.com/categories/deepin/"/>
     
     
-    <category term="deepin" scheme="https://blog.justforlxz.com/tags/deepin/"/>
+    <category term="deepin" scheme="https://blog.mkacg.com/tags/deepin/"/>
     
-    <category term="kwin" scheme="https://blog.justforlxz.com/tags/kwin/"/>
+    <category term="kwin" scheme="https://blog.mkacg.com/tags/kwin/"/>
     
   </entry>
   
   <entry>
     <title>How to count the cpu usage of a process</title>
-    <link href="https://blog.justforlxz.com/2023/05/24/How-to-count-the-cpu-usage-of-a-process/"/>
-    <id>https://blog.justforlxz.com/2023/05/24/How-to-count-the-cpu-usage-of-a-process/</id>
+    <link href="https://blog.mkacg.com/2023/05/24/How-to-count-the-cpu-usage-of-a-process/"/>
+    <id>https://blog.mkacg.com/2023/05/24/How-to-count-the-cpu-usage-of-a-process/</id>
     <published>2023-05-24T02:43:04.000Z</published>
     <updated>2024-04-15T05:09:54.913Z</updated>
     
@@ -330,19 +534,19 @@
     
     
     
-    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Solution/"/>
+    <category term="Solution" scheme="https://blog.mkacg.com/categories/Solution/"/>
     
     
-    <category term="Bash" scheme="https://blog.justforlxz.com/tags/Bash/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Bash" scheme="https://blog.mkacg.com/tags/Bash/"/>
     
   </entry>
   
   <entry>
     <title>How to Solve the Module not found: Cannot resolve &#39;fs&#39; error in Next.js</title>
-    <link href="https://blog.justforlxz.com/2023/04/19/How-to-Solve-the-Module-not-found-Cannot-resolve-fs-error-in-Next-js/"/>
-    <id>https://blog.justforlxz.com/2023/04/19/How-to-Solve-the-Module-not-found-Cannot-resolve-fs-error-in-Next-js/</id>
+    <link href="https://blog.mkacg.com/2023/04/19/How-to-Solve-the-Module-not-found-Cannot-resolve-fs-error-in-Next-js/"/>
+    <id>https://blog.mkacg.com/2023/04/19/How-to-Solve-the-Module-not-found-Cannot-resolve-fs-error-in-Next-js/</id>
     <published>2023-04-19T05:58:21.000Z</published>
     <updated>2024-04-15T05:09:54.913Z</updated>
     
@@ -357,19 +561,19 @@
     
     
     
-    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Solution/"/>
+    <category term="Solution" scheme="https://blog.mkacg.com/categories/Solution/"/>
     
     
-    <category term="Next.js" scheme="https://blog.justforlxz.com/tags/Next-js/"/>
+    <category term="Next.js" scheme="https://blog.mkacg.com/tags/Next-js/"/>
     
-    <category term="Web" scheme="https://blog.justforlxz.com/tags/Web/"/>
+    <category term="Web" scheme="https://blog.mkacg.com/tags/Web/"/>
     
   </entry>
   
   <entry>
     <title>Kitty configuration for macOS</title>
-    <link href="https://blog.justforlxz.com/2023/04/17/Kitty-configuration-for-macOS/"/>
-    <id>https://blog.justforlxz.com/2023/04/17/Kitty-configuration-for-macOS/</id>
+    <link href="https://blog.mkacg.com/2023/04/17/Kitty-configuration-for-macOS/"/>
+    <id>https://blog.mkacg.com/2023/04/17/Kitty-configuration-for-macOS/</id>
     <published>2023-04-17T08:39:51.000Z</published>
     <updated>2024-04-15T05:09:54.915Z</updated>
     
@@ -384,17 +588,17 @@
     
     
     
-    <category term="development tools" scheme="https://blog.justforlxz.com/categories/development-tools/"/>
+    <category term="development tools" scheme="https://blog.mkacg.com/categories/development-tools/"/>
     
     
-    <category term="Kitty" scheme="https://blog.justforlxz.com/tags/Kitty/"/>
+    <category term="Kitty" scheme="https://blog.mkacg.com/tags/Kitty/"/>
     
   </entry>
   
   <entry>
     <title>How to solve parallels desktop linux usb problem</title>
-    <link href="https://blog.justforlxz.com/2023/04/11/How-to-solve-parallels-desktop-linux-usb-problem/"/>
-    <id>https://blog.justforlxz.com/2023/04/11/How-to-solve-parallels-desktop-linux-usb-problem/</id>
+    <link href="https://blog.mkacg.com/2023/04/11/How-to-solve-parallels-desktop-linux-usb-problem/"/>
+    <id>https://blog.mkacg.com/2023/04/11/How-to-solve-parallels-desktop-linux-usb-problem/</id>
     <published>2023-04-11T04:59:39.000Z</published>
     <updated>2024-04-15T05:09:54.914Z</updated>
     
@@ -409,17 +613,17 @@
     
     
     
-    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Solution/"/>
+    <category term="Solution" scheme="https://blog.mkacg.com/categories/Solution/"/>
     
     
-    <category term="parallels desktop" scheme="https://blog.justforlxz.com/tags/parallels-desktop/"/>
+    <category term="parallels desktop" scheme="https://blog.mkacg.com/tags/parallels-desktop/"/>
     
   </entry>
   
   <entry>
     <title>How to remove all Terminating pods</title>
-    <link href="https://blog.justforlxz.com/2023/03/15/How-to-remove-all-Terminating-pods/"/>
-    <id>https://blog.justforlxz.com/2023/03/15/How-to-remove-all-Terminating-pods/</id>
+    <link href="https://blog.mkacg.com/2023/03/15/How-to-remove-all-Terminating-pods/"/>
+    <id>https://blog.mkacg.com/2023/03/15/How-to-remove-all-Terminating-pods/</id>
     <published>2023-03-15T06:47:59.000Z</published>
     <updated>2024-04-15T05:09:54.914Z</updated>
     
@@ -435,17 +639,17 @@
     
     
     
-    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Solution/"/>
+    <category term="Solution" scheme="https://blog.mkacg.com/categories/Solution/"/>
     
     
-    <category term="k8s" scheme="https://blog.justforlxz.com/tags/k8s/"/>
+    <category term="k8s" scheme="https://blog.mkacg.com/tags/k8s/"/>
     
   </entry>
   
   <entry>
     <title>solved duplicate hostname or contents</title>
-    <link href="https://blog.justforlxz.com/2023/02/01/solved-duplicate-hostname-or-contents/"/>
-    <id>https://blog.justforlxz.com/2023/02/01/solved-duplicate-hostname-or-contents/</id>
+    <link href="https://blog.mkacg.com/2023/02/01/solved-duplicate-hostname-or-contents/"/>
+    <id>https://blog.mkacg.com/2023/02/01/solved-duplicate-hostname-or-contents/</id>
     <published>2023-02-01T06:48:21.000Z</published>
     <updated>2024-04-15T05:09:55.028Z</updated>
     
@@ -462,15 +666,15 @@
     
     
     
-    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Solution/"/>
+    <category term="Solution" scheme="https://blog.mkacg.com/categories/Solution/"/>
     
     
   </entry>
   
   <entry>
     <title>how to use nvim dap to debug cpp</title>
-    <link href="https://blog.justforlxz.com/2022/12/08/how-to-use-nvim-dap-to-debug-cpp/"/>
-    <id>https://blog.justforlxz.com/2022/12/08/how-to-use-nvim-dap-to-debug-cpp/</id>
+    <link href="https://blog.mkacg.com/2022/12/08/how-to-use-nvim-dap-to-debug-cpp/"/>
+    <id>https://blog.mkacg.com/2022/12/08/how-to-use-nvim-dap-to-debug-cpp/</id>
     <published>2022-12-08T02:16:45.000Z</published>
     <updated>2024-04-15T05:09:54.994Z</updated>
     
@@ -486,19 +690,19 @@
     
     
     
-    <category term="neovim" scheme="https://blog.justforlxz.com/categories/neovim/"/>
+    <category term="neovim" scheme="https://blog.mkacg.com/categories/neovim/"/>
     
     
-    <category term="neovim" scheme="https://blog.justforlxz.com/tags/neovim/"/>
+    <category term="neovim" scheme="https://blog.mkacg.com/tags/neovim/"/>
     
-    <category term="dap" scheme="https://blog.justforlxz.com/tags/dap/"/>
+    <category term="dap" scheme="https://blog.mkacg.com/tags/dap/"/>
     
   </entry>
   
   <entry>
     <title>1. init project</title>
-    <link href="https://blog.justforlxz.com/2022/11/07/photo-1-init-project/"/>
-    <id>https://blog.justforlxz.com/2022/11/07/photo-1-init-project/</id>
+    <link href="https://blog.mkacg.com/2022/11/07/photo-1-init-project/"/>
+    <id>https://blog.mkacg.com/2022/11/07/photo-1-init-project/</id>
     <published>2022-11-07T08:38:31.000Z</published>
     <updated>2024-04-15T05:09:55.027Z</updated>
     
@@ -514,21 +718,21 @@
     
     
     
-    <category term="photos 开发笔记" scheme="https://blog.justforlxz.com/categories/photos-%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
+    <category term="photos 开发笔记" scheme="https://blog.mkacg.com/categories/photos-%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="typescript" scheme="https://blog.justforlxz.com/tags/typescript/"/>
+    <category term="typescript" scheme="https://blog.mkacg.com/tags/typescript/"/>
     
-    <category term="react" scheme="https://blog.justforlxz.com/tags/react/"/>
+    <category term="react" scheme="https://blog.mkacg.com/tags/react/"/>
     
-    <category term="react native" scheme="https://blog.justforlxz.com/tags/react-native/"/>
+    <category term="react native" scheme="https://blog.mkacg.com/tags/react-native/"/>
     
   </entry>
   
   <entry>
     <title>docker-buildx-multi-arch-images</title>
-    <link href="https://blog.justforlxz.com/2022/08/25/docker-buildx-multi-arch-images/"/>
-    <id>https://blog.justforlxz.com/2022/08/25/docker-buildx-multi-arch-images/</id>
+    <link href="https://blog.mkacg.com/2022/08/25/docker-buildx-multi-arch-images/"/>
+    <id>https://blog.mkacg.com/2022/08/25/docker-buildx-multi-arch-images/</id>
     <published>2022-08-25T05:32:03.000Z</published>
     <updated>2024-04-15T05:09:54.959Z</updated>
     
@@ -544,17 +748,17 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/categories/Linux/"/>
     
     
-    <category term="docker" scheme="https://blog.justforlxz.com/tags/docker/"/>
+    <category term="docker" scheme="https://blog.mkacg.com/tags/docker/"/>
     
   </entry>
   
   <entry>
     <title>meet unity shader</title>
-    <link href="https://blog.justforlxz.com/2022/07/21/meet-unity-shader/"/>
-    <id>https://blog.justforlxz.com/2022/07/21/meet-unity-shader/</id>
+    <link href="https://blog.mkacg.com/2022/07/21/meet-unity-shader/"/>
+    <id>https://blog.mkacg.com/2022/07/21/meet-unity-shader/</id>
     <published>2022-07-21T13:44:25.000Z</published>
     <updated>2024-04-15T05:09:54.896Z</updated>
     
@@ -570,21 +774,21 @@
     
     
     
-    <category term="Game" scheme="https://blog.justforlxz.com/categories/Game/"/>
+    <category term="Game" scheme="https://blog.mkacg.com/categories/Game/"/>
     
     
-    <category term="Game" scheme="https://blog.justforlxz.com/tags/Game/"/>
+    <category term="Game" scheme="https://blog.mkacg.com/tags/Game/"/>
     
-    <category term="Unity" scheme="https://blog.justforlxz.com/tags/Unity/"/>
+    <category term="Unity" scheme="https://blog.mkacg.com/tags/Unity/"/>
     
-    <category term="Shader" scheme="https://blog.justforlxz.com/tags/Shader/"/>
+    <category term="Shader" scheme="https://blog.mkacg.com/tags/Shader/"/>
     
   </entry>
   
   <entry>
     <title>使用 React 的 JSX</title>
-    <link href="https://blog.justforlxz.com/2022/07/02/jsx/"/>
-    <id>https://blog.justforlxz.com/2022/07/02/jsx/</id>
+    <link href="https://blog.mkacg.com/2022/07/02/jsx/"/>
+    <id>https://blog.mkacg.com/2022/07/02/jsx/</id>
     <published>2022-07-01T16:11:59.000Z</published>
     <updated>2024-04-15T05:09:55.010Z</updated>
     
@@ -599,19 +803,19 @@
     
     
     
-    <category term="Web" scheme="https://blog.justforlxz.com/categories/Web/"/>
+    <category term="Web" scheme="https://blog.mkacg.com/categories/Web/"/>
     
     
-    <category term="javascript" scheme="https://blog.justforlxz.com/tags/javascript/"/>
+    <category term="javascript" scheme="https://blog.mkacg.com/tags/javascript/"/>
     
-    <category term="jsx" scheme="https://blog.justforlxz.com/tags/jsx/"/>
+    <category term="jsx" scheme="https://blog.mkacg.com/tags/jsx/"/>
     
   </entry>
   
   <entry>
     <title>栈分配问题</title>
-    <link href="https://blog.justforlxz.com/2022/06/24/stack-problem/"/>
-    <id>https://blog.justforlxz.com/2022/06/24/stack-problem/</id>
+    <link href="https://blog.mkacg.com/2022/06/24/stack-problem/"/>
+    <id>https://blog.mkacg.com/2022/06/24/stack-problem/</id>
     <published>2022-06-24T08:44:30.000Z</published>
     <updated>2024-04-15T05:09:55.033Z</updated>
     
@@ -628,17 +832,17 @@
     
     
     
-    <category term="技术" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    <category term="技术" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>一个邪恶的想法</title>
-    <link href="https://blog.justforlxz.com/2022/04/26/an-evil-idea/"/>
-    <id>https://blog.justforlxz.com/2022/04/26/an-evil-idea/</id>
+    <link href="https://blog.mkacg.com/2022/04/26/an-evil-idea/"/>
+    <id>https://blog.mkacg.com/2022/04/26/an-evil-idea/</id>
     <published>2022-04-26T07:39:49.000Z</published>
     <updated>2024-04-15T05:09:54.955Z</updated>
     
@@ -656,18 +860,18 @@
     
     
     
-    <category term="kubernetes" scheme="https://blog.justforlxz.com/tags/kubernetes/"/>
+    <category term="kubernetes" scheme="https://blog.mkacg.com/tags/kubernetes/"/>
     
-    <category term="Github Action" scheme="https://blog.justforlxz.com/tags/Github-Action/"/>
+    <category term="Github Action" scheme="https://blog.mkacg.com/tags/Github-Action/"/>
     
-    <category term="evil" scheme="https://blog.justforlxz.com/tags/evil/"/>
+    <category term="evil" scheme="https://blog.mkacg.com/tags/evil/"/>
     
   </entry>
   
   <entry>
     <title>hello-metal.5 材质贴图</title>
-    <link href="https://blog.justforlxz.com/2022/04/09/hello-metal-5/"/>
-    <id>https://blog.justforlxz.com/2022/04/09/hello-metal-5/</id>
+    <link href="https://blog.mkacg.com/2022/04/09/hello-metal-5/"/>
+    <id>https://blog.mkacg.com/2022/04/09/hello-metal-5/</id>
     <published>2022-04-09T03:01:52.000Z</published>
     <updated>2024-04-15T05:09:54.984Z</updated>
     
@@ -684,19 +888,19 @@
     
     
     
-    <category term="HelloMetal系列" scheme="https://blog.justforlxz.com/categories/HelloMetal%E7%B3%BB%E5%88%97/"/>
+    <category term="HelloMetal系列" scheme="https://blog.mkacg.com/categories/HelloMetal%E7%B3%BB%E5%88%97/"/>
     
     
-    <category term="Metal" scheme="https://blog.justforlxz.com/tags/Metal/"/>
+    <category term="Metal" scheme="https://blog.mkacg.com/tags/Metal/"/>
     
-    <category term="GameEngine" scheme="https://blog.justforlxz.com/tags/GameEngine/"/>
+    <category term="GameEngine" scheme="https://blog.mkacg.com/tags/GameEngine/"/>
     
   </entry>
   
   <entry>
     <title>hello-metal.4 动画</title>
-    <link href="https://blog.justforlxz.com/2022/04/04/hello-metal-4/"/>
-    <id>https://blog.justforlxz.com/2022/04/04/hello-metal-4/</id>
+    <link href="https://blog.mkacg.com/2022/04/04/hello-metal-4/"/>
+    <id>https://blog.mkacg.com/2022/04/04/hello-metal-4/</id>
     <published>2022-04-04T08:20:24.000Z</published>
     <updated>2024-04-15T05:09:54.984Z</updated>
     
@@ -713,19 +917,19 @@
     
     
     
-    <category term="HelloMetal系列" scheme="https://blog.justforlxz.com/categories/HelloMetal%E7%B3%BB%E5%88%97/"/>
+    <category term="HelloMetal系列" scheme="https://blog.mkacg.com/categories/HelloMetal%E7%B3%BB%E5%88%97/"/>
     
     
-    <category term="Metal" scheme="https://blog.justforlxz.com/tags/Metal/"/>
+    <category term="Metal" scheme="https://blog.mkacg.com/tags/Metal/"/>
     
-    <category term="GameEngine" scheme="https://blog.justforlxz.com/tags/GameEngine/"/>
+    <category term="GameEngine" scheme="https://blog.mkacg.com/tags/GameEngine/"/>
     
   </entry>
   
   <entry>
     <title>hello-metal.3 四边形</title>
-    <link href="https://blog.justforlxz.com/2022/04/04/hello-metal-3/"/>
-    <id>https://blog.justforlxz.com/2022/04/04/hello-metal-3/</id>
+    <link href="https://blog.mkacg.com/2022/04/04/hello-metal-3/"/>
+    <id>https://blog.mkacg.com/2022/04/04/hello-metal-3/</id>
     <published>2022-04-04T05:05:40.000Z</published>
     <updated>2024-04-15T05:09:54.982Z</updated>
     
@@ -742,19 +946,19 @@
     
     
     
-    <category term="HelloMetal系列" scheme="https://blog.justforlxz.com/categories/HelloMetal%E7%B3%BB%E5%88%97/"/>
+    <category term="HelloMetal系列" scheme="https://blog.mkacg.com/categories/HelloMetal%E7%B3%BB%E5%88%97/"/>
     
     
-    <category term="Metal" scheme="https://blog.justforlxz.com/tags/Metal/"/>
+    <category term="Metal" scheme="https://blog.mkacg.com/tags/Metal/"/>
     
-    <category term="GameEngine" scheme="https://blog.justforlxz.com/tags/GameEngine/"/>
+    <category term="GameEngine" scheme="https://blog.mkacg.com/tags/GameEngine/"/>
     
   </entry>
   
   <entry>
     <title>hello-metal.2 第一个三角形</title>
-    <link href="https://blog.justforlxz.com/2022/04/04/hello-metal-2/"/>
-    <id>https://blog.justforlxz.com/2022/04/04/hello-metal-2/</id>
+    <link href="https://blog.mkacg.com/2022/04/04/hello-metal-2/"/>
+    <id>https://blog.mkacg.com/2022/04/04/hello-metal-2/</id>
     <published>2022-04-04T02:05:43.000Z</published>
     <updated>2024-04-15T05:09:54.976Z</updated>
     
@@ -771,19 +975,19 @@
     
     
     
-    <category term="HelloMetal系列" scheme="https://blog.justforlxz.com/categories/HelloMetal%E7%B3%BB%E5%88%97/"/>
+    <category term="HelloMetal系列" scheme="https://blog.mkacg.com/categories/HelloMetal%E7%B3%BB%E5%88%97/"/>
     
     
-    <category term="Metal" scheme="https://blog.justforlxz.com/tags/Metal/"/>
+    <category term="Metal" scheme="https://blog.mkacg.com/tags/Metal/"/>
     
-    <category term="GameEngine" scheme="https://blog.justforlxz.com/tags/GameEngine/"/>
+    <category term="GameEngine" scheme="https://blog.mkacg.com/tags/GameEngine/"/>
     
   </entry>
   
   <entry>
     <title>hello-metal.1 看到了绿色</title>
-    <link href="https://blog.justforlxz.com/2022/04/04/hello-metal-1/"/>
-    <id>https://blog.justforlxz.com/2022/04/04/hello-metal-1/</id>
+    <link href="https://blog.mkacg.com/2022/04/04/hello-metal-1/"/>
+    <id>https://blog.mkacg.com/2022/04/04/hello-metal-1/</id>
     <published>2022-04-04T00:59:33.000Z</published>
     <updated>2024-04-15T05:09:54.966Z</updated>
     
@@ -800,19 +1004,19 @@
     
     
     
-    <category term="HelloMetal系列" scheme="https://blog.justforlxz.com/categories/HelloMetal%E7%B3%BB%E5%88%97/"/>
+    <category term="HelloMetal系列" scheme="https://blog.mkacg.com/categories/HelloMetal%E7%B3%BB%E5%88%97/"/>
     
     
-    <category term="Metal" scheme="https://blog.justforlxz.com/tags/Metal/"/>
+    <category term="Metal" scheme="https://blog.mkacg.com/tags/Metal/"/>
     
-    <category term="GameEngine" scheme="https://blog.justforlxz.com/tags/GameEngine/"/>
+    <category term="GameEngine" scheme="https://blog.mkacg.com/tags/GameEngine/"/>
     
   </entry>
   
   <entry>
     <title>vim简单配置</title>
-    <link href="https://blog.justforlxz.com/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/"/>
-    <id>https://blog.justforlxz.com/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/</id>
+    <link href="https://blog.mkacg.com/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/"/>
+    <id>https://blog.mkacg.com/2022/03/22/vim%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/</id>
     <published>2022-03-22T12:36:51.000Z</published>
     <updated>2024-04-15T05:09:55.080Z</updated>
     
@@ -829,14 +1033,14 @@
     
     
     
-    <category term="vim" scheme="https://blog.justforlxz.com/tags/vim/"/>
+    <category term="vim" scheme="https://blog.mkacg.com/tags/vim/"/>
     
   </entry>
   
   <entry>
     <title>CSS 外边距折叠问题</title>
-    <link href="https://blog.justforlxz.com/2022/03/16/css-mastering-margin-collapsing/"/>
-    <id>https://blog.justforlxz.com/2022/03/16/css-mastering-margin-collapsing/</id>
+    <link href="https://blog.mkacg.com/2022/03/16/css-mastering-margin-collapsing/"/>
+    <id>https://blog.mkacg.com/2022/03/16/css-mastering-margin-collapsing/</id>
     <published>2022-03-16T07:35:56.000Z</published>
     <updated>2024-04-15T05:09:54.958Z</updated>
     
@@ -853,16 +1057,16 @@
     
     
     
-    <category term="CSS" scheme="https://blog.justforlxz.com/tags/CSS/"/>
+    <category term="CSS" scheme="https://blog.mkacg.com/tags/CSS/"/>
     
-    <category term="Web" scheme="https://blog.justforlxz.com/tags/Web/"/>
+    <category term="Web" scheme="https://blog.mkacg.com/tags/Web/"/>
     
   </entry>
   
   <entry>
     <title>使用 if constexpr 实现条件编译</title>
-    <link href="https://blog.justforlxz.com/2022/03/10/if-constexpr/"/>
-    <id>https://blog.justforlxz.com/2022/03/10/if-constexpr/</id>
+    <link href="https://blog.mkacg.com/2022/03/10/if-constexpr/"/>
+    <id>https://blog.mkacg.com/2022/03/10/if-constexpr/</id>
     <published>2022-03-10T05:03:27.000Z</published>
     <updated>2024-04-15T05:09:55.009Z</updated>
     
@@ -880,14 +1084,14 @@
     
     
     
-    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    <category term="C++" scheme="https://blog.mkacg.com/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>latex 环境配置</title>
-    <link href="https://blog.justforlxz.com/2022/03/08/latex-environment-config/"/>
-    <id>https://blog.justforlxz.com/2022/03/08/latex-environment-config/</id>
+    <link href="https://blog.mkacg.com/2022/03/08/latex-environment-config/"/>
+    <id>https://blog.mkacg.com/2022/03/08/latex-environment-config/</id>
     <published>2022-03-08T09:55:49.000Z</published>
     <updated>2024-04-15T05:09:55.010Z</updated>
     
@@ -904,14 +1108,14 @@
     
     
     
-    <category term="latex" scheme="https://blog.justforlxz.com/tags/latex/"/>
+    <category term="latex" scheme="https://blog.mkacg.com/tags/latex/"/>
     
   </entry>
   
   <entry>
     <title>QDir 和 std::filesystem 的简单对比</title>
-    <link href="https://blog.justforlxz.com/2022/03/04/qdir-stdfilesystem/"/>
-    <id>https://blog.justforlxz.com/2022/03/04/qdir-stdfilesystem/</id>
+    <link href="https://blog.mkacg.com/2022/03/04/qdir-stdfilesystem/"/>
+    <id>https://blog.mkacg.com/2022/03/04/qdir-stdfilesystem/</id>
     <published>2022-03-04T02:11:45.000Z</published>
     <updated>2024-04-15T05:09:55.027Z</updated>
     
@@ -928,16 +1132,16 @@
     
     
     
-    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    <category term="C++" scheme="https://blog.mkacg.com/tags/C/"/>
     
-    <category term="Qt" scheme="https://blog.justforlxz.com/tags/Qt/"/>
+    <category term="Qt" scheme="https://blog.mkacg.com/tags/Qt/"/>
     
   </entry>
   
   <entry>
     <title>How to use cuda with deepin</title>
-    <link href="https://blog.justforlxz.com/2022/02/25/How-to-use-cuda-with-deepin/"/>
-    <id>https://blog.justforlxz.com/2022/02/25/How-to-use-cuda-with-deepin/</id>
+    <link href="https://blog.mkacg.com/2022/02/25/How-to-use-cuda-with-deepin/"/>
+    <id>https://blog.mkacg.com/2022/02/25/How-to-use-cuda-with-deepin/</id>
     <published>2022-02-25T02:06:05.000Z</published>
     <updated>2024-04-15T05:09:54.915Z</updated>
     
@@ -952,17 +1156,17 @@
     
     
     
-    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Solution/"/>
+    <category term="Solution" scheme="https://blog.mkacg.com/categories/Solution/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>fix h5py build failed on m1</title>
-    <link href="https://blog.justforlxz.com/2022/01/05/fix-h5py-build-failed-on-m1/"/>
-    <id>https://blog.justforlxz.com/2022/01/05/fix-h5py-build-failed-on-m1/</id>
+    <link href="https://blog.mkacg.com/2022/01/05/fix-h5py-build-failed-on-m1/"/>
+    <id>https://blog.mkacg.com/2022/01/05/fix-h5py-build-failed-on-m1/</id>
     <published>2022-01-05T03:12:36.000Z</published>
     <updated>2024-04-15T05:09:54.966Z</updated>
     
@@ -985,8 +1189,8 @@
   
   <entry>
     <title>Starting sessions with systemd part 2</title>
-    <link href="https://blog.justforlxz.com/2021/12/29/Starting-sessions-with-systemd-part-2/"/>
-    <id>https://blog.justforlxz.com/2021/12/29/Starting-sessions-with-systemd-part-2/</id>
+    <link href="https://blog.mkacg.com/2021/12/29/Starting-sessions-with-systemd-part-2/"/>
+    <id>https://blog.mkacg.com/2021/12/29/Starting-sessions-with-systemd-part-2/</id>
     <published>2021-12-29T13:09:07.000Z</published>
     <updated>2024-04-15T05:09:54.952Z</updated>
     
@@ -1002,14 +1206,14 @@
     
     
     
-    <category term="systemd" scheme="https://blog.justforlxz.com/tags/systemd/"/>
+    <category term="systemd" scheme="https://blog.mkacg.com/tags/systemd/"/>
     
   </entry>
   
   <entry>
     <title>Starting sessions with systemd</title>
-    <link href="https://blog.justforlxz.com/2021/12/25/Starting-sessions-with-systemd/"/>
-    <id>https://blog.justforlxz.com/2021/12/25/Starting-sessions-with-systemd/</id>
+    <link href="https://blog.mkacg.com/2021/12/25/Starting-sessions-with-systemd/"/>
+    <id>https://blog.mkacg.com/2021/12/25/Starting-sessions-with-systemd/</id>
     <published>2021-12-25T14:00:53.000Z</published>
     <updated>2024-04-15T05:09:54.953Z</updated>
     
@@ -1026,14 +1230,14 @@
     
     
     
-    <category term="systemd" scheme="https://blog.justforlxz.com/tags/systemd/"/>
+    <category term="systemd" scheme="https://blog.mkacg.com/tags/systemd/"/>
     
   </entry>
   
   <entry>
     <title>introduction-to-the-qml-cmake-api（中文翻译）</title>
-    <link href="https://blog.justforlxz.com/2021/09/14/introduction-to-the-qml-cmake-api/"/>
-    <id>https://blog.justforlxz.com/2021/09/14/introduction-to-the-qml-cmake-api/</id>
+    <link href="https://blog.mkacg.com/2021/09/14/introduction-to-the-qml-cmake-api/"/>
+    <id>https://blog.mkacg.com/2021/09/14/introduction-to-the-qml-cmake-api/</id>
     <published>2021-09-14T00:35:33.000Z</published>
     <updated>2024-04-15T05:09:55.010Z</updated>
     
@@ -1051,14 +1255,14 @@
     
     
     
-    <category term="Qt" scheme="https://blog.justforlxz.com/tags/Qt/"/>
+    <category term="Qt" scheme="https://blog.mkacg.com/tags/Qt/"/>
     
   </entry>
   
   <entry>
     <title>Vuex基本使用</title>
-    <link href="https://blog.justforlxz.com/2021/08/10/Vuex%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
-    <id>https://blog.justforlxz.com/2021/08/10/Vuex%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</id>
+    <link href="https://blog.mkacg.com/2021/08/10/Vuex%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
+    <id>https://blog.mkacg.com/2021/08/10/Vuex%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</id>
     <published>2021-08-10T05:56:30.000Z</published>
     <updated>2024-04-15T05:09:54.954Z</updated>
     
@@ -1074,21 +1278,21 @@
     
     
     
-    <category term="Web" scheme="https://blog.justforlxz.com/categories/Web/"/>
+    <category term="Web" scheme="https://blog.mkacg.com/categories/Web/"/>
     
-    <category term="Vue" scheme="https://blog.justforlxz.com/categories/Web/Vue/"/>
+    <category term="Vue" scheme="https://blog.mkacg.com/categories/Web/Vue/"/>
     
-    <category term="Vuex" scheme="https://blog.justforlxz.com/categories/Web/Vue/Vuex/"/>
+    <category term="Vuex" scheme="https://blog.mkacg.com/categories/Web/Vue/Vuex/"/>
     
     
-    <category term="Web" scheme="https://blog.justforlxz.com/tags/Web/"/>
+    <category term="Web" scheme="https://blog.mkacg.com/tags/Web/"/>
     
   </entry>
   
   <entry>
     <title>CSS浮动笔记</title>
-    <link href="https://blog.justforlxz.com/2021/08/07/CSS%E6%B5%AE%E5%8A%A8%E7%AC%94%E8%AE%B0/"/>
-    <id>https://blog.justforlxz.com/2021/08/07/CSS%E6%B5%AE%E5%8A%A8%E7%AC%94%E8%AE%B0/</id>
+    <link href="https://blog.mkacg.com/2021/08/07/CSS%E6%B5%AE%E5%8A%A8%E7%AC%94%E8%AE%B0/"/>
+    <id>https://blog.mkacg.com/2021/08/07/CSS%E6%B5%AE%E5%8A%A8%E7%AC%94%E8%AE%B0/</id>
     <published>2021-08-07T03:02:20.000Z</published>
     <updated>2024-04-15T05:09:54.912Z</updated>
     
@@ -1103,17 +1307,17 @@
     
     
     
-    <category term="Web" scheme="https://blog.justforlxz.com/categories/Web/"/>
+    <category term="Web" scheme="https://blog.mkacg.com/categories/Web/"/>
     
     
-    <category term="CSS" scheme="https://blog.justforlxz.com/tags/CSS/"/>
+    <category term="CSS" scheme="https://blog.mkacg.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title>JavaScript任务执行笔记</title>
-    <link href="https://blog.justforlxz.com/2021/08/07/JavaScript%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E7%AC%94%E8%AE%B0/"/>
-    <id>https://blog.justforlxz.com/2021/08/07/JavaScript%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E7%AC%94%E8%AE%B0/</id>
+    <link href="https://blog.mkacg.com/2021/08/07/JavaScript%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E7%AC%94%E8%AE%B0/"/>
+    <id>https://blog.mkacg.com/2021/08/07/JavaScript%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E7%AC%94%E8%AE%B0/</id>
     <published>2021-08-07T02:37:18.000Z</published>
     <updated>2024-04-15T05:09:54.915Z</updated>
     
@@ -1129,17 +1333,17 @@
     
     
     
-    <category term="Web" scheme="https://blog.justforlxz.com/categories/Web/"/>
+    <category term="Web" scheme="https://blog.mkacg.com/categories/Web/"/>
     
     
-    <category term="JavaScript" scheme="https://blog.justforlxz.com/tags/JavaScript/"/>
+    <category term="JavaScript" scheme="https://blog.mkacg.com/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title>Wayland 协议（中文）—— 第三章. Wayland的架构</title>
-    <link href="https://blog.justforlxz.com/2021/07/24/wayland-architecture/"/>
-    <id>https://blog.justforlxz.com/2021/07/24/wayland-architecture/</id>
+    <link href="https://blog.mkacg.com/2021/07/24/wayland-architecture/"/>
+    <id>https://blog.mkacg.com/2021/07/24/wayland-architecture/</id>
     <published>2021-07-24T04:08:20.000Z</published>
     <updated>2024-04-15T05:09:55.092Z</updated>
     
@@ -1154,19 +1358,19 @@
     
     
     
-    <category term="Wayland" scheme="https://blog.justforlxz.com/categories/Wayland/"/>
+    <category term="Wayland" scheme="https://blog.mkacg.com/categories/Wayland/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
-    <category term="Wayland" scheme="https://blog.justforlxz.com/tags/Wayland/"/>
+    <category term="Wayland" scheme="https://blog.mkacg.com/tags/Wayland/"/>
     
   </entry>
   
   <entry>
     <title>Wayland 协议（中文）—— 第二章. 合成器的类型</title>
-    <link href="https://blog.justforlxz.com/2021/07/24/wayland-types/"/>
-    <id>https://blog.justforlxz.com/2021/07/24/wayland-types/</id>
+    <link href="https://blog.mkacg.com/2021/07/24/wayland-types/"/>
+    <id>https://blog.mkacg.com/2021/07/24/wayland-types/</id>
     <published>2021-07-24T04:03:21.000Z</published>
     <updated>2024-04-15T05:09:55.093Z</updated>
     
@@ -1181,19 +1385,19 @@
     
     
     
-    <category term="Wayland" scheme="https://blog.justforlxz.com/categories/Wayland/"/>
+    <category term="Wayland" scheme="https://blog.mkacg.com/categories/Wayland/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
-    <category term="Wayland" scheme="https://blog.justforlxz.com/tags/Wayland/"/>
+    <category term="Wayland" scheme="https://blog.mkacg.com/tags/Wayland/"/>
     
   </entry>
   
   <entry>
     <title>Wayland 协议（中文）—— 第一章. 介绍</title>
-    <link href="https://blog.justforlxz.com/2021/07/24/wayland-introduction/"/>
-    <id>https://blog.justforlxz.com/2021/07/24/wayland-introduction/</id>
+    <link href="https://blog.mkacg.com/2021/07/24/wayland-introduction/"/>
+    <id>https://blog.mkacg.com/2021/07/24/wayland-introduction/</id>
     <published>2021-07-24T03:54:49.000Z</published>
     <updated>2024-04-15T05:09:55.092Z</updated>
     
@@ -1208,19 +1412,19 @@
     
     
     
-    <category term="Wayland" scheme="https://blog.justforlxz.com/categories/Wayland/"/>
+    <category term="Wayland" scheme="https://blog.mkacg.com/categories/Wayland/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
-    <category term="Wayland" scheme="https://blog.justforlxz.com/tags/Wayland/"/>
+    <category term="Wayland" scheme="https://blog.mkacg.com/tags/Wayland/"/>
     
   </entry>
   
   <entry>
     <title>Wayland 协议（中文）—— 序言</title>
-    <link href="https://blog.justforlxz.com/2021/07/24/wayland-preface/"/>
-    <id>https://blog.justforlxz.com/2021/07/24/wayland-preface/</id>
+    <link href="https://blog.mkacg.com/2021/07/24/wayland-preface/"/>
+    <id>https://blog.mkacg.com/2021/07/24/wayland-preface/</id>
     <published>2021-07-24T03:28:10.000Z</published>
     <updated>2024-04-15T05:09:55.093Z</updated>
     
@@ -1241,19 +1445,19 @@
     
     
     
-    <category term="Wayland" scheme="https://blog.justforlxz.com/categories/Wayland/"/>
+    <category term="Wayland" scheme="https://blog.mkacg.com/categories/Wayland/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
-    <category term="Wayland" scheme="https://blog.justforlxz.com/tags/Wayland/"/>
+    <category term="Wayland" scheme="https://blog.mkacg.com/tags/Wayland/"/>
     
   </entry>
   
   <entry>
     <title>leetcode 11. 盛最多水的容器</title>
-    <link href="https://blog.justforlxz.com/2021/07/06/container-with-most-water/"/>
-    <id>https://blog.justforlxz.com/2021/07/06/container-with-most-water/</id>
+    <link href="https://blog.mkacg.com/2021/07/06/container-with-most-water/"/>
+    <id>https://blog.mkacg.com/2021/07/06/container-with-most-water/</id>
     <published>2021-07-06T09:40:18.000Z</published>
     <updated>2024-04-15T05:09:54.958Z</updated>
     
@@ -1268,21 +1472,21 @@
     
     
     
-    <category term="leetcode算法" scheme="https://blog.justforlxz.com/categories/leetcode%E7%AE%97%E6%B3%95/"/>
+    <category term="leetcode算法" scheme="https://blog.mkacg.com/categories/leetcode%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="数组" scheme="https://blog.justforlxz.com/tags/%E6%95%B0%E7%BB%84/"/>
+    <category term="数组" scheme="https://blog.mkacg.com/tags/%E6%95%B0%E7%BB%84/"/>
     
-    <category term="算法" scheme="https://blog.justforlxz.com/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="算法" scheme="https://blog.mkacg.com/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="简单" scheme="https://blog.justforlxz.com/tags/%E7%AE%80%E5%8D%95/"/>
+    <category term="简单" scheme="https://blog.mkacg.com/tags/%E7%AE%80%E5%8D%95/"/>
     
   </entry>
   
   <entry>
     <title>leetcode 1. 两数之和</title>
-    <link href="https://blog.justforlxz.com/2021/07/06/two-sum/"/>
-    <id>https://blog.justforlxz.com/2021/07/06/two-sum/</id>
+    <link href="https://blog.mkacg.com/2021/07/06/two-sum/"/>
+    <id>https://blog.mkacg.com/2021/07/06/two-sum/</id>
     <published>2021-07-06T08:50:11.000Z</published>
     <updated>2024-04-15T05:09:55.039Z</updated>
     
@@ -1297,21 +1501,21 @@
     
     
     
-    <category term="leetcode算法" scheme="https://blog.justforlxz.com/categories/leetcode%E7%AE%97%E6%B3%95/"/>
+    <category term="leetcode算法" scheme="https://blog.mkacg.com/categories/leetcode%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="数组" scheme="https://blog.justforlxz.com/tags/%E6%95%B0%E7%BB%84/"/>
+    <category term="数组" scheme="https://blog.mkacg.com/tags/%E6%95%B0%E7%BB%84/"/>
     
-    <category term="算法" scheme="https://blog.justforlxz.com/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="算法" scheme="https://blog.mkacg.com/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="简单" scheme="https://blog.justforlxz.com/tags/%E7%AE%80%E5%8D%95/"/>
+    <category term="简单" scheme="https://blog.mkacg.com/tags/%E7%AE%80%E5%8D%95/"/>
     
   </entry>
   
   <entry>
     <title>leetcode 704. 二分查找</title>
-    <link href="https://blog.justforlxz.com/2021/07/06/binary-search/"/>
-    <id>https://blog.justforlxz.com/2021/07/06/binary-search/</id>
+    <link href="https://blog.mkacg.com/2021/07/06/binary-search/"/>
+    <id>https://blog.mkacg.com/2021/07/06/binary-search/</id>
     <published>2021-07-06T08:35:19.000Z</published>
     <updated>2024-04-15T05:09:54.955Z</updated>
     
@@ -1326,21 +1530,21 @@
     
     
     
-    <category term="leetcode算法" scheme="https://blog.justforlxz.com/categories/leetcode%E7%AE%97%E6%B3%95/"/>
+    <category term="leetcode算法" scheme="https://blog.mkacg.com/categories/leetcode%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="数组" scheme="https://blog.justforlxz.com/tags/%E6%95%B0%E7%BB%84/"/>
+    <category term="数组" scheme="https://blog.mkacg.com/tags/%E6%95%B0%E7%BB%84/"/>
     
-    <category term="算法" scheme="https://blog.justforlxz.com/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="算法" scheme="https://blog.mkacg.com/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="简单" scheme="https://blog.justforlxz.com/tags/%E7%AE%80%E5%8D%95/"/>
+    <category term="简单" scheme="https://blog.mkacg.com/tags/%E7%AE%80%E5%8D%95/"/>
     
   </entry>
   
   <entry>
     <title>如何给Arch打一个包</title>
-    <link href="https://blog.justforlxz.com/2021/03/04/package-manager-for-arch/"/>
-    <id>https://blog.justforlxz.com/2021/03/04/package-manager-for-arch/</id>
+    <link href="https://blog.mkacg.com/2021/03/04/package-manager-for-arch/"/>
+    <id>https://blog.mkacg.com/2021/03/04/package-manager-for-arch/</id>
     <published>2021-03-04T03:23:42.000Z</published>
     <updated>2024-04-15T05:09:55.027Z</updated>
     
@@ -1357,14 +1561,14 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>timemachine</title>
-    <link href="https://blog.justforlxz.com/2021/02/27/timemachine/"/>
-    <id>https://blog.justforlxz.com/2021/02/27/timemachine/</id>
+    <link href="https://blog.mkacg.com/2021/02/27/timemachine/"/>
+    <id>https://blog.mkacg.com/2021/02/27/timemachine/</id>
     <published>2021-02-27T03:35:29.000Z</published>
     <updated>2024-04-15T05:09:55.033Z</updated>
     
@@ -1385,8 +1589,8 @@
   
   <entry>
     <title>samba</title>
-    <link href="https://blog.justforlxz.com/2021/02/27/samba/"/>
-    <id>https://blog.justforlxz.com/2021/02/27/samba/</id>
+    <link href="https://blog.mkacg.com/2021/02/27/samba/"/>
+    <id>https://blog.mkacg.com/2021/02/27/samba/</id>
     <published>2021-02-27T02:42:53.000Z</published>
     <updated>2024-04-15T05:09:55.028Z</updated>
     
@@ -1402,14 +1606,14 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>2020 Review</title>
-    <link href="https://blog.justforlxz.com/2021/02/26/2020review/"/>
-    <id>https://blog.justforlxz.com/2021/02/26/2020review/</id>
+    <link href="https://blog.mkacg.com/2021/02/26/2020review/"/>
+    <id>https://blog.mkacg.com/2021/02/26/2020review/</id>
     <published>2021-02-26T14:51:45.000Z</published>
     <updated>2024-04-15T05:09:54.905Z</updated>
     
@@ -1429,8 +1633,8 @@
   
   <entry>
     <title>ccls</title>
-    <link href="https://blog.justforlxz.com/2020/12/23/ccls/"/>
-    <id>https://blog.justforlxz.com/2020/12/23/ccls/</id>
+    <link href="https://blog.mkacg.com/2020/12/23/ccls/"/>
+    <id>https://blog.mkacg.com/2020/12/23/ccls/</id>
     <published>2020-12-23T08:27:39.000Z</published>
     <updated>2024-04-15T05:09:54.955Z</updated>
     
@@ -1445,19 +1649,19 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/categories/Linux/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
-    <category term="vim" scheme="https://blog.justforlxz.com/tags/vim/"/>
+    <category term="vim" scheme="https://blog.mkacg.com/tags/vim/"/>
     
   </entry>
   
   <entry>
     <title>Qt多线程</title>
-    <link href="https://blog.justforlxz.com/2020/11/17/qt-multi-thread/"/>
-    <id>https://blog.justforlxz.com/2020/11/17/qt-multi-thread/</id>
+    <link href="https://blog.mkacg.com/2020/11/17/qt-multi-thread/"/>
+    <id>https://blog.mkacg.com/2020/11/17/qt-multi-thread/</id>
     <published>2020-11-17T07:53:37.000Z</published>
     <updated>2024-04-15T05:09:55.027Z</updated>
     
@@ -1468,14 +1672,14 @@
     
     
     
-    <category term="Qt" scheme="https://blog.justforlxz.com/tags/Qt/"/>
+    <category term="Qt" scheme="https://blog.mkacg.com/tags/Qt/"/>
     
   </entry>
   
   <entry>
     <title>deepin-wine中文乱码</title>
-    <link href="https://blog.justforlxz.com/2020/09/17/deepin-wine-chinese-problem/"/>
-    <id>https://blog.justforlxz.com/2020/09/17/deepin-wine-chinese-problem/</id>
+    <link href="https://blog.mkacg.com/2020/09/17/deepin-wine-chinese-problem/"/>
+    <id>https://blog.mkacg.com/2020/09/17/deepin-wine-chinese-problem/</id>
     <published>2020-09-17T08:32:12.000Z</published>
     <updated>2024-04-15T05:09:54.959Z</updated>
     
@@ -1490,17 +1694,17 @@
     
     
     
-    <category term="技术" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    <category term="技术" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>使用rEFInd来安全启动系统</title>
-    <link href="https://blog.justforlxz.com/2020/09/08/use-refind-to-boot-system/"/>
-    <id>https://blog.justforlxz.com/2020/09/08/use-refind-to-boot-system/</id>
+    <link href="https://blog.mkacg.com/2020/09/08/use-refind-to-boot-system/"/>
+    <id>https://blog.mkacg.com/2020/09/08/use-refind-to-boot-system/</id>
     <published>2020-09-08T11:54:26.000Z</published>
     <updated>2024-04-15T05:09:55.047Z</updated>
     
@@ -1509,17 +1713,17 @@
     
     
     
-    <category term="技术" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    <category term="技术" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>deepin git version</title>
-    <link href="https://blog.justforlxz.com/2020/09/06/deepin-git-version/"/>
-    <id>https://blog.justforlxz.com/2020/09/06/deepin-git-version/</id>
+    <link href="https://blog.mkacg.com/2020/09/06/deepin-git-version/"/>
+    <id>https://blog.mkacg.com/2020/09/06/deepin-git-version/</id>
     <published>2020-09-06T04:51:08.000Z</published>
     <updated>2024-04-15T05:09:54.958Z</updated>
     
@@ -1528,17 +1732,17 @@
     
     
     
-    <category term="技术" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    <category term="技术" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>使用VSCode远程开发DDE</title>
-    <link href="https://blog.justforlxz.com/2020/09/03/use-vscode-to-remotely-develop-dde/"/>
-    <id>https://blog.justforlxz.com/2020/09/03/use-vscode-to-remotely-develop-dde/</id>
+    <link href="https://blog.mkacg.com/2020/09/03/use-vscode-to-remotely-develop-dde/"/>
+    <id>https://blog.mkacg.com/2020/09/03/use-vscode-to-remotely-develop-dde/</id>
     <published>2020-09-03T03:14:38.000Z</published>
     <updated>2024-04-15T05:09:55.058Z</updated>
     
@@ -1547,23 +1751,23 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/categories/Linux/"/>
     
-    <category term="技术" scheme="https://blog.justforlxz.com/categories/Linux/%E6%8A%80%E6%9C%AF/"/>
+    <category term="技术" scheme="https://blog.mkacg.com/categories/Linux/%E6%8A%80%E6%9C%AF/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
-    <category term="VS Code" scheme="https://blog.justforlxz.com/tags/VS-Code/"/>
+    <category term="VS Code" scheme="https://blog.mkacg.com/tags/VS-Code/"/>
     
-    <category term="Windows" scheme="https://blog.justforlxz.com/tags/Windows/"/>
+    <category term="Windows" scheme="https://blog.mkacg.com/tags/Windows/"/>
     
   </entry>
   
   <entry>
     <title>在ArchLinux上开发startdde</title>
-    <link href="https://blog.justforlxz.com/2020/08/06/develop-startdde-on-archlinux/"/>
-    <id>https://blog.justforlxz.com/2020/08/06/develop-startdde-on-archlinux/</id>
+    <link href="https://blog.mkacg.com/2020/08/06/develop-startdde-on-archlinux/"/>
+    <id>https://blog.mkacg.com/2020/08/06/develop-startdde-on-archlinux/</id>
     <published>2020-08-06T08:14:26.000Z</published>
     <updated>2024-04-15T05:09:54.959Z</updated>
     
@@ -1572,19 +1776,19 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/categories/Linux/"/>
     
     
-    <category term="dde" scheme="https://blog.justforlxz.com/tags/dde/"/>
+    <category term="dde" scheme="https://blog.mkacg.com/tags/dde/"/>
     
-    <category term="go" scheme="https://blog.justforlxz.com/tags/go/"/>
+    <category term="go" scheme="https://blog.mkacg.com/tags/go/"/>
     
   </entry>
   
   <entry>
     <title>use github action to check dde-launcher</title>
-    <link href="https://blog.justforlxz.com/2020/07/27/use-github-action-to-check-dde-launcher/"/>
-    <id>https://blog.justforlxz.com/2020/07/27/use-github-action-to-check-dde-launcher/</id>
+    <link href="https://blog.mkacg.com/2020/07/27/use-github-action-to-check-dde-launcher/"/>
+    <id>https://blog.mkacg.com/2020/07/27/use-github-action-to-check-dde-launcher/</id>
     <published>2020-07-27T10:14:21.000Z</published>
     <updated>2024-04-15T05:09:55.039Z</updated>
     
@@ -1593,17 +1797,17 @@
     
     
     
-    <category term="技术" scheme="https://blog.justforlxz.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    <category term="技术" scheme="https://blog.mkacg.com/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>使用perf工具分析程序性能</title>
-    <link href="https://blog.justforlxz.com/2020/07/21/use-perf-to-analytics-program/"/>
-    <id>https://blog.justforlxz.com/2020/07/21/use-perf-to-analytics-program/</id>
+    <link href="https://blog.mkacg.com/2020/07/21/use-perf-to-analytics-program/"/>
+    <id>https://blog.mkacg.com/2020/07/21/use-perf-to-analytics-program/</id>
     <published>2020-07-21T01:15:11.000Z</published>
     <updated>2024-04-15T05:09:55.043Z</updated>
     
@@ -1615,44 +1819,44 @@
     
     
     
-    <category term="优化" scheme="https://blog.justforlxz.com/categories/%E4%BC%98%E5%8C%96/"/>
+    <category term="优化" scheme="https://blog.mkacg.com/categories/%E4%BC%98%E5%8C%96/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
-    <title>CTest &amp; QTest/GTest</title>
-    <link href="https://blog.justforlxz.com/2020/06/16/CTest%20&amp;%20QTEST/"/>
-    <id>https://blog.justforlxz.com/2020/06/16/CTest%20&amp;%20QTEST/</id>
+    <title>CTest and QTest/GTest</title>
+    <link href="https://blog.mkacg.com/2020/06/16/CTest-and-QTEST/"/>
+    <id>https://blog.mkacg.com/2020/06/16/CTest-and-QTEST/</id>
     <published>2020-06-16T07:11:40.000Z</published>
-    <updated>2024-04-15T05:09:54.913Z</updated>
+    <updated>2025-01-13T06:19:38.718Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文会介绍一下QTest和GTest的一些功能和区别。&lt;/p&gt;</summary>
     
     
     
-    <category term="unit test" scheme="https://blog.justforlxz.com/categories/unit-test/"/>
+    <category term="unit test" scheme="https://blog.mkacg.com/categories/unit-test/"/>
     
     
-    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    <category term="C++" scheme="https://blog.mkacg.com/tags/C/"/>
     
-    <category term="Qt" scheme="https://blog.justforlxz.com/tags/Qt/"/>
+    <category term="Qt" scheme="https://blog.mkacg.com/tags/Qt/"/>
     
-    <category term="CMake" scheme="https://blog.justforlxz.com/tags/CMake/"/>
+    <category term="CMake" scheme="https://blog.mkacg.com/tags/CMake/"/>
     
-    <category term="GTest" scheme="https://blog.justforlxz.com/tags/GTest/"/>
+    <category term="GTest" scheme="https://blog.mkacg.com/tags/GTest/"/>
     
-    <category term="CTest" scheme="https://blog.justforlxz.com/tags/CTest/"/>
+    <category term="CTest" scheme="https://blog.mkacg.com/tags/CTest/"/>
     
   </entry>
   
   <entry>
     <title>CPP项目的一些坑</title>
-    <link href="https://blog.justforlxz.com/2020/06/15/CPP%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/"/>
-    <id>https://blog.justforlxz.com/2020/06/15/CPP%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</id>
+    <link href="https://blog.mkacg.com/2020/06/15/CPP%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/"/>
+    <id>https://blog.mkacg.com/2020/06/15/CPP%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</id>
     <published>2020-06-15T03:11:40.000Z</published>
     <updated>2024-04-15T05:09:54.912Z</updated>
     
@@ -1662,14 +1866,14 @@
     
     
     
-    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    <category term="C++" scheme="https://blog.mkacg.com/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>使用inquirer提供交互式git commit</title>
-    <link href="https://blog.justforlxz.com/2020/06/15/%E4%BD%BF%E7%94%A8inquirer%E6%8F%90%E4%BE%9B%E4%BA%A4%E4%BA%92%E5%BC%8Fgit-commit/"/>
-    <id>https://blog.justforlxz.com/2020/06/15/%E4%BD%BF%E7%94%A8inquirer%E6%8F%90%E4%BE%9B%E4%BA%A4%E4%BA%92%E5%BC%8Fgit-commit/</id>
+    <link href="https://blog.mkacg.com/2020/06/15/%E4%BD%BF%E7%94%A8inquirer%E6%8F%90%E4%BE%9B%E4%BA%A4%E4%BA%92%E5%BC%8Fgit-commit/"/>
+    <id>https://blog.mkacg.com/2020/06/15/%E4%BD%BF%E7%94%A8inquirer%E6%8F%90%E4%BE%9B%E4%BA%A4%E4%BA%92%E5%BC%8Fgit-commit/</id>
     <published>2020-06-15T02:36:19.000Z</published>
     <updated>2024-04-15T05:09:55.095Z</updated>
     
@@ -1680,14 +1884,14 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>vue-router路由复用后页面没有刷新</title>
-    <link href="https://blog.justforlxz.com/2020/06/01/vue-router%E8%B7%AF%E7%94%B1%E5%A4%8D%E7%94%A8%E5%90%8E%E9%A1%B5%E9%9D%A2%E6%B2%A1%E6%9C%89%E5%88%B7%E6%96%B0/"/>
-    <id>https://blog.justforlxz.com/2020/06/01/vue-router%E8%B7%AF%E7%94%B1%E5%A4%8D%E7%94%A8%E5%90%8E%E9%A1%B5%E9%9D%A2%E6%B2%A1%E6%9C%89%E5%88%B7%E6%96%B0/</id>
+    <link href="https://blog.mkacg.com/2020/06/01/vue-router%E8%B7%AF%E7%94%B1%E5%A4%8D%E7%94%A8%E5%90%8E%E9%A1%B5%E9%9D%A2%E6%B2%A1%E6%9C%89%E5%88%B7%E6%96%B0/"/>
+    <id>https://blog.mkacg.com/2020/06/01/vue-router%E8%B7%AF%E7%94%B1%E5%A4%8D%E7%94%A8%E5%90%8E%E9%A1%B5%E9%9D%A2%E6%B2%A1%E6%9C%89%E5%88%B7%E6%96%B0/</id>
     <published>2020-06-01T02:35:41.000Z</published>
     <updated>2024-04-15T05:09:55.091Z</updated>
     
@@ -1697,14 +1901,14 @@
     
     
     
-    <category term="Web" scheme="https://blog.justforlxz.com/tags/Web/"/>
+    <category term="Web" scheme="https://blog.mkacg.com/tags/Web/"/>
     
   </entry>
   
   <entry>
     <title>vue3升级遇到的坑</title>
-    <link href="https://blog.justforlxz.com/2020/05/31/vue3-upgrade/"/>
-    <id>https://blog.justforlxz.com/2020/05/31/vue3-upgrade/</id>
+    <link href="https://blog.mkacg.com/2020/05/31/vue3-upgrade/"/>
+    <id>https://blog.mkacg.com/2020/05/31/vue3-upgrade/</id>
     <published>2020-05-31T13:11:43.000Z</published>
     <updated>2024-04-15T05:09:55.092Z</updated>
     
@@ -1715,14 +1919,14 @@
     
     
     
-    <category term="Web" scheme="https://blog.justforlxz.com/tags/Web/"/>
+    <category term="Web" scheme="https://blog.mkacg.com/tags/Web/"/>
     
   </entry>
   
   <entry>
     <title>JavaScript建造者模式</title>
-    <link href="https://blog.justforlxz.com/2020/02/01/JavaScript%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://blog.justforlxz.com/2020/02/01/JavaScript%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/</id>
+    <link href="https://blog.mkacg.com/2020/02/01/JavaScript%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://blog.mkacg.com/2020/02/01/JavaScript%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/</id>
     <published>2020-02-01T12:52:58.000Z</published>
     <updated>2024-04-15T05:09:54.915Z</updated>
     
@@ -1731,17 +1935,17 @@
     
     
     
-    <category term="设计模式" scheme="https://blog.justforlxz.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="设计模式" scheme="https://blog.mkacg.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="JavaScript" scheme="https://blog.justforlxz.com/tags/JavaScript/"/>
+    <category term="JavaScript" scheme="https://blog.mkacg.com/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title>浅谈Javascript构造器模式</title>
-    <link href="https://blog.justforlxz.com/2020/01/31/%E6%B5%85%E8%B0%88Javascript%E6%9E%84%E9%80%A0%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://blog.justforlxz.com/2020/01/31/%E6%B5%85%E8%B0%88Javascript%E6%9E%84%E9%80%A0%E5%99%A8%E6%A8%A1%E5%BC%8F/</id>
+    <link href="https://blog.mkacg.com/2020/01/31/%E6%B5%85%E8%B0%88Javascript%E6%9E%84%E9%80%A0%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://blog.mkacg.com/2020/01/31/%E6%B5%85%E8%B0%88Javascript%E6%9E%84%E9%80%A0%E5%99%A8%E6%A8%A1%E5%BC%8F/</id>
     <published>2020-01-31T15:15:23.000Z</published>
     <updated>2024-04-15T05:09:55.100Z</updated>
     
@@ -1750,17 +1954,17 @@
     
     
     
-    <category term="设计模式" scheme="https://blog.justforlxz.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="设计模式" scheme="https://blog.mkacg.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="JavaScript" scheme="https://blog.justforlxz.com/tags/JavaScript/"/>
+    <category term="JavaScript" scheme="https://blog.mkacg.com/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title>2019 Review</title>
-    <link href="https://blog.justforlxz.com/2020/01/01/2019review/"/>
-    <id>https://blog.justforlxz.com/2020/01/01/2019review/</id>
+    <link href="https://blog.mkacg.com/2020/01/01/2019review/"/>
+    <id>https://blog.mkacg.com/2020/01/01/2019review/</id>
     <published>2020-01-01T13:25:54.000Z</published>
     <updated>2024-04-15T05:09:54.905Z</updated>
     
@@ -1769,17 +1973,17 @@
     
     
     
-    <category term="年度总结" scheme="https://blog.justforlxz.com/categories/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/"/>
+    <category term="年度总结" scheme="https://blog.mkacg.com/categories/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/"/>
     
     
-    <category term="2019" scheme="https://blog.justforlxz.com/tags/2019/"/>
+    <category term="2019" scheme="https://blog.mkacg.com/tags/2019/"/>
     
   </entry>
   
   <entry>
     <title>使用伪元素创建一个圆点</title>
-    <link href="https://blog.justforlxz.com/2020/01/01/%E4%BD%BF%E7%94%A8%E4%BC%AA%E5%85%83%E7%B4%A0%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%9C%86%E7%82%B9/"/>
-    <id>https://blog.justforlxz.com/2020/01/01/%E4%BD%BF%E7%94%A8%E4%BC%AA%E5%85%83%E7%B4%A0%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%9C%86%E7%82%B9/</id>
+    <link href="https://blog.mkacg.com/2020/01/01/%E4%BD%BF%E7%94%A8%E4%BC%AA%E5%85%83%E7%B4%A0%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%9C%86%E7%82%B9/"/>
+    <id>https://blog.mkacg.com/2020/01/01/%E4%BD%BF%E7%94%A8%E4%BC%AA%E5%85%83%E7%B4%A0%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%9C%86%E7%82%B9/</id>
     <published>2020-01-01T03:11:12.000Z</published>
     <updated>2024-04-15T05:09:55.095Z</updated>
     
@@ -1795,17 +1999,17 @@
     
     
     
-    <category term="Web" scheme="https://blog.justforlxz.com/categories/Web/"/>
+    <category term="Web" scheme="https://blog.mkacg.com/categories/Web/"/>
     
     
-    <category term="CSS" scheme="https://blog.justforlxz.com/tags/CSS/"/>
+    <category term="CSS" scheme="https://blog.mkacg.com/tags/CSS/"/>
     
   </entry>
   
   <entry>
     <title>在ArchLinux通过串口调试VMware虚拟机中的deepin</title>
-    <link href="https://blog.justforlxz.com/2019/12/26/use-serial-port-debug-deepin-on-archlinux/"/>
-    <id>https://blog.justforlxz.com/2019/12/26/use-serial-port-debug-deepin-on-archlinux/</id>
+    <link href="https://blog.mkacg.com/2019/12/26/use-serial-port-debug-deepin-on-archlinux/"/>
+    <id>https://blog.mkacg.com/2019/12/26/use-serial-port-debug-deepin-on-archlinux/</id>
     <published>2019-12-26T09:26:13.000Z</published>
     <updated>2024-04-15T05:09:55.058Z</updated>
     
@@ -1814,17 +2018,17 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/categories/Linux/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>使用标准库std::sort函数进行排序</title>
-    <link href="https://blog.justforlxz.com/2019/12/26/cpp-sort/"/>
-    <id>https://blog.justforlxz.com/2019/12/26/cpp-sort/</id>
+    <link href="https://blog.mkacg.com/2019/12/26/cpp-sort/"/>
+    <id>https://blog.mkacg.com/2019/12/26/cpp-sort/</id>
     <published>2019-12-26T09:24:23.000Z</published>
     <updated>2024-04-15T05:09:54.958Z</updated>
     
@@ -1838,8 +2042,8 @@
   
   <entry>
     <title>记录一个坑爹的usb网卡</title>
-    <link href="https://blog.justforlxz.com/2019/12/09/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E5%9D%91%E7%88%B9%E7%9A%84usb%E7%BD%91%E5%8D%A1/"/>
-    <id>https://blog.justforlxz.com/2019/12/09/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E5%9D%91%E7%88%B9%E7%9A%84usb%E7%BD%91%E5%8D%A1/</id>
+    <link href="https://blog.mkacg.com/2019/12/09/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E5%9D%91%E7%88%B9%E7%9A%84usb%E7%BD%91%E5%8D%A1/"/>
+    <id>https://blog.mkacg.com/2019/12/09/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E5%9D%91%E7%88%B9%E7%9A%84usb%E7%BD%91%E5%8D%A1/</id>
     <published>2019-12-09T11:31:04.000Z</published>
     <updated>2024-04-15T05:09:55.100Z</updated>
     
@@ -1854,17 +2058,17 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/categories/Linux/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>使用github actions自动部署hexo文章到html仓库</title>
-    <link href="https://blog.justforlxz.com/2019/12/09/use-github-actions-to-depoly-hexo/"/>
-    <id>https://blog.justforlxz.com/2019/12/09/use-github-actions-to-depoly-hexo/</id>
+    <link href="https://blog.mkacg.com/2019/12/09/use-github-actions-to-depoly-hexo/"/>
+    <id>https://blog.mkacg.com/2019/12/09/use-github-actions-to-depoly-hexo/</id>
     <published>2019-12-09T05:19:11.000Z</published>
     <updated>2024-04-15T05:09:55.039Z</updated>
     
@@ -1885,28 +2089,28 @@
   </entry>
   
   <entry>
-    <title>Vue父子组件传值 —— props &amp; $emit</title>
-    <link href="https://blog.justforlxz.com/2019/12/08/vue-component-props/"/>
-    <id>https://blog.justforlxz.com/2019/12/08/vue-component-props/</id>
+    <title>Vue父子组件传值 —— props $emit</title>
+    <link href="https://blog.mkacg.com/2019/12/08/vue-component-props/"/>
+    <id>https://blog.mkacg.com/2019/12/08/vue-component-props/</id>
     <published>2019-12-08T13:08:00.000Z</published>
-    <updated>2024-04-15T05:09:55.091Z</updated>
+    <updated>2025-01-13T05:12:40.128Z</updated>
     
     
     <summary type="html">&lt;p&gt;Vue的父子组件传值比较有意思，父组件通过属性绑定，把自身的值和子组件的一个属性绑定起来，子组件通过props属性接收，该属性类型为数组，是Vue对象中比较少有的类型，data、computer、methods等方法都是对象的形式，props则是数组的形式。父组件通过v-on来监听子组件发出的事件来接收子组件的调用。在这里我是理解成子组件发送信号来通知上层，毕竟调用的是this.$emit来做到的。&lt;/p&gt;</summary>
     
     
     
-    <category term="Vue" scheme="https://blog.justforlxz.com/categories/Vue/"/>
+    <category term="Vue" scheme="https://blog.mkacg.com/categories/Vue/"/>
     
     
-    <category term="Vue" scheme="https://blog.justforlxz.com/tags/Vue/"/>
+    <category term="Vue" scheme="https://blog.mkacg.com/tags/Vue/"/>
     
   </entry>
   
   <entry>
     <title>添加Vue动画</title>
-    <link href="https://blog.justforlxz.com/2019/12/08/vue-transitions/"/>
-    <id>https://blog.justforlxz.com/2019/12/08/vue-transitions/</id>
+    <link href="https://blog.mkacg.com/2019/12/08/vue-transitions/"/>
+    <id>https://blog.mkacg.com/2019/12/08/vue-transitions/</id>
     <published>2019-12-08T00:03:40.000Z</published>
     <updated>2024-04-15T05:09:55.091Z</updated>
     
@@ -1915,17 +2119,17 @@
     
     
     
-    <category term="Vue" scheme="https://blog.justforlxz.com/categories/Vue/"/>
+    <category term="Vue" scheme="https://blog.mkacg.com/categories/Vue/"/>
     
     
-    <category term="Vue" scheme="https://blog.justforlxz.com/tags/Vue/"/>
+    <category term="Vue" scheme="https://blog.mkacg.com/tags/Vue/"/>
     
   </entry>
   
   <entry>
     <title>使用webpack-dev-server来监听项目变化</title>
-    <link href="https://blog.justforlxz.com/2019/11/25/%E4%BD%BF%E7%94%A8webpack-dev-server%E6%9D%A5%E7%9B%91%E5%90%AC%E9%A1%B9%E7%9B%AE%E5%8F%98%E5%8C%96/"/>
-    <id>https://blog.justforlxz.com/2019/11/25/%E4%BD%BF%E7%94%A8webpack-dev-server%E6%9D%A5%E7%9B%91%E5%90%AC%E9%A1%B9%E7%9B%AE%E5%8F%98%E5%8C%96/</id>
+    <link href="https://blog.mkacg.com/2019/11/25/%E4%BD%BF%E7%94%A8webpack-dev-server%E6%9D%A5%E7%9B%91%E5%90%AC%E9%A1%B9%E7%9B%AE%E5%8F%98%E5%8C%96/"/>
+    <id>https://blog.mkacg.com/2019/11/25/%E4%BD%BF%E7%94%A8webpack-dev-server%E6%9D%A5%E7%9B%91%E5%90%AC%E9%A1%B9%E7%9B%AE%E5%8F%98%E5%8C%96/</id>
     <published>2019-11-25T09:54:36.000Z</published>
     <updated>2024-04-15T05:09:55.095Z</updated>
     
@@ -1936,17 +2140,17 @@
     
     
     
-    <category term="Vue" scheme="https://blog.justforlxz.com/categories/Vue/"/>
+    <category term="Vue" scheme="https://blog.mkacg.com/categories/Vue/"/>
     
     
-    <category term="Vue" scheme="https://blog.justforlxz.com/tags/Vue/"/>
+    <category term="Vue" scheme="https://blog.mkacg.com/tags/Vue/"/>
     
   </entry>
   
   <entry>
     <title>给Archlinux开启BFQ和MuQSS</title>
-    <link href="https://blog.justforlxz.com/2019/10/24/%E7%BB%99Archlinux%E5%BC%80%E5%90%AFBFQ%E5%92%8CMuQSS/"/>
-    <id>https://blog.justforlxz.com/2019/10/24/%E7%BB%99Archlinux%E5%BC%80%E5%90%AFBFQ%E5%92%8CMuQSS/</id>
+    <link href="https://blog.mkacg.com/2019/10/24/%E7%BB%99Archlinux%E5%BC%80%E5%90%AFBFQ%E5%92%8CMuQSS/"/>
+    <id>https://blog.mkacg.com/2019/10/24/%E7%BB%99Archlinux%E5%BC%80%E5%90%AFBFQ%E5%92%8CMuQSS/</id>
     <published>2019-10-24T05:19:21.000Z</published>
     <updated>2024-04-15T05:09:55.100Z</updated>
     
@@ -1955,17 +2159,17 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/categories/Linux/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>使用webpack打包Vue和TypeScript</title>
-    <link href="https://blog.justforlxz.com/2019/10/22/%E4%BD%BF%E7%94%A8webpack%E6%89%93%E5%8C%85Vue%E5%92%8CTypeScript/"/>
-    <id>https://blog.justforlxz.com/2019/10/22/%E4%BD%BF%E7%94%A8webpack%E6%89%93%E5%8C%85Vue%E5%92%8CTypeScript/</id>
+    <link href="https://blog.mkacg.com/2019/10/22/%E4%BD%BF%E7%94%A8webpack%E6%89%93%E5%8C%85Vue%E5%92%8CTypeScript/"/>
+    <id>https://blog.mkacg.com/2019/10/22/%E4%BD%BF%E7%94%A8webpack%E6%89%93%E5%8C%85Vue%E5%92%8CTypeScript/</id>
     <published>2019-10-22T07:20:08.000Z</published>
     <updated>2024-04-15T05:09:55.095Z</updated>
     
@@ -1974,21 +2178,21 @@
     
     
     
-    <category term="Web" scheme="https://blog.justforlxz.com/categories/Web/"/>
+    <category term="Web" scheme="https://blog.mkacg.com/categories/Web/"/>
     
     
-    <category term="Vue" scheme="https://blog.justforlxz.com/tags/Vue/"/>
+    <category term="Vue" scheme="https://blog.mkacg.com/tags/Vue/"/>
     
-    <category term="Webpack" scheme="https://blog.justforlxz.com/tags/Webpack/"/>
+    <category term="Webpack" scheme="https://blog.mkacg.com/tags/Webpack/"/>
     
-    <category term="TypeScript" scheme="https://blog.justforlxz.com/tags/TypeScript/"/>
+    <category term="TypeScript" scheme="https://blog.mkacg.com/tags/TypeScript/"/>
     
   </entry>
   
   <entry>
     <title>webpack入门</title>
-    <link href="https://blog.justforlxz.com/2019/10/14/webpack%E5%85%A5%E9%97%A8/"/>
-    <id>https://blog.justforlxz.com/2019/10/14/webpack%E5%85%A5%E9%97%A8/</id>
+    <link href="https://blog.mkacg.com/2019/10/14/webpack%E5%85%A5%E9%97%A8/"/>
+    <id>https://blog.mkacg.com/2019/10/14/webpack%E5%85%A5%E9%97%A8/</id>
     <published>2019-10-14T07:34:52.000Z</published>
     <updated>2024-04-15T05:09:55.093Z</updated>
     
@@ -2008,19 +2212,19 @@
     
     
     
-    <category term="Web" scheme="https://blog.justforlxz.com/categories/Web/"/>
+    <category term="Web" scheme="https://blog.mkacg.com/categories/Web/"/>
     
-    <category term="webpack" scheme="https://blog.justforlxz.com/categories/Web/webpack/"/>
+    <category term="webpack" scheme="https://blog.mkacg.com/categories/Web/webpack/"/>
     
     
-    <category term="Web" scheme="https://blog.justforlxz.com/tags/Web/"/>
+    <category term="Web" scheme="https://blog.mkacg.com/tags/Web/"/>
     
   </entry>
   
   <entry>
     <title>wsl2的使用体验</title>
-    <link href="https://blog.justforlxz.com/2019/06/16/wsl2%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/"/>
-    <id>https://blog.justforlxz.com/2019/06/16/wsl2%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</id>
+    <link href="https://blog.mkacg.com/2019/06/16/wsl2%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/"/>
+    <id>https://blog.mkacg.com/2019/06/16/wsl2%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</id>
     <published>2019-06-16T04:59:59.000Z</published>
     <updated>2024-04-15T05:09:55.093Z</updated>
     
@@ -2030,14 +2234,14 @@
     
     
     
-    <category term="Windows" scheme="https://blog.justforlxz.com/tags/Windows/"/>
+    <category term="Windows" scheme="https://blog.mkacg.com/tags/Windows/"/>
     
   </entry>
   
   <entry>
     <title>入坑typescript了</title>
-    <link href="https://blog.justforlxz.com/2019/06/15/%E5%85%A5%E5%9D%91typescript%E4%BA%86/"/>
-    <id>https://blog.justforlxz.com/2019/06/15/%E5%85%A5%E5%9D%91typescript%E4%BA%86/</id>
+    <link href="https://blog.mkacg.com/2019/06/15/%E5%85%A5%E5%9D%91typescript%E4%BA%86/"/>
+    <id>https://blog.mkacg.com/2019/06/15/%E5%85%A5%E5%9D%91typescript%E4%BA%86/</id>
     <published>2019-06-15T15:41:49.000Z</published>
     <updated>2024-04-15T05:09:55.095Z</updated>
     
@@ -2049,14 +2253,14 @@
     
     
     
-    <category term="typescript" scheme="https://blog.justforlxz.com/tags/typescript/"/>
+    <category term="typescript" scheme="https://blog.mkacg.com/tags/typescript/"/>
     
   </entry>
   
   <entry>
     <title>CMake CTests for dde-control-center</title>
-    <link href="https://blog.justforlxz.com/2019/05/23/CMake-CTests-for-dde-control-center/"/>
-    <id>https://blog.justforlxz.com/2019/05/23/CMake-CTests-for-dde-control-center/</id>
+    <link href="https://blog.mkacg.com/2019/05/23/CMake-CTests-for-dde-control-center/"/>
+    <id>https://blog.mkacg.com/2019/05/23/CMake-CTests-for-dde-control-center/</id>
     <published>2019-05-23T09:16:15.000Z</published>
     <updated>2024-04-15T05:09:54.912Z</updated>
     
@@ -2072,19 +2276,19 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/categories/Linux/"/>
     
     
-    <category term="CMake Linux" scheme="https://blog.justforlxz.com/tags/CMake-Linux/"/>
+    <category term="CMake Linux" scheme="https://blog.mkacg.com/tags/CMake-Linux/"/>
     
   </entry>
   
   <entry>
     <title>如何在Deepin上使用LNMP</title>
-    <link href="https://blog.justforlxz.com/2019/02/21/how-to-use-LNMP-on-deepin/"/>
-    <id>https://blog.justforlxz.com/2019/02/21/how-to-use-LNMP-on-deepin/</id>
+    <link href="https://blog.mkacg.com/2019/02/21/how-to-use-LNMP-on-deepin/"/>
+    <id>https://blog.mkacg.com/2019/02/21/how-to-use-LNMP-on-deepin/</id>
     <published>2019-02-21T02:11:15.000Z</published>
-    <updated>2024-04-15T05:09:54.994Z</updated>
+    <updated>2025-01-08T06:51:00.635Z</updated>
     
     
     <summary type="html">&lt;p&gt;为了节省读者的时间，我先简述一下阅读这篇文章需要了解的知识。&lt;/p&gt;
@@ -2092,23 +2296,23 @@
     
     
     
-    <category term="Solution" scheme="https://blog.justforlxz.com/categories/Solution/"/>
+    <category term="Solution" scheme="https://blog.mkacg.com/categories/Solution/"/>
     
     
-    <category term="Web" scheme="https://blog.justforlxz.com/tags/Web/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Web" scheme="https://blog.mkacg.com/tags/Web/"/>
     
-    <category term="LNMP" scheme="https://blog.justforlxz.com/tags/LNMP/"/>
+    <category term="deepin" scheme="https://blog.mkacg.com/tags/deepin/"/>
     
-    <category term="Deepin" scheme="https://blog.justforlxz.com/tags/Deepin/"/>
+    <category term="LNMP" scheme="https://blog.mkacg.com/tags/LNMP/"/>
     
   </entry>
   
   <entry>
     <title>解决用了xposed后淘宝闪退</title>
-    <link href="https://blog.justforlxz.com/2019/01/23/fuck-taobao/"/>
-    <id>https://blog.justforlxz.com/2019/01/23/fuck-taobao/</id>
+    <link href="https://blog.mkacg.com/2019/01/23/fuck-taobao/"/>
+    <id>https://blog.mkacg.com/2019/01/23/fuck-taobao/</id>
     <published>2019-01-23T02:27:52.000Z</published>
     <updated>2024-04-15T05:09:54.966Z</updated>
     
@@ -2129,8 +2333,8 @@
   
   <entry>
     <title>使用swapfile来休眠</title>
-    <link href="https://blog.justforlxz.com/2018/12/12/hibernate-for-swapfile/"/>
-    <id>https://blog.justforlxz.com/2018/12/12/hibernate-for-swapfile/</id>
+    <link href="https://blog.mkacg.com/2018/12/12/hibernate-for-swapfile/"/>
+    <id>https://blog.mkacg.com/2018/12/12/hibernate-for-swapfile/</id>
     <published>2018-12-12T03:01:55.000Z</published>
     <updated>2024-04-15T05:09:54.994Z</updated>
     
@@ -2139,17 +2343,17 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/categories/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/categories/Linux/"/>
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>C++快速排序</title>
-    <link href="https://blog.justforlxz.com/2018/11/11/quick-sort-for-cpp/"/>
-    <id>https://blog.justforlxz.com/2018/11/11/quick-sort-for-cpp/</id>
+    <link href="https://blog.mkacg.com/2018/11/11/quick-sort-for-cpp/"/>
+    <id>https://blog.mkacg.com/2018/11/11/quick-sort-for-cpp/</id>
     <published>2018-11-11T08:57:44.000Z</published>
     <updated>2024-04-15T05:09:55.027Z</updated>
     
@@ -2159,16 +2363,16 @@
     
     
     
-    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    <category term="C++" scheme="https://blog.mkacg.com/tags/C/"/>
     
-    <category term="Program" scheme="https://blog.justforlxz.com/tags/Program/"/>
+    <category term="Program" scheme="https://blog.mkacg.com/tags/Program/"/>
     
   </entry>
   
   <entry>
     <title>使用Google日历安排工作任务</title>
-    <link href="https://blog.justforlxz.com/2018/11/09/use-google-calendar-to-finishe-work/"/>
-    <id>https://blog.justforlxz.com/2018/11/09/use-google-calendar-to-finishe-work/</id>
+    <link href="https://blog.mkacg.com/2018/11/09/use-google-calendar-to-finishe-work/"/>
+    <id>https://blog.mkacg.com/2018/11/09/use-google-calendar-to-finishe-work/</id>
     <published>2018-11-09T13:15:45.000Z</published>
     <updated>2024-04-15T05:09:55.039Z</updated>
     
@@ -2184,8 +2388,8 @@
   
   <entry>
     <title>把博客转移到coding</title>
-    <link href="https://blog.justforlxz.com/2018/11/09/hexo%20page%20move%20to%20coding/"/>
-    <id>https://blog.justforlxz.com/2018/11/09/hexo%20page%20move%20to%20coding/</id>
+    <link href="https://blog.mkacg.com/2018/11/09/hexo%20page%20move%20to%20coding/"/>
+    <id>https://blog.mkacg.com/2018/11/09/hexo%20page%20move%20to%20coding/</id>
     <published>2018-11-09T12:17:32.000Z</published>
     <updated>2024-04-15T05:09:54.994Z</updated>
     
@@ -2201,8 +2405,8 @@
   
   <entry>
     <title>智能指针</title>
-    <link href="https://blog.justforlxz.com/2018/08/29/cpp-smart-pointer/"/>
-    <id>https://blog.justforlxz.com/2018/08/29/cpp-smart-pointer/</id>
+    <link href="https://blog.mkacg.com/2018/08/29/cpp-smart-pointer/"/>
+    <id>https://blog.mkacg.com/2018/08/29/cpp-smart-pointer/</id>
     <published>2018-08-29T01:43:17.000Z</published>
     <updated>2024-04-15T05:09:54.958Z</updated>
     
@@ -2211,17 +2415,17 @@
     
     
     
-    <category term="C++" scheme="https://blog.justforlxz.com/categories/C/"/>
+    <category term="C++" scheme="https://blog.mkacg.com/categories/C/"/>
     
     
-    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    <category term="C++" scheme="https://blog.mkacg.com/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>卷积神经网络简述</title>
-    <link href="https://blog.justforlxz.com/2018/07/14/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E8%BF%B0/"/>
-    <id>https://blog.justforlxz.com/2018/07/14/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E8%BF%B0/</id>
+    <link href="https://blog.mkacg.com/2018/07/14/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E8%BF%B0/"/>
+    <id>https://blog.mkacg.com/2018/07/14/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E8%BF%B0/</id>
     <published>2018-07-14T08:00:32.000Z</published>
     <updated>2024-04-15T05:09:55.096Z</updated>
     
@@ -2232,17 +2436,17 @@
     
     
     
-    <category term="Deep Learning" scheme="https://blog.justforlxz.com/categories/Deep-Learning/"/>
+    <category term="Deep Learning" scheme="https://blog.mkacg.com/categories/Deep-Learning/"/>
     
     
-    <category term="Deep Learning" scheme="https://blog.justforlxz.com/tags/Deep-Learning/"/>
+    <category term="Deep Learning" scheme="https://blog.mkacg.com/tags/Deep-Learning/"/>
     
   </entry>
   
   <entry>
     <title>深度学习笔记</title>
-    <link href="https://blog.justforlxz.com/2018/07/14/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>https://blog.justforlxz.com/2018/07/14/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
+    <link href="https://blog.mkacg.com/2018/07/14/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>https://blog.mkacg.com/2018/07/14/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
     <published>2018-07-14T02:01:01.000Z</published>
     <updated>2024-04-15T05:09:55.100Z</updated>
     
@@ -2251,17 +2455,17 @@
     
     
     
-    <category term="Deepin Learning" scheme="https://blog.justforlxz.com/categories/Deepin-Learning/"/>
+    <category term="Deepin Learning" scheme="https://blog.mkacg.com/categories/Deepin-Learning/"/>
     
     
-    <category term="Deepin Learning" scheme="https://blog.justforlxz.com/tags/Deepin-Learning/"/>
+    <category term="Deepin Learning" scheme="https://blog.mkacg.com/tags/Deepin-Learning/"/>
     
   </entry>
   
   <entry>
     <title>C plus plus Iterator 笔记</title>
-    <link href="https://blog.justforlxz.com/2018/07/09/C-plus-plus-Iterator-%E7%AC%94%E8%AE%B0/"/>
-    <id>https://blog.justforlxz.com/2018/07/09/C-plus-plus-Iterator-%E7%AC%94%E8%AE%B0/</id>
+    <link href="https://blog.mkacg.com/2018/07/09/C-plus-plus-Iterator-%E7%AC%94%E8%AE%B0/"/>
+    <id>https://blog.mkacg.com/2018/07/09/C-plus-plus-Iterator-%E7%AC%94%E8%AE%B0/</id>
     <published>2018-07-09T05:05:12.000Z</published>
     <updated>2024-04-15T05:09:54.911Z</updated>
     
@@ -2283,17 +2487,17 @@
     
     
     
-    <category term="C++" scheme="https://blog.justforlxz.com/categories/C/"/>
+    <category term="C++" scheme="https://blog.mkacg.com/categories/C/"/>
     
     
-    <category term="C++" scheme="https://blog.justforlxz.com/tags/C/"/>
+    <category term="C++" scheme="https://blog.mkacg.com/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>在DeepinLinux下使用nVidia CUDA</title>
-    <link href="https://blog.justforlxz.com/2018/06/28/%E5%9C%A8DeepinLinux%E4%B8%8B%E4%BD%BF%E7%94%A8nVidia-CUDA/"/>
-    <id>https://blog.justforlxz.com/2018/06/28/%E5%9C%A8DeepinLinux%E4%B8%8B%E4%BD%BF%E7%94%A8nVidia-CUDA/</id>
+    <link href="https://blog.mkacg.com/2018/06/28/%E5%9C%A8DeepinLinux%E4%B8%8B%E4%BD%BF%E7%94%A8nVidia-CUDA/"/>
+    <id>https://blog.mkacg.com/2018/06/28/%E5%9C%A8DeepinLinux%E4%B8%8B%E4%BD%BF%E7%94%A8nVidia-CUDA/</id>
     <published>2018-06-27T19:21:50.000Z</published>
     <updated>2024-04-15T05:09:55.097Z</updated>
     
@@ -2305,16 +2509,16 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
-    <category term="nVidia Cuda" scheme="https://blog.justforlxz.com/tags/nVidia-Cuda/"/>
+    <category term="nVidia Cuda" scheme="https://blog.mkacg.com/tags/nVidia-Cuda/"/>
     
   </entry>
   
   <entry>
     <title>deepin待机后键盘和触摸板无法使用的解决方法</title>
-    <link href="https://blog.justforlxz.com/2018/06/25/deepin%E5%BE%85%E6%9C%BA%E5%90%8E%E9%94%AE%E7%9B%98%E5%92%8C%E8%A7%A6%E6%91%B8%E6%9D%BF%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
-    <id>https://blog.justforlxz.com/2018/06/25/deepin%E5%BE%85%E6%9C%BA%E5%90%8E%E9%94%AE%E7%9B%98%E5%92%8C%E8%A7%A6%E6%91%B8%E6%9D%BF%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</id>
+    <link href="https://blog.mkacg.com/2018/06/25/deepin%E5%BE%85%E6%9C%BA%E5%90%8E%E9%94%AE%E7%9B%98%E5%92%8C%E8%A7%A6%E6%91%B8%E6%9D%BF%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
+    <id>https://blog.mkacg.com/2018/06/25/deepin%E5%BE%85%E6%9C%BA%E5%90%8E%E9%94%AE%E7%9B%98%E5%92%8C%E8%A7%A6%E6%91%B8%E6%9D%BF%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</id>
     <published>2018-06-24T22:01:22.000Z</published>
     <updated>2024-04-15T05:09:54.959Z</updated>
     
@@ -2324,14 +2528,14 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>dreamscene插件开发&lt;等待填坑&gt;</title>
-    <link href="https://blog.justforlxz.com/2018/06/05/dreamscene%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
-    <id>https://blog.justforlxz.com/2018/06/05/dreamscene%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</id>
+    <link href="https://blog.mkacg.com/2018/06/05/dreamscene%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
+    <id>https://blog.mkacg.com/2018/06/05/dreamscene%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</id>
     <published>2018-06-04T21:25:40.000Z</published>
     <updated>2024-04-15T05:09:54.966Z</updated>
     
@@ -2341,14 +2545,14 @@
     
     
     
-    <category term="Linux 填坑" scheme="https://blog.justforlxz.com/tags/Linux-%E5%A1%AB%E5%9D%91/"/>
+    <category term="Linux 填坑" scheme="https://blog.mkacg.com/tags/Linux-%E5%A1%AB%E5%9D%91/"/>
     
   </entry>
   
   <entry>
     <title>Dock插件开发&lt;等待填坑&gt;</title>
-    <link href="https://blog.justforlxz.com/2018/05/23/Dock%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
-    <id>https://blog.justforlxz.com/2018/05/23/Dock%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</id>
+    <link href="https://blog.mkacg.com/2018/05/23/Dock%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
+    <id>https://blog.mkacg.com/2018/05/23/Dock%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</id>
     <published>2018-05-22T21:22:12.000Z</published>
     <updated>2024-04-15T05:09:54.913Z</updated>
     
@@ -2358,14 +2562,14 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>Linux的PAM是什么</title>
-    <link href="https://blog.justforlxz.com/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/"/>
-    <id>https://blog.justforlxz.com/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/</id>
+    <link href="https://blog.mkacg.com/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/"/>
+    <id>https://blog.mkacg.com/2018/04/01/Linux%E7%9A%84PAM%E6%98%AF%E4%BB%80%E4%B9%88/</id>
     <published>2018-04-01T04:16:08.000Z</published>
     <updated>2024-04-15T05:09:54.952Z</updated>
     
@@ -2376,14 +2580,14 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>重构dde-session-ui</title>
-    <link href="https://blog.justforlxz.com/2018/03/11/%E9%87%8D%E6%9E%84dde-session-ui/"/>
-    <id>https://blog.justforlxz.com/2018/03/11/%E9%87%8D%E6%9E%84dde-session-ui/</id>
+    <link href="https://blog.mkacg.com/2018/03/11/%E9%87%8D%E6%9E%84dde-session-ui/"/>
+    <id>https://blog.mkacg.com/2018/03/11/%E9%87%8D%E6%9E%84dde-session-ui/</id>
     <published>2018-03-11T03:48:01.000Z</published>
     <updated>2024-04-15T05:09:55.101Z</updated>
     
@@ -2393,14 +2597,14 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>使用DTK开发</title>
-    <link href="https://blog.justforlxz.com/2018/01/12/%E4%BD%BF%E7%94%A8DTK%E5%BC%80%E5%8F%91/"/>
-    <id>https://blog.justforlxz.com/2018/01/12/%E4%BD%BF%E7%94%A8DTK%E5%BC%80%E5%8F%91/</id>
+    <link href="https://blog.mkacg.com/2018/01/12/%E4%BD%BF%E7%94%A8DTK%E5%BC%80%E5%8F%91/"/>
+    <id>https://blog.mkacg.com/2018/01/12/%E4%BD%BF%E7%94%A8DTK%E5%BC%80%E5%8F%91/</id>
     <published>2018-01-12T03:05:26.000Z</published>
     <updated>2024-04-15T05:09:55.095Z</updated>
     
@@ -2410,14 +2614,14 @@
     
     
     
-    <category term="Linux DTK" scheme="https://blog.justforlxz.com/tags/Linux-DTK/"/>
+    <category term="Linux DTK" scheme="https://blog.mkacg.com/tags/Linux-DTK/"/>
     
   </entry>
   
   <entry>
     <title>解决IntelliJ IDEA界面瞎眼</title>
-    <link href="https://blog.justforlxz.com/2017/12/25/%E8%A7%A3%E5%86%B3IntelliJ-IDEA%E7%95%8C%E9%9D%A2%E7%9E%8E%E7%9C%BC/"/>
-    <id>https://blog.justforlxz.com/2017/12/25/%E8%A7%A3%E5%86%B3IntelliJ-IDEA%E7%95%8C%E9%9D%A2%E7%9E%8E%E7%9C%BC/</id>
+    <link href="https://blog.mkacg.com/2017/12/25/%E8%A7%A3%E5%86%B3IntelliJ-IDEA%E7%95%8C%E9%9D%A2%E7%9E%8E%E7%9C%BC/"/>
+    <id>https://blog.mkacg.com/2017/12/25/%E8%A7%A3%E5%86%B3IntelliJ-IDEA%E7%95%8C%E9%9D%A2%E7%9E%8E%E7%9C%BC/</id>
     <published>2017-12-25T06:22:25.000Z</published>
     <updated>2024-04-15T05:09:55.100Z</updated>
     
@@ -2428,14 +2632,14 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>修复Archlinux的Grub</title>
-    <link href="https://blog.justforlxz.com/2017/12/18/%E4%BF%AE%E5%A4%8DArchlinux%E7%9A%84Grub/"/>
-    <id>https://blog.justforlxz.com/2017/12/18/%E4%BF%AE%E5%A4%8DArchlinux%E7%9A%84Grub/</id>
+    <link href="https://blog.mkacg.com/2017/12/18/%E4%BF%AE%E5%A4%8DArchlinux%E7%9A%84Grub/"/>
+    <id>https://blog.mkacg.com/2017/12/18/%E4%BF%AE%E5%A4%8DArchlinux%E7%9A%84Grub/</id>
     <published>2017-12-18T01:44:55.000Z</published>
     <updated>2024-04-15T05:09:55.095Z</updated>
     
@@ -2452,14 +2656,14 @@
     
     
     
-    <category term="Linux" scheme="https://blog.justforlxz.com/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.mkacg.com/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>解决NVIDIA重新启动以后系统冻结</title>
-    <link href="https://blog.justforlxz.com/2017/09/01/%E8%A7%A3%E5%86%B3NVIDIA%E9%87%8D%E6%96%B0%E5%90%AF%E5%8A%A8%E4%BB%A5%E5%90%8E%E7%B3%BB%E7%BB%9F%E5%86%BB%E7%BB%93/"/>
-    <id>https://blog.justforlxz.com/2017/09/01/%E8%A7%A3%E5%86%B3NVIDIA%E9%87%8D%E6%96%B0%E5%90%AF%E5%8A%A8%E4%BB%A5%E5%90%8E%E7%B3%BB%E7%BB%9F%E5%86%BB%E7%BB%93/</id>
+    <link href="https://blog.mkacg.com/2017/09/01/%E8%A7%A3%E5%86%B3NVIDIA%E9%87%8D%E6%96%B0%E5%90%AF%E5%8A%A8%E4%BB%A5%E5%90%8E%E7%B3%BB%E7%BB%9F%E5%86%BB%E7%BB%93/"/>
+    <id>https://blog.mkacg.com/2017/09/01/%E8%A7%A3%E5%86%B3NVIDIA%E9%87%8D%E6%96%B0%E5%90%AF%E5%8A%A8%E4%BB%A5%E5%90%8E%E7%B3%BB%E7%BB%9F%E5%86%BB%E7%BB%93/</id>
     <published>2017-09-01T09:01:47.000Z</published>
     <updated>2024-04-15T05:09:55.100Z</updated>
     
@@ -2469,14 +2673,14 @@
     
     
     
-    <category term="linux" scheme="https://blog.justforlxz.com/tags/linux/"/>
+    <category term="linux" scheme="https://blog.mkacg.com/tags/linux/"/>
     
   </entry>
   
   <entry>
     <title>我的代理折腾方案</title>
-    <link href="https://blog.justforlxz.com/2017/08/31/%E6%88%91%E7%9A%84%E4%BB%A3%E7%90%86%E6%8A%98%E8%85%BE%E6%96%B9%E6%A1%88/"/>
-    <id>https://blog.justforlxz.com/2017/08/31/%E6%88%91%E7%9A%84%E4%BB%A3%E7%90%86%E6%8A%98%E8%85%BE%E6%96%B9%E6%A1%88/</id>
+    <link href="https://blog.mkacg.com/2017/08/31/%E6%88%91%E7%9A%84%E4%BB%A3%E7%90%86%E6%8A%98%E8%85%BE%E6%96%B9%E6%A1%88/"/>
+    <id>https://blog.mkacg.com/2017/08/31/%E6%88%91%E7%9A%84%E4%BB%A3%E7%90%86%E6%8A%98%E8%85%BE%E6%96%B9%E6%A1%88/</id>
     <published>2017-08-31T12:43:48.000Z</published>
     <updated>2024-04-15T05:09:55.100Z</updated>
     
@@ -2486,14 +2690,14 @@
     
     
     
-    <category term="linux" scheme="https://blog.justforlxz.com/tags/linux/"/>
+    <category term="linux" scheme="https://blog.mkacg.com/tags/linux/"/>
     
   </entry>
   
   <entry>
     <title>开发topbar中的技术问题</title>
-    <link href="https://blog.justforlxz.com/2017/08/23/%E5%BC%80%E5%8F%91topbar%E4%B8%AD%E7%9A%84%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/"/>
-    <id>https://blog.justforlxz.com/2017/08/23/%E5%BC%80%E5%8F%91topbar%E4%B8%AD%E7%9A%84%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/</id>
+    <link href="https://blog.mkacg.com/2017/08/23/%E5%BC%80%E5%8F%91topbar%E4%B8%AD%E7%9A%84%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/"/>
+    <id>https://blog.mkacg.com/2017/08/23/%E5%BC%80%E5%8F%91topbar%E4%B8%AD%E7%9A%84%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/</id>
     <published>2017-08-23T00:54:56.000Z</published>
     <updated>2024-04-15T05:09:55.097Z</updated>
     
@@ -2507,8 +2711,8 @@
   
   <entry>
     <title>TKL主题优化 -&lt;转&gt;</title>
-    <link href="https://blog.justforlxz.com/2017/08/20/TKL%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96-%E8%BD%AC/"/>
-    <id>https://blog.justforlxz.com/2017/08/20/TKL%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96-%E8%BD%AC/</id>
+    <link href="https://blog.mkacg.com/2017/08/20/TKL%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96-%E8%BD%AC/"/>
+    <id>https://blog.mkacg.com/2017/08/20/TKL%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96-%E8%BD%AC/</id>
     <published>2017-08-19T21:05:54.000Z</published>
     <updated>2024-04-15T05:09:54.954Z</updated>
     
@@ -2524,14 +2728,14 @@
     
     
     
-    <category term="Hexo" scheme="https://blog.justforlxz.com/tags/Hexo/"/>
+    <category term="Hexo" scheme="https://blog.mkacg.com/tags/Hexo/"/>
     
   </entry>
   
   <entry>
     <title>debug了两天，只删了一行代码</title>
-    <link href="https://blog.justforlxz.com/2017/08/16/debug%E4%BA%86%E4%B8%A4%E5%A4%A9%EF%BC%8C%E5%8F%AA%E5%88%A0%E4%BA%86%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81/"/>
-    <id>https://blog.justforlxz.com/2017/08/16/debug%E4%BA%86%E4%B8%A4%E5%A4%A9%EF%BC%8C%E5%8F%AA%E5%88%A0%E4%BA%86%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81/</id>
+    <link href="https://blog.mkacg.com/2017/08/16/debug%E4%BA%86%E4%B8%A4%E5%A4%A9%EF%BC%8C%E5%8F%AA%E5%88%A0%E4%BA%86%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81/"/>
+    <id>https://blog.mkacg.com/2017/08/16/debug%E4%BA%86%E4%B8%A4%E5%A4%A9%EF%BC%8C%E5%8F%AA%E5%88%A0%E4%BA%86%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81/</id>
     <published>2017-08-16T10:25:39.000Z</published>
     <updated>2024-04-15T05:09:54.958Z</updated>
     
@@ -2545,8 +2749,8 @@
   
   <entry>
     <title>正常的流程在界面上却是bug</title>
-    <link href="https://blog.justforlxz.com/2017/08/15/%E6%AD%A3%E5%B8%B8%E7%9A%84%E6%B5%81%E7%A8%8B%E5%9C%A8%E7%95%8C%E9%9D%A2%E4%B8%8A%E5%8D%B4%E6%98%AFbug/"/>
-    <id>https://blog.justforlxz.com/2017/08/15/%E6%AD%A3%E5%B8%B8%E7%9A%84%E6%B5%81%E7%A8%8B%E5%9C%A8%E7%95%8C%E9%9D%A2%E4%B8%8A%E5%8D%B4%E6%98%AFbug/</id>
+    <link href="https://blog.mkacg.com/2017/08/15/%E6%AD%A3%E5%B8%B8%E7%9A%84%E6%B5%81%E7%A8%8B%E5%9C%A8%E7%95%8C%E9%9D%A2%E4%B8%8A%E5%8D%B4%E6%98%AFbug/"/>
+    <id>https://blog.mkacg.com/2017/08/15/%E6%AD%A3%E5%B8%B8%E7%9A%84%E6%B5%81%E7%A8%8B%E5%9C%A8%E7%95%8C%E9%9D%A2%E4%B8%8A%E5%8D%B4%E6%98%AFbug/</id>
     <published>2017-08-14T23:43:43.000Z</published>
     <updated>2024-04-15T05:09:55.100Z</updated>
     
@@ -2560,8 +2764,8 @@
   
   <entry>
     <title>在deepin上使用dnsmasq来解决dns解析缓慢</title>
-    <link href="https://blog.justforlxz.com/2017/08/11/%E5%9C%A8deepin%E4%B8%8A%E4%BD%BF%E7%94%A8dnsmasq%E6%9D%A5%E8%A7%A3%E5%86%B3dns%E8%A7%A3%E6%9E%90%E7%BC%93%E6%85%A2/"/>
-    <id>https://blog.justforlxz.com/2017/08/11/%E5%9C%A8deepin%E4%B8%8A%E4%BD%BF%E7%94%A8dnsmasq%E6%9D%A5%E8%A7%A3%E5%86%B3dns%E8%A7%A3%E6%9E%90%E7%BC%93%E6%85%A2/</id>
+    <link href="https://blog.mkacg.com/2017/08/11/%E5%9C%A8deepin%E4%B8%8A%E4%BD%BF%E7%94%A8dnsmasq%E6%9D%A5%E8%A7%A3%E5%86%B3dns%E8%A7%A3%E6%9E%90%E7%BC%93%E6%85%A2/"/>
+    <id>https://blog.mkacg.com/2017/08/11/%E5%9C%A8deepin%E4%B8%8A%E4%BD%BF%E7%94%A8dnsmasq%E6%9D%A5%E8%A7%A3%E5%86%B3dns%E8%A7%A3%E6%9E%90%E7%BC%93%E6%85%A2/</id>
     <published>2017-08-11T06:07:26.000Z</published>
     <updated>2024-04-15T05:09:55.097Z</updated>
     
@@ -2575,8 +2779,8 @@
   
   <entry>
     <title>PPA</title>
-    <link href="https://blog.justforlxz.com/2017/07/24/PPA/"/>
-    <id>https://blog.justforlxz.com/2017/07/24/PPA/</id>
+    <link href="https://blog.mkacg.com/2017/07/24/PPA/"/>
+    <id>https://blog.mkacg.com/2017/07/24/PPA/</id>
     <published>2017-07-24T08:07:50.000Z</published>
     <updated>2024-04-15T05:09:54.952Z</updated>
     
@@ -2599,8 +2803,8 @@
   
   <entry>
     <title>topbar PPA</title>
-    <link href="https://blog.justforlxz.com/2017/07/20/topbar-PPA/"/>
-    <id>https://blog.justforlxz.com/2017/07/20/topbar-PPA/</id>
+    <link href="https://blog.mkacg.com/2017/07/20/topbar-PPA/"/>
+    <id>https://blog.mkacg.com/2017/07/20/topbar-PPA/</id>
     <published>2017-07-20T05:37:51.000Z</published>
     <updated>2024-04-15T05:09:55.038Z</updated>
     
@@ -2615,8 +2819,8 @@
   
   <entry>
     <title>webhook</title>
-    <link href="https://blog.justforlxz.com/2017/07/14/webhook/"/>
-    <id>https://blog.justforlxz.com/2017/07/14/webhook/</id>
+    <link href="https://blog.mkacg.com/2017/07/14/webhook/"/>
+    <id>https://blog.mkacg.com/2017/07/14/webhook/</id>
     <published>2017-07-13T18:52:20.000Z</published>
     <updated>2024-04-15T05:09:55.093Z</updated>
     
@@ -2632,14 +2836,14 @@
     
     
     
-    <category term="linux" scheme="https://blog.justforlxz.com/tags/linux/"/>
+    <category term="linux" scheme="https://blog.mkacg.com/tags/linux/"/>
     
   </entry>
   
   <entry>
     <title>SAOUTILS</title>
-    <link href="https://blog.justforlxz.com/2017/07/04/SAOUTILS/"/>
-    <id>https://blog.justforlxz.com/2017/07/04/SAOUTILS/</id>
+    <link href="https://blog.mkacg.com/2017/07/04/SAOUTILS/"/>
+    <id>https://blog.mkacg.com/2017/07/04/SAOUTILS/</id>
     <published>2017-07-03T22:20:00.000Z</published>
     <updated>2024-04-15T05:09:54.952Z</updated>
     
@@ -2657,14 +2861,14 @@
     
     
     
-    <category term="linux" scheme="https://blog.justforlxz.com/tags/linux/"/>
+    <category term="linux" scheme="https://blog.mkacg.com/tags/linux/"/>
     
   </entry>
   
   <entry>
     <title>Topbar</title>
-    <link href="https://blog.justforlxz.com/2017/06/26/Topbar/"/>
-    <id>https://blog.justforlxz.com/2017/06/26/Topbar/</id>
+    <link href="https://blog.mkacg.com/2017/06/26/Topbar/"/>
+    <id>https://blog.mkacg.com/2017/06/26/Topbar/</id>
     <published>2017-06-25T18:32:35.000Z</published>
     <updated>2024-04-15T05:09:54.954Z</updated>
     
@@ -2674,14 +2878,14 @@
     
     
     
-    <category term="linux" scheme="https://blog.justforlxz.com/tags/linux/"/>
+    <category term="linux" scheme="https://blog.mkacg.com/tags/linux/"/>
     
   </entry>
   
   <entry>
     <title>ArchLinux运行steam出现缺少LibGL--steam libGL error: failed to load driver: swrast</title>
-    <link href="https://blog.justforlxz.com/2016/07/15/ArchLinux%E8%BF%90%E8%A1%8Csteam%E5%87%BA%E7%8E%B0%E7%BC%BA%E5%B0%91LibGL-steam-libGL-error-failed-to-load-driver-swrast/"/>
-    <id>https://blog.justforlxz.com/2016/07/15/ArchLinux%E8%BF%90%E8%A1%8Csteam%E5%87%BA%E7%8E%B0%E7%BC%BA%E5%B0%91LibGL-steam-libGL-error-failed-to-load-driver-swrast/</id>
+    <link href="https://blog.mkacg.com/2016/07/15/ArchLinux%E8%BF%90%E8%A1%8Csteam%E5%87%BA%E7%8E%B0%E7%BC%BA%E5%B0%91LibGL-steam-libGL-error-failed-to-load-driver-swrast/"/>
+    <id>https://blog.mkacg.com/2016/07/15/ArchLinux%E8%BF%90%E8%A1%8Csteam%E5%87%BA%E7%8E%B0%E7%BC%BA%E5%B0%91LibGL-steam-libGL-error-failed-to-load-driver-swrast/</id>
     <published>2016-07-14T23:18:53.000Z</published>
     <updated>2024-12-31T05:44:23.270Z</updated>
     
@@ -2692,16 +2896,16 @@
     
     
     
-    <category term="实验室" scheme="https://blog.justforlxz.com/tags/%E5%AE%9E%E9%AA%8C%E5%AE%A4/"/>
+    <category term="实验室" scheme="https://blog.mkacg.com/tags/%E5%AE%9E%E9%AA%8C%E5%AE%A4/"/>
     
   </entry>
   
   <entry>
-    <title>docker-hexo</title>
-    <link href="https://blog.justforlxz.com/2016/07/15/docker-hexo/"/>
-    <id>https://blog.justforlxz.com/2016/07/15/docker-hexo/</id>
+    <title>把hexo封装进 docker 当做本地工具使用</title>
+    <link href="https://blog.mkacg.com/2016/07/15/docker-hexo/"/>
+    <id>https://blog.mkacg.com/2016/07/15/docker-hexo/</id>
     <published>2016-07-14T20:53:24.000Z</published>
-    <updated>2024-12-31T05:44:23.271Z</updated>
+    <updated>2025-01-16T07:56:55.982Z</updated>
     
     
     <summary type="html">&lt;p&gt;引用一下基友的话&lt;/p&gt;
@@ -2715,14 +2919,14 @@
     
     
     
-    <category term="实验室" scheme="https://blog.justforlxz.com/tags/%E5%AE%9E%E9%AA%8C%E5%AE%A4/"/>
+    <category term="实验室" scheme="https://blog.mkacg.com/tags/%E5%AE%9E%E9%AA%8C%E5%AE%A4/"/>
     
   </entry>
   
   <entry>
     <title>docker-aria2c</title>
-    <link href="https://blog.justforlxz.com/2016/05/31/docker-aria2c/"/>
-    <id>https://blog.justforlxz.com/2016/05/31/docker-aria2c/</id>
+    <link href="https://blog.mkacg.com/2016/05/31/docker-aria2c/"/>
+    <id>https://blog.mkacg.com/2016/05/31/docker-aria2c/</id>
     <published>2016-05-31T14:43:54.000Z</published>
     <updated>2024-12-31T05:44:23.271Z</updated>
     
@@ -2734,14 +2938,14 @@
     
     
     
-    <category term="实验室" scheme="https://blog.justforlxz.com/tags/%E5%AE%9E%E9%AA%8C%E5%AE%A4/"/>
+    <category term="实验室" scheme="https://blog.mkacg.com/tags/%E5%AE%9E%E9%AA%8C%E5%AE%A4/"/>
     
   </entry>
   
   <entry>
     <title>aria2配置</title>
-    <link href="https://blog.justforlxz.com/2016/05/25/aria2%E9%85%8D%E7%BD%AE/"/>
-    <id>https://blog.justforlxz.com/2016/05/25/aria2%E9%85%8D%E7%BD%AE/</id>
+    <link href="https://blog.mkacg.com/2016/05/25/aria2%E9%85%8D%E7%BD%AE/"/>
+    <id>https://blog.mkacg.com/2016/05/25/aria2%E9%85%8D%E7%BD%AE/</id>
     <published>2016-05-25T15:56:00.000Z</published>
     <updated>2024-12-31T05:44:23.270Z</updated>
     
@@ -2762,14 +2966,14 @@ WantedBy=default.target
     
     
     
-    <category term="教程" scheme="https://blog.justforlxz.com/tags/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.mkacg.com/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>linux下安装vmware及archlinux的安装和配置</title>
-    <link href="https://blog.justforlxz.com/2016/04/10/linux%E4%B8%8B%E5%AE%89%E8%A3%85vmware%E5%8F%8Aarchlinux%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/"/>
-    <id>https://blog.justforlxz.com/2016/04/10/linux%E4%B8%8B%E5%AE%89%E8%A3%85vmware%E5%8F%8Aarchlinux%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</id>
+    <link href="https://blog.mkacg.com/2016/04/10/linux%E4%B8%8B%E5%AE%89%E8%A3%85vmware%E5%8F%8Aarchlinux%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/"/>
+    <id>https://blog.mkacg.com/2016/04/10/linux%E4%B8%8B%E5%AE%89%E8%A3%85vmware%E5%8F%8Aarchlinux%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</id>
     <published>2016-04-10T09:02:51.000Z</published>
     <updated>2024-12-31T05:44:23.271Z</updated>
     
@@ -2785,14 +2989,14 @@ WantedBy=default.target
     
     
     
-    <category term="教程" scheme="https://blog.justforlxz.com/tags/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.mkacg.com/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>Archlinux 添加漂亮的字体</title>
-    <link href="https://blog.justforlxz.com/2016/04/08/font-config/"/>
-    <id>https://blog.justforlxz.com/2016/04/08/font-config/</id>
+    <link href="https://blog.mkacg.com/2016/04/08/font-config/"/>
+    <id>https://blog.mkacg.com/2016/04/08/font-config/</id>
     <published>2016-04-08T08:54:26.000Z</published>
     <updated>2024-12-31T05:44:23.271Z</updated>
     
@@ -2802,14 +3006,14 @@ WantedBy=default.target
     
     
     
-    <category term="教程" scheme="https://blog.justforlxz.com/tags/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://blog.mkacg.com/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>My Life</title>
-    <link href="https://blog.justforlxz.com/2016/03/25/my-life/"/>
-    <id>https://blog.justforlxz.com/2016/03/25/my-life/</id>
+    <link href="https://blog.mkacg.com/2016/03/25/my-life/"/>
+    <id>https://blog.mkacg.com/2016/03/25/my-life/</id>
     <published>2016-03-25T03:56:08.000Z</published>
     <updated>2024-12-31T05:44:23.272Z</updated>
     
@@ -2819,14 +3023,14 @@ WantedBy=default.target
     
     
     
-    <category term="日常" scheme="https://blog.justforlxz.com/tags/%E6%97%A5%E5%B8%B8/"/>
+    <category term="日常" scheme="https://blog.mkacg.com/tags/%E6%97%A5%E5%B8%B8/"/>
     
   </entry>
   
   <entry>
     <title>标题</title>
-    <link href="https://blog.justforlxz.com/2016/03/25/page/"/>
-    <id>https://blog.justforlxz.com/2016/03/25/page/</id>
+    <link href="https://blog.mkacg.com/2016/03/25/page/"/>
+    <id>https://blog.mkacg.com/2016/03/25/page/</id>
     <published>2016-03-24T16:00:00.000Z</published>
     <updated>2024-12-31T05:44:23.271Z</updated>
     
@@ -2842,7 +3046,7 @@ WantedBy=default.target
     
     
     
-    <category term="模板" scheme="https://blog.justforlxz.com/tags/%E6%A8%A1%E6%9D%BF/"/>
+    <category term="模板" scheme="https://blog.mkacg.com/tags/%E6%A8%A1%E6%9D%BF/"/>
     
   </entry>
   
